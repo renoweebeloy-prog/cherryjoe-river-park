@@ -231,7 +231,7 @@ nav{
     cursor: pointer;
 }
 
-.book{background:#00c853;}
+.book{background:#ea580c;} 
 .explore{background:#2196f3;}
 
 /* CAROUSEL DOTS */
@@ -281,59 +281,90 @@ section{
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* APP BOOKING SECTION */
-.booking-card {
-    background: white;
-    padding: 30px 20px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-    max-width: 550px;
+/* NEW GRID-BASED FOOD MENU WITH IMAGES */
+.food-grid-container {
+    max-width: 1000px;
     margin: 0 auto;
 }
 
-.form-group {
-    margin-bottom: 18px;
-}
-
-.form-group label {
-    display: block;
-    font-size: 14px;
-    font-weight: 600;
-    margin-bottom: 8px;
-    color: #444;
-}
-
-.form-group input, .form-group select {
-    width: 100%;
-    padding: 14px;
-    border: 1px solid #ddd;
-    border-radius: 12px;
-    font-size: 15px;
-    background: #f9fbfb;
-    outline: none;
-    transition: 0.3s;
-}
-
-.form-group input:focus, .form-group select:focus {
-    border-color: #00c853;
-}
-
-.btn-submit-booking {
-    width: 100%;
-    background: #00c853;
-    color: white;
-    border: none;
-    padding: 16px;
-    border-radius: 12px;
-    font-size: 16px;
+.food-category-title {
+    font-size: 22px;
+    color: #ea580c;
+    border-left: 5px solid #ea580c;
+    padding-left: 12px;
+    margin: 35px 0 20px 0;
     font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 5px 15px rgba(0, 200, 83, 0.3);
-    transition: 0.3s;
 }
 
-.btn-submit-booking:hover {
-    background: #00a844;
+.food-item-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.food-card-with-img {
+    background: white;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.3s ease;
+}
+
+.food-card-with-img:hover {
+    transform: translateY(-5px);
+}
+
+.food-card-with-img img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    background: #e2e8f0; /* Fallback color kung wala pay picture */
+}
+
+.food-card-body {
+    padding: 20px;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.food-card-body h3 {
+    font-size: 18px;
+    color: #2d3748;
+    margin-bottom: 6px;
+}
+
+.food-card-body p {
+    font-size: 14px;
+    color: #718096;
+    margin-bottom: 15px;
+    line-height: 1.4;
+}
+
+.food-card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid #edf2f7;
+    padding-top: 12px;
+}
+
+.food-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ea580c;
+}
+
+.food-status {
+    font-size: 12px;
+    background: #e6fffa;
+    color: #319795;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-weight: bold;
 }
 
 /* APP USER PROFILE SECTION */
@@ -626,7 +657,7 @@ footer{
     <div class="close-btn" onclick="toggleMenu()">&times;</div>
     <li><a onclick="toggleMenu(); navigateTo('home', 'nav-home')">Home</a></li>
     <li><a onclick="toggleMenu(); navigateTo('explore', 'nav-about')">Explore</a></li>
-    <li><a onclick="toggleMenu(); navigateTo('booking', 'nav-booking')">Book Now</a></li>
+    <li><a onclick="toggleMenu(); navigateTo('food', 'nav-food')">Food Menu</a></li>
     <li><a onclick="toggleMenu(); navigateTo('profile', 'nav-profile')">Profile</a></li>
 </ul>
 
@@ -644,7 +675,7 @@ footer{
             <p>Where Nature Meets Relaxation and Adventure</p>
             
             <div class="btn-container">
-                <a onclick="navigateTo('booking', 'nav-booking')" class="btn book">Book Now</a>
+                <a onclick="navigateTo('food', 'nav-food')" class="btn book">Food Menu</a>
                 <a onclick="navigateTo('explore', 'nav-about')" class="btn explore">Explore Resort</a>
             </div>
 
@@ -738,48 +769,161 @@ footer{
     </section>
 </div>
 
-<div id="page-booking" class="app-page">
-    <section id="booking-section">
-        <h2 class="title">Book Your Stay</h2>
-        <div class="booking-card">
-            <form id="booking-form">
-                <div class="form-group">
-                    <label for="accommodation">Select Cottage or Access</label>
-                    <select id="accommodation" name="accommodation" required>
-                        <option value="">-- Please Select --</option>
-                        <option value="Open Cottage (₱100/day)">Open Cottage (₱100/day - 8 Pax)</option>
-                        <option value="Pool Day Pass Access">Pool Day Pass Access</option>
-                        <option value="Function Hall (Events)">Function Hall (Events)</option>
-                    </select>
-                </div>
+<div id="page-food" class="app-page">
+    <section id="food-section">
+        <h2 class="title">Available Food & Menu</h2>
+        <div class="food-grid-container">
+            
+            <div class="food-category-title"><i class="fas fa-utensils"></i> Short Orders & Viands (Main Dishes)</div>
+            <div class="food-item-grid">
                 
-                <div class="form-group">
-                    <label for="book-date">Check-in Date</label>
-                    <input type="date" id="book-date" name="book_date" required>
+                <div class="food-card-with-img">
+                    <img src="images/food1-grilledfish.jpg" alt="Sinuwag nga Isda" onerror="this.src='https://placehold.co/400x250?text=Sinuwag+nga+Isda'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Sinuwag nga Isda (Grilled Fish)</h3>
+                            <p>Fresh river/sea fish grilled perfectly with signature local soy-marinade and spices.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱250</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="guests">Number of Guests</label>
-                    <input type="number" id="guests" name="guests" min="1" max="50" placeholder="Example: 8" required>
+                <div class="food-card-with-img">
+                    <img src="images/food2-tinolachicken.jpg" alt="Native Tinola" onerror="this.src='https://placehold.co/400x250?text=Native+Tinola'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Native Tinolang Manok</h3>
+                            <p>Delicious free-range native chicken soup cooked with fresh ginger and lemongrass.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱300</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="guest-name">Full Name</label>
-                    <input type="text" id="guest-name" name="guest_name" placeholder="Your Full Name" required>
+                <div class="food-card-with-img">
+                    <img src="images/food3-liempo.jpg" alt="Crispy Liempo" onerror="this.src='https://placehold.co/400x250?text=Crispy+Liempo'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Crispy Pork Liempo</h3>
+                            <p>Crunchy seasoned deep-fried pork belly sliced beautifully and served with vinegar sauce.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱180</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="guest-email">Gmail Address</label>
-                    <input type="email" id="guest-email" name="guest_email" placeholder="example@gmail.com" required>
+                <div class="food-card-with-img">
+                    <img src="images/food4-adobo.jpg" alt="Pork Adobo" onerror="this.src='https://placehold.co/400x250?text=Pork+Adobo'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Classic Pork Adobo</h3>
+                            <p>Tender pork meat stewed in savory vinegar, soy sauce, garlic, and bay leaves.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱160</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="guest-phone">Phone Number</label>
-                    <input type="tel" id="guest-phone" name="guest_phone" placeholder="Example: 09123456789" required>
+                <div class="food-card-with-img">
+                    <img src="images/food5-calamares.jpg" alt="Crispy Calamares" onerror="this.src='https://placehold.co/400x250?text=Crispy+Calamares'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Crispy Calamares</h3>
+                            <p>Deep-fried battered squid rings crispy on the outside, served with garlic mayo dip.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱200</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
                 </div>
 
-                <button type="submit" class="btn-submit-booking" id="submit-btn">Check Availability & Book</button>
-            </form>
+                <div class="food-card-with-img">
+                    <img src="images/food6-pancit.jpg" alt="Pancit Guisado" onerror="this.src='https://placehold.co/400x250?text=Pancit+Guisado'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Pancit Guisado Canton</h3>
+                            <p>Stir-fried noodles mixed with fresh vegetables, pork slices, and rich savory sauce.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱150</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card-with-img">
+                    <img src="images/food7-sinigang.jpg" alt="Sinigang Shrimp" onerror="this.src='https://placehold.co/400x250?text=Sinigang+Shrimp'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Sinigang nga Hipon (Shrimp)</h3>
+                            <p>Sour tamarind broth filled with fresh local shrimps and mix local green vegetables.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱280</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="food-category-title"><i class="fas fa-glass-water"></i> Drinks & Refreshments</div>
+            <div class="food-item-grid">
+                
+                <div class="food-card-with-img">
+                    <img src="images/drink1-buko.jpg" alt="Fresh Buko" onerror="this.src='https://placehold.co/400x250?text=Fresh+Buko+Juice'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Fresh Buko Juice</h3>
+                            <p>Chilled natural sweet coconut water served straight inside its organic fresh shell.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱50</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card-with-img">
+                    <img src="images/drink2-softdrinks.jpg" alt="Softdrinks" onerror="this.src='https://placehold.co/400x250?text=Softdrinks'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Ice-Cold Softdrinks</h3>
+                            <p>Assorted ice-cold carbonated sodas (Coke, Sprite, Royal) available at the counter.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱30</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card-with-img">
+                    <img src="images/drink3-halo_halo.jpg" alt="Halo-Halo" onerror="this.src='https://placehold.co/400x250?text=Halo-Halo'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Special Halo-Halo</h3>
+                            <p>Filipino cold dessert dessert made of crushed ice, evaporated milk, and various sweet ingredients.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱85</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
         </div>
     </section>
 </div>
@@ -808,14 +952,7 @@ footer{
                              data-callback="handleCredentialResponse"
                              data-auto_select="false">
                         </div>
-                        <div class="g_id_signin" 
-                             data-type="standard" 
-                             data-shape="pill" 
-                             data-theme="outline" 
-                             data-text="signup_with" 
-                             data-size="large" 
-                             data-logo_alignment="left">
-                        </div>
+                        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="signup_with" data-size="large" data-logo_alignment="left"></div>
                     </div>
                 </div>
 
@@ -823,25 +960,10 @@ footer{
                     <h2 id="user-display-name">Guest User</h2>
                     <p class="email" id="user-display-email">not-signed-in@gmail.com</p>
                     <span class="membership-tag"><i class="fas fa-medal"></i> Verified Guest via Google</span>
-                    
-                    <div style="text-align: left; margin-top: 30px; border-top: 1px solid #edf2f7; padding-top: 20px;">
-                        <h3 style="font-size: 16px; color: #2d3748; margin-bottom: 12px;"><i class="fas fa-calendar-check" style="color: #00c853; margin-right: 8px;"></i> Your Bookings</h3>
-                        
-                        <div style="background: #f8fafc; border-left: 4px solid #00c853; padding: 12px; border-radius: 0 8px 8px 0; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
-                            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #334155;">
-                                <span>Open Cottage (8 Pax)</span>
-                                <span style="color: #00c853; font-size: 12px; background: #e8f5e9; padding: 2px 8px; border-radius: 12px;">Confirmed</span>
-                            </div>
-                            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
-                                <p><i class="far fa-calendar"></i> Date: June 15, 2026</p>
-                                <p><i class="far fa-user"></i> Guests: 8 Persons</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <div class="profile-menu-list" style="margin-top: 15px;">
-                        <a onclick="navigateTo('booking', 'nav-booking')" class="profile-menu-item">
-                            <div><i class="fas fa-history"></i> Kasaysayan sa Booking (History)</div>
+                    <div class="profile-menu-list" style="margin-top: 25px;">
+                        <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item">
+                            <div><i class="fas fa-utensils"></i> Tan-awon ang Menu sa Pagkaon</div>
                             <i class="fas fa-chevron-right" style="font-size:12px;"></i>
                         </a>
                         <a onclick="googleLogout()" class="profile-menu-item" style="color: #e53e3e;">
@@ -884,9 +1006,9 @@ footer{
         <i class="fas fa-compass"></i>
         <span>Explore</span>
     </div>
-    <div class="nav-item" id="nav-booking" onclick="navigateTo('booking', 'nav-booking')">
-        <i class="fas fa-calendar-alt"></i>
-        <span>Bookings</span>
+    <div class="nav-item" id="nav-food" onclick="navigateTo('food', 'nav-food')">
+        <i class="fas fa-utensils"></i>
+        <span>Food</span>
     </div>
     <div class="nav-item" id="nav-profile" onclick="navigateTo('profile', 'nav-profile')">
         <i class="fas fa-user"></i>
@@ -923,8 +1045,8 @@ let slideInterval;
 function showSlide(index) {
     slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
-    slides[index].classList.add('active');
-    dots[index].classList.add('active');
+    if(slides[index]) slides[index].classList.add('active');
+    if(dots[index]) dots[index].classList.add('active');
     currentSlideIndex = index;
 }
 
@@ -951,7 +1073,7 @@ function hideImage(){
     document.getElementById('lightbox').style.display='none';
 }
 
-// GOOGLE AUTHENTICATION INTEGRATION
+// GOOGLE SIGN-IN INTERACTION HANDLING
 function parseJwt(token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -972,10 +1094,6 @@ function handleCredentialResponse(response) {
     
     document.getElementById('logged-out-state').style.display = 'none';
     document.getElementById('logged-in-state').style.display = 'block';
-
-    // Auto fill sa input controls sa pikas setup page
-    document.getElementById('guest-name').value = userData.name;
-    document.getElementById('guest-email').value = userData.email;
 }
 
 function googleLogout() {
@@ -983,35 +1101,12 @@ function googleLogout() {
     document.getElementById('logged-in-state').style.display = 'none';
     document.getElementById('logged-out-state').style.display = 'block';
     
-    document.getElementById('guest-name').value = '';
-    document.getElementById('guest-email').value = '';
-    
     google.accounts.id.disableAutoSelect();
     alert('You have logged out successfully.');
 }
 
-// REAL-TIME EMAIL ENGINE USING EMAILJS
-emailjs.init("xUnFGUm3ZIw6UfW_h"); // API Public Key
-
-document.getElementById('booking-form').addEventListener('submit', function(event) {
-    event.preventDefault();
-
-    const submitBtn = document.getElementById('submit-btn');
-    submitBtn.innerText = "Sending Booking Request...";
-    submitBtn.disabled = true;
-
-    emailjs.sendForm('service_router123', 'template_2ppem79', this)
-        .then(function() {
-            alert('Success! Your booking request has been sent to renowee.beloy@dorsu.edu.ph in real-time. Please check your phone for confirmation shortly.');
-            document.getElementById('booking-form').reset();
-            submitBtn.innerText = "Check Availability & Book";
-            submitBtn.disabled = false;
-        }, function(error) {
-            alert('Oops! Failed to send email request real-time. Error: ' + JSON.stringify(error));
-            submitBtn.innerText = "Check Availability & Book";
-            submitBtn.disabled = false;
-        });
-});
+// EMAIL ENGINE INITIALIZATION
+emailjs.init("xUnFGUm3ZIw6UfW_h");
 </script>
 
 </body>
