@@ -996,7 +996,8 @@ document.getElementById('booking-form').addEventListener('submit', function(even
     submitBtn.innerText = "Sending Booking Request...";
     submitBtn.disabled = true;
 
-    emailjs.sendForm('service_etlbrc7', 'template_iafntpk', this)
+    // Gi-update na gamit ang imong pinakabag-o nga Template ID: template_2ppem79
+    emailjs.sendForm('service_etlbrc7', 'template_2ppem79', this)
         .then(function() {
             alert('Success! Your booking request has been sent to renowee.beloy@dorsu.edu.ph in real-time. Please check your phone for confirmation shortly.');
             document.getElementById('booking-form').reset();
