@@ -373,7 +373,7 @@ section{
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden; /* Para sa lingin nga profile image gikan google */
+    overflow: hidden;
 }
 
 .profile-avatar i {
@@ -802,7 +802,7 @@ footer{
                     
                     <div style="display: flex; justify-content: center; margin: 20px 0;">
                         <div id="g_id_onload"
-                             data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+                             data-client_id="xUnFGUm3ZIw6UfW_h.apps.googleusercontent.com"
                              data-context="signin"
                              data-ux_mode="popup"
                              data-callback="handleCredentialResponse"
@@ -835,17 +835,6 @@ footer{
                             <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
                                 <p><i class="far fa-calendar"></i> Date: June 15, 2026</p>
                                 <p><i class="far fa-user"></i> Guests: 8 Persons</p>
-                            </div>
-                        </div>
-
-                        <div style="background: #f8fafc; border-left: 4px solid #ffb300; padding: 12px; border-radius: 0 8px 8px 0; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
-                            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #334155;">
-                                <span>Pool Day Pass Access</span>
-                                <span style="color: #ffb300; font-size: 12px; background: #fff8e1; padding: 2px 8px; border-radius: 12px;">Pending</span>
-                            </div>
-                            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
-                                <p><i class="far fa-calendar"></i> Date: June 20, 2026</p>
-                                <p><i class="far fa-user"></i> Guests: 4 Persons</p>
                             </div>
                         </div>
                     </div>
@@ -906,23 +895,19 @@ footer{
 </div>
 
 <script>
-// Side menu toggle panel
 function toggleMenu(){
     var menu = document.getElementById('nav-menu');
     menu.classList.toggle('active');
 }
 
-// NAVIGATION ENGINE
 function navigateTo(pageId, navItemId) {
     const pages = document.querySelectorAll('.app-page');
     pages.forEach(page => page.classList.remove('page-active'));
-    
     document.getElementById('page-' + pageId).classList.add('page-active');
     
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => item.classList.remove('active'));
     document.getElementById(navItemId).classList.add('active');
-    
     window.scrollTo({top: 0});
 }
 
@@ -930,7 +915,6 @@ function goBack() {
     navigateTo('home', 'nav-home');
 }
 
-// SLIDESHOW & DOTS JAVASCRIPT
 let currentSlideIndex = 0;
 const slides = document.querySelectorAll('.slide');
 const dots = document.querySelectorAll('.dot');
@@ -939,7 +923,6 @@ let slideInterval;
 function showSlide(index) {
     slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
-    
     slides[index].classList.add('active');
     dots[index].classList.add('active');
     currentSlideIndex = index;
@@ -955,18 +938,10 @@ function changeSlide(index) {
     resetTimer();
 }
 
-function startTimer() {
-    slideInterval = setInterval(nextSlide, 4000);
-}
-
-function resetTimer() {
-    clearInterval(slideInterval);
-    startTimer();
-}
-
+function startTimer() { slideInterval = setInterval(nextSlide, 4000); }
+function resetTimer() { clearInterval(slideInterval); startTimer(); }
 startTimer();
 
-// Lightbox views
 function showImage(src){
     document.getElementById('lightbox').style.display='flex';
     document.getElementById('lightbox-img').src=src;
@@ -976,11 +951,7 @@ function hideImage(){
     document.getElementById('lightbox').style.display='none';
 }
 
-// ========================================================
-// GOOGLE SIGN-IN INTERACTION HANDLING (REAL-TIME JWT)
-// ========================================================
-
-// Parse JSON web token function helper
+// GOOGLE SIGN-IN INTERACTION HANDLING
 function parseJwt(token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -990,46 +961,33 @@ function parseJwt(token) {
     return JSON.parse(jsonPayload);
 }
 
-// Callback execution function kung maok na ang google sign in login
 function handleCredentialResponse(response) {
-    // Pag-decode sa profile properties gikan sa data token sa Google secure server
     const userData = parseJwt(response.credential);
-    
-    // I-update ang text elements sa profile view module gamit ang tinuod nga Google Data
     document.getElementById('user-display-name').innerText = userData.name;
     document.getElementById('user-display-email').innerText = userData.email;
     
-    // I-render ang iyang tinuod nga Google Gmail Profile Avatar Image
     const pfpBox = document.getElementById('user-pfp-box');
     pfpBox.innerHTML = `<img src="${userData.picture}" alt="Google Profile Photo">`;
     
-    // I-tago ang logged out button, ug ipakita na ang iyang profile and bookings structure list
     document.getElementById('logged-out-state').style.display = 'none';
     document.getElementById('logged-in-state').style.display = 'block';
 
-    // Awtomatiko sab i-fill up ang ngalan ug email address dapit sa Booking page form module para sayon nlang sa customer
     document.getElementById('guest-name').value = userData.name;
     document.getElementById('guest-email').value = userData.email;
 }
 
-// Google Logout mechanism routine handler
 function googleLogout() {
-    // I-reset balik ang profile layout ug ibalik ang standard structural template layout properties
     document.getElementById('user-pfp-box').innerHTML = `<i class="fas fa-user-astronaut" id="default-avatar-icon"></i>`;
     document.getElementById('logged-in-state').style.display = 'none';
     document.getElementById('logged-out-state').style.display = 'block';
     
-    // Clear booking inputs
     document.getElementById('guest-name').value = '';
     document.getElementById('guest-email').value = '';
-    
     alert('You have logged out successfully.');
 }
 
-// ========================================================
 // REAL-TIME EMAIL ENGINE USING EMAILJS
-// ========================================================
-emailjs.init("vKJZ0nw9EzN9Fzk6l"); 
+emailjs.init("xUnFGUm3ZIw6UfW_h"); // Gi-update gamit ang imong bag-ong key
 
 document.getElementById('booking-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -1038,8 +996,8 @@ document.getElementById('booking-form').addEventListener('submit', function(even
     submitBtn.innerText = "Sending Booking Request...";
     submitBtn.disabled = true;
 
-    // NOTE: Palihug ilisdi ang 'YOUR_SERVICE_ID' ug 'YOUR_TEMPLATE_ID' base sa dashboard sa EmailJS account
-    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+    // TODO: Ilisdi ang 'YOUR_TEMPLATE_ID' base sa dashboard sa EmailJS account
+    emailjs.sendForm('service_etlbrc7', 'YOUR_TEMPLATE_ID', this)
         .then(function() {
             alert('Success! Your booking request has been sent to cherryday103080@gmail.com in real-time. Please check your phone for confirmation shortly.');
             document.getElementById('booking-form').reset();
