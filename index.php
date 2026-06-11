@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CherryJoe River Park</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+
+/* RESET */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+    scroll-behavior:smooth;
+}
+
+body{
+    background:#f4f7f8;
+    padding-top:70px;
+}
+
+/* NAVBAR */
+nav{
+    position:fixed;
+    top:0;
+    width:100%;
+    background:rgba(0,0,0,0.85);
+    padding:15px 8%;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    z-index:1000;
+}
+
+.logo{
+    color:#fff;
+    font-size:28px;
+    font-weight:bold;
+}
+
+nav ul{
+    list-style:none;
+    display:flex;
+}
+
+nav ul li{
+    margin-left:25px;
+}
+
+nav ul li a{
+    color:white;
+    text-decoration:none;
+}
+
+nav ul li a:hover{
+    color:#00d084;
+}
+
+/* HERO FIXED PATH */
+.hero{
+    height:100vh;
+    background: url('imagescherryjoe-hero.jpg') center center/cover no-repeat;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    position:relative;
+}
+
+.hero::before{
+    content:'';
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.55);
+}
+
+.hero-content{
+    position:relative;
+    color:white;
+    z-index:1;
+}
+
+.hero-content h1{
+    font-size:70px;
+}
+
+.hero-content p{
+    font-size:24px;
+    margin:15px 0;
+}
+
+.btn{
+    display:inline-block;
+    padding:15px 30px;
+    border-radius:50px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+}
+
+.book{background:#00c853;}
+.explore{background:#2196f3;}
+
+/* SECTIONS */
+section{
+    padding:80px 8%;
+}
+
+.title{
+    text-align:center;
+    font-size:40px;
+    margin-bottom:40px;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:15px;
+}
+
+/* MANAGEMENT */
+.management{
+    display:flex;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.management .card{
+    flex:1;
+}
+
+/* COTTAGE */
+.cottage{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.cottage img{
+    width:100%;
+    height:350px;
+    object-fit:cover;
+}
+
+.cottage-content{
+    padding:25px;
+}
+
+/* FACILITIES */
+.facilities{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:25px;
+}
+
+.facility{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+}
+
+.facility img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.facility-content{
+    padding:20px;
+}
+
+/* VIDEO SECTION */
+.video-section{
+    text-align:center;
+}
+
+.video-section video{
+    width:100%;
+    max-width:900px;
+    border-radius:15px;
+    box-shadow:0 5px 15px rgba(0,0,0,.2);
+}
+
+/* GALLERY */
+.gallery{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:15px;
+}
+
+.gallery img{
+    width:100%;
+    height:250px;
+    object-fit:cover;
+    border-radius:10px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.gallery img:hover{
+    transform:scale(1.05);
+}
+
+/* CONTACT */
+.contact{
+    background:#1a1a1a;
+    color:white;
+    text-align:center;
+}
+
+.contact a{
+    color:#00d084;
+    text-decoration:none;
+}
+
+/* FOOTER */
+footer{
+    background:black;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+/* LIGHTBOX */
+.lightbox{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,.95);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+}
+
+.lightbox img{
+    max-width:90%;
+    max-height:90%;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+.hero-content h1{font-size:45px;}
+.hero-content p{font-size:18px;}
+
+nav{
+    flex-direction:column;
+}
+
+nav ul{
+    margin-top:10px;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+<div class="logo">CherryJoe River Park</div>
+<ul>
+<li><a href="#home">Home</a></li>
+<li><a href="#about">About</a></li>
+<li><a href="#management">Management</a></li>
+<li><a href="#cottage">Cottage</a></li>
+<li><a href="#facilities">Facilities</a></li>
+<li><a href="#video">Video</a></li>
+<li><a href="#gallery">Gallery</a></li>
+<li><a href="#contact">Contact</a></li>
+</ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+<div class="hero-content">
+<h1>CherryJoe River Park</h1>
+<p>Where Nature Meets Relaxation and Adventure</p>
+<a href="#contact" class="btn book">Book Now</a>
+<a href="#about" class="btn explore">Explore Resort</a>
+</div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+<h2 class="title">About CherryJoe River Park</h2>
+
+<div class="grid">
+<div class="card">
+<h3>📍 Location</h3>
+<p>Davao Region, Philippines</p>
+</div>
+
+<div class="card">
+<h3>🕒 Opening Hours</h3>
+<p>8:00 AM - 10:00 PM</p>
+</div>
+
+<div class="card">
+<h3>📞 Contact</h3>
+<p>0920 408 7956</p>
+</div>
+
+<div class="card">
+<h3>📧 Email</h3>
+<p>cherryday103080@gmail.com</p>
+</div>
+</div>
+</section>
+
+<!-- MANAGEMENT -->
+<section id="management">
+<h2 class="title">Management</h2>
+
+<div class="management">
+<div class="card">
+<h3>Owner</h3>
+<p>CherryJoe River Park Owner</p>
+</div>
+
+<div class="card">
+<h3>Manager</h3>
+<p>Resort Operations Manager</p>
+</div>
+</div>
+</section>
+
+<!-- COTTAGE -->
+<section id="cottage">
+<h2 class="title">Open Cottage</h2>
+
+<div class="cottage">
+<img src="imagescottage.jpg">
+<div class="cottage-content">
+<h3>Open Cottage</h3>
+<p><strong>Price:</strong> ₱100</p>
+<p><strong>Capacity:</strong> 8 Persons</p>
+</div>
+</div>
+</section>
+
+<!-- FACILITIES -->
+<section id="facilities">
+<h2 class="title">Facilities</h2>
+
+<div class="facilities">
+<div class="facility"><img src="images/pool.jpg"><div class="facility-content"><h3>Pool</h3></div></div>
+<div class="facility"><img src="images/river.jpg"><div class="facility-content"><h3>River View</h3></div></div>
+<div class="facility"><img src="images/restaurant.jpg"><div class="facility-content"><h3>Restaurant</h3></div></div>
+<div class="facility"><img src="images/functionhall.jpg"><div class="facility-content"><h3>Function Hall</h3></div></div>
+</div>
+</section>
+
+<!-- VIDEO ADDED -->
+<section id="video" class="video-section">
+<h2 class="title">Resort Video Tour</h2>
+
+<video controls>
+    <source src="videosresort-tour.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+<h2 class="title">Gallery</h2>
+
+<div class="gallery">
+<img src="images/gallery.jpg" onclick="showImage(this.src)">
+<img src="images/gallery2.jpg" onclick="showImage(this.src)">
+<img src="images/gallery3.jpg" onclick="showImage(this.src)">
+<img src="images/gallery4.jpg" onclick="showImage(this.src)">
+<img src="images/gallery4.jpg" onclick="showImage(this.src)">
+<img src="images/gallery4.jpg" onclick="showImage(this.src)">
+</div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+<h2 class="title" style="color:white;">Contact Us</h2>
+
+<p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
+<p><i class="fas fa-phone"></i> 0920 408 7956</p>
+<p><i class="fas fa-envelope"></i> cherryday103080@gmail.com</p>
+
+<p>
+<i class="fab fa-facebook"></i>
+Facebook:
+<a href="https://www.facebook.com/share/1DkMYrXWiZ/" target="_blank">
+CherryJoe River Park
+</a>
+</p>
+
+</section>
+
+<footer>
+© 2026 CherryJoe River Park
+</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lightbox" onclick="hideImage()">
+<img id="lightbox-img">
+</div>
+
+<script>
+function showImage(src){
+document.getElementById('lightbox').style.display='flex';
+document.getElementById('lightbox-img').src=src;
+}
+
+function hideImage(){
+document.getElementById('lightbox').style.display='none';
+}
+</script>
+
+</body>
+</html>
