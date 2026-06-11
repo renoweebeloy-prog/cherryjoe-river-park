@@ -61,17 +61,16 @@ nav ul{
     flex-direction: column;
     position: fixed;
     top: 0;
-    right: -300px; /* Tago sa tuo sa sugod */
+    right: -300px;
     width: 300px;
     height: 100vh;
     background: rgba(0, 0, 0, 0.95);
     padding: 90px 40px;
     gap: 20px;
-    transition: right 0.4s ease-in-out; /* Slide animation */
+    transition: right 0.4s ease-in-out;
     box-shadow: -5px 0 15px rgba(0,0,0,0.5);
 }
 
-/* KUNG MO-OPEN ANG MENU */
 nav ul.active {
     right: 0;
 }
@@ -90,10 +89,9 @@ nav ul li a{
 
 nav ul li a:hover{
     color:#00d084;
-    padding-left: 10px; /* Simple moving animation on hover */
+    padding-left: 10px;
 }
 
-/* CLOSE BUTTON SULOD SA MENU */
 .close-btn {
     position: absolute;
     top: 20px;
@@ -107,29 +105,82 @@ nav ul li a:hover{
     color: #ff4d4d;
 }
 
-/* HERO FIXED PATH */
+/* HERO SLIDESHOW COMPONENT */
 .hero{
     height:100vh;
-    background: url('imagescherryjoe-hero.jpg') center center/cover no-repeat;
+    position:relative;
+    overflow: hidden;
     display:flex;
     justify-content:center;
     align-items:center;
     text-align:center;
-    position:relative;
 }
 
+.hero-slides {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+}
+
+.slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+}
+
+.slide.active {
+    opacity: 1;
+}
+
+/* CAROUSEL DOTS (Gagmay nga lingin/page indicators) */
+.carousel-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 5; /* Ibabaw sa overlay */
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.dot.active {
+    background-color: #00d084; /* Kulang berde kung active ang page */
+    transform: scale(1.3);
+}
+
+/* Dark overlay */
 .hero::before{
     content:'';
     position:absolute;
     width:100%;
     height:100%;
     background:rgba(0,0,0,.55);
+    z-index: 1;
 }
 
 .hero-content{
     position:relative;
     color:white;
-    z-index:1;
+    z-index: 2;
 }
 
 .hero-content h1{
@@ -332,12 +383,26 @@ footer{
 </nav>
 
 <section class="hero" id="home">
-<div class="hero-content">
-<h1>CherryJoe River Park</h1>
-<p>Where Nature Meets Relaxation and Adventure</p>
-<a href="#contact" class="btn book">Book Now</a>
-<a href="#about" class="btn explore">Explore Resort</a>
-</div>
+    <div class="hero-slides">
+        <div class="slide active" style="background-image: url('imagescherryjoe-hero.jpg');"></div>
+        <div class="slide" style="background-image: url('imagesgallery1.jpg');"></div>
+        <div class="slide" style="background-image: url('imagesgallery2.jpg');"></div>
+        <div class="slide" style="background-image: url('imagesgallery3.jpg');"></div>
+    </div>
+
+    <div class="carousel-dots">
+        <div class="dot active" onclick="changeSlide(0)"></div>
+        <div class="dot" onclick="changeSlide(1)"></div>
+        <div class="dot" onclick="changeSlide(2)"></div>
+        <div class="dot" onclick="changeSlide(3)"></div>
+    </div>
+
+    <div class="hero-content">
+        <h1>CherryJoe River Park</h1>
+        <p>Where Nature Meets Relaxation and Adventure</p>
+        <a href="#contact" class="btn book">Book Now</a>
+        <a href="#about" class="btn explore">Explore Resort</a>
+    </div>
 </section>
 
 <section id="about">
@@ -377,7 +442,7 @@ footer{
 
 <div class="card">
 <h3>Manager</h3>
-<p> Santi day </p>
+<p>Resort Operations Manager</p>
 </div>
 </div>
 </section>
@@ -389,7 +454,7 @@ footer{
 <img src="imagescottage.jpg">
 <div class="cottage-content">
 <h3>Open Cottage</h3>
-<p><strong>Price:</strong> N/A</p>
+<p><strong>Price:</strong> ₱100</p>
 <p><strong>Capacity:</strong> 8 Persons</p>
 </div>
 </div>
@@ -454,11 +519,52 @@ CherryJoe River Park
 </div>
 
 <script>
-// Function para sa pag-open ug pag-close sa side menu
+// Side menu toggle function
 function toggleMenu(){
     var menu = document.getElementById('nav-menu');
     menu.classList.toggle('active');
 }
+
+// SLIDESHOW & DOTS JAVASCRIPT
+let currentSlideIndex = 0;
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+let slideInterval;
+
+function showSlide(index) {
+    // Tangtangon ang 'active' sa tanang slide ug dots
+    slides.forEach(slide => slide.classList.remove('active'));
+    dots.forEach(dot => dot.classList.remove('active'));
+    
+    // I-activate ang napilian nga slide ug dot
+    slides[index].classList.add('active');
+    dots[index].classList.add('active');
+    currentSlideIndex = index;
+}
+
+function nextSlide() {
+    let nextIndex = (currentSlideIndex + 1) % slides.length;
+    showSlide(nextIndex);
+}
+
+// Function para kung i-click ang gamay nga lingin
+function changeSlide(index) {
+    showSlide(index);
+    resetTimer(); // Mo-restart ang timer kung gi-click aron dili mag-overlap ang oras
+}
+
+function startTimer() {
+    slideInterval = setInterval(nextSlide, 4000); // 4 ka segundo
+}
+
+function resetTimer() {
+    clearInterval(slideInterval);
+    startTimer();
+}
+
+// Sugdan ang slideshow pag-open sa page
+startTimer();
+
 
 // Lightbox functions
 function showImage(src){
