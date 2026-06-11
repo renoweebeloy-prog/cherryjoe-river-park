@@ -281,7 +281,7 @@ section{
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* NEW GRID-BASED FOOD MENU WITH IMAGES */
+/* NEW GRID FOOD LAYOUT */
 .food-grid-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -318,9 +318,9 @@ section{
 
 .food-card-with-img img {
     width: 100%;
-    height: 180px;
+    height: 190px;
     object-fit: cover;
-    background: #e2e8f0; /* Fallback color kung wala pay picture */
+    background: #cbd5e1;
 }
 
 .food-card-body {
@@ -365,6 +365,12 @@ section{
     padding: 3px 10px;
     border-radius: 12px;
     font-weight: bold;
+}
+
+.status-soon {
+    background: #fffaf0;
+    color: #dd6b20;
+    border: 1px solid #fbd38d;
 }
 
 /* APP USER PROFILE SECTION */
@@ -771,88 +777,18 @@ footer{
 
 <div id="page-food" class="app-page">
     <section id="food-section">
-        <h2 class="title">Available Food & Menu</h2>
+        <h2 class="title">Resort Food Menu</h2>
         <div class="food-grid-container">
             
-            <div class="food-category-title"><i class="fas fa-utensils"></i> Short Orders & Viands (Main Dishes)</div>
+            <div class="food-category-title"><i class="fas fa-utensils"></i> Viands & Specialties (Available)</div>
             <div class="food-item-grid">
                 
                 <div class="food-card-with-img">
-                    <img src="images/food1-grilledfish.jpg" alt="Sinuwag nga Isda" onerror="this.src='https://placehold.co/400x250?text=Sinuwag+nga+Isda'">
+                    <img src="images/lumpia.jpg" alt="Lumpia" onerror="this.src='https://placehold.co/400x250?text=Lumpia'">
                     <div class="food-card-body">
                         <div>
-                            <h3>Sinuwag nga Isda (Grilled Fish)</h3>
-                            <p>Fresh river/sea fish grilled perfectly with signature local soy-marinade and spices.</p>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">₱250</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="images/food2-tinolachicken.jpg" alt="Native Tinola" onerror="this.src='https://placehold.co/400x250?text=Native+Tinola'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Native Tinolang Manok</h3>
-                            <p>Delicious free-range native chicken soup cooked with fresh ginger and lemongrass.</p>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">₱300</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="images/food3-liempo.jpg" alt="Crispy Liempo" onerror="this.src='https://placehold.co/400x250?text=Crispy+Liempo'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Crispy Pork Liempo</h3>
-                            <p>Crunchy seasoned deep-fried pork belly sliced beautifully and served with vinegar sauce.</p>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">₱180</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="images/food4-adobo.jpg" alt="Pork Adobo" onerror="this.src='https://placehold.co/400x250?text=Pork+Adobo'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Classic Pork Adobo</h3>
-                            <p>Tender pork meat stewed in savory vinegar, soy sauce, garlic, and bay leaves.</p>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">₱160</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="images/food5-calamares.jpg" alt="Crispy Calamares" onerror="this.src='https://placehold.co/400x250?text=Crispy+Calamares'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Crispy Calamares</h3>
-                            <p>Deep-fried battered squid rings crispy on the outside, served with garlic mayo dip.</p>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">₱200</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="images/food6-pancit.jpg" alt="Pancit Guisado" onerror="this.src='https://placehold.co/400x250?text=Pancit+Guisado'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Pancit Guisado Canton</h3>
-                            <p>Stir-fried noodles mixed with fresh vegetables, pork slices, and rich savory sauce.</p>
+                            <h3>Crispy Shanghai Lumpia</h3>
+                            <p>Flavorful ground pork wrapped in a crunchy pastry wrapper, served with sweet chili sauce.</p>
                         </div>
                         <div class="food-card-footer">
                             <span class="food-price">₱150</span>
@@ -862,11 +798,25 @@ footer{
                 </div>
 
                 <div class="food-card-with-img">
-                    <img src="images/food7-sinigang.jpg" alt="Sinigang Shrimp" onerror="this.src='https://placehold.co/400x250?text=Sinigang+Shrimp'">
+                    <img src="images/kinilaw.jpg" alt="Kinilaw" onerror="this.src='https://placehold.co/400x250?text=Kinilaw'">
                     <div class="food-card-body">
                         <div>
-                            <h3>Sinigang nga Hipon (Shrimp)</h3>
-                            <p>Sour tamarind broth filled with fresh local shrimps and mix local green vegetables.</p>
+                            <h3>Fresh Fish Kinilaw</h3>
+                            <p>Raw cubed fish marinated in local vinegar, ginger, onions, chili, and calamansi juice.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱220</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card-with-img">
+                    <img src="images/tunabelly.jpg" alt="Tuna Belly" onerror="this.src='https://placehold.co/400x250?text=Tuna+Belly'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Grilled Tuna Belly</h3>
+                            <p>Juicy and tender tuna belly grilled over hot charcoal with special basting sauce.</p>
                         </div>
                         <div class="food-card-footer">
                             <span class="food-price">₱280</span>
@@ -875,49 +825,133 @@ footer{
                     </div>
                 </div>
 
+                <div class="food-card-with-img">
+                    <img src="images/porkbelly.jpg" alt="Pork Belly" onerror="this.src='https://placehold.co/400x250?text=Pork+Belly'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Sinuwag nga Pork Belly</h3>
+                            <p>Marinated pork belly grilled to perfection, crispy skin, and packed with smoky flavors.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱180</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card-with-img">
+                    <img src="images/panga.jpg" alt="Tuna Panga" onerror="this.src='https://placehold.co/400x250?text=Tuna+Panga'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Sinuwag nga Tuna Panga</h3>
+                            <p>Large grilled tuna jaw seasoned with premium local herbs, perfect for groups.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱350</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card-with-img">
+                    <img src="images/chicharon.jpg" alt="Chicharon" onerror="this.src='https://placehold.co/400x250?text=Chicharon'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Crispy Pork Chicharon</h3>
+                            <p>Deep-fried crunchy pork cracklings, ideal as an appetizer or side dish with vinegar.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱90</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card-with-img">
+                    <img src="images/kasili.jpg" alt="Kasili" onerror="this.src='https://placehold.co/400x250?text=Kasili'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Kasili Specialty (Freshwater Eel)</h3>
+                            <p>Freshly caught river eel cooked either stewed in coconut milk (tinunuan) or adobo style.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱320</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card-with-img">
+                    <img src="images/nativechicken.jpg" alt="Native Chicken" onerror="this.src='https://placehold.co/400x250?text=Native+Chicken'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Native Chicken Tinola</h3>
+                            <p>Healthy, local free-range native chicken soup infused with lemongrass and ginger.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱300</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="food-card-with-img">
+                    <img src="images/nativecoffee.jpg" alt="Native Coffee" onerror="this.src='https://placehold.co/400x250?text=Native+Coffee'">
+                    <div class="food-card-body">
+                        <div>
+                            <h3>Hot Native Coffee</h3>
+                            <p>Traditionally brewed local coffee beans with a strong aroma and full-bodied taste.</p>
+                        </div>
+                        <div class="food-card-footer">
+                            <span class="food-price">₱40</span>
+                            <span class="food-status">Available</span>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="food-category-title"><i class="fas fa-glass-water"></i> Drinks & Refreshments</div>
+            <div class="food-category-title"><i class="fas fa-star"></i> Desserts & Treats (Coming Soon!)</div>
             <div class="food-item-grid">
                 
-                <div class="food-card-with-img">
-                    <img src="images/drink1-buko.jpg" alt="Fresh Buko" onerror="this.src='https://placehold.co/400x250?text=Fresh+Buko+Juice'">
+                <div class="food-card-with-img" style="opacity: 0.85;">
+                    <img src="images/cakes.jpg" alt="Cakes" onerror="this.src='https://placehold.co/400x250?text=Premium+Cakes'">
                     <div class="food-card-body">
                         <div>
-                            <h3>Fresh Buko Juice</h3>
-                            <p>Chilled natural sweet coconut water served straight inside its organic fresh shell.</p>
+                            <h3>Premium Cakes & Slices</h3>
+                            <p>Delectable, sweet cake flavors to brighten up your celebrations at the river park.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱50</span>
-                            <span class="food-status">Available</span>
+                            <span class="food-price">TBD</span>
+                            <span class="food-status status-soon">Soon</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="food-card-with-img">
-                    <img src="images/drink2-softdrinks.jpg" alt="Softdrinks" onerror="this.src='https://placehold.co/400x250?text=Softdrinks'">
+                <div class="food-card-with-img" style="opacity: 0.85;">
+                    <img src="images/shakes.jpg" alt="Shakes" onerror="this.src='https://placehold.co/400x250?text=Fruit+Shakes'">
                     <div class="food-card-body">
                         <div>
-                            <h3>Ice-Cold Softdrinks</h3>
-                            <p>Assorted ice-cold carbonated sodas (Coke, Sprite, Royal) available at the counter.</p>
+                            <h3>Refreshing Fruit Shakes</h3>
+                            <p>Ice-blended fruit shakes made from fresh mangoes, avocados, and tropical fruits.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱30</span>
-                            <span class="food-status">Available</span>
+                            <span class="food-price">TBD</span>
+                            <span class="food-status status-soon">Soon</span>
                         </div>
                     </div>
                 </div>
 
-                <div class="food-card-with-img">
-                    <img src="images/drink3-halo_halo.jpg" alt="Halo-Halo" onerror="this.src='https://placehold.co/400x250?text=Halo-Halo'">
+                <div class="food-card-with-img" style="opacity: 0.85;">
+                    <img src="images/icecream.jpg" alt="Ice Cream" onerror="this.src='https://placehold.co/400x250?text=Ice+Cream'">
                     <div class="food-card-body">
                         <div>
-                            <h3>Special Halo-Halo</h3>
-                            <p>Filipino cold dessert dessert made of crushed ice, evaporated milk, and various sweet ingredients.</p>
+                            <h3>Creamy Ice Cream Scoops</h3>
+                            <p>Perfect cold treat to refresh you after swimming in the clean river waters.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱85</span>
-                            <span class="food-status">Available</span>
+                            <span class="food-price">TBD</span>
+                            <span class="food-status status-soon">Soon</span>
                         </div>
                     </div>
                 </div>
