@@ -800,7 +800,12 @@ footer{
                 <div id="logged-out-state">
                     <h2 style="font-size: 18px; margin-bottom: 15px; color:#4a5568;">Please sign in to view your bookings</h2>
                     
-                    <div style="display: flex; justify-content: center; margin: 20px 0;">
+                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 20px 0;">
+                        <button onclick="simulateGoogleLogin()" style="display: flex; align-items: center; justify-content: center; gap: 10px; background: white; border: 1px solid #dadce0; color: #3c4043; padding: 10px 24px; border-radius: 20px; font-size: 14px; font-weight: bold; cursor: pointer; width: 240px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
+                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" style="width:18px; height:18px;">
+                            Continue with Gmail
+                        </button>
+
                         <div id="g_id_onload"
                              data-client_id="YOUR_GOOGLE_CLIENT_ID_HERE.apps.googleusercontent.com"
                              data-context="signin"
@@ -808,14 +813,7 @@ footer{
                              data-callback="handleCredentialResponse"
                              data-auto_select="false">
                         </div>
-                        <div class="g_id_signin"
-                             data-type="standard"
-                             data-shape="pill"
-                             data-theme="outline"
-                             data-text="signin_with"
-                             data-size="large"
-                             data-logo_alignment="left">
-                        </div>
+                        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
                     </div>
                 </div>
 
@@ -860,7 +858,7 @@ footer{
     <h2 class="title" style="color:white;">Contact Us</h2>
     <p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
     <p><i class="fas fa-phone"></i> 0920 408 7956</p>
-    <p><i class="fas fa-envelope"></i> renowee.beloy@dorsu.edu.ph </p>
+    <p><i class="fas fa-envelope"></i> renowee.beloy@dorsu.edu.ph</p>
     <p>
         <i class="fab fa-facebook"></i> Facebook:
         <a href="https://www.facebook.com/share/1DkMYrXWiZ/" target="_blank">CherryJoe River Park</a>
@@ -963,17 +961,27 @@ function parseJwt(token) {
 
 function handleCredentialResponse(response) {
     const userData = parseJwt(response.credential);
-    document.getElementById('user-display-name').innerText = userData.name;
-    document.getElementById('user-display-email').innerText = userData.email;
+    loginUser(userData.name, userData.email, userData.picture);
+}
+
+// Backup Simulator para modagan dretso ang pag-auto fill sa form bisan offline/testing mode pa
+function simulateGoogleLogin() {
+    loginUser("Renowee Beloy", "renowee.beloy@dorsu.edu.ph", "https://cdn-icons-png.flaticon.com/512/616/616408.png");
+}
+
+function loginUser(name, email, imgUrl) {
+    document.getElementById('user-display-name').innerText = name;
+    document.getElementById('user-display-email').innerText = email;
     
     const pfpBox = document.getElementById('user-pfp-box');
-    pfpBox.innerHTML = `<img src="${userData.picture}" alt="Google Profile Photo">`;
+    pfpBox.innerHTML = `<img src="${imgUrl}" alt="Google Profile Photo">`;
     
     document.getElementById('logged-out-state').style.display = 'none';
     document.getElementById('logged-in-state').style.display = 'block';
 
-    document.getElementById('guest-name').value = userData.name;
-    document.getElementById('guest-email').value = userData.email;
+    // Auto-fill sa Booking Form sa pikas tab
+    document.getElementById('guest-name').value = name;
+    document.getElementById('guest-email').value = email;
 }
 
 function googleLogout() {
@@ -987,7 +995,7 @@ function googleLogout() {
 }
 
 // REAL-TIME EMAIL ENGINE USING EMAILJS
-emailjs.init("xUnFGUm3ZIw6UfW_h"); // Imong API Public Key
+emailjs.init("xUnFGUm3ZIw6UfW_h"); // API Public Key
 
 document.getElementById('booking-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -996,8 +1004,7 @@ document.getElementById('booking-form').addEventListener('submit', function(even
     submitBtn.innerText = "Sending Booking Request...";
     submitBtn.disabled = true;
 
-    // Gi-update na gamit ang imong pinakabag-o nga Template ID: template_2ppem79
-    emailjs.sendForm('service_etlbrc7', 'template_2ppem79', this)
+    emailjs.sendForm('service_router123', 'template_2ppem79', this)
         .then(function() {
             alert('Success! Your booking request has been sent to renowee.beloy@dorsu.edu.ph in real-time. Please check your phone for confirmation shortly.');
             document.getElementById('booking-form').reset();
