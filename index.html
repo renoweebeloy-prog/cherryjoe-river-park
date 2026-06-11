@@ -42,56 +42,69 @@ nav{
     font-weight:bold;
 }
 
+/* THREE LINE / HAMBURGER MENU BUTTON */
+.menu-toggle {
+    color: white;
+    font-size: 24px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.menu-toggle:hover {
+    color: #00d084;
+}
+
+/* SIDE MENU WITH ANIMATION */
 nav ul{
     list-style:none;
     display:flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    right: -300px; /* Tago sa tuo sa sugod */
+    width: 300px;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.95);
+    padding: 90px 40px;
+    gap: 20px;
+    transition: right 0.4s ease-in-out; /* Slide animation */
+    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+}
+
+/* KUNG MO-OPEN ANG MENU */
+nav ul.active {
+    right: 0;
 }
 
 nav ul li{
-    margin-left:25px;
-}
-.menu-btn{
-    color:white;
-    font-size:28px;
-    cursor:pointer;
-    transition:0.4s;
+    margin: 10px 0;
 }
 
-.menu-btn:hover{
-    color:#00d084;
-    transform:rotate(90deg);
-}
-
-#menu{
-    transition:all .5s ease;
-}
-
-nav ul li a{
-    position:relative;
-    transition:.3s;
-}
-
-nav ul li a::after{
-    content:'';
-    position:absolute;
-    left:0;
-    bottom:-5px;
-    width:0;
-    height:2px;
-    background:#00d084;
-    transition:.3s;
-}
-
-nav ul li a:hover::after{
-    width:100%;
-}
 nav ul li a{
     color:white;
     text-decoration:none;
+    font-size: 20px;
+    display: block;
+    transition: 0.3s;
 }
 
 nav ul li a:hover{
     color:#00d084;
+    padding-left: 10px; /* Simple moving animation on hover */
+}
+
+/* CLOSE BUTTON SULOD SA MENU */
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.close-btn:hover {
+    color: #ff4d4d;
 }
 
 /* HERO FIXED PATH */
@@ -286,20 +299,11 @@ footer{
     max-height:90%;
 }
 
-/* MOBILE */
+/* MOBILE RESPONSIVE adjustments */
 @media(max-width:768px){
-.hero-content h1{font-size:45px;}
-.hero-content p{font-size:18px;}
-
-nav{
-    flex-direction:column;
-}
-
-nav ul{
-    margin-top:10px;
-    flex-wrap:wrap;
-    justify-content:center;
-}
+    .hero-content h1{font-size:45px;}
+    .hero-content p{font-size:18px;}
+    nav{ padding: 15px 5%; }
 }
 
 </style>
@@ -307,29 +311,26 @@ nav ul{
 
 <body>
 
-<!-- NAVBAR -->
 <nav>
-<div style="display:flex;align-items:center;gap:15px;">
-    
-    <div class="menu-btn" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
-    </div>
+<div class="logo">CherryJoe River Park</div>
 
-    <div class="logo">CherryJoe River Park</div>
+<div class="menu-toggle" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
 </div>
 
-<ul id="menu">
-<li><a href="#home">Home</a></li>
-<li><a href="#about">About</a></li>
-<li><a href="#management">Management</a></li>
-<li><a href="#cottage">Cottage</a></li>
-<li><a href="#facilities">Facilities</a></li>
-<li><a href="#video">Video</a></li>
-<li><a href="#gallery">Gallery</a></li>
-<li><a href="#contact">Contact</a></li>
+<ul id="nav-menu">
+    <div class="close-btn" onclick="toggleMenu()">&times;</div>
+    <li><a href="#home" onclick="toggleMenu()">Home</a></li>
+    <li><a href="#about" onclick="toggleMenu()">About</a></li>
+    <li><a href="#management" onclick="toggleMenu()">Management</a></li>
+    <li><a href="#cottage" onclick="toggleMenu()">Cottage</a></li>
+    <li><a href="#facilities" onclick="toggleMenu()">Facilities</a></li>
+    <li><a href="#video" onclick="toggleMenu()">Video</a></li>
+    <li><a href="#gallery" onclick="toggleMenu()">Gallery</a></li>
+    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
 </ul>
 </nav>
-<!-- HERO -->
+
 <section class="hero" id="home">
 <div class="hero-content">
 <h1>CherryJoe River Park</h1>
@@ -339,7 +340,6 @@ nav ul{
 </div>
 </section>
 
-<!-- ABOUT -->
 <section id="about">
 <h2 class="title">About CherryJoe River Park</h2>
 
@@ -366,7 +366,6 @@ nav ul{
 </div>
 </section>
 
-<!-- MANAGEMENT -->
 <section id="management">
 <h2 class="title">Management</h2>
 
@@ -383,7 +382,6 @@ nav ul{
 </div>
 </section>
 
-<!-- COTTAGE -->
 <section id="cottage">
 <h2 class="title">Open Cottage</h2>
 
@@ -397,7 +395,6 @@ nav ul{
 </div>
 </section>
 
-<!-- FACILITIES -->
 <section id="facilities">
 <h2 class="title">Facilities</h2>
 
@@ -409,7 +406,6 @@ nav ul{
 </div>
 </section>
 
-<!-- VIDEO ADDED -->
 <section id="video" class="video-section">
 <h2 class="title">Resort Video Tour</h2>
 
@@ -419,7 +415,6 @@ nav ul{
 </video>
 </section>
 
-<!-- GALLERY -->
 <section id="gallery">
 <h2 class="title">Gallery</h2>
 
@@ -433,7 +428,6 @@ nav ul{
 </div>
 </section>
 
-<!-- CONTACT -->
 <section class="contact" id="contact">
 <h2 class="title" style="color:white;">Contact Us</h2>
 
@@ -455,12 +449,18 @@ CherryJoe River Park
 © 2026 CherryJoe River Park
 </footer>
 
-<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="hideImage()">
 <img id="lightbox-img">
 </div>
 
 <script>
+// Function para sa pag-open ug pag-close sa side menu
+function toggleMenu(){
+    var menu = document.getElementById('nav-menu');
+    menu.classList.toggle('active');
+}
+
+// Lightbox functions
 function showImage(src){
 document.getElementById('lightbox').style.display='flex';
 document.getElementById('lightbox-img').src=src;
