@@ -7,39 +7,68 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<style>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
+<style>
 /* RESET */
 *{
     margin:0;
     padding:0;
     box-sizing:border-box;
     font-family:'Segoe UI',sans-serif;
-    scroll-behavior:smooth;
 }
 
 body{
     background:#f4f7f8;
-    padding-top:70px;
+    padding-top:60px;
+    padding-bottom: 80px; 
+    overflow-x: hidden;
 }
 
-/* NAVBAR */
+/* TOP APP BAR / NAVBAR */
 nav{
     position:fixed;
     top:0;
     width:100%;
     background:rgba(0,0,0,0.85);
-    padding:15px 8%;
+    padding:15px 5%;
     display:flex;
     justify-content:space-between;
     align-items:center;
     z-index:1000;
+    height: 60px;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: white;
+}
+
+.back-btn {
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    color: #00d084;
 }
 
 .logo{
-    color:#fff;
-    font-size:28px;
-    font-weight:bold;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 1.2;
+}
+
+.logo span {
+    display: block;
+    font-size: 14px;
+    font-weight: normal;
+    opacity: 0.8;
 }
 
 /* THREE LINE / HAMBURGER MENU BUTTON */
@@ -54,8 +83,8 @@ nav{
     color: #00d084;
 }
 
-/* SIDE MENU WITH ANIMATION */
-nav ul{
+/* SIDE MENU PANEL WITH ANIMATION */
+.side-menu {
     list-style:none;
     display:flex;
     flex-direction: column;
@@ -69,25 +98,23 @@ nav ul{
     gap: 20px;
     transition: right 0.4s ease-in-out;
     box-shadow: -5px 0 15px rgba(0,0,0,0.5);
+    z-index: 1001;
 }
 
-nav ul.active {
+.side-menu.active {
     right: 0;
 }
 
-nav ul li{
-    margin: 10px 0;
-}
-
-nav ul li a{
+.side-menu li a{
     color:white;
     text-decoration:none;
     font-size: 20px;
     display: block;
     transition: 0.3s;
+    cursor: pointer;
 }
 
-nav ul li a:hover{
+.side-menu li a:hover{
     color:#00d084;
     padding-left: 10px;
 }
@@ -101,18 +128,29 @@ nav ul li a:hover{
     cursor: pointer;
 }
 
-.close-btn:hover {
-    color: #ff4d4d;
+/* PAGE DISPLAY MANAGER (SPA ENGINE) */
+.app-page {
+    display: none; 
+    animation: pageFadeIn 0.4s ease-in-out;
 }
 
-/* HERO SLIDESHOW COMPONENT */
+.app-page.page-active {
+    display: block; 
+}
+
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* HERO SLIDESHOW */
 .hero{
-    height:100vh;
+    height: calc(100vh - 60px);
     position:relative;
     overflow: hidden;
     display:flex;
     justify-content:center;
-    align-items:center;
+    align-items: flex-end;
     text-align:center;
 }
 
@@ -142,20 +180,70 @@ nav ul li a:hover{
     opacity: 1;
 }
 
-/* CAROUSEL DOTS (Gagmay nga lingin/page indicators) */
+/* Dark gradient overlay */
+.hero::before{
+    content:'';
+    position:absolute;
+    width:100%;
+    height:100%;
+    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.85) 100%);
+    z-index: 1;
+}
+
+/* HERO CONTENT */
+.hero-content{
+    position:relative;
+    color:white;
+    z-index: 2;
+    width: 100%;
+    padding: 0 20px;
+    margin-bottom: 20px;
+}
+
+.hero-content h1{
+    font-size: 42px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+}
+
+.hero-content p{
+    font-size: 16px;
+    margin: 10px 0 25px 0;
+    opacity: 0.9;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+}
+
+.btn-container {
+    margin-bottom: 25px;
+}
+
+.btn{
+    display:inline-block;
+    padding:12px 28px;
+    border-radius:50px;
+    text-decoration:none;
+    color:white;
+    font-weight:bold;
+    margin: 5px;
+    font-size: 15px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    cursor: pointer;
+}
+
+.book{background:#00c853;}
+.explore{background:#2196f3;}
+
+/* CAROUSEL DOTS */
 .carousel-dots {
-    position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
     display: flex;
-    gap: 12px;
-    z-index: 5; /* Ibabaw sa overlay */
+    justify-content: center;
+    gap: 10px;
 }
 
 .dot {
-    width: 12px;
-    height: 12px;
+    width: 10px;
+    height: 10px;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 50%;
     cursor: pointer;
@@ -163,56 +251,20 @@ nav ul li a:hover{
 }
 
 .dot.active {
-    background-color: #00d084; /* Kulang berde kung active ang page */
+    background-color: #00d084;
     transform: scale(1.3);
 }
 
-/* Dark overlay */
-.hero::before{
-    content:'';
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.55);
-    z-index: 1;
-}
-
-.hero-content{
-    position:relative;
-    color:white;
-    z-index: 2;
-}
-
-.hero-content h1{
-    font-size:70px;
-}
-
-.hero-content p{
-    font-size:24px;
-    margin:15px 0;
-}
-
-.btn{
-    display:inline-block;
-    padding:15px 30px;
-    border-radius:50px;
-    text-decoration:none;
-    color:white;
-    font-weight:bold;
-}
-
-.book{background:#00c853;}
-.explore{background:#2196f3;}
-
 /* SECTIONS */
 section{
-    padding:80px 8%;
+    padding: 60px 5%;
 }
 
 .title{
     text-align:center;
-    font-size:40px;
-    margin-bottom:40px;
+    font-size:32px;
+    margin-bottom:30px;
+    color: #2d3748;
 }
 
 /* GRID */
@@ -226,6 +278,166 @@ section{
     background:white;
     padding:25px;
     border-radius:15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* APP BOOKING SECTION */
+.booking-card {
+    background: white;
+    padding: 30px 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+    max-width: 550px;
+    margin: 0 auto;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: #444;
+}
+
+.form-group input, .form-group select {
+    width: 100%;
+    padding: 14px;
+    border: 1px solid #ddd;
+    border-radius: 12px;
+    font-size: 15px;
+    background: #f9fbfb;
+    outline: none;
+    transition: 0.3s;
+}
+
+.form-group input:focus, .form-group select:focus {
+    border-color: #00c853;
+}
+
+.btn-submit-booking {
+    width: 100%;
+    background: #00c853;
+    color: white;
+    border: none;
+    padding: 16px;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 5px 15px rgba(0, 200, 83, 0.3);
+    transition: 0.3s;
+}
+
+.btn-submit-booking:hover {
+    background: #00a844;
+}
+
+/* APP USER PROFILE SECTION */
+.profile-container {
+    max-width: 550px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+}
+
+.profile-banner {
+    background: linear-gradient(135deg, #00d084, #2196f3);
+    height: 120px;
+    position: relative;
+}
+
+.profile-avatar-wrapper {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: #ffffff;
+    padding: 5px;
+    position: absolute;
+    bottom: -55px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.profile-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background: #e3f2fd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Para sa lingin nga profile image gikan google */
+}
+
+.profile-avatar i {
+    font-size: 45px;
+    color: #2196f3;
+}
+
+.profile-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-details {
+    padding: 75px 25px 30px 25px;
+    text-align: center;
+}
+
+.profile-details h2 {
+    font-size: 24px;
+    color: #2d3748;
+}
+
+.profile-details .email {
+    color: #718096;
+    font-size: 14px;
+    margin-top: 4px;
+}
+
+.membership-tag {
+    display: inline-block;
+    background: #fff8e1;
+    color: #ffb300;
+    font-weight: bold;
+    font-size: 12px;
+    padding: 6px 16px;
+    border-radius: 50px;
+    margin-top: 12px;
+    border: 1px solid #ffe082;
+}
+
+.profile-menu-list {
+    text-align: left;
+    margin-top: 20px;
+    border-top: 1px solid #edf2f7;
+    padding-top: 15px;
+}
+
+.profile-menu-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 5px;
+    color: #4a5568;
+    text-decoration: none;
+    font-size: 15px;
+    border-bottom: 1px solid #f7fafc;
+    cursor: pointer;
+}
+
+.profile-menu-item div i {
+    margin-right: 10px;
+    width: 20px;
+    color: #718096;
 }
 
 /* MANAGEMENT */
@@ -244,11 +456,12 @@ section{
     background:white;
     border-radius:15px;
     overflow:hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .cottage img{
     width:100%;
-    height:350px;
+    height:300px;
     object-fit:cover;
 }
 
@@ -259,24 +472,25 @@ section{
 /* FACILITIES */
 .facilities{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:25px;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:20px;
 }
 
 .facility{
     background:white;
     border-radius:15px;
     overflow:hidden;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
 .facility img{
     width:100%;
-    height:220px;
+    height:200px;
     object-fit:cover;
 }
 
 .facility-content{
-    padding:20px;
+    padding:15px;
 }
 
 /* VIDEO SECTION */
@@ -288,19 +502,19 @@ section{
     width:100%;
     max-width:900px;
     border-radius:15px;
-    box-shadow:0 5px 15px rgba(0,0,0,.2);
+    box-shadow:0 5px 15px rgba(0,0,0,.1);
 }
 
 /* GALLERY */
 .gallery{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:15px;
+    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+    gap:12px;
 }
 
 .gallery img{
     width:100%;
-    height:250px;
+    height:180px;
     object-fit:cover;
     border-radius:10px;
     cursor:pointer;
@@ -308,7 +522,7 @@ section{
 }
 
 .gallery img:hover{
-    transform:scale(1.05);
+    transform:scale(1.03);
 }
 
 /* CONTACT */
@@ -316,6 +530,10 @@ section{
     background:#1a1a1a;
     color:white;
     text-align:center;
+}
+
+.contact p {
+    margin: 10px 0;
 }
 
 .contact a{
@@ -329,6 +547,7 @@ footer{
     color:white;
     text-align:center;
     padding:20px;
+    font-size: 14px;
 }
 
 /* LIGHTBOX */
@@ -350,179 +569,365 @@ footer{
     max-height:90%;
 }
 
-/* MOBILE RESPONSIVE adjustments */
-@media(max-width:768px){
-    .hero-content h1{font-size:45px;}
-    .hero-content p{font-size:18px;}
-    nav{ padding: 15px 5%; }
+/* BOTTOM NAVIGATION BAR */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 10px 0;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+    z-index: 1000;
 }
 
+.nav-item {
+    text-decoration: none;
+    color: #777777;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-size: 12px;
+    gap: 4px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.nav-item i {
+    font-size: 20px;
+}
+
+.nav-item.active {
+    color: #00c853;
+}
 </style>
 </head>
 
 <body>
 
 <nav>
-<div class="logo">CherryJoe River Park</div>
+    <div class="nav-left">
+        <i class="fas fa-chevron-left back-btn" onclick="goBack()"></i>
+        <div class="logo">
+            CherryJoe
+            <span>River Park</span>
+        </div>
+    </div>
 
-<div class="menu-toggle" onclick="toggleMenu()">
-    <i class="fas fa-bars"></i>
-</div>
-
-<ul id="nav-menu">
-    <div class="close-btn" onclick="toggleMenu()">&times;</div>
-    <li><a href="#home" onclick="toggleMenu()">Home</a></li>
-    <li><a href="#about" onclick="toggleMenu()">About</a></li>
-    <li><a href="#management" onclick="toggleMenu()">Management</a></li>
-    <li><a href="#cottage" onclick="toggleMenu()">Cottage</a></li>
-    <li><a href="#facilities" onclick="toggleMenu()">Facilities</a></li>
-    <li><a href="#video" onclick="toggleMenu()">Video</a></li>
-    <li><a href="#gallery" onclick="toggleMenu()">Gallery</a></li>
-    <li><a href="#contact" onclick="toggleMenu()">Contact</a></li>
-</ul>
+    <div class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
 </nav>
 
-<section class="hero" id="home">
-    <div class="hero-slides">
-        <div class="slide active" style="background-image: url('imagescherryjoe-hero.jpg');"></div>
-        <div class="slide" style="background-image: url('imagesgallery1.jpg');"></div>
-        <div class="slide" style="background-image: url('imagesgallery2.jpg');"></div>
-        <div class="slide" style="background-image: url('imagesgallery3.jpg');"></div>
-    </div>
+<ul class="side-menu" id="nav-menu">
+    <div class="close-btn" onclick="toggleMenu()">&times;</div>
+    <li><a onclick="toggleMenu(); navigateTo('home', 'nav-home')">Home</a></li>
+    <li><a onclick="toggleMenu(); navigateTo('explore', 'nav-about')">Explore</a></li>
+    <li><a onclick="toggleMenu(); navigateTo('booking', 'nav-booking')">Book Now</a></li>
+    <li><a onclick="toggleMenu(); navigateTo('profile', 'nav-profile')">Profile</a></li>
+</ul>
 
-    <div class="carousel-dots">
-        <div class="dot active" onclick="changeSlide(0)"></div>
-        <div class="dot" onclick="changeSlide(1)"></div>
-        <div class="dot" onclick="changeSlide(2)"></div>
-        <div class="dot" onclick="changeSlide(3)"></div>
-    </div>
+<div id="page-home" class="app-page page-active">
+    <section class="hero" id="home">
+        <div class="hero-slides">
+            <div class="slide active" style="background-image: url('imagescherryjoe-hero.jpg');"></div>
+            <div class="slide" style="background-image: url('imagesgallery1.jpg');"></div>
+            <div class="slide" style="background-image: url('imagesgallery2.jpg');"></div>
+            <div class="slide" style="background-image: url('imagesgallery3.jpg');"></div>
+        </div>
 
-    <div class="hero-content">
-        <h1></h1>
-        <p>Where Nature Meets Relaxation and Adventure</p>
-        <a href="#contact" class="btn book">Book Now</a>
-        <a href="#about" class="btn explore">Explore Resort</a>
-    </div>
-</section>
+        <div class="hero-content">
+            <h1>CherryJoe<br>River Park</h1>
+            <p>Where Nature Meets Relaxation and Adventure</p>
+            
+            <div class="btn-container">
+                <a onclick="navigateTo('booking', 'nav-booking')" class="btn book">Book Now</a>
+                <a onclick="navigateTo('explore', 'nav-about')" class="btn explore">Explore Resort</a>
+            </div>
 
-<section id="about">
-<h2 class="title">About CherryJoe River Park</h2>
+            <div class="carousel-dots">
+                <div class="dot active" onclick="changeSlide(0)"></div>
+                <div class="dot" onclick="changeSlide(1)"></div>
+                <div class="dot" onclick="changeSlide(2)"></div>
+                <div class="dot" onclick="changeSlide(3)"></div>
+            </div>
+        </div>
+    </section>
 
-<div class="grid">
-<div class="card">
-<h3>📍 Location</h3>
-<p>Davao Region, Philippines</p>
+    <section id="about">
+        <h2 class="title">About CherryJoe River Park</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>📍 Location</h3>
+                <p>Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
+            </div>
+            <div class="card">
+                <h3>🕒 Opening Hours</h3>
+                <p>8:00 AM - 10:00 PM</p>
+            </div>
+            <div class="card">
+                <h3>📞 Contact</h3>
+                <p>0920 408 7956</p>
+            </div>
+            <div class="card">
+                <h3>📧 Email</h3>
+                <p>cherryday103080@gmail.com</p>
+            </div>
+        </div>
+    </section>
 </div>
 
-<div class="card">
-<h3>🕒 Opening Hours</h3>
-<p>12:00 PM- 2:00 AM</p>
+<div id="page-explore" class="app-page">
+    <section id="management">
+        <h2 class="title">Management</h2>
+        <div class="management">
+            <div class="card">
+                <h3>Owner</h3>
+                <p>CherryJoe River Park Owner</p>
+            </div>
+            <div class="card">
+                <h3>Manager</h3>
+                <p>Resort Operations Manager</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="cottage">
+        <h2 class="title">Open Cottage</h2>
+        <div class="cottage">
+            <img src="imagescottage.jpg">
+            <div class="cottage-content">
+                <h3>Open Cottage</h3>
+                <p><strong>Price:</strong> ₱100</p>
+                <p><strong>Capacity:</strong> 8 Persons</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="facilities">
+        <h2 class="title">Facilities</h2>
+        <div class="facilities">
+            <div class="facility"><img src="images/pool.jpg"><div class="facility-content"><h3>Pool</h3></div></div>
+            <div class="facility"><img src="images/river.jpg"><div class="facility-content"><h3>River View</h3></div></div>
+            <div class="facility"><img src="images/restaurant.jpg"><div class="facility-content"><h3>Restaurant</h3></div></div>
+            <div class="facility"><img src="images/functionhall.jpg"><div class="facility-content"><h3>Function Hall</h3></div></div>
+        </div>
+    </section>
+
+    <section id="video" class="video-section">
+        <h2 class="title">Resort Video Tour</h2>
+        <video controls>
+            <source src="videosresort-tour.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </section>
+
+    <section id="gallery">
+        <h2 class="title">Gallery</h2>
+        <div class="gallery">
+            <img src="imagesgallery1.jpg" onclick="showImage(this.src)">
+            <img src="imagesgallery2.jpg" onclick="showImage(this.src)">
+            <img src="imagesgallery3.jpg" onclick="showImage(this.src)">
+            <img src="imagesgallery4.jpg" onclick="showImage(this.src)">
+            <img src="imagesgallery5.jpg" onclick="showImage(this.src)">
+            <img src="imagesgallery6.jpg" onclick="showImage(this.src)">
+        </div>
+    </section>
 </div>
 
-<div class="card">
-<h3>📞 Contact</h3>
-<p>0920 408 7956</p>
+<div id="page-booking" class="app-page">
+    <section id="booking-section">
+        <h2 class="title">Book Your Stay</h2>
+        <div class="booking-card">
+            <form id="booking-form">
+                <div class="form-group">
+                    <label for="accommodation">Select Cottage or Access</label>
+                    <select id="accommodation" name="accommodation" required>
+                        <option value="">-- Please Select --</option>
+                        <option value="Open Cottage (₱100/day)">Open Cottage (₱100/day - 8 Pax)</option>
+                        <option value="Pool Day Pass Access">Pool Day Pass Access</option>
+                        <option value="Function Hall (Events)">Function Hall (Events)</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="book-date">Check-in Date</label>
+                    <input type="date" id="book-date" name="book_date" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Number of Guests</label>
+                    <input type="number" id="guests" name="guests" min="1" max="50" placeholder="Example: 8" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guest-name">Full Name</label>
+                    <input type="text" id="guest-name" name="guest_name" placeholder="Your Full Name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guest-email">Gmail Address</label>
+                    <input type="email" id="guest-email" name="guest_email" placeholder="example@gmail.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="guest-phone">Phone Number</label>
+                    <input type="tel" id="guest-phone" name="guest_phone" placeholder="Example: 09123456789" required>
+                </div>
+
+                <button type="submit" class="btn-submit-booking" id="submit-btn">Check Availability & Book</button>
+            </form>
+        </div>
+    </section>
 </div>
 
-<div class="card">
-<h3>📧 Email</h3>
-<p>cherryday103080@gmail.com</p>
+<div id="page-profile" class="app-page">
+    <section id="profile-section">
+        <h2 class="title">User Profile</h2>
+        <div class="profile-container">
+            <div class="profile-banner">
+                <div class="profile-avatar-wrapper">
+                    <div class="profile-avatar" id="user-pfp-box">
+                        <i class="fas fa-user-astronaut" id="default-avatar-icon"></i>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-details">
+                <div id="logged-out-state">
+                    <h2 style="font-size: 18px; margin-bottom: 15px; color:#4a5568;">Please sign in to view your bookings</h2>
+                    
+                    <div style="display: flex; justify-content: center; margin: 20px 0;">
+                        <div id="g_id_onload"
+                             data-client_id="YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com"
+                             data-context="signin"
+                             data-ux_mode="popup"
+                             data-callback="handleCredentialResponse"
+                             data-auto_select="false">
+                        </div>
+                        <div class="g_id_signin"
+                             data-type="standard"
+                             data-shape="pill"
+                             data-theme="outline"
+                             data-text="signin_with"
+                             data-size="large"
+                             data-logo_alignment="left">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="logged-in-state" style="display: none;">
+                    <h2 id="user-display-name">Guest User</h2>
+                    <p class="email" id="user-display-email">not-signed-in@gmail.com</p>
+                    <span class="membership-tag"><i class="fas fa-medal"></i> Verified Guest via Gmail</span>
+                    
+                    <div style="text-align: left; margin-top: 30px; border-top: 1px solid #edf2f7; padding-top: 20px;">
+                        <h3 style="font-size: 16px; color: #2d3748; margin-bottom: 12px;"><i class="fas fa-calendar-check" style="color: #00c853; margin-right: 8px;"></i> Your Bookings</h3>
+                        
+                        <div style="background: #f8fafc; border-left: 4px solid #00c853; padding: 12px; border-radius: 0 8px 8px 0; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #334155;">
+                                <span>Open Cottage (8 Pax)</span>
+                                <span style="color: #00c853; font-size: 12px; background: #e8f5e9; padding: 2px 8px; border-radius: 12px;">Confirmed</span>
+                            </div>
+                            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
+                                <p><i class="far fa-calendar"></i> Date: June 15, 2026</p>
+                                <p><i class="far fa-user"></i> Guests: 8 Persons</p>
+                            </div>
+                        </div>
+
+                        <div style="background: #f8fafc; border-left: 4px solid #ffb300; padding: 12px; border-radius: 0 8px 8px 0; margin-bottom: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.02);">
+                            <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 14px; color: #334155;">
+                                <span>Pool Day Pass Access</span>
+                                <span style="color: #ffb300; font-size: 12px; background: #fff8e1; padding: 2px 8px; border-radius: 12px;">Pending</span>
+                            </div>
+                            <div style="font-size: 12px; color: #64748b; margin-top: 4px;">
+                                <p><i class="far fa-calendar"></i> Date: June 20, 2026</p>
+                                <p><i class="far fa-user"></i> Guests: 4 Persons</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="profile-menu-list" style="margin-top: 15px;">
+                        <a onclick="navigateTo('booking', 'nav-booking')" class="profile-menu-item">
+                            <div><i class="fas fa-history"></i> Kasaysayan sa Booking (History)</div>
+                            <i class="fas fa-chevron-right" style="font-size:12px;"></i>
+                        </a>
+                        <a onclick="googleLogout()" class="profile-menu-item" style="color: #e53e3e;">
+                            <div><i class="fas fa-sign-out-alt" style="color: #e53e3e;"></i> Sign Out / Log Out</div>
+                            <i class="fas fa-chevron-right" style="font-size:12px;"></i>
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
 </div>
-</div>
-</section>
-
-<section id="management">
-<h2 class="title">Management</h2>
-
-<div class="management">
-<div class="card">
-<h3>Owner</h3>
-<p>CherryJoe River Park Owner</p>
-</div>
-
-<div class="card">
-<h3>Manager</h3>
-<p>Resort Operations Manager</p>
-</div>
-</div>
-</section>
-
-<section id="cottage">
-<h2 class="title">Open Cottage</h2>
-
-<div class="cottage">
-<img src="imagescottage.jpg">
-<div class="cottage-content">
-<h3>Open Cottage</h3>
-<p><strong>Price:</strong> ₱100</p>
-<p><strong>Capacity:</strong> 8 Persons</p>
-</div>
-</div>
-</section>
-
-<section id="facilities">
-<h2 class="title">Facilities</h2>
-
-<div class="facilities">
-<div class="facility"><img src="images/pool.jpg"><div class="facility-content"><h3>Pool</h3></div></div>
-<div class="facility"><img src="images/river.jpg"><div class="facility-content"><h3>River View</h3></div></div>
-<div class="facility"><img src="images/restaurant.jpg"><div class="facility-content"><h3>Restaurant</h3></div></div>
-<div class="facility"><img src="images/functionhall.jpg"><div class="facility-content"><h3>Function Hall</h3></div></div>
-</div>
-</section>
-
-<section id="video" class="video-section">
-<h2 class="title">Resort Video Tour</h2>
-
-<video controls>
-    <source src="videosresort-tour.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-</section>
-
-<section id="gallery">
-<h2 class="title">Gallery</h2>
-
-<div class="gallery">
-<img src="imagesgallery1.jpg" onclick="showImage(this.src)">
-<img src="imagesgallery2.jpg" onclick="showImage(this.src)">
-<img src="imagesgallery3.jpg" onclick="showImage(this.src)">
-<img src="imagesgallery4.jpg" onclick="showImage(this.src)">
-<img src="imagesgallery5.jpg" onclick="showImage(this.src)">
-<img src="imagesgallery6.jpg" onclick="showImage(this.src)">
-</div>
-</section>
 
 <section class="contact" id="contact">
-<h2 class="title" style="color:white;">Contact Us</h2>
-
-<p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
-<p><i class="fas fa-phone"></i> 0920 408 7956</p>
-<p><i class="fas fa-envelope"></i> cherryday103080@gmail.com</p>
-
-<p>
-<i class="fab fa-facebook"></i>
-Facebook:
-<a href="https://www.facebook.com/share/1DkMYrXWiZ/" target="_blank">
-CherryJoe River Park
-</a>
-</p>
-
+    <h2 class="title" style="color:white;">Contact Us</h2>
+    <p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
+    <p><i class="fas fa-phone"></i> 0920 408 7956</p>
+    <p><i class="fas fa-envelope"></i> cherryday103080@gmail.com</p>
+    <p>
+        <i class="fab fa-facebook"></i> Facebook:
+        <a href="https://www.facebook.com/share/1DkMYrXWiZ/" target="_blank">CherryJoe River Park</a>
+    </p>
 </section>
 
 <footer>
-© 2026 CherryJoe River Park
+    © 2026 CherryJoe River Park
 </footer>
 
 <div class="lightbox" id="lightbox" onclick="hideImage()">
-<img id="lightbox-img">
+    <img id="lightbox-img">
+</div>
+
+<div class="bottom-nav">
+    <div class="nav-item active" id="nav-home" onclick="navigateTo('home', 'nav-home')">
+        <i class="fas fa-home"></i>
+        <span>Home</span>
+    </div>
+    <div class="nav-item" id="nav-about" onclick="navigateTo('explore', 'nav-about')">
+        <i class="fas fa-compass"></i>
+        <span>Explore</span>
+    </div>
+    <div class="nav-item" id="nav-booking" onclick="navigateTo('booking', 'nav-booking')">
+        <i class="fas fa-calendar-alt"></i>
+        <span>Bookings</span>
+    </div>
+    <div class="nav-item" id="nav-profile" onclick="navigateTo('profile', 'nav-profile')">
+        <i class="fas fa-user"></i>
+        <span>Profile</span>
+    </div>
 </div>
 
 <script>
-// Side menu toggle function
+// Side menu toggle panel
 function toggleMenu(){
     var menu = document.getElementById('nav-menu');
     menu.classList.toggle('active');
+}
+
+// NAVIGATION ENGINE
+function navigateTo(pageId, navItemId) {
+    const pages = document.querySelectorAll('.app-page');
+    pages.forEach(page => page.classList.remove('page-active'));
+    
+    document.getElementById('page-' + pageId).classList.add('page-active');
+    
+    const navItems = document.querySelectorAll('.nav-item');
+    navItems.forEach(item => item.classList.remove('active'));
+    document.getElementById(navItemId).classList.add('active');
+    
+    window.scrollTo({top: 0});
+}
+
+function goBack() {
+    navigateTo('home', 'nav-home');
 }
 
 // SLIDESHOW & DOTS JAVASCRIPT
@@ -532,11 +937,9 @@ const dots = document.querySelectorAll('.dot');
 let slideInterval;
 
 function showSlide(index) {
-    // Tangtangon ang 'active' sa tanang slide ug dots
     slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
     
-    // I-activate ang napilian nga slide ug dot
     slides[index].classList.add('active');
     dots[index].classList.add('active');
     currentSlideIndex = index;
@@ -547,14 +950,13 @@ function nextSlide() {
     showSlide(nextIndex);
 }
 
-// Function para kung i-click ang gamay nga lingin
 function changeSlide(index) {
     showSlide(index);
-    resetTimer(); // Mo-restart ang timer kung gi-click aron dili mag-overlap ang oras
+    resetTimer();
 }
 
 function startTimer() {
-    slideInterval = setInterval(nextSlide, 4000); // 4 ka segundo
+    slideInterval = setInterval(nextSlide, 4000);
 }
 
 function resetTimer() {
@@ -562,19 +964,93 @@ function resetTimer() {
     startTimer();
 }
 
-// Sugdan ang slideshow pag-open sa page
 startTimer();
 
-
-// Lightbox functions
+// Lightbox views
 function showImage(src){
-document.getElementById('lightbox').style.display='flex';
-document.getElementById('lightbox-img').src=src;
+    document.getElementById('lightbox').style.display='flex';
+    document.getElementById('lightbox-img').src=src;
 }
 
 function hideImage(){
-document.getElementById('lightbox').style.display='none';
+    document.getElementById('lightbox').style.display='none';
 }
+
+// ========================================================
+// GOOGLE SIGN-IN INTERACTION HANDLING (REAL-TIME JWT)
+// ========================================================
+
+// Parse JSON web token function helper
+function parseJwt(token) {
+    var base64Url = token.split('.')[1];
+    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
+        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+    }).join(''));
+    return JSON.parse(jsonPayload);
+}
+
+// Callback execution function kung maok na ang google sign in login
+function handleCredentialResponse(response) {
+    // Pag-decode sa profile properties gikan sa data token sa Google secure server
+    const userData = parseJwt(response.credential);
+    
+    // I-update ang text elements sa profile view module gamit ang tinuod nga Google Data
+    document.getElementById('user-display-name').innerText = userData.name;
+    document.getElementById('user-display-email').innerText = userData.email;
+    
+    // I-render ang iyang tinuod nga Google Gmail Profile Avatar Image
+    const pfpBox = document.getElementById('user-pfp-box');
+    pfpBox.innerHTML = `<img src="${userData.picture}" alt="Google Profile Photo">`;
+    
+    // I-tago ang logged out button, ug ipakita na ang iyang profile and bookings structure list
+    document.getElementById('logged-out-state').style.display = 'none';
+    document.getElementById('logged-in-state').style.display = 'block';
+
+    // Awtomatiko sab i-fill up ang ngalan ug email address dapit sa Booking page form module para sayon nlang sa customer
+    document.getElementById('guest-name').value = userData.name;
+    document.getElementById('guest-email').value = userData.email;
+}
+
+// Google Logout mechanism routine handler
+function googleLogout() {
+    // I-reset balik ang profile layout ug ibalik ang standard structural template layout properties
+    document.getElementById('user-pfp-box').innerHTML = `<i class="fas fa-user-astronaut" id="default-avatar-icon"></i>`;
+    document.getElementById('logged-in-state').style.display = 'none';
+    document.getElementById('logged-out-state').style.display = 'block';
+    
+    // Clear booking inputs
+    document.getElementById('guest-name').value = '';
+    document.getElementById('guest-email').value = '';
+    
+    alert('You have logged out successfully.');
+}
+
+// ========================================================
+// REAL-TIME EMAIL ENGINE USING EMAILJS
+// ========================================================
+emailjs.init("vKJZ0nw9EzN9Fzk6l"); 
+
+document.getElementById('booking-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const submitBtn = document.getElementById('submit-btn');
+    submitBtn.innerText = "Sending Booking Request...";
+    submitBtn.disabled = true;
+
+    // NOTE: Palihug ilisdi ang 'YOUR_SERVICE_ID' ug 'YOUR_TEMPLATE_ID' base sa dashboard sa EmailJS account
+    emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+        .then(function() {
+            alert('Success! Your booking request has been sent to cherryday103080@gmail.com in real-time. Please check your phone for confirmation shortly.');
+            document.getElementById('booking-form').reset();
+            submitBtn.innerText = "Check Availability & Book";
+            submitBtn.disabled = false;
+        }, function(error) {
+            alert('Oops! Failed to send email request real-time. Error: ' + JSON.stringify(error));
+            submitBtn.innerText = "Check Availability & Book";
+            submitBtn.disabled = false;
+        });
+});
 </script>
 
 </body>
