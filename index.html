@@ -50,7 +50,41 @@ nav ul{
 nav ul li{
     margin-left:25px;
 }
+.menu-btn{
+    color:white;
+    font-size:28px;
+    cursor:pointer;
+    transition:0.4s;
+}
 
+.menu-btn:hover{
+    color:#00d084;
+    transform:rotate(90deg);
+}
+
+#menu{
+    transition:all .5s ease;
+}
+
+nav ul li a{
+    position:relative;
+    transition:.3s;
+}
+
+nav ul li a::after{
+    content:'';
+    position:absolute;
+    left:0;
+    bottom:-5px;
+    width:0;
+    height:2px;
+    background:#00d084;
+    transition:.3s;
+}
+
+nav ul li a:hover::after{
+    width:100%;
+}
 nav ul li a{
     color:white;
     text-decoration:none;
@@ -275,8 +309,16 @@ nav ul{
 
 <!-- NAVBAR -->
 <nav>
-<div class="logo">CherryJoe River Park</div>
-<ul>
+<div style="display:flex;align-items:center;gap:15px;">
+    
+    <div class="menu-btn" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <div class="logo">CherryJoe River Park</div>
+</div>
+
+<ul id="menu">
 <li><a href="#home">Home</a></li>
 <li><a href="#about">About</a></li>
 <li><a href="#management">Management</a></li>
@@ -287,7 +329,6 @@ nav ul{
 <li><a href="#contact">Contact</a></li>
 </ul>
 </nav>
-
 <!-- HERO -->
 <section class="hero" id="home">
 <div class="hero-content">
