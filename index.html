@@ -798,29 +798,31 @@ footer{
             
             <div class="profile-details">
                 <div id="logged-out-state">
-                    <h2 style="font-size: 18px; margin-bottom: 15px; color:#4a5568;">Please sign in to view your bookings</h2>
+                    <h2 style="font-size: 18px; margin-bottom: 20px; color:#4a5568;">Sign in with your Google Account</h2>
                     
-                    <div style="display: flex; flex-direction: column; align-items: center; gap: 10px; margin: 20px 0;">
-                        <button onclick="simulateGoogleLogin()" style="display: flex; align-items: center; justify-content: center; gap: 10px; background: white; border: 1px solid #dadce0; color: #3c4043; padding: 10px 24px; border-radius: 20px; font-size: 14px; font-weight: bold; cursor: pointer; width: 240px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" style="width:18px; height:18px;">
-                            Continue with Gmail
-                        </button>
-
+                    <div style="display: flex; justify-content: center; margin: 20px 0;">
                         <div id="g_id_onload"
-                             data-client_id="YOUR_GOOGLE_CLIENT_ID_HERE.apps.googleusercontent.com"
+                             data-client_id="842416892557-bhicv9mkiisecunb34sc6r02asbe8dft.apps.googleusercontent.com"
                              data-context="signin"
                              data-ux_mode="popup"
                              data-callback="handleCredentialResponse"
                              data-auto_select="false">
                         </div>
-                        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="signin_with" data-size="large" data-logo_alignment="left"></div>
+                        <div class="g_id_signin" 
+                             data-type="standard" 
+                             data-shape="pill" 
+                             data-theme="outline" 
+                             data-text="signup_with" 
+                             data-size="large" 
+                             data-logo_alignment="left">
+                        </div>
                     </div>
                 </div>
 
                 <div id="logged-in-state" style="display: none;">
                     <h2 id="user-display-name">Guest User</h2>
                     <p class="email" id="user-display-email">not-signed-in@gmail.com</p>
-                    <span class="membership-tag"><i class="fas fa-medal"></i> Verified Guest via Gmail</span>
+                    <span class="membership-tag"><i class="fas fa-medal"></i> Verified Guest via Google</span>
                     
                     <div style="text-align: left; margin-top: 30px; border-top: 1px solid #edf2f7; padding-top: 20px;">
                         <h3 style="font-size: 16px; color: #2d3748; margin-bottom: 12px;"><i class="fas fa-calendar-check" style="color: #00c853; margin-right: 8px;"></i> Your Bookings</h3>
@@ -949,7 +951,7 @@ function hideImage(){
     document.getElementById('lightbox').style.display='none';
 }
 
-// GOOGLE SIGN-IN INTERACTION HANDLING
+// TINUOD NGA GOOGLE SIGN-IN INTERACTION HANDLING
 function parseJwt(token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -961,27 +963,19 @@ function parseJwt(token) {
 
 function handleCredentialResponse(response) {
     const userData = parseJwt(response.credential);
-    loginUser(userData.name, userData.email, userData.picture);
-}
-
-// Backup Simulator para modagan dretso ang pag-auto fill sa form bisan offline/testing mode pa
-function simulateGoogleLogin() {
-    loginUser("Renowee Beloy", "renowee.beloy@dorsu.edu.ph", "https://cdn-icons-png.flaticon.com/512/616/616408.png");
-}
-
-function loginUser(name, email, imgUrl) {
-    document.getElementById('user-display-name').innerText = name;
-    document.getElementById('user-display-email').innerText = email;
+    
+    document.getElementById('user-display-name').innerText = userData.name;
+    document.getElementById('user-display-email').innerText = userData.email;
     
     const pfpBox = document.getElementById('user-pfp-box');
-    pfpBox.innerHTML = `<img src="${imgUrl}" alt="Google Profile Photo">`;
+    pfpBox.innerHTML = `<img src="${userData.picture}" alt="Google Profile Photo">`;
     
     document.getElementById('logged-out-state').style.display = 'none';
     document.getElementById('logged-in-state').style.display = 'block';
 
-    // Auto-fill sa Booking Form sa pikas tab
-    document.getElementById('guest-name').value = name;
-    document.getElementById('guest-email').value = email;
+    // Awtomatiko nga isulat sa booking form ang pangalan ug email nga napili gikan sa account chooser
+    document.getElementById('guest-name').value = userData.name;
+    document.getElementById('guest-email').value = userData.email;
 }
 
 function googleLogout() {
@@ -991,6 +985,9 @@ function googleLogout() {
     
     document.getElementById('guest-name').value = '';
     document.getElementById('guest-email').value = '';
+    
+    // I-disable ang auto login popup para makapili silag laing account inig click usab
+    google.accounts.id.disableAutoSelect();
     alert('You have logged out successfully.');
 }
 
