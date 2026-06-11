@@ -951,7 +951,7 @@ function hideImage(){
     document.getElementById('lightbox').style.display='none';
 }
 
-// TINUOD NGA GOOGLE SIGN-IN INTERACTION HANDLING
+// GOOGLE AUTHENTICATION INTEGRATION
 function parseJwt(token) {
     var base64Url = token.split('.')[1];
     var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
@@ -973,7 +973,7 @@ function handleCredentialResponse(response) {
     document.getElementById('logged-out-state').style.display = 'none';
     document.getElementById('logged-in-state').style.display = 'block';
 
-    // Awtomatiko nga isulat sa booking form ang pangalan ug email nga napili gikan sa account chooser
+    // Auto fill sa input controls sa pikas setup page
     document.getElementById('guest-name').value = userData.name;
     document.getElementById('guest-email').value = userData.email;
 }
@@ -986,7 +986,6 @@ function googleLogout() {
     document.getElementById('guest-name').value = '';
     document.getElementById('guest-email').value = '';
     
-    // I-disable ang auto login popup para makapili silag laing account inig click usab
     google.accounts.id.disableAutoSelect();
     alert('You have logged out successfully.');
 }
