@@ -802,7 +802,7 @@ footer{
                     
                     <div style="display: flex; justify-content: center; margin: 20px 0;">
                         <div id="g_id_onload"
-                             data-client_id="xUnFGUm3ZIw6UfW_h.apps.googleusercontent.com"
+                             data-client_id="YOUR_GOOGLE_CLIENT_ID_HERE.apps.googleusercontent.com"
                              data-context="signin"
                              data-ux_mode="popup"
                              data-callback="handleCredentialResponse"
@@ -860,7 +860,7 @@ footer{
     <h2 class="title" style="color:white;">Contact Us</h2>
     <p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
     <p><i class="fas fa-phone"></i> 0920 408 7956</p>
-    <p><i class="fas fa-envelope"></i>renowee.beloy@dorsu.edu.ph</p>
+    <p><i class="fas fa-envelope"></i> renowee.beloy@dorsu.edu.ph/p>
     <p>
         <i class="fab fa-facebook"></i> Facebook:
         <a href="https://www.facebook.com/share/1DkMYrXWiZ/" target="_blank">CherryJoe River Park</a>
@@ -987,7 +987,7 @@ function googleLogout() {
 }
 
 // REAL-TIME EMAIL ENGINE USING EMAILJS
-emailjs.init("xUnFGUm3ZIw6UfW_h"); // Gi-update gamit ang imong bag-ong key
+emailjs.init("xUnFGUm3ZIw6UfW_h"); // Gi-update gamit ang imong Public API Key
 
 document.getElementById('booking-form').addEventListener('submit', function(event) {
     event.preventDefault();
@@ -996,8 +996,8 @@ document.getElementById('booking-form').addEventListener('submit', function(even
     submitBtn.innerText = "Sending Booking Request...";
     submitBtn.disabled = true;
 
-    // TODO: Ilisdi ang 'YOUR_TEMPLATE_ID' base sa dashboard sa EmailJS account
-    emailjs.sendForm('service_etlbrc7', 'YOUR_TEMPLATE_ID', this)
+    // SAKTO NGA INTEGRATION SA SERVICE ID UG TEMPLATE ID
+    emailjs.sendForm('service_etlbrc7', 'template_uqkizzw', this)
         .then(function() {
             alert('Success! Your booking request has been sent to cherryday103080@gmail.com in real-time. Please check your phone for confirmation shortly.');
             document.getElementById('booking-form').reset();
