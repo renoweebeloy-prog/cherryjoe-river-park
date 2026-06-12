@@ -377,7 +377,13 @@ section{
     flex:1;
 }
 
-/* COTTAGE */
+/* COTTAGE & RATES */
+.cottage-section {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
 .cottage{
     background:white;
     border-radius:15px;
@@ -393,6 +399,35 @@ section{
 
 .cottage-content{
     padding:25px;
+}
+
+.entrance-card {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.entrance-icon {
+    font-size: 40px;
+    color: #00d084;
+    background: #e6fffa;
+    padding: 15px;
+    border-radius: 12px;
+}
+
+.entrance-details h3 {
+    font-size: 20px;
+    color: #2d3748;
+    margin-bottom: 5px;
+}
+
+.entrance-details p {
+    font-size: 18px;
+    color: #4a5568;
 }
 
 /* FACILITIES */
@@ -433,12 +468,18 @@ section{
     padding: 12px;
     border-radius: 15px;
     box-shadow: 0 3px 10px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
 }
 
+/* UNIFORM VIDEO SIZE RULE */
 .video-card video {
     width: 100%;
+    height: 480px;         /* Standard structured height for vertical view matching Night Ambient */
+    object-fit: cover;     /* Forces videos to clip cleanly without altering standard aspect ratio containers */
     border-radius: 10px;
     display: block;
+    background: #000;
 }
 
 .video-card h3 {
@@ -570,6 +611,7 @@ footer{
     <section class="hero" id="home">
         <div class="hero-slides">
             <div class="slide active" style="background-image: url('imagesgallery7.jpg');"></div>
+            <div class="slide" style="background-image: url('imagescherryjoe-hero.jpg');"></div>
             <div class="slide" style="background-image: url('imagesgallery2.jpg');"></div>
             <div class="slide" style="background-image: url('imagesgallery3.jpg');"></div>
             <div class="slide" style="background-image: url('imagesgallery4.jpg');"></div>
@@ -636,14 +678,27 @@ footer{
             </div>
         </div>
     </section>
-<section id="cottage">
-        <h2 class="title">Open Cottage</h2>
-        <div class="cottage">
-            <img src="imagescottage.jpg">
-            <div class="cottage-content">
-                <h3>Open Cottage</h3>
-                <p><strong>Price:</strong> ₱100</p>
-                <p><strong>Capacity:</strong> 8 Persons</p>
+
+    <section id="rates-and-cottage">
+        <h2 class="title">Rates & Cottages</h2>
+        <div class="cottage-section">
+            <div class="entrance-card">
+                <div class="entrance-icon">
+                    <i class="fas fa-ticket-alt"></i>
+                </div>
+                <div class="entrance-details">
+                    <h3>Entrance Fee</h3>
+                    <p><strong>Price:</strong> ₱20 per person</p>
+                </div>
+            </div>
+
+            <div class="cottage">
+                <img src="imagescottage.jpg">
+                <div class="cottage-content">
+                    <h3>Open Cottage</h3>
+                    <p><strong>Price:</strong> ₱100</p>
+                    <p><strong>Capacity:</strong> 8 Persons</p>
+                </div>
             </div>
         </div>
     </section>
@@ -680,6 +735,16 @@ footer{
             <div class="video-card">
                 <video controls><source src="videosresort-tour4.mp4" type="video/mp4"></video>
                 <h3>Night Ambient</h3>
+            </div>
+
+            <div class="video-card">
+                <video controls><source src="videosresort-tour5.mp4" type="video/mp4"></video>
+                <h3>Cottage Walkthrough</h3>
+            </div>
+
+            <div class="video-card">
+                <video controls><source src="videosresort-tour6.mp4" type="video/mp4"></video>
+                <h3>Event Function Hall</h3>
             </div>
 
         </div>
