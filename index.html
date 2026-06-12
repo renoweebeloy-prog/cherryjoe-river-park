@@ -140,7 +140,7 @@
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             z-index: 99999; 
-            display: none; /* JS will handle showing this based on localStorage */
+            display: none; 
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -413,7 +413,16 @@
         /* TOUR VIDEOS COMPONENT */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .video-card { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); padding: 12px; border-radius: 20px; }
-        .video-card video { width: 100%; height: 460px; object-fit: cover; border-radius: 14px; background: #000; display: block; }
+        
+        /* Fixed Video Elements for Mobile Compatibility */
+        .video-card video { 
+            width: 100%; 
+            height: 460px; 
+            object-fit: cover; 
+            border-radius: 14px; 
+            background: #000; 
+            display: block; 
+        }
         .video-card h3 { font-size: 15px; color: #cbd5e1; margin-top: 12px; font-weight: 600; padding-left: 4px; }
 
         /* --- 10. PREMIUM ANIMATED GALLERY STYLES --- */
@@ -476,7 +485,7 @@
         @media (max-width: 600px) {
             section { padding: 40px 4%; }
             .title { font-size: 25px; margin-bottom: 25px; }
-            .video-card video { height: 380px; border-radius: 12px; }
+            .video-card video { height: 240px; border-radius: 12px; } /* Improved dynamic height for Mobile Phone view */
             .gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
             .gallery img { height: 110px; border-radius: 12px; }
             .welcome-container h1 { font-size: 26px; }
@@ -633,12 +642,12 @@
         <section id="video" style="text-align:center;" class="reveal">
             <h2 class="title">Resort Video Tour</h2>
             <div class="video-grid">
-                <div class="video-card"><video controls preload="none"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
-                <div class="video-card"><video controls preload="none"><source src="videosresort-tour2.mp4" type="video/mp4"></video><h3>River Side View</h3></div>
-                <div class="video-card"><video controls preload="none"><source src="videosresort-tour3.mp4" type="video/mp4"></video><h3>Pool Amenities</h3></div>
-                <div class="video-card"><video controls preload="none"><source src="videosresort-tour4.mp4" type="video/mp4"></video><h3>Night Ambient</h3></div>
-                <div class="video-card"><video controls preload="none"><source src="videosresort-tour5.mp4" type="video/mp4"></video><h3>Cottage Walkthrough</h3></div>
-                <div class="video-card"><video controls preload="none"><source src="videosresort-tour6.mp4" type="video/mp4"></video><h3>Event Function Hall</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour2.mp4" type="video/mp4"></video><h3>River Side View</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour3.mp4" type="video/mp4"></video><h3>Pool Amenities</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour4.mp4" type="video/mp4"></video><h3>Night Ambient</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour5.mp4" type="video/mp4"></video><h3>Cottage Walkthrough</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour6.mp4" type="video/mp4"></video><h3>Event Function Hall</h3></div>
             </div>
         </section>
         
@@ -721,6 +730,24 @@
                 musicIcon.className = "fas fa-play";
                 musicBtn.classList.remove('playing');
             }
+        }
+
+        // AUTO-PAUSE BACKGROUND MUSIC WHEN A VIDEO STARTS PLAYING
+        function handleVideoPlay(playingVideo) {
+            // Pause background music
+            if (!audio.paused) {
+                audio.pause();
+                musicIcon.className = "fas fa-play";
+                musicBtn.classList.remove('playing');
+            }
+            
+            // Pause all other videos except the current one
+            const allVideos = document.querySelectorAll('video');
+            allVideos.forEach(v => {
+                if (v !== playingVideo) {
+                    v.pause();
+                }
+            });
         }
 
         // FORCE AUTOPLAY ON FIRST USER INTERACTION (FOR REFRESHED SESSIONS)
@@ -824,6 +851,12 @@
         function closeFeaturePopup() {
             document.getElementById('featurePopup').style.display = 'none';
         }
+
+        document.querySelectorAll('video').forEach(v => {
+            v.addEventListener('play', function() {
+                handleVideoPlay(this);
+            });
+        });
 
         function closeWelcomeScreen() {
             localStorage.setItem('welcomeScreenDismissed', 'true');
