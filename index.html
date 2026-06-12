@@ -108,11 +108,16 @@
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             z-index: 99999; 
-            display: flex;
+            display: none; /* GI-USAB: Naka-tago na kini daan para dili mo-flash inig refresh */
             justify-content: center;
             align-items: center;
             padding: 20px;
             transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            opacity: 0;
+        }
+        .welcome-overlay.show-welcome {
+            display: flex; /* Ipakita ra kung tawgon sa JS */
+            opacity: 1;
         }
         .welcome-container {
             max-width: 480px;
@@ -229,17 +234,6 @@
         .welcome-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 12px 30px -5px rgba(0, 208, 132, 0.6);
-        }
-
-        .welcome-overlay.hide-welcome {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
-        }
-        .welcome-overlay.hide-welcome .welcome-container {
-            transform: scale(0.92) translateY(-20px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         /* --- 4. SMOOTH MOBILE PAGE APP TRANSITIONS --- */
@@ -665,7 +659,7 @@
     </div>
 
     <script>
-        // CORE LIFECYCLE: PRELOADER & STATE MANAGER (LATEST UPDATE)
+        // CORE LIFECYCLE: PRELOADER & STATE MANAGER
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             preloader.style.opacity = '0';
@@ -673,16 +667,19 @@
                 preloader.style.visibility = 'hidden';
                 initScrollRevealEngine(); 
                 
-                // I-check kung may naka-save na dating page bago mag-refresh
+                // Basahon kung unsa ang huling gi-bisita nga page
                 const savedPage = localStorage.getItem('currentPage');
                 const savedNav = localStorage.getItem('currentNav');
                 
                 if (savedPage && savedNav) {
-                    // Itago agad ang welcome screen overlay kung may existing state na
-                    document.getElementById('welcomeOverlay').classList.add('hide-welcome');
-                    
-                    // Awtomatikong dalhin ang user sa kanyang huling tab
+                    // GI-USAB: Tungod kay default tago ang welcome overlay sa CSS, 
+                    // DILI na nato idugang ang class nga .show-welcome dinhi.
+                    // Diretso na kita sa huling page aron walay "flash" nga mahitabo.
                     navigateTo(savedPage, savedNav);
+                } else {
+                    // Kung bag-o pa gyud ang user ug wala pa'y naka-save, 
+                    // diha pa nato ipakita ang welcome overlay
+                    document.getElementById('welcomeOverlay').classList.add('show-welcome');
                 }
             }, 600);
         });
@@ -740,15 +737,21 @@
         }
 
         function closeWelcomeScreen() {
-            document.getElementById('welcomeOverlay').classList.add('hide-welcome');
-            // I-set ang active state sa home kapag pumasok sa website sa unang pagkakataon
+            // Tangtangon ang pagka-pakita sa welcome window gamit ang JS transition
+            const welcomeOverlay = document.getElementById('welcomeOverlay');
+            welcomeOverlay.style.opacity = '0';
+            setTimeout(() => {
+                welcomeOverlay.classList.remove('show-welcome');
+            }, 600);
+            
+            // I-save sa memory nga nakasulod na ang user aron dili na mo-balik inig refresh
             localStorage.setItem('currentPage', 'home');
             localStorage.setItem('currentNav', 'nav-home');
         }
 
         // FLUID SMOOTH ENGINE FOR SITE SWITCHING WITH LOCALSTORAGE PACK
         function navigateTo(pageId, navItemId) {
-            // I-save ang pageId at navItemId sa browser storage tuwing lumilipat ng tab
+            // I-save ang kasalukuyang tab sa memory sa browser
             localStorage.setItem('currentPage', pageId);
             localStorage.setItem('currentNav', navItemId);
 
