@@ -511,7 +511,7 @@
                 </div>
             </div>
 
-            <button class="welcome-btn" onclick="closeWelcomeScreen()">Enter Website</button>
+            <button class="welcome-btn" onclick="closeWelcomeScreen()">Enter Full Website</button>
         </div>
     </div>
 
@@ -665,13 +665,25 @@
     </div>
 
     <script>
-        // CORE LIFECYCLE: PRELOADER MANAGER
+        // CORE LIFECYCLE: PRELOADER & STATE MANAGER (LATEST UPDATE)
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             preloader.style.opacity = '0';
             setTimeout(() => {
                 preloader.style.visibility = 'hidden';
                 initScrollRevealEngine(); 
+                
+                // I-check kung may naka-save na dating page bago mag-refresh
+                const savedPage = localStorage.getItem('currentPage');
+                const savedNav = localStorage.getItem('currentNav');
+                
+                if (savedPage && savedNav) {
+                    // Itago agad ang welcome screen overlay kung may existing state na
+                    document.getElementById('welcomeOverlay').classList.add('hide-welcome');
+                    
+                    // Awtomatikong dalhin ang user sa kanyang huling tab
+                    navigateTo(savedPage, savedNav);
+                }
             }, 600);
         });
 
@@ -729,10 +741,17 @@
 
         function closeWelcomeScreen() {
             document.getElementById('welcomeOverlay').classList.add('hide-welcome');
+            // I-set ang active state sa home kapag pumasok sa website sa unang pagkakataon
+            localStorage.setItem('currentPage', 'home');
+            localStorage.setItem('currentNav', 'nav-home');
         }
 
-        // FLUID SMOOTH ENGINE FOR SITE SWITCHING
+        // FLUID SMOOTH ENGINE FOR SITE SWITCHING WITH LOCALSTORAGE PACK
         function navigateTo(pageId, navItemId) {
+            // I-save ang pageId at navItemId sa browser storage tuwing lumilipat ng tab
+            localStorage.setItem('currentPage', pageId);
+            localStorage.setItem('currentNav', navItemId);
+
             const activePage = document.querySelector('.app-page.page-active');
             const targetPage = document.getElementById('page-' + pageId);
             
@@ -757,7 +776,10 @@
             
             const navItems = document.querySelectorAll('.nav-item');
             navItems.forEach(item => item.classList.remove('active'));
-            document.getElementById(navItemId).classList.add('active');
+            
+            const targetedNav = document.getElementById(navItemId);
+            if (targetedNav) targetedNav.classList.add('active');
+            
             window.scrollTo({ top: 0 });
         }
 
