@@ -9,8 +9,6 @@
 
 <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
-<script src="https://accounts.google.com/gsi/client" async defer></script>
-
 <style>
 /* RESET */
 *{
@@ -184,9 +182,11 @@ nav{
 .hero::before{
     content:'';
     position:absolute;
+    top: 0;
+    left: 0;
     width:100%;
     height:100%;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.1) 30%, rgba(0,0,0,0.85) 100%);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 50%, rgba(0,0,0,0.9) 100%);
     z-index: 1;
 }
 
@@ -197,42 +197,22 @@ nav{
     z-index: 2;
     width: 100%;
     padding: 0 20px;
-    margin-bottom: 20px;
+    margin-bottom: 35px;
 }
 
 .hero-content h1{
     font-size: 42px;
     text-transform: uppercase;
     letter-spacing: 1px;
-    text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+    text-shadow: 3px 3px 15px rgba(0,0,0,0.9);
 }
 
 .hero-content p{
     font-size: 16px;
     margin: 10px 0 25px 0;
-    opacity: 0.9;
-    text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+    opacity: 0.95;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.9);
 }
-
-.btn-container {
-    margin-bottom: 25px;
-}
-
-.btn{
-    display:inline-block;
-    padding:12px 28px;
-    border-radius:50px;
-    text-decoration:none;
-    color:white;
-    font-weight:bold;
-    margin: 5px;
-    font-size: 15px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-    cursor: pointer;
-}
-
-.book{background:#ea580c;} 
-.explore{background:#2196f3;}
 
 /* CAROUSEL DOTS */
 .carousel-dots {
@@ -281,7 +261,7 @@ section{
     box-shadow: 0 2px 5px rgba(0,0,0,0.05);
 }
 
-/* NEW GRID FOOD LAYOUT */
+/* FOOD LAYOUT GRID */
 .food-grid-container {
     max-width: 1000px;
     margin: 0 auto;
@@ -334,14 +314,7 @@ section{
 .food-card-body h3 {
     font-size: 18px;
     color: #2d3748;
-    margin-bottom: 6px;
-}
-
-.food-card-body p {
-    font-size: 14px;
-    color: #718096;
-    margin-bottom: 15px;
-    line-height: 1.4;
+    margin-bottom: 12px;
 }
 
 .food-card-footer {
@@ -416,12 +389,6 @@ section{
 .profile-avatar i {
     font-size: 45px;
     color: #2196f3;
-}
-
-.profile-avatar img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
 }
 
 .profile-details {
@@ -578,7 +545,7 @@ section{
     text-decoration:none;
 }
 
-/* FOOTER */
+/* FOOTER SECTION */
 footer{
     background:black;
     color:white;
@@ -679,11 +646,6 @@ footer{
         <div class="hero-content">
             <h1>CherryJoe<br>River Park</h1>
             <p>Where Nature Meets Relaxation and Adventure</p>
-            
-            <div class="btn-container">
-                <a onclick="navigateTo('food', 'nav-food')" class="btn book">Food Menu</a>
-                <a onclick="navigateTo('explore', 'nav-about')" class="btn explore">Explore Resort</a>
-            </div>
 
             <div class="carousel-dots">
                 <div class="dot active" onclick="changeSlide(0)"></div>
@@ -703,7 +665,7 @@ footer{
             </div>
             <div class="card">
                 <h3>🕒 Opening Hours</h3>
-                <p>8:00 AM - 10:00 PM</p>
+                <p>11:00 AM - 2:00 AM</p>
             </div>
             <div class="card">
                 <h3>📞 Contact</h3>
@@ -711,7 +673,7 @@ footer{
             </div>
             <div class="card">
                 <h3>📧 Email</h3>
-                <p>renowee.beloy@dorsu.edu.ph</p>
+                <p>cherryday103080@gmail.com</p>
             </div>
         </div>
     </section>
@@ -788,10 +750,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Crispy Shanghai Lumpia</h3>
-                            <p>Flavorful ground pork wrapped in a crunchy pastry wrapper, served with sweet chili sauce.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱150</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status">Available</span>
                         </div>
                     </div>
@@ -802,10 +763,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Fresh Fish Kinilaw</h3>
-                            <p>Raw cubed fish marinated in local vinegar, ginger, onions, chili, and calamansi juice.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱220</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status">Available</span>
                         </div>
                     </div>
@@ -816,10 +776,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Grilled Tuna Belly</h3>
-                            <p>Juicy and tender tuna belly grilled over hot charcoal with special basting sauce.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱280</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status">Available</span>
                         </div>
                     </div>
@@ -830,10 +789,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Sinuwag nga Pork Belly</h3>
-                            <p>Marinated pork belly grilled to perfection, crispy skin, and packed with smoky flavors.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱180</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status">Available</span>
                         </div>
                     </div>
@@ -844,10 +802,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Sinuwag nga Tuna Panga</h3>
-                            <p>Large grilled tuna jaw seasoned with premium local herbs, perfect for groups.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱350</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status">Available</span>
                         </div>
                     </div>
@@ -858,10 +815,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Crispy Pork Chicharon</h3>
-                            <p>Deep-fried crunchy pork cracklings, ideal as an appetizer or side dish with vinegar.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱90</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status">Available</span>
                         </div>
                     </div>
@@ -872,10 +828,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Kasili Specialty (Freshwater Eel)</h3>
-                            <p>Freshly caught river eel cooked either stewed in coconut milk (tinunuan) or adobo style.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱320</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status">Available</span>
                         </div>
                     </div>
@@ -886,10 +841,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Native Chicken Tinola</h3>
-                            <p>Healthy, local free-range native chicken soup infused with lemongrass and ginger.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱300</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status">Available</span>
                         </div>
                     </div>
@@ -900,10 +854,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Hot Native Coffee</h3>
-                            <p>Traditionally brewed local coffee beans with a strong aroma and full-bodied taste.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">₱40</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status">Available</span>
                         </div>
                     </div>
@@ -919,10 +872,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Premium Cakes & Slices</h3>
-                            <p>Delectable, sweet cake flavors to brighten up your celebrations at the river park.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">TBD</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status status-soon">Soon</span>
                         </div>
                     </div>
@@ -933,10 +885,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Refreshing Fruit Shakes</h3>
-                            <p>Ice-blended fruit shakes made from fresh mangoes, avocados, and tropical fruits.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">TBD</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status status-soon">Soon</span>
                         </div>
                     </div>
@@ -947,10 +898,9 @@ footer{
                     <div class="food-card-body">
                         <div>
                             <h3>Creamy Ice Cream Scoops</h3>
-                            <p>Perfect cold treat to refresh you after swimming in the clean river waters.</p>
                         </div>
                         <div class="food-card-footer">
-                            <span class="food-price">TBD</span>
+                            <span class="food-price">N/A</span>
                             <span class="food-status status-soon">Soon</span>
                         </div>
                     </div>
@@ -968,45 +918,27 @@ footer{
         <div class="profile-container">
             <div class="profile-banner">
                 <div class="profile-avatar-wrapper">
-                    <div class="profile-avatar" id="user-pfp-box">
-                        <i class="fas fa-user-astronaut" id="default-avatar-icon"></i>
+                    <div class="profile-avatar">
+                        <i class="fas fa-user-astronaut"></i>
                     </div>
                 </div>
             </div>
             
             <div class="profile-details">
-                <div id="logged-out-state">
-                    <h2 style="font-size: 18px; margin-bottom: 20px; color:#4a5568;">Sign in with your Google Account</h2>
-                    
-                    <div style="display: flex; justify-content: center; margin: 20px 0;">
-                        <div id="g_id_onload"
-                             data-client_id="842416892557-bhicv9mkiisecunb34sc6r02asbe8dft.apps.googleusercontent.com"
-                             data-context="signin"
-                             data-ux_mode="popup"
-                             data-callback="handleCredentialResponse"
-                             data-auto_select="false">
-                        </div>
-                        <div class="g_id_signin" data-type="standard" data-shape="pill" data-theme="outline" data-text="signup_with" data-size="large" data-logo_alignment="left"></div>
-                    </div>
+                <h2>Guest User</h2>
+                <p class="email">resort-guest@cherryjoe.com</p>
+                <span class="membership-tag"><i class="fas fa-medal"></i> Resort Visitor</span>
+
+                <div class="profile-menu-list" style="margin-top: 25px;">
+                    <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item">
+                        <div><i class="fas fa-utensils"></i> Tan-awon ang Menu sa Pagkaon</div>
+                        <i class="fas fa-chevron-right" style="font-size:12px;"></i>
+                    </a>
+                    <a onclick="navigateTo('explore', 'nav-about')" class="profile-menu-item">
+                        <div><i class="fas fa-compass"></i> Susiha ang mga Pasilidad</div>
+                        <i class="fas fa-chevron-right" style="font-size:12px;"></i>
+                    </a>
                 </div>
-
-                <div id="logged-in-state" style="display: none;">
-                    <h2 id="user-display-name">Guest User</h2>
-                    <p class="email" id="user-display-email">not-signed-in@gmail.com</p>
-                    <span class="membership-tag"><i class="fas fa-medal"></i> Verified Guest via Google</span>
-
-                    <div class="profile-menu-list" style="margin-top: 25px;">
-                        <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item">
-                            <div><i class="fas fa-utensils"></i> Tan-awon ang Menu sa Pagkaon</div>
-                            <i class="fas fa-chevron-right" style="font-size:12px;"></i>
-                        </a>
-                        <a onclick="googleLogout()" class="profile-menu-item" style="color: #e53e3e;">
-                            <div><i class="fas fa-sign-out-alt" style="color: #e53e3e;"></i> Sign Out / Log Out</div>
-                            <i class="fas fa-chevron-right" style="font-size:12px;"></i>
-                        </a>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -1016,7 +948,7 @@ footer{
     <h2 class="title" style="color:white;">Contact Us</h2>
     <p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
     <p><i class="fas fa-phone"></i> 0920 408 7956</p>
-    <p><i class="fas fa-envelope"></i> renowee.beloy@dorsu.edu.ph</p>
+    <p><i class="fas fa-envelope"></i> cherryday103080@gmail.com</p>
     <p>
         <i class="fab fa-facebook"></i> Facebook:
         <a href="https://www.facebook.com/share/1DkMYrXWiZ/" target="_blank">CherryJoe River Park</a>
@@ -1024,7 +956,7 @@ footer{
 </section>
 
 <footer>
-    © 2026 CherryJoe River Park
+    © 2026 CherryJoe River Park | Developed by Renowee Beloy
 </footer>
 
 <div class="lightbox" id="lightbox" onclick="hideImage()">
@@ -1101,42 +1033,6 @@ startTimer();
 function showImage(src){
     document.getElementById('lightbox').style.display='flex';
     document.getElementById('lightbox-img').src=src;
-}
-
-function hideImage(){
-    document.getElementById('lightbox').style.display='none';
-}
-
-// GOOGLE SIGN-IN INTERACTION HANDLING
-function parseJwt(token) {
-    var base64Url = token.split('.')[1];
-    var base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    var jsonPayload = decodeURIComponent(window.atob(base64).split('').map(function(c) {
-        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-    }).join(''));
-    return JSON.parse(jsonPayload);
-}
-
-function handleCredentialResponse(response) {
-    const userData = parseJwt(response.credential);
-    
-    document.getElementById('user-display-name').innerText = userData.name;
-    document.getElementById('user-display-email').innerText = userData.email;
-    
-    const pfpBox = document.getElementById('user-pfp-box');
-    pfpBox.innerHTML = `<img src="${userData.picture}" alt="Google Profile Photo">`;
-    
-    document.getElementById('logged-out-state').style.display = 'none';
-    document.getElementById('logged-in-state').style.display = 'block';
-}
-
-function googleLogout() {
-    document.getElementById('user-pfp-box').innerHTML = `<i class="fas fa-user-astronaut" id="default-avatar-icon"></i>`;
-    document.getElementById('logged-in-state').style.display = 'none';
-    document.getElementById('logged-out-state').style.display = 'block';
-    
-    google.accounts.id.disableAutoSelect();
-    alert('You have logged out successfully.');
 }
 
 // EMAIL ENGINE INITIALIZATION
