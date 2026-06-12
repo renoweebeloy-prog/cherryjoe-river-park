@@ -1,1082 +1,816 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>CherryJoe River Park</title>
-
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
-<style>
-/* RESET */
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
-
-body{
-    background:#f4f7f8;
-    padding-top:60px;
-    padding-bottom: 80px; 
-    overflow-x: hidden;
-}
-
-/* TOP APP BAR / NAVBAR */
-nav{
-    position:fixed;
-    top:0;
-    width:100%;
-    background:rgba(0,0,0,0.85);
-    padding:15px 5%;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    z-index:1000;
-    height: 60px;
-}
-
-.nav-left {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    color: white;
-}
-
-.back-btn {
-    font-size: 20px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.back-btn:hover {
-    color: #00d084;
-}
-
-.logo{
-    font-size: 20px;
-    font-weight: bold;
-    color: white;
-    white-space: nowrap;
-}
-
-/* PAGE DISPLAY MANAGER (SPA ENGINE) */
-.app-page {
-    display: none; 
-    animation: pageFadeIn 0.4s ease-in-out;
-}
-
-.app-page.page-active {
-    display: block; 
-}
-
-@keyframes pageFadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-/* HERO SLIDESHOW */
-.hero{
-    height: calc(100vh - 60px);
-    position:relative;
-    overflow: hidden;
-    display:flex;
-    justify-content:center;
-    align-items: flex-end;
-    text-align:center;
-}
-
-.hero-slides {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-}
-
-.slide {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    opacity: 0;
-    transition: opacity 1s ease-in-out;
-}
-
-.slide.active {
-    opacity: 1;
-}
-
-/* HERO CONTENT */
-.hero-content{
-    position:relative;
-    color:white;
-    z-index: 2;
-    width: 100%;
-    padding: 0 20px;
-    margin-bottom: 35px;
-}
-
-/* CAROUSEL DOTS */
-.carousel-dots {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    background-color: rgba(255, 255, 255, 0.6);
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.6);
-    transition: all 0.3s ease;
-}
-
-.dot.active {
-    background-color: #00d084;
-    transform: scale(1.3);
-}
-
-/* SECTIONS */
-section{
-    padding: 60px 5%;
-}
-
-.title{
-    text-align:center;
-    font-size:32px;
-    margin-bottom:30px;
-    color: #2d3748;
-}
-
-/* GRID */
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.card{
-    background:white;
-    padding:25px;
-    border-radius:15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-/* FOOD LAYOUT GRID */
-.food-grid-container {
-    max-width: 1000px;
-    margin: 0 auto;
-}
-
-.food-category-title {
-    font-size: 22px;
-    color: #ea580c;
-    border-left: 5px solid #ea580c;
-    padding-left: 12px;
-    margin: 35px 0 20px 0;
-    font-weight: bold;
-}
-
-.food-item-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
-}
-
-.food-card-with-img {
-    background: white;
-    border-radius: 16px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.3s ease;
-}
-
-.food-card-with-img:hover {
-    transform: translateY(-5px);
-}
-
-.food-card-with-img img {
-    width: 100%;
-    height: 190px;
-    object-fit: cover;
-    background: #cbd5e1;
-}
-
-.food-card-body {
-    padding: 20px;
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.food-card-body h3 {
-    font-size: 18px;
-    color: #2d3748;
-    margin-bottom: 12px;
-}
-
-.food-card-footer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-top: 1px solid #edf2f7;
-    padding-top: 12px;
-}
-
-.food-price {
-    font-size: 18px;
-    font-weight: bold;
-    color: #ea580c;
-}
-
-.food-status {
-    font-size: 12px;
-    background: #e6fffa;
-    color: #319795;
-    padding: 3px 10px;
-    border-radius: 12px;
-    font-weight: bold;
-}
-
-.status-soon {
-    background: #fffaf0;
-    color: #dd6b20;
-    border: 1px solid #fbd38d;
-}
-
-/* APP USER PROFILE SECTION */
-.profile-container {
-    max-width: 550px;
-    margin: 0 auto;
-    background: white;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.08);
-}
-
-.profile-banner {
-    background: linear-gradient(135deg, #00d084, #2196f3);
-    height: 120px;
-    position: relative;
-}
-
-.profile-avatar-wrapper {
-    width: 110px;
-    height: 110px;
-    border-radius: 50%;
-    background: #ffffff;
-    padding: 5px;
-    position: absolute;
-    bottom: -55px;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-}
-
-.profile-avatar {
-    width: 100%;
-    height: 100%;
-    border-radius: 50%;
-    background: #e3f2fd;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-}
-
-.profile-avatar i {
-    font-size: 45px;
-    color: #2196f3;
-}
-
-.profile-details {
-    padding: 75px 25px 30px 25px;
-    text-align: center;
-}
-
-.welcome-visitor {
-    font-size: 14px;
-    font-weight: bold;
-    color: #00d084;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 5px;
-    display: block;
-}
-
-.profile-details h2 {
-    font-size: 24px;
-    color: #2d3748;
-}
-
-.profile-details .email {
-    color: #718096;
-    font-size: 14px;
-    margin-top: 4px;
-}
-
-.membership-tag {
-    display: inline-block;
-    background: #fff8e1;
-    color: #ffb300;
-    font-weight: bold;
-    font-size: 12px;
-    padding: 6px 16px;
-    border-radius: 50px;
-    margin-top: 12px;
-    border: 1px solid #ffe082;
-}
-
-.profile-menu-list {
-    text-align: left;
-    margin-top: 20px;
-    border-top: 1px solid #edf2f7;
-    padding-top: 15px;
-}
-
-.profile-menu-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 12px 5px;
-    color: #4a5568;
-    text-decoration: none;
-    font-size: 15px;
-    border-bottom: 1px solid #f7fafc;
-    cursor: pointer;
-}
-
-.profile-menu-item div i {
-    margin-right: 10px;
-    width: 20px;
-    color: #718096;
-}
-
-/* MANAGEMENT */
-.management{
-    display:flex;
-    gap:20px;
-    flex-wrap:wrap;
-}
-
-.management .card{
-    flex:1;
-}
-
-/* COTTAGE & RATES */
-.cottage-section {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-}
-
-.cottage{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.cottage img{
-    width:100%;
-    height:300px;
-    object-fit:cover;
-}
-
-.cottage-content{
-    padding:25px;
-}
-
-.entrance-card {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-    display: flex;
-    align-items: center;
-    gap: 20px;
-}
-
-.entrance-icon {
-    font-size: 40px;
-    color: #00d084;
-    background: #e6fffa;
-    padding: 15px;
-    border-radius: 12px;
-}
-
-.entrance-details h3 {
-    font-size: 20px;
-    color: #2d3748;
-    margin-bottom: 5px;
-}
-
-.entrance-details p {
-    font-size: 18px;
-    color: #4a5568;
-}
-
-/* FACILITIES */
-.facilities{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
-}
-
-.facility{
-    background:white;
-    border-radius:15px;
-    overflow:hidden;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-}
-
-.facility img{
-    width:100%;
-    height:200px;
-    object-fit:cover;
-}
-
-.facility-content{
-    padding:15px;
-}
-
-/* VIDEO GRID LAYOUT */
-.video-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-    max-width: 1100px;
-    margin: 0 auto;
-}
-
-.video-card {
-    background: white;
-    padding: 12px;
-    border-radius: 15px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-    display: flex;
-    flex-direction: column;
-}
-
-.video-card video {
-    width: 100%;
-    height: 480px;         
-    object-fit: cover;     
-    border-radius: 10px;
-    display: block;
-    background: #000;
-}
-
-.video-card h3 {
-    font-size: 15px;
-    color: #4a5568;
-    margin-top: 10px;
-    text-align: left;
-    font-weight: 600;
-}
-
-/* GALLERY LAYOUT WITH RESPONSIVE COLUMNS */
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
-    gap:12px;
-}
-
-.gallery img{
-    width:100%;
-    height:180px;
-    object-fit:cover;
-    border-radius:10px;
-    cursor:pointer;
-    transition:.3s;
-}
-
-.gallery img:hover{
-    transform:scale(1.03);
-}
-
-/* CONTACT */
-.contact{
-    background:#1a1a1a;
-    color:white;
-    text-align:center;
-}
-
-.contact p {
-    margin: 10px 0;
-}
-
-.contact a{
-    color:#00d084;
-    text-decoration:none;
-}
-
-/* FOOTER SECTION */
-footer{
-    background:black;
-    color:white;
-    text-align:center;
-    padding:20px;
-    font-size: 14px;
-}
-
-/* LIGHTBOX (PREVIEW POPUP) */
-.lightbox{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,.92);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:9999;
-    cursor: pointer;
-}
-
-.lightbox img{
-    max-width:92%;
-    max-height:85%;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-    transition: transform 0.3s ease;
-}
-.lightbox img:active {
-    transform: scale(0.97);
-}
-
-/* BOTTOM NAVIGATION BAR */
-.bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #ffffff;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-    box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
-    z-index: 1000;
-}
-
-.nav-item {
-    text-decoration: none;
-    color: #777777;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    font-size: 12px;
-    gap: 4px;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.nav-item i {
-    font-size: 20px;
-}
-
-.nav-item.active {
-    color: #00c853;
-}
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CherryJoe River Park</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+    <style>
+        /* --- PREMIUM UI CONFIG & RESET --- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #0f172a; /* Ultra-modern slate dark theme */
+            color: #f1f5f9;
+            padding-top: 60px;
+            padding-bottom: 90px; 
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar for modern feel */
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0f172a;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #334155;
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00d084;
+        }
+
+        /* --- 1. PREMIUM LOADING SCREEN --- */
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #090d16;
+            z-index: 1000000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s;
+        }
+        .loader-spinner {
+            width: 55px;
+            height: 55px;
+            border: 3px solid rgba(0, 208, 132, 0.08);
+            border-radius: 50%;
+            border-top-color: #00d084;
+            animation: spin 0.7s cubic-bezier(0.42, 0, 0.58, 1) infinite;
+            margin-bottom: 20px;
+        }
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        .loader-text {
+            color: #94a3b8;
+            font-size: 13px;
+            letter-spacing: 2px;
+            font-weight: 600;
+            text-transform: uppercase;
+            animation: pulseText 1.5s infinite ease-in-out;
+        }
+        @keyframes pulseText {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; color: #00d084; }
+        }
+
+        /* --- 2. SCROLL REVEAL TIMING PACK --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(35px) scale(0.98);
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+
+        /* --- 3. GLASSMORPHISM WELCOME OVERLAY --- */
+        .welcome-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at center, rgba(15, 23, 42, 0.88), rgba(9, 13, 22, 0.99));
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            z-index: 99999; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .welcome-container {
+            max-width: 480px;
+            width: 100%;
+            max-height: 92vh;
+            overflow-y: auto;
+            padding: 10px 5px;
+            text-align: center;
+        }
+        .welcome-container h1 {
+            font-size: 32px;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+        .welcome-container .subtitle {
+            font-size: 14px;
+            color: #94a3b8;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        /* TABLES GLASSMORPHISM DESIGN */
+        .feature-table-box {
+            background: rgba(255, 255, 255, 0.04);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 24px;
+            padding: 22px;
+            margin-bottom: 18px;
+            box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            text-align: left;
+            opacity: 0; 
+        }
+        .table-one { animation: tableEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+        .table-two { animation: tableEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
+
+        @keyframes tableEntrance {
+            0% { transform: translateY(40px) scale(0.96); opacity: 0; }
+            100% { transform: translateY(0) scale(1); opacity: 1; }
+        }
+
+        .table-header {
+            font-size: 13px;
+            font-weight: 700;
+            color: #00d084;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 16px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .table-row-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .table-cell {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            padding: 16px;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            opacity: 0;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .table-cell:hover {
+            border-color: #00d084;
+            background: rgba(0, 208, 132, 0.08);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 20px rgba(0, 208, 132, 0.15);
+        }
+
+        .table-one .cell-1 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; }
+        .table-one .cell-2 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
+        .table-two .cell-1 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; }
+        .table-two .cell-2 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
+
+        @keyframes cellEntrance {
+            0% { transform: translateY(15px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .table-cell i { font-size: 22px; margin-bottom: 2px; }
+        .table-cell span { font-size: 14px; font-weight: 600; color: #ffffff; }
+        .table-cell a { font-size: 12px; color: #38bdf8; text-decoration: none; font-weight: 600; cursor: pointer; margin-top: 2px; }
+        .table-cell a:hover { text-decoration: underline; color: #7dd3fc; }
+
+        .welcome-btn {
+            background: linear-gradient(135deg, #00d084, #059669);
+            color: white;
+            border: none;
+            padding: 16px 30px;
+            font-size: 15px;
+            font-weight: 700;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px -5px rgba(0, 208, 132, 0.4);
+            width: 100%;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 10px;
+            opacity: 0;
+            animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards;
+            transition: all 0.3s ease;
+        }
+        .welcome-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -5px rgba(0, 208, 132, 0.6);
+        }
+
+        .welcome-overlay.hide-welcome {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+        .welcome-overlay.hide-welcome .welcome-container {
+            transform: scale(0.92) translateY(-20px);
+            opacity: 0;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* --- 4. SMOOTH MOBILE PAGE APP TRANSITIONS --- */
+        .app-page {
+            display: none; 
+            opacity: 0;
+            transform: scale(0.98) translateY(15px);
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .app-page.page-active {
+            display: block; 
+            opacity: 1;
+            transform: scale(1) translateY(0);
+        }
+
+        /* --- 5. MODERN GLOBAL APP UI PARTS --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(15, 23, 42, 0.7);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            height: 60px;
+        }
+        .nav-left { display: flex; align-items: center; gap: 15px; color: white; }
+        .back-btn { font-size: 20px; cursor: pointer; transition: 0.3s; }
+        .back-btn:hover { color: #00d084; }
+        .logo { font-size: 20px; font-weight: bold; color: white; white-space: nowrap; }
+
+        section { padding: 50px 5%; max-width: 1200px; margin: 0 auto; }
+        .title { text-align: center; font-size: 30px; margin-bottom: 35px; color: #ffffff; font-weight: 800; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+
+        /* Modernized Dynamic Cards */
+        .card { 
+            background: rgba(255, 255, 255, 0.03); 
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 25px; 
+            border-radius: 20px; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(0, 208, 132, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+        }
+        .card h3 { color: #00d084; margin-bottom: 10px; font-weight: 700; font-size: 18px; }
+        .card p { color: #cbd5e1; font-size: 15px; line-height: 1.5; }
+
+        /* --- 6. PREMIUM HERO SLIDESHOW --- */
+        .hero {
+            height: calc(100vh - 60px);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            text-align: center;
+        }
+        .hero-slides { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .slide {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-size: cover; background-position: center; background-repeat: no-repeat;
+            opacity: 0; transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 7s ease;
+            transform: scale(1.06);
+        }
+        .slide.active { opacity: 1; transform: scale(1); }
+        .hero::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(to bottom, transparent 30%, #0f172a 100%); z-index: 1;
+        }
+        .hero-content { position: relative; color: white; z-index: 2; width: 100%; padding: 0 20px; margin-bottom: 40px; }
+        .carousel-dots { display: flex; justify-content: center; gap: 10px; }
+        .dot {
+            width: 9px; height: 9px; background-color: rgba(255, 255, 255, 0.35);
+            border-radius: 50%; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .dot.active { background-color: #00d084; transform: scale(1.2); width: 26px; border-radius: 6px; }
+
+        /* --- 7. FOOD MANAGEMENT PACK --- */
+        .food-grid-container { max-width: 1000px; margin: 0 auto; }
+        .food-category-title { font-size: 20px; color: #f97316; border-left: 5px solid #f97316; padding-left: 12px; margin: 40px 0 20px 0; font-weight: 700; letter-spacing: 0.5px; }
+        .food-item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
+        .food-card-with-img { 
+            background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); 
+            border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease; 
+        }
+        .food-card-with-img:hover { transform: translateY(-5px); border-color: rgba(249, 115, 22, 0.3); box-shadow: 0 15px 30px rgba(0,0,0,0.3); }
+        .food-card-with-img img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .food-card-with-img:hover img { transform: scale(1.05); }
+        .food-card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .food-card-body h3 { font-size: 17px; color: #ffffff; margin-bottom: 12px; font-weight: 600; }
+        .food-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 12px; }
+        .food-price { font-size: 18px; font-weight: 700; color: #f97316; }
+        .food-status { font-size: 11px; background: rgba(0, 208, 132, 0.12); color: #00d084; padding: 4px 12px; border-radius: 50px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .status-soon { background: rgba(249, 115, 22, 0.12); color: #f97316; }
+
+        /* --- 8. PREMIUM PROFILE & SETTINGS SYSTEM --- */
+        .profile-container { max-width: 500px; margin: 0 auto; background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.05); border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.2); }
+        .profile-banner { background: linear-gradient(135deg, #00d084, #0284c7); height: 120px; position: relative; }
+        .profile-avatar-wrapper { width: 105px; height: 105px; border-radius: 50%; background: #0f172a; padding: 5px; position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); }
+        .profile-avatar { width: 100%; height: 100%; border-radius: 50%; background: rgba(255,255,255,0.04); display: flex; justify-content: center; align-items: center; overflow: hidden; border: 1px solid rgba(255,255,255,0.08); }
+        .profile-avatar i { font-size: 40px; color: #00d084; }
+        .profile-details { padding: 65px 22px 25px 22px; text-align: center; }
+        .welcome-visitor { font-size: 12px; font-weight: 700; color: #00d084; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; display: block; }
+        .profile-details h2 { font-size: 22px; color: #ffffff; font-weight: 700; }
+        .profile-details .email { color: #94a3b8; font-size: 14px; margin-top: 4px; }
+        .membership-tag { display: inline-block; background: rgba(234, 179, 8, 0.1); color: #eab308; font-weight: 700; font-size: 11px; padding: 5px 14px; border-radius: 50px; margin-top: 14px; border: 1px solid rgba(234, 179, 8, 0.15); letter-spacing: 0.5px; }
+        .profile-menu-list { text-align: left; margin-top: 25px; border-top: 1px solid rgba(255,255,255,0.06); padding-top: 15px; }
+        .profile-menu-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 8px; color: #cbd5e1; text-decoration: none; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,0.02); cursor: pointer; transition: 0.2s ease; border-radius: 10px; }
+        .profile-menu-item:hover { color: #00d084; padding-left: 14px; background: rgba(255,255,255,0.02); }
+        .profile-menu-item div i { margin-right: 12px; width: 20px; color: #94a3b8; }
+
+        /* --- 9. EXPLORE ARCHITECTURE --- */
+        .management { display: flex; gap: 20px; flex-wrap: wrap; }
+        .management .card { flex: 1; min-width: 240px; }
+        .cottage-section { display: flex; flex-direction: column; gap: 25px; }
+        .cottage { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 20px; overflow: hidden; }
+        .cottage img { width: 100%; height: 320px; object-fit: cover; }
+        .cottage-content { padding: 22px; }
+        .entrance-card { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); padding: 22px; border-radius: 20px; display: flex; align-items: center; gap: 20px; }
+        .entrance-icon { font-size: 32px; color: #00d084; background: rgba(0, 208, 132, 0.08); padding: 18px; border-radius: 16px; }
+        .entrance-details h3 { font-size: 18px; color: white; margin-bottom: 4px; }
+        
+        .facilities { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+        .facility { background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.04); border-radius: 20px; overflow: hidden; }
+        .facility img { width: 100%; height: 210px; object-fit: cover; }
+        .facility-content { padding: 16px; text-align: center; font-weight: 600; font-size: 15px; color: #e2e8f0; }
+
+        /* TOUR VIDEOS COMPONENT */
+        .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .video-card { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); padding: 12px; border-radius: 20px; }
+        .video-card video { width: 100%; height: 460px; object-fit: cover; border-radius: 14px; background: #000; display: block; }
+        .video-card h3 { font-size: 15px; color: #cbd5e1; margin-top: 12px; font-weight: 600; padding-left: 4px; }
+
+        /* --- 10. PREMIUM ANIMATED GALLERY STYLES --- */
+        .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+        .gallery img { 
+            width: 100%; height: 150px; object-fit: cover; border-radius: 16px; cursor: pointer; 
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; 
+            border: 1px solid rgba(255,255,255,0.04);
+        }
+        .gallery img:hover { 
+            transform: scale(1.05) translateY(-3px); 
+            box-shadow: 0 12px 24px rgba(0,0,0,0.5);
+            border-color: rgba(0, 208, 132, 0.4);
+        }
+
+        /* --- OVERLAYS & COMPONENT ENGINE --- */
+        .contact { background: #090d16; border-top: 1px solid rgba(255,255,255,0.04); text-align: center; }
+        .contact p { margin: 12px 0; color: #94a3b8; font-size: 15px; }
+        .contact a { color: #00d084; text-decoration: none; font-weight: 600; }
+        footer { background: #05070b; color: #475569; text-align: center; padding: 25px; font-size: 13px; border-top: 1px solid rgba(255,255,255,0.01); }
+
+        /* PREMIUM GLASSMORPHISM LIGHTBOX */
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(9,13,22,0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; }
+        .lightbox img { max-width: 92%; max-height: 78%; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.6); transform: scale(0.93); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); border: 1px solid rgba(255,255,255,0.05); }
+        .lightbox.show { opacity: 1; }
+        .lightbox.show img { transform: scale(1); }
+
+        /* APP DETAIL ENGINE POPUP */
+        .feature-popup-modal {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(9, 13, 22, 0.82); backdrop-filter: blur(8px);
+            z-index: 100000; display: none; justify-content: center; align-items: center; padding: 20px;
+        }
+        .feature-popup-content {
+            background: #1e293b; border: 1px solid rgba(255,255,255,0.07); padding: 30px; border-radius: 24px;
+            max-width: 390px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.6); text-align: center;
+            animation: modalZoomIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes modalZoomIn { from { transform: scale(0.92) translateY(12px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
+        .feature-popup-content i { font-size: 42px; color: #00d084; margin-bottom: 16px; }
+        .feature-popup-content h3 { font-size: 20px; color: #ffffff; margin-bottom: 12px; font-weight: 700; }
+        .feature-popup-content p { font-size: 14px; color: #94a3b8; line-height: 1.6; margin-bottom: 24px; }
+        .close-popup-btn { background: rgba(255,255,255,0.06); color: #ffffff; border: none; padding: 12px 28px; font-size: 14px; font-weight: 600; border-radius: 50px; cursor: pointer; transition: 0.2s; }
+        .close-popup-btn:hover { background: rgba(255,255,255,0.12); }
+
+        /* --- 11. MODERN MOBILE TAB APP-BAR (BOTTOM BAR) --- */
+        .bottom-nav { 
+            position: fixed; bottom: 0; left: 0; width: 100%; 
+            background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            display: flex; justify-content: space-around; align-items: center; padding: 14px 0; 
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.06); z-index: 1000; 
+        }
+        .nav-item { text-decoration: none; color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 11px; gap: 4px; transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; }
+        .nav-item i { font-size: 19px; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
+        .nav-item:hover i { transform: translateY(-2px); color: #ffffff; }
+        .nav-item.active { color: #00d084; font-weight: 700; }
+        .nav-item.active i { transform: scale(1.15) translateY(-1px); }
+
+        /* --- MOBILE MEDIA & SYSTEM REFINEMENTS --- */
+        @media (max-width: 600px) {
+            section { padding: 40px 4%; }
+            .title { font-size: 25px; margin-bottom: 25px; }
+            .video-card video { height: 380px; border-radius: 12px; }
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+            .gallery img { height: 110px; border-radius: 12px; }
+            .welcome-container h1 { font-size: 26px; }
+            .feature-table-box { padding: 18px; border-radius: 20px; }
+            .table-row-grid { gap: 10px; }
+            .table-cell { padding: 14px; border-radius: 12px; }
+        }
+    </style>
 </head>
-
 <body>
 
-<nav>
-    <div class="nav-left">
-        <i class="fas fa-chevron-left back-btn" onclick="goBack()"></i>
-        <div class="logo">CherryJoe River Park</div>
+    <div id="preloader">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Loading Experience...</div>
     </div>
-</nav>
 
-<div id="page-home" class="app-page page-active">
-    <section class="hero" id="home">
-        <div class="hero-slides">
-            <div class="slide active" style="background-image: url('imagesgallery7.jpg');"></div>
-            <div class="slide" style="background-image: url('imagescherryjoe-hero.jpg');"></div>
-            <div class="slide" style="background-image: url('imagesgallery2.jpg');"></div>
-            <div class="slide" style="background-image: url('imagesgallery3.jpg');"></div>
-            <div class="slide" style="background-image: url('imagesgallery4.jpg');"></div>
-            <div class="slide" style="background-image: url('imagesgallery1.jpg');"></div>
+    <div class="feature-popup-modal" id="featurePopup">
+        <div class="feature-popup-content">
+            <i id="popupIcon" class="fas fa-tree"></i>
+            <h3 id="popupTitle">Feature Title</h3>
+            <p id="popupDesc">Descriptions...</p>
+            <button class="close-popup-btn" onclick="closeFeaturePopup()">Close Details</button>
         </div>
+    </div>
 
-        <div class="hero-content">
-            <div class="carousel-dots">
-                <div class="dot active" onclick="changeSlide(0)"></div>
-                <div class="dot" onclick="changeSlide(1)"></div>
-                <div class="dot" onclick="changeSlide(2)"></div>
-                <div class="dot" onclick="changeSlide(3)"></div>
-                <div class="dot" onclick="changeSlide(4)"></div>
-                <div class="dot" onclick="changeSlide(5)"></div>
-            </div>
-        </div>
-    </section>
-
-    <section id="about">
-        <h2 class="title">About CherryJoe River Park</h2>
-        <div class="grid">
-            <div class="card">
-                <h3>📍 Location</h3>
-                <p>Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
-            </div>
-            <div class="card">
-                <h3>🕒 Opening Hours</h3>
-                <p>11:00 AM - 2:00 AM</p>
-            </div>
-            <div class="card">
-                <h3>📞 Contact</h3>
-                <p>0920 408 7956</p>
-            </div>
-            <div class="card">
-                <h3>📧 Email</h3>
-                <p>cherryday103080@gmail.com</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="contact" id="contact">
-        <h2 class="title" style="color:white;">Contact Us</h2>
-        <p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
-        <p><i class="fas fa-phone"></i> 0920 408 7956</p>
-        <p><i class="fas fa-envelope"></i> cherryday103080@gmail.com</p>
-        <p>
-            <i class="fab fa-facebook"></i> Facebook:
-            <a href="https://www.facebook.com/share/1DkMYrXWiZ/" target="_blank">CherryJoe River Park</a>
-        </p>
-    </section>
-</div>
-
-<div id="page-explore" class="app-page">
-    <section id="management">
-        <h2 class="title">Management</h2>
-        <div class="management">
-            <div class="card">
-                <h3>Owner</h3>
-                <p>CherryJoe River Park Owner</p>
-            </div>
-            <div class="card">
-                <h3>Manager</h3>
-                <p>Santi Day </p>
-            </div>
-        </div>
-    </section>
-
-    <section id="rates-and-cottage">
-        <h2 class="title">Rates & Cottages</h2>
-        <div class="cottage-section">
-            <div class="entrance-card">
-                <div class="entrance-icon">
-                    <i class="fas fa-ticket-alt"></i>
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-container">
+            <h1>Hello, Welcome!</h1>
+            <p class="subtitle">Quickly review CherryJoe River Park highlights inside our structured tables before moving forward.</p>
+            
+            <div class="feature-table-box table-one">
+                <div class="table-header">
+                    <i class="fas fa-swimming-pool"></i> Table 1: Amenities & Rates
                 </div>
-                <div class="entrance-details">
-                    <h3>Entrance Fee</h3>
-                    <p><strong>Price:</strong> ₱20 per person</p>
+                <div class="table-row-grid">
+                    <div class="table-cell cell-1">
+                        <i class="fas fa-home" style="color: #f97316;"></i>
+                        <span>Open Cottage</span>
+                        <a onclick="openFeaturePopup('cottage')">View Rate</a>
+                    </div>
+                    <div class="table-cell cell-2">
+                        <i class="fas fa-water-ladder" style="color: #38bdf8;"></i>
+                        <span>Resort Pool</span>
+                        <a onclick="openFeaturePopup('pool')">View Details</a>
+                    </div>
                 </div>
             </div>
 
-            <div class="cottage">
-                <img src="imagescottage.jpg">
-                <div class="cottage-content">
-                    <h3>Open Cottage</h3>
-                    <p><strong>Price:</strong> ₱100</p>
-                    <p><strong>Capacity:</strong> 8 Persons</p>
+            <div class="feature-table-box table-two">
+                <div class="table-header">
+                    <i class="fas fa-leaf"></i> Table 2: Park Experience
+                </div>
+                <div class="table-row-grid">
+                    <div class="table-cell cell-1">
+                        <i class="fas fa-water" style="color: #22d3ee;"></i>
+                        <span>River View</span>
+                        <a onclick="openFeaturePopup('river')">View Setup</a>
+                    </div>
+                    <div class="table-cell cell-2">
+                        <i class="fas fa-utensils" style="color: #f43f5e;"></i>
+                        <span>Local Food</span>
+                        <a onclick="openFeaturePopup('food')">View Menu</a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <section id="facilities">
-        <h2 class="title">Facilities</h2>
-        <div class="facilities">
-            <div class="facility"><img src="images/pool.jpg"><div class="facility-content"><h3>Pool</h3></div></div>
-            <div class="facility"><img src="images/river.jpg"><div class="facility-content"><h3>River View</h3></div></div>
-            <div class="facility"><img src="images/restaurant.jpg"><div class="facility-content"><h3>Restaurant</h3></div></div>
-            <div class="facility"><img src="images/functionhall.jpg"><div class="facility-content"><h3>Function Hall</h3></div></div>
+            <button class="welcome-btn" onclick="closeWelcomeScreen()">Enter Full Website</button>
         </div>
-    </section>
+    </div>
 
-    <section id="video" style="text-align:center;">
-        <h2 class="title">Resort Video Tour</h2>
-        <div class="video-grid">
+    <nav>
+        <div class="nav-left">
+            <i class="fas fa-chevron-left back-btn" onclick="goBack()"></i>
+            <div class="logo">CherryJoe River Park</div>
+        </div>
+    </nav>
+
+    <div id="page-home" class="app-page page-active">
+        <section class="hero" id="home" style="padding:0; max-width:100%;">
+            <div class="hero-slides">
+                <div class="slide active" style="background-image: url('imagesgallery7.jpg');"></div>
+                <div class="slide" style="background-image: url('imagescherryjoe-hero.jpg');"></div>
+                <div class="slide" style="background-image: url('imagesgallery2.jpg');"></div>
+                <div class="slide" style="background-image: url('imagesgallery3.jpg');"></div>
+                <div class="slide" style="background-image: url('imagesgallery4.jpg');"></div>
+                <div class="slide" style="background-image: url('imagesgallery1.jpg');"></div>
+            </div>
+            <div class="hero-content">
+                <div class="carousel-dots">
+                    <div class="dot active" onclick="changeSlide(0)"></div>
+                    <div class="dot" onclick="changeSlide(1)"></div>
+                    <div class="dot" onclick="changeSlide(2)"></div>
+                    <div class="dot" onclick="changeSlide(3)"></div>
+                    <div class="dot" onclick="changeSlide(4)"></div>
+                    <div class="dot" onclick="changeSlide(5)"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="reveal">
+            <h2 class="title">About CherryJoe River Park</h2>
+            <div class="grid">
+                <div class="card"><h3>📍 Location</h3><p>Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p></div>
+                <div class="card"><h3>🕒 Opening Hours</h3><p>11:00 AM - 2:00 AM</p></div>
+                <div class="card"><h3>📞 Contact</h3><p>0920 408 7956</p></div>
+                <div class="card"><h3>📧 Email</h3><p>cherryday103080@gmail.com</p></div>
+            </div>
+        </section>
+
+        <section class="contact reveal" id="contact" style="max-width:100%;">
+            <h2 class="title" style="color:white;">Contact Us</h2>
+            <p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
+            <p><i class="fas fa-phone"></i> 0920 408 7956</p>
+            <p><i class="fas fa-envelope"></i> cherryday103080@gmail.com</p>
+            <p><i class="fab fa-facebook"></i> Facebook: <a href="https://www.facebook.com/share/1DkMYrXWiZ/" target="_blank">CherryJoe River Park</a></p>
+        </section>
+    </div>
+
+    <div id="page-explore" class="app-page">
+        <section id="management" class="reveal">
+            <h2 class="title">Management</h2>
+            <div class="management">
+                <div class="card"><h3>Owner</h3><p>CherryJoe River Park Owner</p></div>
+                <div class="card"><h3>Manager</h3><p>Santi Day </p></div>
+            </div>
+        </section>
+        
+        <section id="rates-and-cottage" class="reveal">
+            <h2 class="title">Rates & Cottages</h2>
+            <div class="cottage-section">
+                <div class="entrance-card"><div class="entrance-icon"><i class="fas fa-ticket-alt"></i></div><div class="entrance-details"><h3>Entrance Fee</h3><p><strong>Price:</strong> ₱20 per person</p></div></div>
+                <div class="cottage"><img src="imagescottage.jpg" alt="Open Cottage"><div class="cottage-content"><h3>Open Cottage</h3><p><strong>Price:</strong> ₱100</p><p><strong>Capacity:</strong> 8 Persons</p></div></div>
+            </div>
+        </section>
+        
+        <section id="facilities" class="reveal">
+            <h2 class="title">Facilities</h2>
+            <div class="facilities">
+                <div class="facility"><img src="images/pool.jpg" alt="Pool"><div class="facility-content"><h3>Pool</h3></div></div>
+                <div class="facility"><img src="images/river.jpg" alt="River"><div class="facility-content"><h3>River View</h3></div></div>
+                <div class="facility"><img src="images/restaurant.jpg" alt="Restaurant"><div class="facility-content"><h3>Restaurant</h3></div></div>
+                <div class="facility"><img src="images/functionhall.jpg" alt="Function Hall"><div class="facility-content"><h3>Function Hall</h3></div></div>
+            </div>
+        </section>
+        
+        <section id="video" style="text-align:center;" class="reveal">
+            <h2 class="title">Resort Video Tour</h2>
+            <div class="video-grid">
+                <div class="video-card"><video controls preload="none"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
+                <div class="video-card"><video controls preload="none"><source src="videosresort-tour2.mp4" type="video/mp4"></video><h3>River Side View</h3></div>
+                <div class="video-card"><video controls preload="none"><source src="videosresort-tour3.mp4" type="video/mp4"></video><h3>Pool Amenities</h3></div>
+                <div class="video-card"><video controls preload="none"><source src="videosresort-tour4.mp4" type="video/mp4"></video><h3>Night Ambient</h3></div>
+                <div class="video-card"><video controls preload="none"><source src="videosresort-tour5.mp4" type="video/mp4"></video><h3>Cottage Walkthrough</h3></div>
+                <div class="video-card"><video controls preload="none"><source src="videosresort-tour6.mp4" type="video/mp4"></video><h3>Event Function Hall</h3></div>
+            </div>
+        </section>
+        
+        <section id="gallery" class="reveal">
+            <h2 class="title">Gallery</h2>
+            <div class="gallery">
+                <img src="imagesgallery1.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery2.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery3.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery4.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery5.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery6.jpg" alt="Gallery" onclick="showImage(this.src)">
+                <img src="imagesgallery7.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery8.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery9.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery10.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery11.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery12.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery13.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery14.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery15.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery16.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery17.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery18.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery19.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery20.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery21.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery22.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery23.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery24.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery25.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery26.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery27.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery28.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery29.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery30.jpg" alt="Gallery" onclick="showImage(this.src)">
+            </div>
+        </section>
+    </div>
+
+    <div id="page-food" class="app-page">
+        <section id="food-section">
+            <h2 class="title">Resort Food Menu</h2>
+            <div class="food-grid-container">
+                <div class="food-category-title"><i class="fas fa-utensils"></i> Viands & Specialties (Available)</div>
+                <div class="food-item-grid">
+                    <div class="food-card-with-img"><img src="imageslumpia.jpg" alt="Lumpia" onerror="this.src='https://placehold.co/400x250?text=Lumpia'"><div class="food-card-body"><div><h3>Crispy Shanghai Lumpia</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status">Available</span></div></div></div>
+                    <div class="food-card-with-img"><img src="imageskinilaw.jpg" alt="Kinilaw" onerror="this.src='https://placehold.co/400x250?text=Kinilaw'"><div class="food-card-body"><div><h3>Fresh Fish Kinilaw</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status">Available</span></div></div></div>
+                    <div class="food-card-with-img"><img src="imagestunabelly.jpg" alt="Tuna Belly" onerror="this.src='https://placehold.co/400x250?text=Tuna+Belly'"><div class="food-card-body"><div><h3>Grilled Tuna Belly</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status">Available</span></div></div></div>
+                    <div class="food-card-with-img"><img src="imagesporkbelly.jpg" alt="Pork Belly" onerror="this.src='https://placehold.co/400x250?text=Pork+Belly'"><div class="food-card-body"><div><h3>Sinuwag nga Pork Belly</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status">Available</span></div></div></div>
+                    <div class="food-card-with-img"><img src="imagespanga.jpg" alt="Tuna Panga" onerror="this.src='https://placehold.co/400x250?text=Tuna+Panga'"><div class="food-card-body"><div><h3>Sinuwag nga Tuna Panga</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status">Available</span></div></div></div>
+                    <div class="food-card-with-img"><img src="imageschicharon.jpg" alt="Chicharon" onerror="this.src='https://placehold.co/400x250?text=Chicharon'"><div class="food-card-body"><div><h3>Crispy Pork Chicharon</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status">Available</span></div></div></div>
+                    <div class="food-card-with-img"><img src="imageskasili.jpg" alt="Kasili" onerror="this.src='https://placehold.co/400x250?text=Kasili'"><div class="food-card-body"><div><h3>Kasili Specialty (Freshwater Eel)</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status">Available</span></div></div></div>
+                    <div class="food-card-with-img"><img src="imagesnativechicken.jpg" alt="Native Chicken" onerror="this.src='https://placehold.co/400x250?text=Native+Chicken'"><div class="food-card-body"><div><h3>Native Chicken Tinola</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status">Available</span></div></div></div>
+                    <div class="food-card-with-img"><img src="imagesnativecoffee.jpg" alt="Native Coffee" onerror="this.src='https://placehold.co/400x250?text=Native+Coffee'"><div class="food-card-body"><div><h3>Hot Native Coffee</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status">Available</span></div></div></div>
+                </div>
+                <div class="food-category-title"><i class="fas fa-star"></i> Desserts & Treats (Coming Soon!)</div>
+                <div class="food-item-grid">
+                    <div class="food-card-with-img" style="opacity: 0.85;"><img src="images/cakes.jpg" alt="Cakes" onerror="this.src='https://placehold.co/400x250?text=Premium+Cakes'"><div class="food-card-body"><div><h3>Premium Cakes & Slices</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status status-soon">Soon</span></div></div></div>
+                    <div class="food-card-with-img" style="opacity: 0.85;"><img src="images/shakes.jpg" alt="Shakes" onerror="this.src='https://placehold.co/400x250?text=Fruit+Shakes'"><div class="food-card-body"><div><h3>Refreshing Fruit Shakes</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status status-soon">Soon</span></div></div></div>
+                    <div class="food-card-with-img" style="opacity: 0.85;"><img src="images/icecream.jpg" alt="Ice Cream" onerror="this.src='https://placehold.co/400x250?text=Ice+Cream'"><div class="food-card-body"><div><h3>Creamy Ice Cream Scoops</h3></div><div class="food-card-footer"><span class="food-price">N/A</span><span class="food-status status-soon">Soon</span></div></div></div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="page-profile" class="app-page">
+        <section id="profile-section">
+            <h2 class="title">User Profile</h2>
+            <div class="profile-container">
+                <div class="profile-banner"><div class="profile-avatar-wrapper"><div class="profile-avatar"><i class="fas fa-user-astronaut"></i></div></div></div>
+                <div class="profile-details">
+                    <span class="welcome-visitor">Welcome Visitor!</span><h2>Guest User</h2><p class="email">resort-guest@cherryjoe.com</p><span class="membership-tag"><i class="fas fa-medal"></i> Resort Visitor</span>
+                    <div class="profile-menu-list" style="margin-top: 25px;">
+                        <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item"><div><i class="fas fa-utensils"></i> View Food Menu</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
+                        <a onclick="navigateTo('explore', 'nav-about')" class="profile-menu-item"><div><i class="fas fa-compass"></i> Explore Facilities</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <footer>© 2026 CherryJoe River Park | Developed by Renowee Beloy</footer>
+
+    <div class="lightbox" id="lightbox" onclick="hideImage()"><img id="lightbox-img" alt="Lightbox Preview"></div>
+
+    <div class="bottom-nav">
+        <div class="nav-item active" id="nav-home" onclick="navigateTo('home', 'nav-home')"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-item" id="nav-about" onclick="navigateTo('explore', 'nav-about')"><i class="fas fa-compass"></i><span>Explore</span></div>
+        <div class="nav-item" id="nav-food" onclick="navigateTo('food', 'nav-food')"><i class="fas fa-utensils"></i><span>Food</span></div>
+        <div class="nav-item" id="nav-profile" onclick="navigateTo('profile', 'nav-profile')"><i class="fas fa-user"></i><span>Profile</span></div>
+    </div>
+
+    <script>
+        // CORE LIFECYCLE: PRELOADER MANAGER
+        window.addEventListener('load', () => {
+            const preloader = document.getElementById('preloader');
+            preloader.style.opacity = '0';
+            setTimeout(() => {
+                preloader.style.visibility = 'hidden';
+                initScrollRevealEngine(); 
+            }, 600);
+        });
+
+        // NATIVE SCROLL REVEAL (Intersection Observer Architecture)
+        function initScrollRevealEngine() {
+            const targets = document.querySelectorAll('.reveal');
+            const visualObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('active');
+                    }
+                });
+            }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
             
-            <div class="video-card">
-                <video controls><source src="videosresort-tour.mp4" type="video/mp4"></video>
-                <h3>Overview Tour</h3>
-            </div>
+            targets.forEach(element => visualObserver.observe(element));
+        }
 
-            <div class="video-card">
-                <video controls><source src="videosresort-tour2.mp4" type="video/mp4"></video>
-                <h3>River Side View</h3>
-            </div>
+        // DATABASE/MODEL DECLARATIONS FOR DATA DIALOG MODALS
+        const featureData = {
+            cottage: {
+                title: "Open Cottages Setup",
+                icon: "fas fa-home",
+                desc: "Relax in our comfortable Open Cottages built perfect for families and barkadas. Current rental rate is fixed at only ₱100 with an 8-person maximum capacity limit."
+            },
+            pool: {
+                title: "Resort Swimming Pool",
+                icon: "fas fa-swimming-pool",
+                desc: "Enjoy a pristine, treated, and completely cold swim in our integrated pool structure. Highly dynamic safety setup designed for children and adults."
+            },
+            river: {
+                title: "Scenic River View",
+                icon: "fas fa-water",
+                desc: "Nature at its best! CherryJoe is directly parallel to the clean refreshing river flow of Cateel, Davao Oriental, providing natural therapeutic acoustics."
+            },
+            food: {
+                title: "Authentic Food Menu",
+                icon: "fas fa-utensils",
+                desc: "Savor premium local delicacies cooked fresh: Fish Kinilaw, Sinuwag Pork Belly, Tuna Panga, Freshwater Eel (Kasili), and strong hot Native Coffee."
+            }
+        };
 
-            <div class="video-card">
-                <video controls><source src="videosresort-tour3.mp4" type="video/mp4"></video>
-                <h3>Pool Amenities</h3>
-            </div>
+        function openFeaturePopup(key) {
+            const context = featureData[key];
+            if (context) {
+                document.getElementById('popupIcon').className = context.icon;
+                document.getElementById('popupTitle').innerText = context.title;
+                document.getElementById('popupDesc').innerText = context.desc;
+                document.getElementById('featurePopup').style.display = 'flex';
+            }
+        }
 
-            <div class="video-card">
-                <video controls><source src="videosresort-tour4.mp4" type="video/mp4"></video>
-                <h3>Night Ambient</h3>
-            </div>
+        function closeFeaturePopup() {
+            document.getElementById('featurePopup').style.display = 'none';
+        }
 
-            <div class="video-card">
-                <video controls><source src="videosresort-tour5.mp4" type="video/mp4"></video>
-                <h3>Cottage Walkthrough</h3>
-            </div>
+        function closeWelcomeScreen() {
+            document.getElementById('welcomeOverlay').classList.add('hide-welcome');
+        }
 
-            <div class="video-card">
-                <video controls><source src="videosresort-tour6.mp4" type="video/mp4"></video>
-                <h3>Event Function Hall</h3>
-            </div>
-
-        </div>
-    </section>
-
-    <section id="gallery">
-        <h2 class="title">Gallery</h2>
-        <div class="gallery">
-            <img src="imagesgallery1.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery2.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery3.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery4.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery5.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery6.jpg" onclick="showImage(this.src)">
+        // FLUID SMOOTH ENGINE FOR SITE SWITCHING
+        function navigateTo(pageId, navItemId) {
+            const activePage = document.querySelector('.app-page.page-active');
+            const targetPage = document.getElementById('page-' + pageId);
             
-            <img src="imagesgallery7.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery8.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery9.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery10.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery11.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery12.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery13.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery14.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery15.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery16.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery17.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery18.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery19.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery20.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery21.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery22.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery23.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery24.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery25.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery26.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery27.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery28.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery29.jpg" onclick="showImage(this.src)">
-            <img src="imagesgallery30.jpg" onclick="showImage(this.src)">
-        </div>
-    </section>
-</div>
-
-<div id="page-food" class="app-page">
-    <section id="food-section">
-        <h2 class="title">Resort Food Menu</h2>
-        <div class="food-grid-container">
-            
-            <div class="food-category-title"><i class="fas fa-utensils"></i> Viands & Specialties (Available)</div>
-            <div class="food-item-grid">
+            if (activePage && activePage !== targetPage) {
+                activePage.style.opacity = '0';
+                activePage.style.transform = 'scale(0.98) translateY(12px)';
                 
-                <div class="food-card-with-img">
-                    <img src="imageslumpia.jpg" alt="Lumpia" onerror="this.src='https://placehold.co/400x250?text=Lumpia'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Crispy Shanghai Lumpia</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="imageskinilaw.jpg" alt="Kinilaw" onerror="this.src='https://placehold.co/400x250?text=Kinilaw'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Fresh Fish Kinilaw</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="imagestunabelly.jpg" alt="Tuna Belly" onerror="this.src='https://placehold.co/400x250?text=Tuna+Belly'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Grilled Tuna Belly</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="imagesporkbelly.jpg" alt="Pork Belly" onerror="this.src='https://placehold.co/400x250?text=Pork+Belly'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Sinuwag nga Pork Belly</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="imagespanga.jpg" alt="Tuna Panga" onerror="this.src='https://placehold.co/400x250?text=Tuna+Panga'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Sinuwag nga Tuna Panga</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="imageschicharon.jpg" alt="Chicharon" onerror="this.src='https://placehold.co/400x250?text=Chicharon'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Crispy Pork Chicharon</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="imageskasili.jpg" alt="Kasili" onerror="this.src='https://placehold.co/400x250?text=Kasili'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Kasili Specialty (Freshwater Eel)</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="imagesnativechicken.jpg" alt="Native Chicken" onerror="this.src='https://placehold.co/400x250?text=Native+Chicken'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Native Chicken Tinola</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img">
-                    <img src="imagesnativecoffee.jpg" alt="Native Coffee" onerror="this.src='https://placehold.co/400x250?text=Native+Coffee'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Hot Native Coffee</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status">Available</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="food-category-title"><i class="fas fa-star"></i> Desserts & Treats (Coming Soon!)</div>
-            <div class="food-item-grid">
-                
-                <div class="food-card-with-img" style="opacity: 0.85;">
-                    <img src="images/cakes.jpg" alt="Cakes" onerror="this.src='https://placehold.co/400x250?text=Premium+Cakes'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Premium Cakes & Slices</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status status-soon">Soon</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img" style="opacity: 0.85;">
-                    <img src="images/shakes.jpg" alt="Shakes" onerror="this.src='https://placehold.co/400x250?text=Fruit+Shakes'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Refreshing Fruit Shakes</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status status-soon">Soon</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="food-card-with-img" style="opacity: 0.85;">
-                    <img src="images/icecream.jpg" alt="Ice Cream" onerror="this.src='https://placehold.co/400x250?text=Ice+Cream'">
-                    <div class="food-card-body">
-                        <div>
-                            <h3>Creamy Ice Cream Scoops</h3>
-                        </div>
-                        <div class="food-card-footer">
-                            <span class="food-price">N/A</span>
-                            <span class="food-status status-soon">Soon</span>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
-    </section>
-</div>
-
-<div id="page-profile" class="app-page">
-    <section id="profile-section">
-        <h2 class="title">User Profile</h2>
-        <div class="profile-container">
-            <div class="profile-banner">
-                <div class="profile-avatar-wrapper">
-                    <div class="profile-avatar">
-                        <i class="fas fa-user-astronaut"></i>
-                    </div>
-                </div>
-            </div>
+                setTimeout(() => {
+                    activePage.classList.remove('page-active');
+                    targetPage.classList.add('page-active');
+                    
+                    requestAnimationFrame(() => {
+                        targetPage.style.opacity = '1';
+                        targetPage.style.transform = 'scale(1) translateY(0)';
+                    });
+                }, 250);
+            } else if (!activePage) {
+                targetPage.classList.add('page-active');
+                targetPage.style.opacity = '1';
+                targetPage.style.transform = 'scale(1) translateY(0)';
+            }
             
-            <div class="profile-details">
-                <span class="welcome-visitor">Welcome Visitor!</span>
-                <h2>Guest User</h2>
-                <p class="email">resort-guest@cherryjoe.com</p>
-                <span class="membership-tag"><i class="fas fa-medal"></i> Resort Visitor</span>
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            document.getElementById(navItemId).classList.add('active');
+            window.scrollTo({ top: 0 });
+        }
 
-                <div class="profile-menu-list" style="margin-top: 25px;">
-                    <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item">
-                        <div><i class="fas fa-utensils"></i> View Food Menu</div>
-                        <i class="fas fa-chevron-right" style="font-size:12px;"></i>
-                    </a>
-                    <a onclick="navigateTo('explore', 'nav-about')" class="profile-menu-item">
-                        <div><i class="fas fa-compass"></i> Explore Facilities</div>
-                        <i class="fas fa-chevron-right" style="font-size:12px;"></i>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
+        function goBack() { 
+            navigateTo('home', 'nav-home'); 
+        }
 
-<footer>
-    © 2026 CherryJoe River Park | Developed by Renowee Beloy
-</footer>
+        // SLIDESHOW ROTATION CORE
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval;
 
-<div class="lightbox" id="lightbox" onclick="hideImage()">
-    <img id="lightbox-img">
-</div>
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (slides[index]) slides[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+            currentSlideIndex = index;
+        }
 
-<div class="bottom-nav">
-    <div class="nav-item active" id="nav-home" onclick="navigateTo('home', 'nav-home')">
-        <i class="fas fa-home"></i>
-        <span>Home</span>
-    </div>
-    <div class="nav-item" id="nav-about" onclick="navigateTo('explore', 'nav-about')">
-        <i class="fas fa-compass"></i>
-        <span>Explore</span>
-    </div>
-    <div class="nav-item" id="nav-food" onclick="navigateTo('food', 'nav-food')">
-        <i class="fas fa-utensils"></i>
-        <span>Food</span>
-    </div>
-    <div class="nav-item" id="nav-profile" onclick="navigateTo('profile', 'nav-profile')">
-        <i class="fas fa-user"></i>
-        <span>Profile</span>
-    </div>
-</div>
+        function nextSlide() { 
+            let targetIndex = (currentSlideIndex + 1) % slides.length; 
+            showSlide(targetIndex); 
+        }
+        function changeSlide(index) { 
+            showSlide(index); 
+            resetSlideTimer(); 
+        }
+        function startSlideTimer() { 
+            slideInterval = setInterval(nextSlide, 4500); 
+        }
+        function resetSlideTimer() { 
+            clearInterval(slideInterval); 
+            startSlideTimer(); 
+        }
+        startSlideTimer();
 
-<script>
-function navigateTo(pageId, navItemId) {
-    const pages = document.querySelectorAll('.app-page');
-    pages.forEach(page => page.classList.remove('page-active'));
-    document.getElementById('page-' + pageId).classList.add('page-active');
-    
-    const navItems = document.querySelectorAll('.nav-item');
-    navItems.forEach(item => item.classList.remove('active'));
-    document.getElementById(navItemId).classList.add('active');
-    window.scrollTo({top: 0});
-}
+        // ADVANCED LAYER LIGHTBOX ENGINE 
+        function showImage(src) { 
+            const box = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            box.style.display = 'flex'; 
+            setTimeout(() => box.classList.add('show'), 15);
+        }
+        function hideImage() { 
+            const box = document.getElementById('lightbox');
+            box.classList.remove('show');
+            setTimeout(() => box.style.display = 'none', 300);
+        }
 
-function goBack() {
-    navigateTo('home', 'nav-home');
-}
-
-let currentSlideIndex = 0;
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
-let slideInterval;
-
-function showSlide(index) {
-    slides.forEach(slide => slide.classList.remove('active'));
-    dots.forEach(dot => dot.classList.remove('active'));
-    if(slides[index]) slides[index].classList.add('active');
-    if(dots[index]) dots[index].classList.add('active');
-    currentSlideIndex = index;
-}
-
-function nextSlide() {
-    let nextIndex = (currentSlideIndex + 1) % slides.length;
-    showSlide(nextIndex);
-}
-
-function changeSlide(index) {
-    showSlide(index);
-    resetTimer();
-}
-
-function startTimer() { slideInterval = setInterval(nextSlide, 4000); }
-function resetTimer() { clearInterval(slideInterval); startTimer(); }
-startTimer();
-
-function showImage(src){
-    document.getElementById('lightbox').style.display='flex';
-    document.getElementById('lightbox-img').src=src;
-}
-
-function hideImage(){
-    document.getElementById('lightbox').style.display='none';
-}
-
-// EMAIL ENGINE INITIALIZATION
-emailjs.init("xUnFGUm3ZIw6UfW_h");
-</script>
-
+        // Initialize User Email Service API
+        emailjs.init("xUnFGUm3ZIw6UfW_h");
+    </script>
 </body>
 </html>
