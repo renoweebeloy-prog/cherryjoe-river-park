@@ -57,73 +57,10 @@ nav{
 }
 
 .logo{
-    font-size: 22px;
-    font-weight: bold;
-    line-height: 1.2;
-}
-
-.logo span {
-    display: block;
-    font-size: 14px;
-    font-weight: normal;
-    opacity: 0.8;
-}
-
-/* THREE LINE / HAMBURGER MENU BUTTON */
-.menu-toggle {
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.menu-toggle:hover {
-    color: #00d084;
-}
-
-/* SIDE MENU PANEL WITH ANIMATION */
-.side-menu {
-    list-style:none;
-    display:flex;
-    flex-direction: column;
-    position: fixed;
-    top: 0;
-    right: -300px;
-    width: 300px;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.95);
-    padding: 90px 40px;
-    gap: 20px;
-    transition: right 0.4s ease-in-out;
-    box-shadow: -5px 0 15px rgba(0,0,0,0.5);
-    z-index: 1001;
-}
-
-.side-menu.active {
-    right: 0;
-}
-
-.side-menu li a{
-    color:white;
-    text-decoration:none;
     font-size: 20px;
-    display: block;
-    transition: 0.3s;
-    cursor: pointer;
-}
-
-.side-menu li a:hover{
-    color:#00d084;
-    padding-left: 10px;
-}
-
-.close-btn {
-    position: absolute;
-    top: 20px;
-    right: 35px;
+    font-weight: bold;
     color: white;
-    font-size: 30px;
-    cursor: pointer;
+    white-space: nowrap;
 }
 
 /* PAGE DISPLAY MANAGER (SPA ENGINE) */
@@ -625,24 +562,9 @@ footer{
 <nav>
     <div class="nav-left">
         <i class="fas fa-chevron-left back-btn" onclick="goBack()"></i>
-        <div class="logo">
-            CherryJoe
-            <span>River Park</span>
-        </div>
-    </div>
-
-    <div class="menu-toggle" onclick="toggleMenu()">
-        <i class="fas fa-bars"></i>
+        <div class="logo">CherryJoe River Park</div>
     </div>
 </nav>
-
-<ul class="side-menu" id="nav-menu">
-    <div class="close-btn" onclick="toggleMenu()">&times;</div>
-    <li><a onclick="toggleMenu(); navigateTo('home', 'nav-home')">Home</a></li>
-    <li><a onclick="toggleMenu(); navigateTo('explore', 'nav-about')">Explore</a></li>
-    <li><a onclick="toggleMenu(); navigateTo('food', 'nav-food')">Food Menu</a></li>
-    <li><a onclick="toggleMenu(); navigateTo('profile', 'nav-profile')">Profile</a></li>
-</ul>
 
 <div id="page-home" class="app-page page-active">
     <section class="hero" id="home">
@@ -1009,11 +931,6 @@ footer{
 </div>
 
 <script>
-function toggleMenu(){
-    var menu = document.getElementById('nav-menu');
-    menu.classList.toggle('active');
-}
-
 function navigateTo(pageId, navItemId) {
     const pages = document.querySelectorAll('.app-page');
     pages.forEach(page => page.classList.remove('page-active'));
