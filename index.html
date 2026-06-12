@@ -140,7 +140,7 @@
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             z-index: 99999; 
-            display: none; /* Gi-default og none aron kontrolon sa JS kung ipakita ba base sa session */
+            display: none; /* JS will handle showing this based on localStorage */
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -551,7 +551,7 @@
                 </div>
             </div>
 
-            <button class="welcome-btn" onclick="closeWelcomeScreen()">Enter Website</button>
+            <button class="welcome-btn" onclick="closeWelcomeScreen()">Enter Full Website</button>
         </div>
     </div>
 
@@ -723,6 +723,20 @@
             }
         }
 
+        // FORCE AUTOPLAY ON FIRST USER INTERACTION (FOR REFRESHED SESSIONS)
+        function forceAutoplayOnInteraction() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicIcon.className = "fas fa-pause";
+                    musicBtn.classList.add('playing');
+                    // Remove listeners once audio successfully starts playing
+                    document.removeEventListener('click', forceAutoplayOnInteraction);
+                    document.removeEventListener('touchstart', forceAutoplayOnInteraction);
+                    document.removeEventListener('scroll', forceAutoplayOnInteraction);
+                }).catch(e => console.log("Browser block active until explicit interaction."));
+            }
+        }
+
         // CORE LIFECYCLE: PRELOADER & SESSION STATE MANAGER
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
@@ -733,28 +747,27 @@
                 preloader.style.visibility = 'hidden';
                 initScrollRevealEngine(); 
                 
-                // I-check kung nakasulod na ba ang user kaniadto gamit ang localStorage
+                // Check if user has entered before
                 const hasEnteredBefore = localStorage.getItem('welcomeScreenDismissed');
                 const savedPage = localStorage.getItem('currentPage');
                 const savedNav = localStorage.getItem('currentNav');
                 
                 if (hasEnteredBefore === 'true') {
-                    // Kung nakasulod na, AYAW na ipakita ang Welcome Screen overlay
+                    // Hide overlay completely on refreshed view
                     welcomeOverlay.classList.add('hide-welcome');
                     welcomeOverlay.style.display = 'none';
                     
-                    // Awtomatikong dulaon ang musika human sa pag-refresh
-                    audio.play().then(() => {
-                        musicIcon.className = "fas fa-pause";
-                        musicBtn.classList.add('playing');
-                    }).catch(e => console.log("Autoplay context waiting for user scroll/click interaction."));
+                    // Attach lightweight interaction event listener pack to auto-start audio on scroll/click
+                    document.addEventListener('click', forceAutoplayOnInteraction);
+                    document.addEventListener('touchstart', forceAutoplayOnInteraction);
+                    document.addEventListener('scroll', forceAutoplayOnInteraction);
 
-                    // I-restore ang huling tab nga gibisita
+                    // Restore state memory page routing
                     if (savedPage && savedNav) {
                         navigateTo(savedPage, savedNav);
                     }
                 } else {
-                    // Kung unang bisita, ipakita ang Welcome Overlay pinaagi sa flex display
+                    // Show standard greeting overlay layout setup for first-time visitors
                     welcomeOverlay.style.display = 'flex';
                 }
             }, 600);
@@ -813,7 +826,6 @@
         }
 
         function closeWelcomeScreen() {
-            // I-save sa browser storage nga gi-dismiss na ang welcome screen aron dili na makita inig refresh
             localStorage.setItem('welcomeScreenDismissed', 'true');
             localStorage.setItem('currentPage', 'home');
             localStorage.setItem('currentNav', 'nav-home');
@@ -823,13 +835,11 @@
                 document.getElementById('welcomeOverlay').style.display = 'none';
             }, 500);
             
-            // Sugdan ang background music pagka-click
             toggleMusic();
         }
 
         // FLUID SMOOTH ENGINE FOR SITE SWITCHING WITH LOCALSTORAGE PACK
         function navigateTo(pageId, navItemId) {
-            // I-save ang aktibong mga tab sa browser memory
             if (localStorage.getItem('welcomeScreenDismissed') === 'true') {
                 localStorage.setItem('currentPage', pageId);
                 localStorage.setItem('currentNav', navItemId);
