@@ -18,13 +18,13 @@
         }
 
         body {
-            background: #0f172a; /* Ultra-modern slate dark theme */
+            background: #0f172a; 
             color: #f1f5f9;
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            overflow-x: hidden;
+            overflow: hidden; 
             padding: 20px;
             position: relative;
         }
@@ -56,6 +56,34 @@
             z-index: 0;
         }
 
+        /* --- FALLING LEAVES SYSTEM --- */
+        .leaf-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .leaf {
+            position: absolute;
+            display: block;
+            background: linear-gradient(135deg, #00d084, #059669); 
+            border-radius: 0 100% 0 100%; 
+            opacity: 0.7;
+            animation: fall linear infinite;
+        }
+
+        @keyframes fall {
+            0% { top: -50px; transform: translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { top: 105vh; transform: translateX(120px) rotate(450deg); opacity: 0; }
+        }
+
         /* --- MAINTENANCE CARD --- */
         .maintenance-container {
             max-width: 550px;
@@ -68,51 +96,329 @@
             padding: 40px 30px;
             text-align: center;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
-            z-index: 10;
+            z-index: 10; 
             opacity: 0;
             transform: translateY(30px);
             transition: opacity 0.8s ease, transform 0.8s ease;
         }
 
-        /* Class to trigger fluid entrance animation */
         .maintenance-container.active {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* Animated Icon Stack */
-        .icon-stack {
+        /* --- PANDA GRAPHICS STAGE --- */
+        .panda-stage {
+            width: 100%;
+            height: 220px; 
+            margin: 0 auto 15px auto;
             position: relative;
-            width: 100px;
-            height: 100px;
-            margin: 0 auto 25px auto;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            align-items: center;
         }
 
-        .main-icon {
-            font-size: 60px;
-            color: #00d084;
-            animation: pulseIcon 2s infinite ease-in-out;
-        }
-
-        .gear-icon {
+        /* DYNAMIC SPEECH BUBBLE */
+        .speech-bubble {
+            background: #ffffff;
+            color: #0f172a;
+            padding: 8px 14px;
+            border-radius: 16px;
+            font-size: 13px;
+            font-weight: 700;
             position: absolute;
-            font-size: 26px;
-            color: #f97316;
-            bottom: 15px;
-            right: 10px;
-            animation: spinGear 3s linear infinite;
+            top: -5px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+            max-width: 260px;
+            line-height: 1.4;
+            z-index: 20;
+            animation: bubbleFloat 2s ease-in-out infinite alternate;
         }
 
-        @keyframes pulseIcon {
-            0%, 100% { transform: scale(1); opacity: 0.9; }
-            50% { transform: scale(1.05); color: #059669; opacity: 1; }
+        .speech-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-width: 8px 8px 0;
+            border-style: solid;
+            border-color: #ffffff transparent;
         }
 
-        @keyframes spinGear {
-            to { transform: rotate(360deg); }
+        .bubble-text::before {
+            content: "Where is the path? I'm lost... 🐾";
+            animation: textStory 16s infinite linear;
         }
 
-        /* Typography */
+        @keyframes bubbleFloat {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-5px); }
+        }
+
+        /* --- THE CHERRYJOE LOGO ELEMENT (SCENE 4) --- */
+        .stage-logo {
+            position: absolute;
+            top: 45px;
+            width: 75px;
+            height: 75px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 50%;
+            border: 3px solid #00d084;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 10px 25px rgba(0,208,132,0.3);
+            z-index: 2;
+            animation: logoStory 16s infinite linear;
+        }
+        .stage-logo i {
+            color: #f43f5e; /* Sakura pink color */
+            font-size: 35px;
+        }
+
+        /* --- PANDA CHARACTER GENERATION --- */
+        .panda-body {
+            width: 80px;
+            height: 75px;
+            background: #ffffff;
+            border-radius: 50% 50% 45% 45%;
+            position: relative;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            z-index: 5;
+            animation: bodyStory 16s infinite linear;
+        }
+
+        .panda-body::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 40px;
+            background: #1e293b;
+            top: 0;
+            left: 0;
+            border-radius: 45% 45% 0 0;
+        }
+
+        .panda-head {
+            width: 70px;
+            height: 60px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: -42px;
+            left: 5px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .panda-ear {
+            width: 22px;
+            height: 22px;
+            background: #1e293b;
+            border-radius: 50%;
+            position: absolute;
+            top: -5px;
+        }
+        .panda-ear.left { left: -4px; }
+        .panda-ear.right { right: -4px; }
+
+        .panda-eye {
+            width: 18px;
+            height: 22px;
+            background: #1e293b;
+            border-radius: 50%;
+            position: absolute;
+            top: 18px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .panda-eye.left { left: 12px; transform: rotate(10deg); }
+        .panda-eye.right { right: 12px; transform: rotate(-10deg); }
+
+        .panda-eye::after {
+            content: '';
+            width: 6px;
+            height: 6px;
+            background: #ffffff;
+            border-radius: 50%;
+            position: absolute;
+            top: 5px;
+            animation: eyeStory 16s infinite linear;
+        }
+
+        .panda-nose {
+            width: 10px;
+            height: 6px;
+            background: #1e293b;
+            border-radius: 50%;
+            position: absolute;
+            top: 38px;
+            left: 30px;
+        }
+
+        .panda-mouth {
+            position: absolute;
+            top: 44px;
+            left: 30px;
+            animation: mouthStory 16s infinite linear;
+        }
+
+        /* ARMS & COMBAT EQUIPMENT SETUP */
+        .panda-arm {
+            width: 22px;
+            height: 32px;
+            background: #1e293b;
+            border-radius: 50%;
+            position: absolute;
+            top: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .panda-arm.left { left: -12px; transform-origin: top right; animation: armLeftStory 16s infinite linear; }
+        .panda-arm.right { right: -12px; transform-origin: top left; animation: armRightStory 16s infinite linear; }
+
+        /* Combat Weapon Shapes attached inside arms */
+        .sword {
+            position: absolute;
+            width: 6px;
+            height: 38px;
+            background: #cbd5e1;
+            border: 1px solid #94a3b8;
+            top: 15px;
+            left: -5px;
+            transform: rotate(-45deg);
+            animation: gearStory 16s infinite linear;
+        }
+        .sword::after {
+            content: '';
+            position: absolute;
+            width: 14px;
+            height: 4px;
+            background: #b45309;
+            bottom: 8px;
+            left: -4px;
+        }
+
+        .shield {
+            position: absolute;
+            width: 20px;
+            height: 24px;
+            background: #b45309;
+            border-radius: 0 0 10px 10px;
+            border: 2px solid #d97706;
+            top: 10px;
+            right: -8px;
+            animation: gearStory 16s infinite linear;
+        }
+
+        .panda-leg {
+            width: 24px;
+            height: 26px;
+            background: #1e293b;
+            border-radius: 50% 50% 30% 30%;
+            position: absolute;
+            bottom: -8px;
+        }
+        .panda-leg.left { left: 8px; animation: legLeftStory 16s infinite linear; }
+        .panda-leg.right { right: 8px; animation: legRightStory 16s infinite linear; }
+
+
+        /* ========================================================
+           --- SYNCED 4-SCENE TIMELINE ANIMATIONS (16s LOOP) ---
+           ======================================================== */
+
+        /* SCENE TEXT TIMELINE */
+        @keyframes textStory {
+            0%, 22% { content: "Where is the path? I'm lost... 🐾"; }
+            25%, 47% { content: "Hi! Welcome to CherryJoe! 😊👋"; }
+            50%, 72% { content: "Yaaah! Die system bugs! Take that! ⚔️🛡️👊"; }
+            75%, 100% { content: "Yay! Maintenance Complete! We did it! 🎉🌸"; }
+        }
+
+        /* BACKDROP LOGO TIMELINE */
+        @keyframes logoStory {
+            0%, 72% { opacity: 0; transform: scale(0.5) translateY(50px); }
+            75%, 100% { opacity: 1; transform: scale(1) translateY(-10px); }
+        }
+
+        /* WEAPONS VISIBILITY TIMELINE */
+        @keyframes gearStory {
+            0%, 49% { opacity: 0; }
+            50%, 72% { opacity: 1; }
+            75%, 100% { opacity: 0; }
+        }
+
+        /* PANDA BODY TIMELINE */
+        @keyframes bodyStory {
+            /* Scene 1: Lost Walking (0% - 22%) */
+            0% { transform: translateX(-60px); }
+            11% { transform: translateX(40px) scaleX(1); }
+            22% { transform: translateX(-10px) scaleX(-1); }
+            
+            /* Scene 2: Welcoming Wave (25% - 47%) */
+            25% { transform: translateX(0px) scaleX(1); }
+            30%, 40% { transform: translateX(0px) translateY(-8px); }
+            35%, 45% { transform: translateX(0px) translateY(0px); }
+            
+            /* Scene 3: Fighting Bugs (50% - 72%) */
+            50% { transform: translateX(-20px) rotate(-5deg); }
+            55% { transform: translateX(25px) rotate(8deg); }
+            60% { transform: translateX(-25px) rotate(-10deg); }
+            65% { transform: translateX(20px) rotate(5deg); }
+            72% { transform: translateX(0px) rotate(0deg); }
+
+            /* Scene 4: Celebration (75% - 100%) */
+            75% { transform: scale(1) translateY(0); }
+            80%, 90%, 100% { transform: scale(1.08) translateY(-15px); }
+            85%, 95% { transform: scale(1) translateY(0); }
+        }
+
+        /* EYE EXPRESSIONS TIMELINE */
+        @keyframes eyeStory {
+            0%, 22% { transform: scaleY(1); } /* Confused normal */
+            25%, 47% { transform: scaleY(0.4) translateY(3px); } /* Happy blink */
+            50%, 72% { transform: scale(1.3); background: #ef4444; } /* Angry Red Eyes */
+            75%, 100% { transform: scale(1); background: #ffffff; } /* Cheerful normal */
+        }
+
+        /* MOUTH EXPRESSIONS TIMELINE */
+        @keyframes mouthStory {
+            0%, 22% { width: 10px; height: 3px; background: #1e293b; border-radius: 50%; } 
+            25%, 47% { width: 14px; height: 8px; border: 2px solid #1e293b; border-top: 0; border-radius: 0 0 8px 8px; background: transparent; }
+            50%, 72% { width: 12px; height: 12px; background: #1e293b; border-radius: 50%; } 
+            75%, 100% { width: 16px; height: 10px; border: 2px solid #1e293b; border-top: 0; border-radius: 0 0 10px 10px; background: transparent; }
+        }
+
+        /* LEFT ARM TIMELINE */
+        @keyframes armLeftStory {
+            0%, 22% { transform: rotate(30deg); }
+            25%, 47% { transform: rotate(40deg); }
+            50%, 72% { transform: translateY(-8px) rotate(-110deg); } /* Attacking with sword */
+            75%, 100% { transform: rotate(-130deg) translateY(-5px); } /* Cheering up hands */
+        }
+
+        /* RIGHT ARM TIMELINE */
+        @keyframes armRightStory {
+            0%, 22% { transform: rotate(-30deg); }
+            25%, 47% { transform: rotate(-130deg); } /* Waving to visitors */
+            50%, 72% { transform: rotate(45deg); } /* Holding shield */
+            75%, 100% { transform: rotate(130deg) translateY(-5px); } /* Cheering up hands */
+        }
+
+        /* LEGS WALKING TIMELINE */
+        @keyframes legLeftStory {
+            0%, 22% { transform: translateY(3px) rotate(25deg); }
+            25%, 100% { transform: rotate(0); }
+        }
+        @keyframes legRightStory {
+            0%, 22% { transform: translateY(-3px) rotate(-25deg); }
+            25%, 100% { transform: rotate(0); }
+        }
+
+        /* Typography & Layout elements */
         h1 {
             font-size: 32px;
             font-weight: 800;
@@ -150,66 +456,6 @@
             font-size: 15px;
             line-height: 1.6;
             margin-bottom: 30px;
-        }
-
-        /* --- CONTACT & QUICK INFO GRID --- */
-        .info-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 14px;
-            margin-bottom: 30px;
-            text-align: left;
-        }
-
-        .info-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.04);
-            padding: 16px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s ease;
-        }
-
-        .info-card:hover {
-            border-color: rgba(0, 208, 132, 0.2);
-            background: rgba(0, 208, 132, 0.03);
-        }
-
-        .info-card i {
-            font-size: 20px;
-            color: #f97316;
-            background: rgba(249, 115, 22, 0.08);
-            padding: 12px;
-            border-radius: 12px;
-            width: 44px;
-            text-align: center;
-        }
-
-        .info-card i.fa-phone {
-            color: #00d084;
-            background: rgba(0, 208, 132, 0.08);
-        }
-
-        .info-details h3 {
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            color: #64748b;
-            margin-bottom: 2px;
-        }
-
-        .info-details p, .info-details a {
-            font-size: 14px;
-            color: #e2e8f0;
-            font-weight: 600;
-            text-decoration: none;
-        }
-
-        .info-details a:hover {
-            color: #00d084;
-            text-decoration: underline;
         }
 
         /* --- SOCIAL MEDIA BUTTONS --- */
@@ -270,43 +516,40 @@
 </head>
 <body>
 
+    <div class="leaf-container" id="leafContainer"></div>
+
     <div class="maintenance-container" id="maintenanceCard">
-        <div class="icon-stack">
-            <i class="fas fa-compass main-icon"></i>
-            <i class="fas fa-cog gear-icon"></i>
+        
+        <div class="panda-stage">
+            <div class="speech-bubble">
+                <span class="bubble-text"></span>
+            </div>
+
+            <div class="stage-logo">
+                <i class="fa-solid fa-seedling"></i>
+            </div>
+
+            <div class="panda-body">
+                <div class="panda-head">
+                    <div class="panda-ear left"></div>
+                    <div class="panda-ear right"></div>
+                    <div class="panda-eye left"></div>
+                    <div class="panda-eye right"></div>
+                    <div class="panda-nose"></div>
+                    <div class="panda-mouth"></div>
+                </div>
+                <div class="panda-arm left"><div class="sword"></div></div>
+                <div class="panda-arm right"><div class="shield"></div></div>
+                <div class="panda-leg left"></div>
+                <div class="panda-leg right"></div>
+            </div>
         </div>
 
         <span class="brand-tag">CherryJoe River Park</span>
         <h1>Under Maintenance</h1>
         <span class="back-later-text">Please come back later</span>
         
-        <p class="notice-text">We are currently updating and improving our official website to provide you with a much better experience. We will be back online shortly!</p>
-
-        <div class="info-grid">
-            <div class="info-card">
-                <i class="fas fa-phone"></i>
-                <div class="info-details">
-                    <h3>Contact Number</h3>
-                    <p>0920 408 7956</p>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <i class="fas fa-envelope"></i>
-                <div class="info-details">
-                    <h3>Email Address</h3>
-                    <a href="mailto:cherryday103080@gmail.com">cherryday103080@gmail.com</a>
-                </div>
-            </div>
-
-            <div class="info-card">
-                <i class="fas fa-map-marker-alt"></i>
-                <div class="info-details">
-                    <h3>Resort Location</h3>
-                    <p>Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
-                </div>
-            </div>
-        </div>
+        <p class="notice-text">Our systems are currently getting an upgrade. Panda is up there making sure all system bugs are wiped out so you can enjoy a smoother and faster booking system very soon!</p>
 
         <div class="social-container">
             <div class="social-title">For Inquiries and Bookings</div>
@@ -319,12 +562,35 @@
     </div>
 
     <script>
+        // Smooth entrance card trigger
         window.addEventListener('DOMContentLoaded', () => {
             const card = document.getElementById('maintenanceCard');
             if(card) {
                 card.classList.add('active');
             }
+            createLeaves();
         });
+
+        // Nature Leaf System
+        function createLeaves() {
+            const container = document.getElementById('leafContainer');
+            const leafCount = 20; 
+
+            for (let i = 0; i < leafCount; i++) {
+                const leaf = document.createElement('div');
+                leaf.classList.add('leaf');
+
+                const size = Math.random() * 12 + 8; 
+                leaf.style.width = `${size}px`;
+                leaf.style.height = `${size}px`;
+                
+                leaf.style.left = `${Math.random() * 100}%`;
+                leaf.style.animationDelay = `${Math.random() * 10}s`;
+                leaf.style.animationDuration = `${Math.random() * 6 + 7}s`; 
+
+                container.appendChild(leaf);
+            }
+        }
     </script>
 </body>
 </html>
