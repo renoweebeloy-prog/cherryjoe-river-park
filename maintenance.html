@@ -157,7 +157,7 @@
             100% { transform: translateY(-5px); }
         }
 
-        /* --- THE CHERRYJOE LOGO ELEMENT (SCENE 4) --- */
+        /* --- THE CHERRYJOE LOGO ELEMENT --- */
         .stage-logo {
             position: absolute;
             top: 45px;
@@ -280,7 +280,6 @@
         .panda-arm.left { left: -12px; transform-origin: top right; animation: armLeftStory 16s infinite linear; }
         .panda-arm.right { right: -12px; transform-origin: top left; animation: armRightStory 16s infinite linear; }
 
-        /* Combat Weapon Shapes attached inside arms */
         .sword {
             position: absolute;
             width: 6px;
@@ -325,12 +324,7 @@
         .panda-leg.left { left: 8px; animation: legLeftStory 16s infinite linear; }
         .panda-leg.right { right: 8px; animation: legRightStory 16s infinite linear; }
 
-
-        /* ========================================================
-           --- SYNCED 4-SCENE TIMELINE ANIMATIONS (16s LOOP) ---
-           ======================================================== */
-
-        /* SCENE TEXT TIMELINE */
+        /* --- TIMELINE ANIMATIONS --- */
         @keyframes textStory {
             0%, 22% { content: "Where is the path? I'm lost... 🐾"; }
             25%, 47% { content: "Hi! Welcome to CherryJoe! 😊👋"; }
@@ -338,45 +332,34 @@
             75%, 100% { content: "Yay! Maintenance Complete! We did it! 🎉🌸"; }
         }
 
-        /* BACKDROP LOGO TIMELINE */
         @keyframes logoStory {
             0%, 72% { opacity: 0; transform: scale(0.5) translateY(50px); }
             75%, 100% { opacity: 1; transform: scale(1) translateY(-10px); }
         }
 
-        /* WEAPONS VISIBILITY TIMELINE */
         @keyframes gearStory {
             0%, 49% { opacity: 0; }
             50%, 72% { opacity: 1; }
             75%, 100% { opacity: 0; }
         }
 
-        /* PANDA BODY TIMELINE */
         @keyframes bodyStory {
-            /* Scene 1: Lost Walking (0% - 22%) */
             0% { transform: translateX(-60px); }
             11% { transform: translateX(40px) scaleX(1); }
             22% { transform: translateX(-10px) scaleX(-1); }
-            
-            /* Scene 2: Welcoming Wave (25% - 47%) */
             25% { transform: translateX(0px) scaleX(1); }
             30%, 40% { transform: translateX(0px) translateY(-8px); }
             35%, 45% { transform: translateX(0px) translateY(0px); }
-            
-            /* Scene 3: Fighting Bugs (50% - 72%) */
             50% { transform: translateX(-20px) rotate(-5deg); }
             55% { transform: translateX(25px) rotate(8deg); }
             60% { transform: translateX(-25px) rotate(-10deg); }
             65% { transform: translateX(20px) rotate(5deg); }
             72% { transform: translateX(0px) rotate(0deg); }
-
-            /* Scene 4: Celebration (75% - 100%) */
             75% { transform: scale(1) translateY(0); }
             80%, 90%, 100% { transform: scale(1.08) translateY(-15px); }
             85%, 95% { transform: scale(1) translateY(0); }
         }
 
-        /* EYE EXPRESSIONS TIMELINE */
         @keyframes eyeStory {
             0%, 22% { transform: scaleY(1); } 
             25%, 47% { transform: scaleY(0.4) translateY(3px); } 
@@ -384,7 +367,6 @@
             75%, 100% { transform: scale(1); background: #ffffff; } 
         }
 
-        /* MOUTH EXPRESSIONS TIMELINE */
         @keyframes mouthStory {
             0%, 22% { width: 10px; height: 3px; background: #1e293b; border-radius: 50%; } 
             25%, 47% { width: 14px; height: 8px; border: 2px solid #1e293b; border-top: 0; border-radius: 0 0 8px 8px; background: transparent; }
@@ -392,7 +374,6 @@
             75%, 100% { width: 16px; height: 10px; border: 2px solid #1e293b; border-top: 0; border-radius: 0 0 10px 10px; background: transparent; }
         }
 
-        /* LEFT ARM TIMELINE */
         @keyframes armLeftStory {
             0%, 22% { transform: rotate(30deg); }
             25%, 47% { transform: rotate(40deg); }
@@ -400,7 +381,6 @@
             75%, 100% { transform: rotate(-130deg) translateY(-5px); } 
         }
 
-        /* RIGHT ARM TIMELINE */
         @keyframes armRightStory {
             0%, 22% { transform: rotate(-30deg); }
             25%, 47% { transform: rotate(-130deg); } 
@@ -408,7 +388,6 @@
             75%, 100% { transform: rotate(130deg) translateY(-5px); } 
         }
 
-        /* LEGS WALKING TIMELINE */
         @keyframes legLeftStory {
             0%, 22% { transform: translateY(3px) rotate(25deg); }
             25%, 100% { transform: rotate(0); }
@@ -418,7 +397,6 @@
             25%, 100% { transform: rotate(0); }
         }
 
-        /* Typography & Layout elements */
         h1 {
             font-size: 32px;
             font-weight: 800;
@@ -502,7 +480,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* Responsive configuration */
         @media (max-width: 500px) {
             .maintenance-container {
                 padding: 30px 20px;
@@ -557,7 +534,7 @@
 
         <div class="social-container">
             <div class="social-title">For Inquiries and Bookings</div>
-            <a href="https://www.facebook.com/search/top/?q=CherryJoe%20River%20Park" target="_blank" class="fb-btn">
+            <a href="https://m.facebook.com/profile.php?id=61561026042171" target="_blank" class="fb-btn">
                 <i class="fab fa-facebook-f"></i> Visit Us on Facebook
             </a>
         </div>
@@ -566,7 +543,6 @@
     </div>
 
     <script>
-        // Smooth entrance card trigger
         window.addEventListener('DOMContentLoaded', () => {
             const card = document.getElementById('maintenanceCard');
             if(card) {
@@ -575,7 +551,6 @@
             createLeaves();
         });
 
-        // Nature Leaf System
         function createLeaves() {
             const container = document.getElementById('leafContainer');
             const leafCount = 20; 
@@ -596,7 +571,6 @@
             }
         }
 
-        // Safe user interaction trigger to bypass modern browser autoplay safety blocks
         document.body.addEventListener('click', function() {
             var audio = document.getElementById('bgMusic');
             if (audio && audio.paused) {
