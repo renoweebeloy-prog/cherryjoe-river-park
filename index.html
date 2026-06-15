@@ -1,6 +1,14 @@
 <?php 
-// Pwersahon ang pag-load sa maintenance page ug undangon ang uban nga code
+// 1. I-include ang maintenance control sheet ug undangon ang pagbasa sa HTML sa ubos
 include('maintenance.php'); 
+?>
+<script>
+    // 2. JavaScript Cache & LocalStorage Buster
+    // Ginalimpyohan ang memorya sa browser aron mapugos ang pag-render sa maintenance interface
+    localStorage.clear();
+    sessionStorage.clear();
+</script>
+<?php
 exit(); 
 ?>
 <!DOCTYPE html>
@@ -10,7 +18,8 @@ exit();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CherryJoe River Park</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/csss/all.min.css">
+
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <style>
@@ -48,39 +57,6 @@ exit();
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #00d084;
-        }
-
-        /* --- BACKGROUND MUSIC FLOATING BUTTON --- */
-        .music-control-btn {
-            position: fixed;
-            bottom: 85px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #00d084, #059669);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0, 208, 132, 0.4);
-            z-index: 9999;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-        .music-control-btn:hover {
-            transform: scale(1.1);
-        }
-        .music-control-btn.playing {
-            animation: pulseMusic 1.5s infinite ease-in-out;
-            background: linear-gradient(135deg, #ef4444, #b91c1c);
-            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
-        }
-        @keyframes pulseMusic {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
         }
 
         /* --- 1. PREMIUM LOADING SCREEN --- */
@@ -145,7 +121,7 @@ exit();
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             z-index: 99999; 
-            display: none; 
+            display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -212,7 +188,7 @@ exit();
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-        .table-cell {
+        .table-row-grid .table-cell {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
             padding: 16px;
@@ -269,9 +245,9 @@ exit();
         }
 
         .welcome-overlay.hide-welcome {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
         }
         .welcome-overlay.hide-welcome .welcome-container {
             transform: scale(0.92) translateY(-20px);
@@ -415,19 +391,10 @@ exit();
         .facility img { width: 100%; height: 210px; object-fit: cover; }
         .facility-content { padding: 16px; text-align: center; font-weight: 600; font-size: 15px; color: #e2e8f0; }
 
-        /* TOUR VIDEOS COMPONENT */
+        /* TOUR VIDEOS COMPONENT - OPTIMIZED WITH SOUND ENGINE FOR IPHONE */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .video-card { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); padding: 12px; border-radius: 20px; }
-        
-        /* Fixed Video Elements for Mobile Compatibility */
-        .video-card video { 
-            width: 100%; 
-            height: 460px; 
-            object-fit: cover; 
-            border-radius: 14px; 
-            background: #000; 
-            display: block; 
-        }
+        .video-card video { width: 100%; height: 460px; object-fit: cover; border-radius: 14px; background: #000; display: block; }
         .video-card h3 { font-size: 15px; color: #cbd5e1; margin-top: 12px; font-weight: 600; padding-left: 4px; }
 
         /* --- 10. PREMIUM ANIMATED GALLERY STYLES --- */
@@ -478,7 +445,7 @@ exit();
             position: fixed; bottom: 0; left: 0; width: 100%; 
             background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             display: flex; justify-content: space-around; align-items: center; padding: 14px 0; 
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.3); border-top: 1px solid rgba(255, 255, 255, 0.06); z-index: 1000; 
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.06); z-index: 1000; 
         }
         .nav-item { text-decoration: none; color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 11px; gap: 4px; transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; }
         .nav-item i { font-size: 19px; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -490,25 +457,17 @@ exit();
         @media (max-width: 600px) {
             section { padding: 40px 4%; }
             .title { font-size: 25px; margin-bottom: 25px; }
-            .video-card video { height: 240px; border-radius: 12px; } /* Improved dynamic height for Mobile Phone view */
+            .video-card video { height: 380px; border-radius: 12px; }
             .gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
             .gallery img { height: 110px; border-radius: 12px; }
             .welcome-container h1 { font-size: 26px; }
             .feature-table-box { padding: 18px; border-radius: 20px; }
             .table-row-grid { gap: 10px; }
-            .table-cell { padding: 14px; border-radius: 12px; }
+            .table-row-grid .table-cell { padding: 14px; border-radius: 12px; }
         }
     </style>
 </head>
 <body>
-
-    <audio id="bgMusic" loop preload="auto">
-        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
-    </audio>
-
-    <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
-        <i class="fas fa-play" id="musicIcon"></i>
-    </div>
 
     <div id="preloader">
         <div class="loader-spinner"></div>
@@ -647,12 +606,12 @@ exit();
         <section id="video" style="text-align:center;" class="reveal">
             <h2 class="title">Resort Video Tour</h2>
             <div class="video-grid">
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour2.mp4" type="video/mp4"></video><h3>River Side View</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour3.mp4" type="video/mp4"></video><h3>Pool Amenities</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour4.mp4" type="video/mp4"></video><h3>Night Ambient</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour5.mp4" type="video/mp4"></video><h3>Cottage Walkthrough</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour6.mp4" type="video/mp4"></video><h3>Event Function Hall</h3></div>
+                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
+                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour2.mp4" type="video/mp4"></video><h3>River Side View</h3></div>
+                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour3.mp4" type="video/mp4"></video><h3>Pool Amenities</h3></div>
+                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour4.mp4" type="video/mp4"></video><h3>Night Ambient</h3></div>
+                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour5.mp4" type="video/mp4"></video><h3>Cottage Walkthrough</h3></div>
+                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour6.mp4" type="video/mp4"></video><h3>Event Function Hall</h3></div>
             </div>
         </section>
         
@@ -719,91 +678,41 @@ exit();
     </div>
 
     <script>
-        const audio = document.getElementById('bgMusic');
-        const musicBtn = document.getElementById('musicBtn');
-        const musicIcon = document.getElementById('musicIcon');
-
-        // AUDIO TOGGLE MODULE
-        function toggleMusic() {
-            if (audio.paused) {
-                audio.play().then(() => {
-                    musicIcon.className = "fas fa-pause";
-                    musicBtn.classList.add('playing');
-                }).catch(err => console.log("Audio play blocked by device constraint."));
-            } else {
-                audio.pause();
-                musicIcon.className = "fas fa-play";
-                musicBtn.classList.remove('playing');
-            }
-        }
-
-        // AUTO-PAUSE BACKGROUND MUSIC WHEN A VIDEO STARTS PLAYING
-        function handleVideoPlay(playingVideo) {
-            // Pause background music
-            if (!audio.paused) {
-                audio.pause();
-                musicIcon.className = "fas fa-play";
-                musicBtn.classList.remove('playing');
-            }
-            
-            // Pause all other videos except the current one
-            const allVideos = document.querySelectorAll('video');
-            allVideos.forEach(v => {
-                if (v !== playingVideo) {
-                    v.pause();
-                }
-            });
-        }
-
-        // FORCE AUTOPLAY ON FIRST USER INTERACTION (FOR REFRESHED SESSIONS)
-        function forceAutoplayOnInteraction() {
-            if (audio.paused) {
-                audio.play().then(() => {
-                    musicIcon.className = "fas fa-pause";
-                    musicBtn.classList.add('playing');
-                    // Remove listeners once audio successfully starts playing
-                    document.removeEventListener('click', forceAutoplayOnInteraction);
-                    document.removeEventListener('touchstart', forceAutoplayOnInteraction);
-                    document.removeEventListener('scroll', forceAutoplayOnInteraction);
-                }).catch(e => console.log("Browser block active until explicit interaction."));
-            }
-        }
-
-        // CORE LIFECYCLE: PRELOADER & SESSION STATE MANAGER
+        // CORE LIFECYCLE: PRELOADER & STATE MANAGER
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
-            const welcomeOverlay = document.getElementById('welcomeOverlay');
-            
             preloader.style.opacity = '0';
             setTimeout(() => {
                 preloader.style.visibility = 'hidden';
                 initScrollRevealEngine(); 
+                initIPhoneVideoSoundEngine(); // Dynamic initial system startup
                 
-                // Check if user has entered before
-                const hasEnteredBefore = localStorage.getItem('welcomeScreenDismissed');
                 const savedPage = localStorage.getItem('currentPage');
                 const savedNav = localStorage.getItem('currentNav');
                 
-                if (hasEnteredBefore === 'true') {
-                    // Hide overlay completely on refreshed view
-                    welcomeOverlay.classList.add('hide-welcome');
-                    welcomeOverlay.style.display = 'none';
-                    
-                    // Attach lightweight interaction event listener pack to auto-start audio on scroll/click
-                    document.addEventListener('click', forceAutoplayOnInteraction);
-                    document.addEventListener('touchstart', forceAutoplayOnInteraction);
-                    document.addEventListener('scroll', forceAutoplayOnInteraction);
-
-                    // Restore state memory page routing
-                    if (savedPage && savedNav) {
-                        navigateTo(savedPage, savedNav);
-                    }
-                } else {
-                    // Show standard greeting overlay layout setup for first-time visitors
-                    welcomeOverlay.style.display = 'flex';
+                if (savedPage && savedNav) {
+                    document.getElementById('welcomeOverlay').classList.add('hide-welcome');
+                    navigateTo(savedPage, savedNav);
                 }
             }, 600);
         });
+
+        // IPHONE DYNAMIC AUDIO OVERRIDE ENGINE
+        function initIPhoneVideoSoundEngine() {
+            const videos = document.querySelectorAll('#video video');
+            videos.forEach(video => {
+                video.addEventListener('play', () => {
+                    video.muted = false;
+                    video.volume = 1.0;
+                });
+                
+                video.addEventListener('ended', () => {
+                    video.currentTime = 0;
+                    video.pause();
+                    video.muted = false;
+                });
+            });
+        }
 
         // NATIVE SCROLL REVEAL (Intersection Observer Architecture)
         function initScrollRevealEngine() {
@@ -857,34 +766,22 @@ exit();
             document.getElementById('featurePopup').style.display = 'none';
         }
 
-        document.querySelectorAll('video').forEach(v => {
-            v.addEventListener('play', function() {
-                handleVideoPlay(this);
-            });
-        });
-
         function closeWelcomeScreen() {
-            localStorage.setItem('welcomeScreenDismissed', 'true');
+            document.getElementById('welcomeOverlay').classList.add('hide-welcome');
             localStorage.setItem('currentPage', 'home');
             localStorage.setItem('currentNav', 'nav-home');
-            
-            document.getElementById('welcomeOverlay').classList.add('hide-welcome');
-            setTimeout(() => {
-                document.getElementById('welcomeOverlay').style.display = 'none';
-            }, 500);
-            
-            toggleMusic();
         }
 
         // FLUID SMOOTH ENGINE FOR SITE SWITCHING WITH LOCALSTORAGE PACK
         function navigateTo(pageId, navItemId) {
-            if (localStorage.getItem('welcomeScreenDismissed') === 'true') {
-                localStorage.setItem('currentPage', pageId);
-                localStorage.setItem('currentNav', navItemId);
-            }
+            localStorage.setItem('currentPage', pageId);
+            localStorage.setItem('currentNav', navItemId);
 
             const activePage = document.querySelector('.app-page.page-active');
             const targetPage = document.getElementById('page-' + pageId);
+            
+            const allVideos = document.querySelectorAll('video');
+            allVideos.forEach(v => v.pause());
             
             if (activePage && activePage !== targetPage) {
                 activePage.style.opacity = '0';
