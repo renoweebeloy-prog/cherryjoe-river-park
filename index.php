@@ -1,5 +1,4 @@
-
-<!DOCTYPE html>
+<?php include('maintenance.php'); exit(); ?>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
