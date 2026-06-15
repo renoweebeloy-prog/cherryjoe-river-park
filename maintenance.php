@@ -174,7 +174,7 @@
             animation: logoStory 16s infinite linear;
         }
         .stage-logo i {
-            color: #f43f5e; /* Sakura pink color */
+            color: #f43f5e; 
             font-size: 35px;
         }
 
@@ -378,10 +378,10 @@
 
         /* EYE EXPRESSIONS TIMELINE */
         @keyframes eyeStory {
-            0%, 22% { transform: scaleY(1); } /* Confused normal */
-            25%, 47% { transform: scaleY(0.4) translateY(3px); } /* Happy blink */
-            50%, 72% { transform: scale(1.3); background: #ef4444; } /* Angry Red Eyes */
-            75%, 100% { transform: scale(1); background: #ffffff; } /* Cheerful normal */
+            0%, 22% { transform: scaleY(1); } 
+            25%, 47% { transform: scaleY(0.4) translateY(3px); } 
+            50%, 72% { transform: scale(1.3); background: #ef4444; } 
+            75%, 100% { transform: scale(1); background: #ffffff; } 
         }
 
         /* MOUTH EXPRESSIONS TIMELINE */
@@ -396,16 +396,16 @@
         @keyframes armLeftStory {
             0%, 22% { transform: rotate(30deg); }
             25%, 47% { transform: rotate(40deg); }
-            50%, 72% { transform: translateY(-8px) rotate(-110deg); } /* Attacking with sword */
-            75%, 100% { transform: rotate(-130deg) translateY(-5px); } /* Cheering up hands */
+            50%, 72% { transform: translateY(-8px) rotate(-110deg); } 
+            75%, 100% { transform: rotate(-130deg) translateY(-5px); } 
         }
 
         /* RIGHT ARM TIMELINE */
         @keyframes armRightStory {
             0%, 22% { transform: rotate(-30deg); }
-            25%, 47% { transform: rotate(-130deg); } /* Waving to visitors */
-            50%, 72% { transform: rotate(45deg); } /* Holding shield */
-            75%, 100% { transform: rotate(130deg) translateY(-5px); } /* Cheering up hands */
+            25%, 47% { transform: rotate(-130deg); } 
+            50%, 72% { transform: rotate(45deg); } 
+            75%, 100% { transform: rotate(130deg) translateY(-5px); } 
         }
 
         /* LEGS WALKING TIMELINE */
@@ -516,6 +516,10 @@
 </head>
 <body>
 
+    <audio id="bgMusic" autoplay loop>
+        <source src="Welcome_to_River_Park.mp3" type="audio/mpeg">
+    </audio>
+
     <div class="leaf-container" id="leafContainer"></div>
 
     <div class="maintenance-container" id="maintenanceCard">
@@ -553,7 +557,7 @@
 
         <div class="social-container">
             <div class="social-title">For Inquiries and Bookings</div>
-            <a href="https://www.facebook.com/share/1DkMYrXWiZ/" target="_blank" class="fb-btn">
+            <a href="https://www.facebook.com/share/19MDCVy1bw/?mibextid=wwXIfr" target="_blank" class="fb-btn">
                 <i class="fab fa-facebook-f"></i> Visit Us on Facebook
             </a>
         </div>
@@ -591,6 +595,14 @@
                 container.appendChild(leaf);
             }
         }
+
+        // Safe user interaction trigger to bypass modern browser autoplay safety blocks
+        document.body.addEventListener('click', function() {
+            var audio = document.getElementById('bgMusic');
+            if (audio && audio.paused) {
+                audio.play();
+            }
+        }, { once: true });
     </script>
 </body>
 </html>
