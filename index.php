@@ -1,12 +1,31 @@
-<?php include('maintenance.php'); exit(); ?>
-<!DOCTYPE html>
+<?php 
+// ==========================================
+// 🛠️ MAINTENANCE SWITCH CONTROL
+// Isulat ang true kung gusto nimo i-maintenance ang site.
+// Isulat ang false kung gusto nimo i-live ug ipakita ang tibuok website.
+// ==========================================
+$maintenance_mode = true; 
 
+if ($maintenance_mode) {
+    if (file_exists('maintenance.php')) {
+        include('maintenance.php');
+    } else {
+        // Fallback screen kung pananglit mawala ang maintenance.php
+        echo "<div style='text-align:center; padding:50px; font-family:sans-serif; background:#0f172a; color:white; height:100vh;'>";
+        echo "<h2>🛠️ CherryJoe River Park is Under Maintenance</h2>";
+        echo "<p>We are updating our features. Please come back later!</p>";
+        echo "</div>";
+    }
+    exit(); 
+}
+?>
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CherryJoe River Park</title>
-
+.... (Ipadayon ang tibuok HTML/CSS/JS code sa index.php nga imong gi-upload diri sa ubos, ayaw hilabti ang uban)
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
