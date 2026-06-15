@@ -1,25 +1,4 @@
 
-
-<?php 
-// ==========================================
-// 🛠️ AUTOMATIC FILE-FLAG MAINTENANCE SWITCH
-// Kon naay file nga 'maintenance.flag', mo-maintenance ang site.
-// Kon papason nimo ang 'maintenance.flag', mo-live ang site.
-// ==========================================
-
-if (file_exists('maintenance.flag')) {
-    if (file_exists('maintenance.php')) {
-        include('maintenance.php');
-    } else {
-        // Fallback screen para dili mo-white screen kon mawala ang maintenance.php
-        echo "<div style='text-align:center; padding:50px; font-family:sans-serif; background:#0f172a; color:white; height:100vh;'>";
-        echo "<h2>🛠️ CherryJoe River Park is Under Maintenance</h2>";
-        echo "<p>We are updating our premium features. Please come back later!</p>";
-        echo "</div>";
-    }
-    exit(); 
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
