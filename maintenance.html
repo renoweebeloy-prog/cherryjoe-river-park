@@ -22,38 +22,49 @@
             color: #f1f5f9;
             min-height: 100vh;
             display: flex;
-            justify-content: center;
+            justify-content: flex-end; /* Gipakidlip o gipapahimutang sa RIGHT SIDE */
             align-items: center;
             overflow: hidden; 
-            padding: 20px;
+            padding: 20px 80px; /* Naay 80px nga espasyo sa tuo para dili sikit kaayo sa ngilit */
             position: relative;
         }
 
-        /* Ambient Background Glows */
-        body::before {
-            content: '';
+        /* --- DYNAMIC SLIDESHOW BACKGROUND (PANNING EFFECTS) --- */
+        .bg-slideshow {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(0, 208, 132, 0.15);
-            border-radius: 50%;
-            top: -50px;
-            left: -50px;
-            filter: blur(80px);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             z-index: 0;
+            overflow: hidden;
         }
 
-        body::after {
-            content: '';
+        .bg-slide {
             position: absolute;
-            width: 300px;
-            height: 300px;
-            background: rgba(249, 115, 22, 0.1);
-            border-radius: 50%;
-            bottom: -50px;
-            right: -50px;
-            filter: blur(80px);
-            z-index: 0;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: 205%; /* Gipadako para ma-zoom ang matag kuwadrado sa komik */
+            background-repeat: no-repeat;
+            opacity: 0;
+            transition: opacity 1.5s ease-in-out;
+        }
+
+        /* Dark gradient overlay para maklaro ug daling mabasahan ang card text */
+        .bg-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(15, 23, 42, 0.82), rgba(15, 23, 42, 0.72));
+            z-index: 1;
+        }
+
+        .bg-slide.active {
+            opacity: 1;
         }
 
         /* --- FALLING LEAVES SYSTEM --- */
@@ -64,7 +75,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
-            z-index: 1;
+            z-index: 3;
             pointer-events: none;
         }
 
@@ -84,18 +95,18 @@
             100% { top: 105vh; transform: translateX(120px) rotate(450deg); opacity: 0; }
         }
 
-        /* --- MAINTENANCE CARD --- */
+        /* --- MAINTENANCE CARD (PREMIUM GLASSMORPHISM) --- */
         .maintenance-container {
-            max-width: 550px;
+            max-width: 500px; /* Gi-adjust gamay ang gilapdon para mas slim ug nindot tan-awon sa kilid */
             width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.07);
+            background: rgba(15, 23, 42, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.12);
             border-radius: 32px;
             padding: 40px 30px;
             text-align: center;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255,255,255,0.15);
             z-index: 10; 
             opacity: 0;
             transform: translateY(30px);
@@ -157,7 +168,7 @@
             100% { transform: translateY(-5px); }
         }
 
-        /* --- THE CHERRYJOE LOGO ELEMENT (SCENE 4) --- */
+        /* --- THE CHERRYJOE LOGO ELEMENT --- */
         .stage-logo {
             position: absolute;
             top: 45px;
@@ -280,7 +291,6 @@
         .panda-arm.left { left: -12px; transform-origin: top right; animation: armLeftStory 16s infinite linear; }
         .panda-arm.right { right: -12px; transform-origin: top left; animation: armRightStory 16s infinite linear; }
 
-        /* Combat Weapon Shapes attached inside arms */
         .sword {
             position: absolute;
             width: 6px;
@@ -325,60 +335,42 @@
         .panda-leg.left { left: 8px; animation: legLeftStory 16s infinite linear; }
         .panda-leg.right { right: 8px; animation: legRightStory 16s infinite linear; }
 
-
-        /* ========================================================
-           --- SYNCED 4-SCENE TIMELINE ANIMATIONS (16s LOOP) ---
-           ======================================================== */
-
-        /* SCENE TEXT TIMELINE */
+        /* --- TIMELINE ANIMATIONS --- */
         @keyframes textStory {
             0%, 22% { content: "Where is the path? I'm lost... 🐾"; }
             25%, 47% { content: "Hi! Welcome to CherryJoe! 😊👋"; }
             50%, 72% { content: "Yaaah! Die system bugs! Take that! ⚔️🛡️👊"; }
             75%, 100% { content: "Hi Renowee! Your system has been hacked by me haha! 🐼💻🔥"; }
-            75%, 100% { content: "Yay! Maintenance Complete! We did it! 🎉🌸"; }
-
         }
 
-        /* BACKDROP LOGO TIMELINE */
         @keyframes logoStory {
             0%, 72% { opacity: 0; transform: scale(0.5) translateY(50px); }
             75%, 100% { opacity: 1; transform: scale(1) translateY(-10px); }
         }
 
-        /* WEAPONS VISIBILITY TIMELINE */
         @keyframes gearStory {
             0%, 49% { opacity: 0; }
             50%, 72% { opacity: 1; }
             75%, 100% { opacity: 0; }
         }
 
-        /* PANDA BODY TIMELINE */
         @keyframes bodyStory {
-            /* Scene 1: Lost Walking (0% - 22%) */
             0% { transform: translateX(-60px); }
             11% { transform: translateX(40px) scaleX(1); }
             22% { transform: translateX(-10px) scaleX(-1); }
-            
-            /* Scene 2: Welcoming Wave (25% - 47%) */
             25% { transform: translateX(0px) scaleX(1); }
             30%, 40% { transform: translateX(0px) translateY(-8px); }
             35%, 45% { transform: translateX(0px) translateY(0px); }
-            
-            /* Scene 3: Fighting Bugs (50% - 72%) */
             50% { transform: translateX(-20px) rotate(-5deg); }
             55% { transform: translateX(25px) rotate(8deg); }
             60% { transform: translateX(-25px) rotate(-10deg); }
             65% { transform: translateX(20px) rotate(5deg); }
             72% { transform: translateX(0px) rotate(0deg); }
-
-            /* Scene 4: Celebration (75% - 100%) */
             75% { transform: scale(1) translateY(0); }
             80%, 90%, 100% { transform: scale(1.08) translateY(-15px); }
             85%, 95% { transform: scale(1) translateY(0); }
         }
 
-        /* EYE EXPRESSIONS TIMELINE */
         @keyframes eyeStory {
             0%, 22% { transform: scaleY(1); } 
             25%, 47% { transform: scaleY(0.4) translateY(3px); } 
@@ -386,7 +378,6 @@
             75%, 100% { transform: scale(1); background: #ffffff; } 
         }
 
-        /* MOUTH EXPRESSIONS TIMELINE */
         @keyframes mouthStory {
             0%, 22% { width: 10px; height: 3px; background: #1e293b; border-radius: 50%; } 
             25%, 47% { width: 14px; height: 8px; border: 2px solid #1e293b; border-top: 0; border-radius: 0 0 8px 8px; background: transparent; }
@@ -394,7 +385,6 @@
             75%, 100% { width: 16px; height: 10px; border: 2px solid #1e293b; border-top: 0; border-radius: 0 0 10px 10px; background: transparent; }
         }
 
-        /* LEFT ARM TIMELINE */
         @keyframes armLeftStory {
             0%, 22% { transform: rotate(30deg); }
             25%, 47% { transform: rotate(40deg); }
@@ -402,7 +392,6 @@
             75%, 100% { transform: rotate(-130deg) translateY(-5px); } 
         }
 
-        /* RIGHT ARM TIMELINE */
         @keyframes armRightStory {
             0%, 22% { transform: rotate(-30deg); }
             25%, 47% { transform: rotate(-130deg); } 
@@ -410,7 +399,6 @@
             75%, 100% { transform: rotate(130deg) translateY(-5px); } 
         }
 
-        /* LEGS WALKING TIMELINE */
         @keyframes legLeftStory {
             0%, 22% { transform: translateY(3px) rotate(25deg); }
             25%, 100% { transform: rotate(0); }
@@ -420,7 +408,6 @@
             25%, 100% { transform: rotate(0); }
         }
 
-        /* Typography & Layout elements */
         h1 {
             font-size: 32px;
             font-weight: 800;
@@ -447,29 +434,30 @@
             letter-spacing: 2px;
             margin-bottom: 20px;
             display: inline-block;
-            background: rgba(0, 208, 132, 0.08);
+            background: rgba(0, 208, 132, 0.12);
             padding: 6px 16px;
             border-radius: 50px;
-            border: 1px solid rgba(0, 208, 132, 0.15);
+            border: 1px solid rgba(0, 208, 132, 0.25);
         }
 
         p.notice-text {
-            color: #94a3b8;
+            color: #e2e8f0;
             font-size: 15px;
             line-height: 1.6;
             margin-bottom: 30px;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.5);
         }
 
         /* --- SOCIAL MEDIA BUTTONS --- */
         .social-container {
-            border-top: 1px solid rgba(255, 255, 255, 0.06);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 25px;
         }
 
         .social-title {
             font-size: 12px;
             font-weight: 600;
-            color: #64748b;
+            color: #94a3b8;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 15px;
@@ -499,12 +487,19 @@
 
         footer {
             margin-top: 35px;
-            color: #475569;
+            color: #64748b;
             font-size: 12px;
             letter-spacing: 0.5px;
         }
 
-        /* Responsive configuration */
+        /* --- RESPONSIVE MOBILE ADJUSTMENTS --- */
+        @media (max-width: 900px) {
+            body {
+                justify-content: center; /* Inig abot sa mobile, mobalik siya sa tunga para maigo */
+                padding: 20px;
+            }
+        }
+
         @media (max-width: 500px) {
             .maintenance-container {
                 padding: 30px 20px;
@@ -521,6 +516,10 @@
     <audio id="bgMusic" autoplay loop>
         <source src="Welcome_to_River_Park.mp3" type="audio/mpeg">
     </audio>
+
+    <div class="bg-slideshow">
+        <div class="bg-overlay"></div>
+        <div class="bg-slide active" style="background-image: url('panda-comic.png'); background-position: left top;"></div>     <div class="bg-slide" style="background-image: url('panda-comic.png'); background-position: right top;"></div>    <div class="bg-slide" style="background-image: url('panda-comic.png'); background-position: left bottom;"></div>  <div class="bg-slide" style="background-image: url('panda-comic.png'); background-position: right bottom;"></div> </div>
 
     <div class="leaf-container" id="leafContainer"></div>
 
@@ -568,25 +567,38 @@
     </div>
 
     <script>
-        // Smooth entrance card trigger
         window.addEventListener('DOMContentLoaded', () => {
             const card = document.getElementById('maintenanceCard');
             if(card) {
                 card.classList.add('active');
             }
             createLeaves();
+            startSlideshow();
         });
 
-        // Nature Leaf System
+        // AUTOMATIC BACKGROUND SLIDESHOW CYCLE
+        function startSlideshow() {
+            const slides = document.querySelectorAll('.bg-slide');
+            let currentSlide = 0;
+            const slideInterval = 4000; 
+
+            setInterval(() => {
+                slides[currentSlide].classList.remove('active');
+                currentSlide = (currentSlide + 1) % slides.length;
+                slides[currentSlide].classList.add('active');
+            }, slideInterval);
+        }
+
+        // LEAF GENERATOR
         function createLeaves() {
             const container = document.getElementById('leafContainer');
-            const leafCount = 20; 
+            const leafCount = 25; 
 
             for (let i = 0; i < leafCount; i++) {
                 const leaf = document.createElement('div');
                 leaf.classList.add('leaf');
 
-                const size = Math.random() * 12 + 8; 
+                const size = Math.random() * 14 + 8; 
                 leaf.style.width = `${size}px`;
                 leaf.style.height = `${size}px`;
                 
@@ -598,7 +610,6 @@
             }
         }
 
-        // Safe user interaction trigger to bypass modern browser autoplay safety blocks
         document.body.addEventListener('click', function() {
             var audio = document.getElementById('bgMusic');
             if (audio && audio.paused) {
