@@ -69,15 +69,12 @@
             text-align: center;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255,255,255,0.1);
             z-index: 10;
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
+            animation: cardEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Class to trigger fluid entrance animation */
-        .maintenance-container.active {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes cardEntrance {
+            0% { transform: translateY(30px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
         }
 
         /* Animated Icon Stack */
@@ -126,7 +123,7 @@
         .back-later-text {
             font-size: 18px;
             font-weight: 600;
-            color: #f97316;
+            color: #f97316; /* Eye-catching orange color */
             margin-bottom: 20px;
             display: block;
         }
@@ -270,7 +267,7 @@
 </head>
 <body>
 
-    <div class="maintenance-container" id="maintenanceCard">
+    <div class="maintenance-container">
         <div class="icon-stack">
             <i class="fas fa-compass main-icon"></i>
             <i class="fas fa-cog gear-icon"></i>
@@ -318,15 +315,5 @@
         <footer>© 2026 CherryJoe River Park | Developed by Renowee Beloy</footer>
     </div>
 
-    <script>
-        // Gilain nato ang script execution para limpyo ug modagan dayon ang rendering
-        window.addEventListener('DOMContentLoaded', () => {
-            const card = document.getElementById('maintenanceCard');
-            if(card) {
-                // Mopadagan sa fluid animation inig render sa page
-                card.classList.add('active');
-            }
-        });
-    </script>
 </body>
 </html>
