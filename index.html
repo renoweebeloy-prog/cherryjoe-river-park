@@ -1,12 +1,4 @@
-<?php 
-// 🛠️ SWITCH ENGINE: Usba ang 'true' ngadto sa 'false' kung gusto nimo i-live na ang website.
-$maintenance_mode = true; 
 
-if ($maintenance_mode) {
-    include('maintenance.php');
-    exit(); 
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,7 +7,6 @@ if ($maintenance_mode) {
     <title>CherryJoe River Park</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <style>
@@ -53,6 +44,39 @@ if ($maintenance_mode) {
         }
         ::-webkit-scrollbar-thumb:hover {
             background: #00d084;
+        }
+
+        /* --- BACKGROUND MUSIC FLOATING BUTTON --- */
+        .music-control-btn {
+            position: fixed;
+            bottom: 85px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #00d084, #059669);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0, 208, 132, 0.4);
+            z-index: 9999;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+        }
+        .music-control-btn:hover {
+            transform: scale(1.1);
+        }
+        .music-control-btn.playing {
+            animation: pulseMusic 1.5s infinite ease-in-out;
+            background: linear-gradient(135deg, #ef4444, #b91c1c);
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
+        }
+        @keyframes pulseMusic {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
         }
 
         /* --- 1. PREMIUM LOADING SCREEN --- */
@@ -117,7 +141,7 @@ if ($maintenance_mode) {
             backdrop-filter: blur(14px);
             -webkit-backdrop-filter: blur(14px);
             z-index: 99999; 
-            display: flex;
+            display: none; 
             justify-content: center;
             align-items: center;
             padding: 20px;
@@ -184,7 +208,7 @@ if ($maintenance_mode) {
             grid-template-columns: 1fr 1fr;
             gap: 12px;
         }
-        .table-row-grid .table-cell {
+        .table-cell {
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.04);
             padding: 16px;
@@ -241,9 +265,9 @@ if ($maintenance_mode) {
         }
 
         .welcome-overlay.hide-welcome {
-            opacity: 0;
-            visibility: hidden;
-            pointer-events: none;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         .welcome-overlay.hide-welcome .welcome-container {
             transform: scale(0.92) translateY(-20px);
@@ -387,10 +411,19 @@ if ($maintenance_mode) {
         .facility img { width: 100%; height: 210px; object-fit: cover; }
         .facility-content { padding: 16px; text-align: center; font-weight: 600; font-size: 15px; color: #e2e8f0; }
 
-        /* TOUR VIDEOS COMPONENT - OPTIMIZED WITH SOUND ENGINE FOR IPHONE */
+        /* TOUR VIDEOS COMPONENT */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .video-card { background: rgba(255,255,255,0.01); border: 1px solid rgba(255,255,255,0.04); padding: 12px; border-radius: 20px; }
-        .video-card video { width: 100%; height: 460px; object-fit: cover; border-radius: 14px; background: #000; display: block; }
+        
+        /* Fixed Video Elements for Mobile Compatibility */
+        .video-card video { 
+            width: 100%; 
+            height: 460px; 
+            object-fit: cover; 
+            border-radius: 14px; 
+            background: #000; 
+            display: block; 
+        }
         .video-card h3 { font-size: 15px; color: #cbd5e1; margin-top: 12px; font-weight: 600; padding-left: 4px; }
 
         /* --- 10. PREMIUM ANIMATED GALLERY STYLES --- */
@@ -436,12 +469,12 @@ if ($maintenance_mode) {
         .close-popup-btn { background: rgba(255,255,255,0.06); color: #ffffff; border: none; padding: 12px 28px; font-size: 14px; font-weight: 600; border-radius: 50px; cursor: pointer; transition: 0.2s; }
         .close-popup-btn:hover { background: rgba(255,255,255,0.12); }
 
-        /* --- 11. MODERN MIDDLE TAB APP-BAR (BOTTOM BAR) --- */
+        /* --- 11. MODERN MOBILE TAB APP-BAR (BOTTOM BAR) --- */
         .bottom-nav { 
             position: fixed; bottom: 0; left: 0; width: 100%; 
             background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
             display: flex; justify-content: space-around; align-items: center; padding: 14px 0; 
-            box-shadow: 0 -10px 30px rgba(0,0,0,0.3); border-top: 1px solid rgba(255,255,255,0.06); z-index: 1000; 
+            box-shadow: 0 -10px 30px rgba(0,0,0,0.3); border-top: 1px solid rgba(255, 255, 255, 0.06); z-index: 1000; 
         }
         .nav-item { text-decoration: none; color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 11px; gap: 4px; transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; }
         .nav-item i { font-size: 19px; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -453,17 +486,25 @@ if ($maintenance_mode) {
         @media (max-width: 600px) {
             section { padding: 40px 4%; }
             .title { font-size: 25px; margin-bottom: 25px; }
-            .video-card video { height: 380px; border-radius: 12px; }
+            .video-card video { height: 240px; border-radius: 12px; } /* Improved dynamic height for Mobile Phone view */
             .gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
             .gallery img { height: 110px; border-radius: 12px; }
             .welcome-container h1 { font-size: 26px; }
             .feature-table-box { padding: 18px; border-radius: 20px; }
             .table-row-grid { gap: 10px; }
-            .table-row-grid .table-cell { padding: 14px; border-radius: 12px; }
+            .table-cell { padding: 14px; border-radius: 12px; }
         }
     </style>
 </head>
 <body>
+
+    <audio id="bgMusic" loop preload="auto">
+        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
+        <i class="fas fa-play" id="musicIcon"></i>
+    </div>
 
     <div id="preloader">
         <div class="loader-spinner"></div>
@@ -602,12 +643,12 @@ if ($maintenance_mode) {
         <section id="video" style="text-align:center;" class="reveal">
             <h2 class="title">Resort Video Tour</h2>
             <div class="video-grid">
-                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
-                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour2.mp4" type="video/mp4"></video><h3>River Side View</h3></div>
-                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour3.mp4" type="video/mp4"></video><h3>Pool Amenities</h3></div>
-                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour4.mp4" type="video/mp4"></video><h3>Night Ambient</h3></div>
-                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour5.mp4" type="video/mp4"></video><h3>Cottage Walkthrough</h3></div>
-                <div class="video-card"><video controls playsinline webkit-playsinline preload="metadata"><source src="videosresort-tour6.mp4" type="video/mp4"></video><h3>Event Function Hall</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour2.mp4" type="video/mp4"></video><h3>River Side View</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour3.mp4" type="video/mp4"></video><h3>Pool Amenities</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour4.mp4" type="video/mp4"></video><h3>Night Ambient</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour5.mp4" type="video/mp4"></video><h3>Cottage Walkthrough</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour6.mp4" type="video/mp4"></video><h3>Event Function Hall</h3></div>
             </div>
         </section>
         
@@ -674,40 +715,93 @@ if ($maintenance_mode) {
     </div>
 
     <script>
-        // CORE LIFECYCLE: PRELOADER & STATE MANAGER
+        const audio = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = document.getElementById('musicIcon');
+
+        // AUDIO TOGGLE MODULE
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicIcon.className = "fas fa-pause";
+                    musicBtn.classList.add('playing');
+                }).catch(err => console.log("Audio play blocked by device constraint."));
+            } else {
+                audio.pause();
+                musicIcon.className = "fas fa-play";
+                musicBtn.classList.remove('playing');
+            }
+        }
+
+        // AUTO-PAUSE BACKGROUND MUSIC WHEN A VIDEO STARTS PLAYING
+        function handleVideoPlay(playingVideo) {
+            // Pause background music
+            if (!audio.paused) {
+                audio.pause();
+                musicIcon.className = "fas fa-play";
+                musicBtn.classList.remove('playing');
+            }
+            
+            // Pause all other videos except the current one
+            const allVideos = document.querySelectorAll('video');
+            allVideos.forEach(v => {
+                if (v !== playingVideo) {
+                    v.pause();
+                }
+            });
+        }
+
+        // FORCE AUTOPLAY ON FIRST USER INTERACTION (FOR REFRESHED SESSIONS)
+        function forceAutoplayOnInteraction() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicIcon.className = "fas fa-pause";
+                    musicBtn.classList.add('playing');
+                    // Remove listeners once audio successfully starts playing
+                    document.removeEventListener('click', forceAutoplayOnInteraction);
+                    document.removeEventListener('touchstart', forceAutoplayOnInteraction);
+                    document.removeEventListener('scroll', forceAutoplayOnInteraction);
+                }).catch(e => console.log("Browser block active until explicit interaction."));
+            }
+        }
+
+        // CORE LIFECYCLE: PRELOADER & SESSION STATE MANAGER
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
+            const welcomeOverlay = document.getElementById('welcomeOverlay');
+            
             preloader.style.opacity = '0';
             setTimeout(() => {
                 preloader.style.visibility = 'hidden';
                 initScrollRevealEngine(); 
-                initIPhoneVideoSoundEngine(); 
                 
+                // Check if user has entered before
+                const hasEnteredBefore = localStorage.getItem('welcomeScreenDismissed');
                 const savedPage = localStorage.getItem('currentPage');
                 const savedNav = localStorage.getItem('currentNav');
                 
-                if (savedPage && savedNav) {
-                    document.getElementById('welcomeOverlay').classList.add('hide-welcome');
-                    navigateTo(savedPage, savedNav);
+                if (hasEnteredBefore === 'true') {
+                    // Hide overlay completely on refreshed view
+                    welcomeOverlay.classList.add('hide-welcome');
+                    welcomeOverlay.style.display = 'none';
+                    
+                    // Attach lightweight interaction event listener pack to auto-start audio on scroll/click
+                    document.addEventListener('click', forceAutoplayOnInteraction);
+                    document.addEventListener('touchstart', forceAutoplayOnInteraction);
+                    document.addEventListener('scroll', forceAutoplayOnInteraction);
+
+                    // Restore state memory page routing
+                    if (savedPage && savedNav) {
+                        navigateTo(savedPage, savedNav);
+                    }
+                } else {
+                    // Show standard greeting overlay layout setup for first-time visitors
+                    welcomeOverlay.style.display = 'flex';
                 }
             }, 600);
         });
 
-        function initIPhoneVideoSoundEngine() {
-            const videos = document.querySelectorAll('#video video');
-            videos.forEach(video => {
-                video.addEventListener('play', () => {
-                    video.muted = false;
-                    video.volume = 1.0;
-                });
-                video.addEventListener('ended', () => {
-                    video.currentTime = 0;
-                    video.pause();
-                    video.muted = false;
-                });
-            });
-        }
-
+        // NATIVE SCROLL REVEAL (Intersection Observer Architecture)
         function initScrollRevealEngine() {
             const targets = document.querySelectorAll('.reveal');
             const visualObserver = new IntersectionObserver((entries) => {
@@ -717,14 +811,32 @@ if ($maintenance_mode) {
                     }
                 });
             }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+            
             targets.forEach(element => visualObserver.observe(element));
         }
 
+        // DATABASE/MODEL DECLARATIONS FOR DATA DIALOG MODALS
         const featureData = {
-            cottage: { title: "Open Cottages Setup", icon: "fas fa-home", desc: "Relax in our comfortable Open Cottages built perfect for families and barkadas. Current rental rate is fixed at only ₱100 with an 8-person maximum capacity limit." },
-            pool: { title: "Resort Swimming Pool", icon: "fas fa-swimming-pool", desc: "Enjoy a pristine, treated, and completely cold swim in our integrated pool structure. Highly dynamic safety setup designed for children and adults." },
-            river: { title: "Scenic River View", icon: "fas fa-water", desc: "Nature at its best! CherryJoe is directly parallel to the clean refreshing river flow of Cateel, Davao Oriental, providing natural therapeutic acoustics." },
-            food: { title: "Authentic Food Menu", icon: "fas fa-utensils", desc: "Savor premium local delicacies cooked fresh: Fish Kinilaw, Sinuwag Pork Belly, Tuna Panga, Freshwater Eel (Kasili), and strong hot Native Coffee." }
+            cottage: {
+                title: "Open Cottages Setup",
+                icon: "fas fa-home",
+                desc: "Relax in our comfortable Open Cottages built perfect for families and barkadas. Current rental rate is fixed at only ₱100 with an 8-person maximum capacity limit."
+            },
+            pool: {
+                title: "Resort Swimming Pool",
+                icon: "fas fa-swimming-pool",
+                desc: "Enjoy a pristine, treated, and completely cold swim in our integrated pool structure. Highly dynamic safety setup designed for children and adults."
+            },
+            river: {
+                title: "Scenic River View",
+                icon: "fas fa-water",
+                desc: "Nature at its best! CherryJoe is directly parallel to the clean refreshing river flow of Cateel, Davao Oriental, providing natural therapeutic acoustics."
+            },
+            food: {
+                title: "Authentic Food Menu",
+                icon: "fas fa-utensils",
+                desc: "Savor premium local delicacies cooked fresh: Fish Kinilaw, Sinuwag Pork Belly, Tuna Panga, Freshwater Eel (Kasili), and strong hot Native Coffee."
+            }
         };
 
         function openFeaturePopup(key) {
@@ -737,43 +849,116 @@ if ($maintenance_mode) {
             }
         }
 
-        function closeFeaturePopup() { document.getElementById('featurePopup').style.display = 'none'; }
-        function closeWelcomeScreen() { document.getElementById('welcomeOverlay').classList.add('hide-welcome'); localStorage.setItem('currentPage', 'home'); localStorage.setItem('currentNav', 'nav-home'); }
+        function closeFeaturePopup() {
+            document.getElementById('featurePopup').style.display = 'none';
+        }
 
+        document.querySelectorAll('video').forEach(v => {
+            v.addEventListener('play', function() {
+                handleVideoPlay(this);
+            });
+        });
+
+        function closeWelcomeScreen() {
+            localStorage.setItem('welcomeScreenDismissed', 'true');
+            localStorage.setItem('currentPage', 'home');
+            localStorage.setItem('currentNav', 'nav-home');
+            
+            document.getElementById('welcomeOverlay').classList.add('hide-welcome');
+            setTimeout(() => {
+                document.getElementById('welcomeOverlay').style.display = 'none';
+            }, 500);
+            
+            toggleMusic();
+        }
+
+        // FLUID SMOOTH ENGINE FOR SITE SWITCHING WITH LOCALSTORAGE PACK
         function navigateTo(pageId, navItemId) {
-            localStorage.setItem('currentPage', pageId);
-            localStorage.setItem('currentNav', navItemId);
+            if (localStorage.getItem('welcomeScreenDismissed') === 'true') {
+                localStorage.setItem('currentPage', pageId);
+                localStorage.setItem('currentNav', navItemId);
+            }
+
             const activePage = document.querySelector('.app-page.page-active');
             const targetPage = document.getElementById('page-' + pageId);
-            const allVideos = document.querySelectorAll('video');
-            allVideos.forEach(v => v.pause());
+            
             if (activePage && activePage !== targetPage) {
-                activePage.style.opacity = '0'; activePage.style.transform = 'scale(0.98) translateY(12px)';
+                activePage.style.opacity = '0';
+                activePage.style.transform = 'scale(0.98) translateY(12px)';
+                
                 setTimeout(() => {
-                    activePage.classList.remove('page-active'); targetPage.classList.add('page-active');
-                    requestAnimationFrame(() => { targetPage.style.opacity = '1'; targetPage.style.transform = 'scale(1) translateY(0)'; });
+                    activePage.classList.remove('page-active');
+                    targetPage.classList.add('page-active');
+                    
+                    requestAnimationFrame(() => {
+                        targetPage.style.opacity = '1';
+                        targetPage.style.transform = 'scale(1) translateY(0)';
+                    });
                 }, 250);
             } else if (!activePage) {
-                targetPage.classList.add('page-active'); targetPage.style.opacity = '1'; targetPage.style.transform = 'scale(1) translateY(0)';
+                targetPage.classList.add('page-active');
+                targetPage.style.opacity = '1';
+                targetPage.style.transform = 'scale(1) translateY(0)';
             }
-            const navItems = document.querySelectorAll('.nav-item'); navItems.forEach(item => item.classList.remove('active'));
-            const targetedNav = document.getElementById(navItemId); if (targetedNav) targetedNav.classList.add('active');
+            
+            const navItems = document.querySelectorAll('.nav-item');
+            navItems.forEach(item => item.classList.remove('active'));
+            
+            const targetedNav = document.getElementById(navItemId);
+            if (targetedNav) targetedNav.classList.add('active');
+            
             window.scrollTo({ top: 0 });
         }
 
-        function goBack() { navigateTo('home', 'nav-home'); }
+        function goBack() { 
+            navigateTo('home', 'nav-home'); 
+        }
 
-        let currentSlideIndex = 0; const slides = document.querySelectorAll('.slide'); const dots = document.querySelectorAll('.dot'); let slideInterval;
-        function showSlide(index) { slides.forEach(slide => slide.classList.remove('active')); dots.forEach(dot => dot.classList.remove('active')); if (slides[index]) slides[index].classList.add('active'); if (dots[index]) dots[index].classList.add('active'); currentSlideIndex = index; }
-        function nextSlide() { let targetIndex = (currentSlideIndex + 1) % slides.length; showSlide(targetIndex); }
-        function changeSlide(index) { showSlide(index); resetSlideTimer(); }
-        function startSlideTimer() { slideInterval = setInterval(nextSlide, 4500); }
-        function resetSlideTimer() { clearInterval(slideInterval); startSlideTimer(); }
+        // SLIDESHOW ROTATION CORE
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (slides[index]) slides[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+            currentSlideIndex = index;
+        }
+
+        function nextSlide() { 
+            let targetIndex = (currentSlideIndex + 1) % slides.length; 
+            showSlide(targetIndex); 
+        }
+        function changeSlide(index) { 
+            showSlide(index); 
+            resetSlideTimer(); 
+        }
+        function startSlideTimer() { 
+            slideInterval = setInterval(nextSlide, 4500); 
+        }
+        function resetSlideTimer() { 
+            clearInterval(slideInterval); 
+            startSlideTimer(); 
+        }
         startSlideTimer();
 
-        function showImage(src) { const box = document.getElementById('lightbox'); document.getElementById('lightbox-img').src = src; box.style.display = 'flex'; setTimeout(() => box.classList.add('show'), 15); }
-        function hideImage() { const box = document.getElementById('lightbox'); box.classList.remove('show'); setTimeout(() => box.style.display = 'none', 300); }
+        // ADVANCED LAYER LIGHTBOX ENGINE 
+        function showImage(src) { 
+            const box = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            box.style.display = 'flex'; 
+            setTimeout(() => box.classList.add('show'), 15);
+        }
+        function hideImage() { 
+            const box = document.getElementById('lightbox');
+            box.classList.remove('show');
+            setTimeout(() => box.style.display = 'none', 300);
+        }
 
+        // Initialize User Email Service API
         emailjs.init("xUnFGUm3ZIw6UfW_h");
     </script>
 </body>
