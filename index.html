@@ -1,27 +1,4 @@
-
-
-
-<?php 
-// ==========================================
-// 🛠️ MAINTENANCE SWITCH CONTROL
-// Isulat ang true kung gusto nimo i-maintenance ang site.
-// Isulat ang false kung gusto nimo i-live ug ipakita ang tibuok website.
-// ==========================================
-$maintenance_mode = true; 
-
-if ($maintenance_mode) {
-    if (file_exists('maintenance.php')) {
-        include('maintenance.php');
-    } else {
-        // Fallback screen kung pananglit mawala ang maintenance.php
-        echo "<div style='text-align:center; padding:50px; font-family:sans-serif; background:#0f172a; color:white; height:100vh;'>";
-        echo "<h2>🛠️ CherryJoe River Park is Under Maintenance</h2>";
-        echo "<p>We are updating our features. Please come back later!</p>";
-        echo "</div>";
-    }
-    exit(); 
-}
-?>
+<?html include('maintenance.html); exit(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
