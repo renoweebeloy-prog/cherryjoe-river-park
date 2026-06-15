@@ -1,4 +1,12 @@
+<?php 
+// 🛠️ SWITCH ENGINE: Usba ang 'true' ngadto sa 'false' kung gusto nimo i-live na ang website.
+$maintenance_mode = true; 
 
+if ($maintenance_mode) {
+    include('maintenance.php');
+    exit(); 
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
