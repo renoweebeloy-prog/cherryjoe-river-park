@@ -9,7 +9,6 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 
     <style>
-        /* ... (Ipadayon ang tibuok CSS reset ug styles sa imong index file diri, ayaw usba) ... */
         /* --- PREMIUM UI CONFIG & RESET --- */
         * {
             margin: 0;
@@ -630,11 +629,13 @@
             </div>
         </section>
 
+        <!-- KINI ANG GIDUGANG NGA MAP SECTION (Naka-Pin ug Naka-Satellite View) -->
         <section id="location" class="reveal">
             <h2 class="title">Visit Us</h2>
             <div class="map-container">
+                <!-- q=CherryJoe River Park, t=k para Satellite View, z=18 para zoom level duol kaayo -->
                 <iframe 
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d126498.42398501255!2d126.35339023412351!3d7.794691157973715!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x32f58be5b672722b%3A0xd64f1dc0dbfa1143!2sCateel%2C%20Davao%20Oriental!5e0!3m2!1sen!2sph!4v1714801123456!5m2!1sen!2sph" 
+                    src="https://maps.google.com/maps?q=CherryJoe%20River%20Park,%20San%20Rafael,%20Cateel,%20Davao%20Oriental&t=k&z=18&ie=UTF8&iwloc=&output=embed" 
                     width="100%" 
                     height="350" 
                     style="border:0;" 
@@ -643,7 +644,8 @@
                     referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
-            <a href="https://goo.gl/maps/YOUR_LINK_HERE" target="_blank" class="map-btn">
+            <!-- BUTTON PARA MODERETSO SA GOOGLE MAPS APP/WEBSITE NGA NAA NAY PIN -->
+            <a href="https://maps.google.com/maps?q=CherryJoe%20River%20Park,%20San%20Rafael,%20Cateel,%20Davao%20Oriental" target="_blank" class="map-btn">
                 <i class="fas fa-location-arrow"></i> Get Directions
             </a>
         </section>
