@@ -450,11 +450,49 @@
         .contact a { color: #059669; text-decoration: none; font-weight: 600; }
         footer { background: #f8fafc; color: #64748b; text-align: center; padding: 25px; font-size: 13px; border-top: 1px solid rgba(0, 0, 0, 0.05); }
 
-        /* PREMIUM GLASSMORPHISM LIGHTBOX */
-        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; }
-        .lightbox img { max-width: 92%; max-height: 78%; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: scale(0.93); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); border: 2px solid #ffffff; }
+        /* PREMIUM GLASSMORPHISM LIGHTBOX WITH DOWNLOAD BUTTON */
+        .lightbox { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(248, 250, 252, 0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); 
+            display: none; flex-direction: column; gap: 20px; justify-content: center; align-items: center; 
+            z-index: 99999; opacity: 0; transition: opacity 0.3s ease; 
+        }
+        .lightbox img { 
+            max-width: 92%; max-height: 70%; border-radius: 16px; 
+            box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: scale(0.93); 
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); border: 2px solid #ffffff; 
+        }
         .lightbox.show { opacity: 1; }
         .lightbox.show img { transform: scale(1); }
+
+        /* Download Button Styles */
+        .download-btn {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            transform: translateY(20px);
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
+            border: 2px solid rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+        }
+        .download-btn:hover {
+            background: linear-gradient(135deg, #059669, #047857);
+            transform: scale(1.05) translateY(18px) !important;
+            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
+        }
+        .lightbox.show .download-btn {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
         /* APP DETAIL ENGINE POPUP */
         .feature-popup-modal {
@@ -705,12 +743,11 @@
             <h2 class="title">Gallery</h2>
             <div class="gallery">
                 <img src="imagesgallery1.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery2.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery3.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery4.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery5.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery6.jpg" alt="Gallery" onclick="showImage(this.src)">
-                            <img src="imagesgallery7.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery8.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery9.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery10.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery11.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery12.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery13.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery14.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery15.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery16.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery17.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery18.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery19.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery20.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery21.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery22.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery23.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery24.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery25.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery26.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery27.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery28.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery29.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery30.jpg" alt="Gallery" onclick="showImage(this.src)">
+                <img src="imagesgallery7.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery8.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery9.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery10.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery11.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery12.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery13.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery14.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery15.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery16.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery17.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery18.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery19.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery20.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery21.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery22.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery23.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery24.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery25.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery26.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery27.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery28.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery29.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery30.jpg" alt="Gallery" onclick="showImage(this.src)">
             </div>
         </section>
     </div>
 
-    <!-- REWRITTEN FOOD MENU SECTION BASED ON PROVIDED IMAGES -->
     <div id="page-food" class="app-page">
         <section id="food-section">
             <h2 class="title">Delicious Menu</h2>
@@ -904,7 +941,13 @@
 
     <footer>© 2026 CherryJoe River Park | Developed by Renowee Beloy</footer>
 
-    <div class="lightbox" id="lightbox" onclick="hideImage()"><img id="lightbox-img" alt="Lightbox Preview"></div>
+    <!-- UPDATED LIGHTBOX WITH DOWNLOAD BUTTON -->
+    <div class="lightbox" id="lightbox" onclick="hideImage()">
+        <img id="lightbox-img" alt="Lightbox Preview">
+        <a id="lightbox-download" href="#" download="CherryJoe_Gallery.jpg" class="download-btn" onclick="event.stopPropagation()">
+            <i class="fas fa-download"></i> Download Photo
+        </a>
+    </div>
 
     <div class="bottom-nav">
         <div class="nav-item active" id="nav-home" onclick="navigateTo('home', 'nav-home')"><i class="fas fa-home"></i><span>Home</span></div>
@@ -1103,13 +1146,23 @@
         function resetSlideTimer() { clearInterval(slideInterval); startSlideTimer(); }
         startSlideTimer();
 
-        // ADVANCED LAYER LIGHTBOX ENGINE 
+        // ADVANCED LAYER LIGHTBOX ENGINE WITH DOWNLOAD SUPPORT
         function showImage(src) { 
             const box = document.getElementById('lightbox');
             document.getElementById('lightbox-img').src = src;
+            
+            // Set download attribute dynamically
+            const downloadBtn = document.getElementById('lightbox-download');
+            downloadBtn.href = src;
+            
+            // Extract the filename from the src url
+            let filename = src.split('/').pop() || 'CherryJoe_Gallery.jpg';
+            downloadBtn.download = filename;
+
             box.style.display = 'flex'; 
             setTimeout(() => box.classList.add('show'), 15);
         }
+        
         function hideImage() { 
             const box = document.getElementById('lightbox');
             box.classList.remove('show');
