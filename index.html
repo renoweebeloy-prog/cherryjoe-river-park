@@ -567,7 +567,9 @@
 </head>
 <body>
 
-    <audio id="bgMusic" loop preload="auto">
+    <!-- GI-UPDATE ANG AUDIO TAG PARA MA-AUTOPLAY -->
+    <audio id="bgMusic" loop autoplay preload="auto">
+        <!-- Siguroha lang nga ang filename parehas gyud aning naa sa source -->
         <source src="assetsmusiconetime.mp3" type="audio/mpeg">
     </audio>
 
@@ -941,7 +943,7 @@
 
     <footer>© 2026 CherryJoe River Park | Developed by Renowee Beloy</footer>
 
-    <!-- UPDATED LIGHTBOX WITH DOWNLOAD BUTTON -->
+    <!-- GI-UPDATE NGA LIGHTBOX NGA NAAY DOWNLOAD BUTTON -->
     <div class="lightbox" id="lightbox" onclick="hideImage()">
         <img id="lightbox-img" alt="Lightbox Preview">
         <a id="lightbox-download" href="#" download="CherryJoe_Gallery.jpg" class="download-btn" onclick="event.stopPropagation()">
@@ -990,7 +992,7 @@
             });
         }
 
-        // FORCE AUTOPLAY ON FIRST USER INTERACTION (FOR REFRESHED SESSIONS)
+        // AGGRESSIVE AUTOPLAY SCRIPT ON FIRST INTERACTION
         function forceAutoplayOnInteraction() {
             if (audio.paused) {
                 audio.play().then(() => {
@@ -1008,6 +1010,17 @@
             const preloader = document.getElementById('preloader');
             const welcomeOverlay = document.getElementById('welcomeOverlay');
             
+            // Suwayan nato ug play diritso ang music as soon as mo load.
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    musicIcon.className = "fas fa-pause";
+                    musicBtn.classList.add('playing');
+                }).catch(error => {
+                    console.log("Gi-block sa browser ang Autoplay. Maghuwat ra tag tap gikan sa user.");
+                });
+            }
+
             preloader.style.opacity = '0';
             setTimeout(() => {
                 preloader.style.visibility = 'hidden';
@@ -1020,6 +1033,8 @@
                 if (hasEnteredBefore === 'true') {
                     welcomeOverlay.classList.add('hide-welcome');
                     welcomeOverlay.style.display = 'none';
+                    
+                    // Attach interaction listeners kung gi block sa browser
                     document.addEventListener('click', forceAutoplayOnInteraction);
                     document.addEventListener('touchstart', forceAutoplayOnInteraction);
                     document.addEventListener('scroll', forceAutoplayOnInteraction);
@@ -1151,11 +1166,11 @@
             const box = document.getElementById('lightbox');
             document.getElementById('lightbox-img').src = src;
             
-            // Set download attribute dynamically
+            // Para ma-dynamic ang link sa Download Button depende kung unsa nga image ang gi-click
             const downloadBtn = document.getElementById('lightbox-download');
             downloadBtn.href = src;
             
-            // Extract the filename from the src url
+            // Kuhaon ang filename gikan sa src aron mao nay ngan inig ka save
             let filename = src.split('/').pop() || 'CherryJoe_Gallery.jpg';
             downloadBtn.download = filename;
 
