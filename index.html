@@ -40,12 +40,13 @@
         .login-box button { background: #059669; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .back-link { font-size: 13px; color: #64748b; text-align: center; cursor: pointer; margin-top: 10px; }
 
-        /* --- ADMIN MODALS & BUTTONS (NEW) --- */
+        /* --- ADMIN MODALS & BUTTONS (GAYO ANG DISPLAY) --- */
         .admin-only { display: none; }
-        .add-btn { background: #10b981; color: white; padding: 12px 20px; border-radius: 8px; border: none; font-weight: bold; margin-bottom: 20px; cursor: pointer; width: 100%; font-size: 15px; transition: 0.3s; }
+        .add-btn { display: none; background: #10b981; color: white; padding: 12px 20px; border-radius: 8px; border: none; font-weight: bold; margin-bottom: 20px; cursor: pointer; width: 100%; font-size: 15px; transition: 0.3s; }
         .add-btn:hover { background: #059669; }
         .admin-del-btn { position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); transition: 0.3s; }
         .admin-del-btn:hover { background: #dc2626; transform: scale(1.05); }
+        
         .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 9999999; display: none; justify-content: center; align-items: center; padding: 20px; }
         .modal-content { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
         .modal-content input, .modal-content select, .modal-content textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; }
@@ -125,7 +126,7 @@
         .drink-item:hover { border-color: #059669; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.08); }
         .drink-name { font-size: 15px; font-weight: 600; color: #1e293b; }
 
-        /* --- EXPLORE ARCHITECTURE (Management, Rates, Video, Gallery) --- */
+        /* --- EXPLORE ARCHITECTURE --- */
         .management { display: flex; gap: 20px; flex-wrap: wrap; }
         .management .card { flex: 1; min-width: 240px; }
         .cottage-section { display: flex; flex-direction: column; gap: 25px; }
@@ -399,13 +400,22 @@
         <section id="video" style="text-align:center;" class="reveal">
             <h2 class="title">Resort Video Tour</h2>
             <button class="add-btn admin-only" onclick="document.getElementById('adminVideoModal').style.display='flex'">+ Add New Video</button>
-            <div class="video-grid" id="video-container">Loading Videos...</div>
+            <div class="video-grid" id="video-container">
+                <!-- Static Fallback Videos -->
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
+                <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour2.mp4" type="video/mp4"></video><h3>River Side View</h3></div>
+            </div>
         </section>
         
         <section id="gallery" class="reveal">
             <h2 class="title">Gallery</h2>
             <button class="add-btn admin-only" onclick="document.getElementById('adminGalleryModal').style.display='flex'">+ Add New Photo</button>
-            <div class="gallery" id="gallery-container">Loading Gallery...</div>
+            <div class="gallery" id="gallery-container">
+                <!-- Static Fallback Images -->
+                <div class="gallery-item"><img src="imagesgallery1.jpg" alt="Gallery" onclick="showImage(this.src)"></div>
+                <div class="gallery-item"><img src="imagesgallery2.jpg" alt="Gallery" onclick="showImage(this.src)"></div>
+                <div class="gallery-item"><img src="imagesgallery3.jpg" alt="Gallery" onclick="showImage(this.src)"></div>
+            </div>
         </section>
     </div>
 
@@ -515,8 +525,6 @@
         }
 
         async function handleLogin() {
-            // Note: If you registered simply as 'cherryjoe-river-park', Supabase usually requires an email format. 
-            // If it fails, make sure you created the user as cherryjoe-river-park@gmail.com in Supabase Authentication.
             const email = document.getElementById('adminEmail').value;
             const password = document.getElementById('adminPass').value;
             const btn = document.getElementById('loginBtnBtn');
@@ -532,7 +540,8 @@
             } else {
                 setAdminMode(true);
                 document.getElementById('roleOverlay').style.display = 'none';
-                document.getElementById('welcomeOverlay').style.display = 'flex';
+                document.getElementById('welcomeOverlay').style.display = 'none'; // Admin skips welcome overlay
+                toggleMusic(); // Start background music
             }
         }
 
@@ -544,7 +553,9 @@
             document.getElementById('profileRole').innerText = status ? "System Administrator" : "Resort Visitor";
             document.getElementById('logoutBtn').style.display = status ? "block" : "none";
             
+            // Unhide all add/delete buttons
             document.querySelectorAll('.admin-only').forEach(el => el.style.display = status ? 'block' : 'none');
+            // Re-render data to show delete buttons
             fetchAllData(); 
         }
 
@@ -568,7 +579,7 @@
         // --- FOOD LOGIC ---
         async function fetchFood() {
             const { data, error } = await supabase.from('food_menu').select('*').order('id', { ascending: true });
-            if(error) { console.log(error); return; }
+            if(error || !data || data.length === 0) return; // Leave HTML alone if empty
             
             const sections = { 'specialties': '', 'combo': '', 'finger': '', 'drinks': '' };
             data.forEach(item => {
@@ -627,7 +638,7 @@
         // --- VIDEO LOGIC ---
         async function fetchVideos() {
             const { data } = await supabase.from('videos').select('*').order('id', { ascending: true });
-            if(!data) return;
+            if(!data || data.length === 0) return; // if empty, keeps static fallback
             let html = '';
             data.forEach(item => {
                 let delBtn = isAdmin ? `<button class="admin-del-btn" onclick="deleteVideo(${item.id})"><i class="fas fa-trash"></i></button>` : '';
@@ -637,7 +648,7 @@
                             <h3>${item.title}</h3>
                          </div>`;
             });
-            document.getElementById('video-container').innerHTML = html || 'No videos found.';
+            document.getElementById('video-container').innerHTML = html;
         }
 
         async function saveVideo() {
@@ -654,7 +665,7 @@
         // --- GALLERY LOGIC ---
         async function fetchGallery() {
             const { data } = await supabase.from('gallery').select('*').order('id', { ascending: true });
-            if(!data) return;
+            if(!data || data.length === 0) return; // if empty, keeps static fallback
             let html = '';
             data.forEach(item => {
                 let delBtn = isAdmin ? `<button class="admin-del-btn" style="top:5px; right:5px;" onclick="deletePhoto(${item.id})"><i class="fas fa-trash"></i></button>` : '';
@@ -663,7 +674,7 @@
                             <img src="${item.image_url}" alt="Gallery" onclick="showImage(this.src)" onerror="this.src='https://placehold.co/150x150?text=Error'">
                          </div>`;
             });
-            document.getElementById('gallery-container').innerHTML = html || 'No photos found.';
+            document.getElementById('gallery-container').innerHTML = html;
         }
 
         async function savePhoto() {
@@ -750,9 +761,7 @@
         function closeFeaturePopup() { document.getElementById('featurePopup').style.display = 'none'; }
 
         function closeWelcomeScreen() {
-            document.getElementById('welcomeOverlay').classList.add('hide-welcome');
-            setTimeout(() => { document.getElementById('welcomeOverlay').style.display = 'none'; }, 500);
-            
+            document.getElementById('welcomeOverlay').style.display = 'none';
             document.addEventListener('click', forceAutoplayOnInteraction);
             document.addEventListener('touchstart', forceAutoplayOnInteraction);
             document.addEventListener('scroll', forceAutoplayOnInteraction);
@@ -760,6 +769,9 @@
         }
 
         function navigateTo(pageId, navItemId) {
+            // Hide the overlay just in case it was triggered from a link inside it
+            document.getElementById('roleOverlay').style.display = 'none';
+
             const activePage = document.querySelector('.app-page.page-active');
             const targetPage = document.getElementById('page-' + pageId);
             
