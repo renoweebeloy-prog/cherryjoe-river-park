@@ -6,7 +6,6 @@
     <title>CherryJoe River Park</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <!-- SUPABASE JS LIBRARY -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -42,10 +41,6 @@
         .login-box button { background: #059669; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
         .login-box button:hover { background: #047857; }
         .back-link { font-size: 13px; color: #64748b; text-align: center; cursor: pointer; margin-top: 10px; }
-
-        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(248, 250, 252, 0.92), rgba(255, 255, 255, 0.99)); backdrop-filter: blur(14px); z-index: 99999; display: none; justify-content: center; align-items: center; padding: 20px; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
-        .welcome-container { max-width: 480px; width: 100%; max-height: 92vh; overflow-y: auto; padding: 10px 5px; text-align: center; }
-        .welcome-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 16px 30px; font-size: 15px; font-weight: 700; border-radius: 50px; cursor: pointer; width: 100%; margin-top: 10px; }
 
         /* --- 2. GLOBAL UI PARTS --- */
         .app-page { display: none; opacity: 0; transform: scale(0.98) translateY(15px); transition: opacity 0.45s, transform 0.45s; }
@@ -129,17 +124,8 @@
             <h2 style="text-align: center; color: #1e293b;">Admin Login</h2>
             <input type="email" id="adminEmail" placeholder="Email Address">
             <input type="password" id="adminPass" placeholder="Password">
-            <button onclick="handleLogin()">Login</button>
+            <button id="loginBtnBtn" onclick="handleLogin()">Login</button>
             <div class="back-link" onclick="cancelLogin()"><i class="fas fa-arrow-left"></i> Back to Role Selection</div>
-        </div>
-    </div>
-
-    <!-- WELCOME GUEST -->
-    <div class="welcome-overlay" id="welcomeOverlay">
-        <div class="welcome-container">
-            <h1>Hello, Welcome!</h1>
-            <p style="color: #64748b; margin-bottom: 20px;">Explore CherryJoe River Park highlights before moving forward.</p>
-            <button class="welcome-btn" onclick="closeWelcomeScreen()">Enter Full Website</button>
         </div>
     </div>
 
@@ -265,7 +251,7 @@
         // ==========================================
         // 1. SUPABASE INITIALIZATION
         // ==========================================
-        const SUPABASE_URL = 'IBUTANG_ANG_IMONG_URL_DIRE'; // Palihug ilisi kini
+        const SUPABASE_URL = 'https://gitciqkpxtokouileogg.supabase.co'; 
         const SUPABASE_ANON_KEY = 'sb_publishable_XhosUvZiC6AAx7j8BnxcKg_gmiXEtdJ';
         const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
@@ -287,11 +273,14 @@
             }
         }
 
+        // --- DIRECT GUEST & ADMIN FLOW ---
         function selectRole(role) {
             if(role === 'user') {
+                // Kon Guest, tago-a ang overlay ug diretso na sa Dashboard Website
                 document.getElementById('roleOverlay').style.display = 'none';
-                document.getElementById('welcomeOverlay').style.display = 'flex';
+                toggleMusic(); // I-play ang background music
             } else {
+                // Kon Admin, tago-a ang mga boxes ug ipakita ang Login Form
                 document.getElementById('roleSelectionBoxes').style.display = 'none';
                 document.getElementById('adminLoginForm').style.display = 'flex';
             }
@@ -305,16 +294,23 @@
         async function handleLogin() {
             const email = document.getElementById('adminEmail').value;
             const password = document.getElementById('adminPass').value;
+            const btn = document.getElementById('loginBtnBtn');
             
             if(!email || !password) return alert("Enter email and password");
 
+            btn.innerText = "Logging in...";
+
             const { error } = await supabase.auth.signInWithPassword({ email, password });
+            
+            btn.innerText = "Login";
+
             if(error) {
                 alert("Login Failed: " + error.message);
             } else {
+                // Kon successful, i-on ang Admin Dashboard Mode ug tago-a ang overlay
                 setAdminMode(true);
                 document.getElementById('roleOverlay').style.display = 'none';
-                document.getElementById('welcomeOverlay').style.display = 'flex';
+                toggleMusic();
             }
         }
 
@@ -462,8 +458,6 @@
         // ==========================================
         // 4. NAVIGATION & UTILITIES
         // ==========================================
-        function closeWelcomeScreen() { document.getElementById('welcomeOverlay').style.display = 'none'; toggleMusic(); }
-
         function navigateTo(pageId, navItemId) {
             document.querySelector('.app-page.page-active').classList.remove('page-active');
             document.getElementById('page-' + pageId).classList.add('page-active');
@@ -478,7 +472,7 @@
             const icon = document.getElementById('musicIcon');
             const btn = document.getElementById('musicBtn');
             if (audio.paused) { 
-                audio.play(); 
+                audio.play().catch(e => console.log("Audio block.")); 
                 icon.className = "fas fa-pause"; 
                 btn.classList.add('playing'); 
             } else { 
