@@ -6,7 +6,6 @@
     <title>CherryJoe River Park</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <!-- SUPABASE JS LIBRARY -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -449,8 +448,8 @@
                     <button id="logoutBtn" style="display:none; margin-top:20px; padding:12px 25px; background:#ef4444; color:white; border:none; border-radius:50px; cursor:pointer; font-weight:bold; width:100%;" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout Admin</button>
 
                     <div class="profile-menu-list" style="margin-top: 25px;">
-                        <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item"><div><i class="fas fa-utensils"></i> View Food Menu</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
-                        <a onclick="navigateTo('explore', 'nav-about')" class="profile-menu-item"><div><i class="fas fa-compass"></i> Explore Facilities</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
+                        <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item" style="cursor: pointer;"><div><i class="fas fa-utensils"></i> View Food Menu</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
+                        <a onclick="navigateTo('explore', 'nav-about')" class="profile-menu-item" style="cursor: pointer;"><div><i class="fas fa-compass"></i> Explore Facilities</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
                     </div>
                 </div>
             </div>
@@ -494,19 +493,24 @@
         });
 
         async function checkAdminSession() {
-            const { data: { session } } = await supabase.auth.getSession();
-            if (session) {
-                setAdminMode(true);
-                document.getElementById('roleOverlay').style.display = 'none';
+            try {
+                const { data: { session } } = await supabase.auth.getSession();
+                if (session) {
+                    setAdminMode(true);
+                    document.getElementById('roleOverlay').style.display = 'none';
+                }
+            } catch(error) {
+                console.error("Supabase Error:", error);
             }
         }
 
         // --- ROLE SELECTION (Guest vs Admin) ---
         function selectRole(role) {
+            console.log("Role clicked:", role); // For debugging
             if(role === 'user') {
                 document.getElementById('roleOverlay').style.display = 'none';
                 document.getElementById('welcomeOverlay').style.display = 'flex';
-            } else {
+            } else if(role === 'admin') {
                 document.getElementById('roleSelectionBoxes').style.display = 'none';
                 document.getElementById('adminLoginForm').style.display = 'flex';
             }
@@ -525,18 +529,22 @@
             if(!email || !password) return alert("Enter email and password");
 
             btn.innerText = "Logging in...";
-            const { error } = await supabase.auth.signInWithPassword({ email, password });
-            btn.innerText = "Login";
+            try {
+                const { error } = await supabase.auth.signInWithPassword({ email, password });
+                btn.innerText = "Login";
 
-            if(error) {
-                alert("Login Failed: " + error.message);
-            } else {
-                setAdminMode(true);
-                document.getElementById('roleOverlay').style.display = 'none';
-                // Admin skips the welcome table overlay and goes straight to dashboard
-                document.getElementById('welcomeOverlay').style.display = 'none'; 
-                navigateTo('home', 'nav-home');
-                toggleMusic();
+                if(error) {
+                    alert("Login Failed: " + error.message);
+                } else {
+                    setAdminMode(true);
+                    document.getElementById('roleOverlay').style.display = 'none';
+                    document.getElementById('welcomeOverlay').style.display = 'none'; 
+                    navigateTo('home', 'nav-home');
+                    toggleMusic();
+                }
+            } catch(err) {
+                btn.innerText = "Login";
+                alert("Error connecting to server.");
             }
         }
 
@@ -569,7 +577,6 @@
             fetchGallery();
         }
 
-        // --- FOOD LOGIC (With Edit Functionality) ---
         async function fetchFood() {
             const { data, error } = await supabase.from('food_menu').select('*').order('id', { ascending: true });
             if(error || !data) return;
@@ -661,13 +668,12 @@
             if(confirm("Delete this food item?")) { await supabase.from('food_menu').delete().eq('id', id); fetchFood(); }
         }
 
-        // --- VIDEO LOGIC ---
         async function fetchVideos() {
             const { data } = await supabase.from('videos').select('*').order('id', { ascending: true });
             if(!data || data.length === 0) return;
             let html = '';
             data.forEach(item => {
-                let delBtn = isAdmin ? `<button class="admin-del-btn" onclick="deleteVideo(${item.id})"><i class="fas fa-trash"></i></button>` : '';
+                let delBtn = isAdmin ? `<button class="admin-del-btn" style="position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; z-index: 10;" onclick="deleteVideo(${item.id})"><i class="fas fa-trash"></i></button>` : '';
                 html += `<div class="video-card">
                             ${delBtn}
                             <video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="${item.video_url}" type="video/mp4"></video>
@@ -688,13 +694,12 @@
             if(confirm("Delete this video?")) { await supabase.from('videos').delete().eq('id', id); fetchVideos(); }
         }
 
-        // --- GALLERY LOGIC ---
         async function fetchGallery() {
             const { data } = await supabase.from('gallery').select('*').order('id', { ascending: true });
             if(!data || data.length === 0) return;
             let html = '';
             data.forEach(item => {
-                let delBtn = isAdmin ? `<button class="admin-del-btn" style="top:5px; right:5px;" onclick="deletePhoto(${item.id})"><i class="fas fa-trash"></i></button>` : '';
+                let delBtn = isAdmin ? `<button class="admin-del-btn" style="position: absolute; top: 5px; right: 5px; background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; z-index: 10;" onclick="deletePhoto(${item.id})"><i class="fas fa-trash"></i></button>` : '';
                 html += `<div class="gallery-item">
                             ${delBtn}
                             <img src="${item.image_url}" alt="Gallery" onclick="showImage(this.src)" onerror="this.src='https://placehold.co/150x150?text=Error'">
