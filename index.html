@@ -6,6 +6,7 @@
     <title>CherryJoe River Park</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     
     <!-- SUPABASE JS LIBRARY -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -27,77 +28,173 @@
         .music-control-btn.playing { animation: pulseMusic 1.5s infinite ease-in-out; background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
         @keyframes pulseMusic { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-        /* --- 1. ROLE SELECTION & LOGIN OVERLAYS --- */
+        /* --- ROLE SELECTION & LOGIN OVERLAYS (NEW) --- */
         .full-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(248, 250, 252, 0.95), rgba(255, 255, 255, 0.99)); backdrop-filter: blur(14px); z-index: 999999; display: flex; justify-content: center; align-items: center; padding: 20px; flex-direction: column; transition: 0.5s ease; }
         .role-cards { display: flex; gap: 20px; margin-top: 30px; }
         .role-card { background: white; border: 1px solid rgba(0,0,0,0.08); padding: 40px; border-radius: 20px; text-align: center; cursor: pointer; transition: 0.3s; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 160px; }
         .role-card:hover { border-color: #059669; transform: translateY(-5px); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.15); }
         .role-card i { font-size: 40px; color: #059669; margin-bottom: 15px; }
         .role-card h3 { font-size: 18px; color: #1e293b; }
-        
         .login-box { background: white; border-radius: 20px; padding: 30px; width: 100%; max-width: 350px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border: 1px solid rgba(0,0,0,0.08); display: none; flex-direction: column; gap: 15px; }
         .login-box input { width: 100%; padding: 12px 15px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none; font-size: 14px; }
-        .login-box input:focus { border-color: #059669; }
         .login-box button { background: #059669; color: white; border: none; padding: 12px; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        .login-box button:hover { background: #047857; }
         .back-link { font-size: 13px; color: #64748b; text-align: center; cursor: pointer; margin-top: 10px; }
 
-        /* --- 2. GLOBAL UI PARTS --- */
-        .app-page { display: none; opacity: 0; transform: scale(0.98) translateY(15px); transition: opacity 0.45s, transform 0.45s; }
+        /* --- ADMIN MODALS & BUTTONS (NEW) --- */
+        .admin-only { display: none; }
+        .add-btn { background: #10b981; color: white; padding: 12px 20px; border-radius: 8px; border: none; font-weight: bold; margin-bottom: 20px; cursor: pointer; width: 100%; font-size: 15px; transition: 0.3s; }
+        .add-btn:hover { background: #059669; }
+        .admin-del-btn { position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); transition: 0.3s; }
+        .admin-del-btn:hover { background: #dc2626; transform: scale(1.05); }
+        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 9999999; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+        .modal-content input, .modal-content select, .modal-content textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; }
+        .modal-buttons { display: flex; gap: 10px; margin-top: 15px; }
+        .modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+
+        /* --- SCROLL REVEAL TIMING PACK --- */
+        .reveal { opacity: 0; transform: translateY(35px) scale(0.98); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
+
+        /* --- GLASSMORPHISM WELCOME OVERLAY --- */
+        .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(248, 250, 252, 0.92), rgba(255, 255, 255, 0.99)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); z-index: 99999; display: none; justify-content: center; align-items: center; padding: 20px; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        .welcome-container { max-width: 480px; width: 100%; max-height: 92vh; overflow-y: auto; padding: 10px 5px; text-align: center; }
+        .welcome-container h1 { font-size: 32px; color: #1e293b; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.5px; }
+        .welcome-container .subtitle { font-size: 14px; color: #64748b; margin-bottom: 25px; line-height: 1.5; }
+        .feature-table-box { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(20px); border-radius: 24px; padding: 22px; margin-bottom: 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); border: 1px solid rgba(0, 0, 0, 0.08); text-align: left; opacity: 0; }
+        .table-one { animation: tableEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
+        .table-two { animation: tableEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
+        @keyframes tableEntrance { 0% { transform: translateY(40px) scale(0.96); opacity: 0; } 100% { transform: translateY(0) scale(1); opacity: 1; } }
+        .table-header { font-size: 13px; font-weight: 700; color: #059669; text-transform: uppercase; margin-bottom: 16px; border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .table-row-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .table-cell { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 16px; border-radius: 16px; display: flex; flex-direction: column; gap: 6px; opacity: 0; transition: all 0.3s; }
+        .table-cell:hover { border-color: #059669; background: #f8fafc; transform: translateY(-4px); box-shadow: 0 10px 20px rgba(16, 185, 129, 0.1); }
+        .table-one .cell-1 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; }
+        .table-one .cell-2 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
+        .table-two .cell-1 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; }
+        .table-two .cell-2 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
+        @keyframes cellEntrance { 0% { transform: translateY(15px); opacity: 0; } 100% { transform: translateY(0); opacity: 1; } }
+        .table-cell i { font-size: 22px; }
+        .table-cell span { font-size: 14px; font-weight: 600; color: #1e293b; }
+        .table-cell a { font-size: 12px; color: #0284c7; text-decoration: none; font-weight: 600; cursor: pointer; margin-top: 2px; }
+        .welcome-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 16px 30px; font-size: 15px; font-weight: 700; border-radius: 50px; cursor: pointer; width: 100%; opacity: 0; animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards; transition: all 0.3s; }
+
+        /* --- SMOOTH MOBILE PAGE APP TRANSITIONS --- */
+        .app-page { display: none; opacity: 0; transform: scale(0.98) translateY(15px); transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
         .app-page.page-active { display: block; opacity: 1; transform: scale(1) translateY(0); }
+
+        /* --- MODERN GLOBAL APP UI PARTS --- */
         nav { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; height: 60px; }
+        .nav-left { display: flex; align-items: center; gap: 15px; color: #1e293b; }
+        .back-btn { font-size: 20px; cursor: pointer; color: #1e293b; }
         .logo { font-size: 20px; font-weight: bold; color: #1e293b; }
         section { padding: 50px 5%; max-width: 1200px; margin: 0 auto; }
         .title { text-align: center; font-size: 30px; margin-bottom: 35px; color: #1e293b; font-weight: 800; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+        .card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); }
+        .card h3 { color: #059669; margin-bottom: 10px; font-weight: 700; font-size: 18px; }
+        .card p { color: #475569; font-size: 15px; line-height: 1.5; }
 
-        /* --- 3. DATA GRIDS (Food, Video, Gallery) --- */
+        /* --- HERO SLIDESHOW --- */
+        .hero { height: calc(100vh - 60px); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: flex-end; text-align: center; }
+        .hero-slides { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; opacity: 0; transition: opacity 1.2s, transform 7s; transform: scale(1.06); }
+        .slide.active { opacity: 1; transform: scale(1); }
+        .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 30%, #ffffff 100%); z-index: 1; }
+        .hero-content { position: relative; z-index: 2; width: 100%; padding: 0 20px; margin-bottom: 40px; }
+        .carousel-dots { display: flex; justify-content: center; gap: 10px; }
+        .dot { width: 9px; height: 9px; background-color: rgba(0, 0, 0, 0.2); border-radius: 50%; cursor: pointer; transition: all 0.3s; }
+        .dot.active { background-color: #059669; transform: scale(1.2); width: 26px; border-radius: 6px; }
+
+        /* --- FOOD MANAGEMENT PACK --- */
         .food-grid-container { max-width: 1000px; margin: 0 auto; }
         .food-category-title { font-size: 20px; color: #1e293b; border-left: 5px solid #059669; padding-left: 12px; margin: 40px 0 20px 0; font-weight: 700; }
         .food-item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .drinks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        
-        .food-card-with-img { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; position: relative; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .food-card-with-img img { width: 100%; height: 200px; object-fit: cover; }
-        .food-card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .food-card-with-img { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative;}
+        .food-card-with-img:hover { transform: translateY(-5px); border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.1); }
+        .food-card-with-img img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.6s; }
+        .food-card-with-img:hover img { transform: scale(1.05); }
+        .food-card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; z-index: 2; background: white;}
         .food-card-body h3 { font-size: 17px; color: #1e293b; margin-bottom: 8px; font-weight: 600; }
-        .food-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 12px; margin-top: 10px; }
+        .food-card-body p.desc { font-size: 13px; color: #64748b; margin-bottom: 12px; line-height: 1.4; }
+        .food-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 12px; }
         .food-price { font-size: 18px; font-weight: 700; color: #059669; }
-        .drink-item { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 15px; border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between; position: relative; }
+        .food-status { font-size: 11px; background: rgba(16, 185, 129, 0.1); color: #059669; padding: 4px 12px; border-radius: 50px; font-weight: 700; text-transform: uppercase; }
+        .drinks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .drink-item { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 15px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s ease; position: relative;}
+        .drink-item:hover { border-color: #059669; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.08); }
+        .drink-name { font-size: 15px; font-weight: 600; color: #1e293b; }
+
+        /* --- EXPLORE ARCHITECTURE (Management, Rates, Video, Gallery) --- */
+        .management { display: flex; gap: 20px; flex-wrap: wrap; }
+        .management .card { flex: 1; min-width: 240px; }
+        .cottage-section { display: flex; flex-direction: column; gap: 25px; }
+        .cottage { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .cottage img { width: 100%; height: 320px; object-fit: cover; }
+        .cottage-content { padding: 22px; color: #475569; }
+        .entrance-card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 22px; border-radius: 20px; display: flex; align-items: center; gap: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .entrance-icon { font-size: 32px; color: #059669; background: rgba(16, 185, 129, 0.1); padding: 18px; border-radius: 16px; }
+        .facilities { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
+        .facility { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
+        .facility img { width: 100%; height: 210px; object-fit: cover; }
+        .facility-content { padding: 16px; text-align: center; font-weight: 600; color: #1e293b; }
 
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .video-card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 12px; border-radius: 20px; position:relative; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
-        .video-card video { width: 100%; height: 260px; object-fit: cover; border-radius: 14px; background: #000; }
+        .video-card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 12px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); position: relative;}
+        .video-card video { width: 100%; height: 460px; object-fit: cover; border-radius: 14px; background: #000; display: block; }
+        .video-card h3 { font-size: 15px; color: #1e293b; margin-top: 12px; font-weight: 600; padding-left: 4px; }
         
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
         .gallery-item { position: relative; }
-        .gallery-item img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; border: 1px solid rgba(0, 0, 0, 0.08); transition: transform 0.3s; }
-        .gallery-item img:hover { transform: scale(1.05); border-color: #059669; }
+        .gallery-item img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; cursor: pointer; transition: transform 0.4s; border: 1px solid rgba(0, 0, 0, 0.08); }
+        .gallery-item img:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); border-color: #059669; }
 
-        /* --- 4. ADMIN UI --- */
-        .admin-del-btn { position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 8px; font-size: 12px; font-weight: bold; cursor: pointer; z-index: 10; box-shadow: 0 4px 10px rgba(239, 68, 68, 0.3); transition: 0.3s; }
-        .admin-del-btn:hover { background: #dc2626; transform: scale(1.05); }
-        .add-btn { display: none; background: #10b981; color: white; padding: 12px 20px; border-radius: 8px; border: none; font-weight: bold; margin-bottom: 20px; cursor: pointer; width: 100%; font-size: 15px; transition: 0.3s; }
-        .add-btn:hover { background: #059669; }
+        /* --- PREMIUM PROFILE --- */
+        .profile-container { max-width: 500px; margin: 0 auto; background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
+        .profile-banner { background: linear-gradient(135deg, #10b981, #059669); height: 120px; position: relative; }
+        .profile-avatar-wrapper { width: 105px; height: 105px; border-radius: 50%; background: #ffffff; padding: 5px; position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); }
+        .profile-avatar { width: 100%; height: 100%; border-radius: 50%; background: #ffffff; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.08); }
+        .profile-avatar i { font-size: 40px; color: #059669; }
+        .profile-details { padding: 65px 22px 25px 22px; text-align: center; }
+        .welcome-visitor { font-size: 12px; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 1.5px; }
+        .profile-details h2 { font-size: 22px; color: #1e293b; font-weight: 700; }
+        .profile-details .email { color: #64748b; font-size: 14px; margin-top: 4px; }
+        .membership-tag { display: inline-block; background: rgba(16, 185, 129, 0.1); color: #059669; font-weight: 700; font-size: 11px; padding: 5px 14px; border-radius: 50px; margin-top: 14px; border: 1px solid rgba(16, 185, 129, 0.2); }
 
-        /* MODALS */
-        .modal-overlay { position: fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); backdrop-filter: blur(5px); z-index: 9999999; display: none; justify-content: center; align-items: center; padding: 20px; }
-        .modal-content { background: white; padding: 30px; border-radius: 20px; width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 12px; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
-        .modal-content h2 { margin-bottom: 10px; color: #1e293b; }
-        .modal-content input, .modal-content select, .modal-content textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 14px; outline: none; }
-        .modal-content input:focus, .modal-content select:focus { border-color: #059669; }
-        .modal-buttons { display: flex; gap: 10px; margin-top: 15px; }
-        .modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; font-size: 15px; transition: 0.3s; }
-        .btn-cancel { background: #f1f5f9; color: #475569; }
-        .btn-cancel:hover { background: #e2e8f0; }
-        .btn-save { background: #10b981; color: white; }
-        .btn-save:hover { background: #059669; }
+        /* --- LIGHTBOX, POPUP, MAP & FOOTER --- */
+        .contact { background: #f8fafc; border-top: 1px solid rgba(0, 0, 0, 0.05); text-align: center; }
+        .contact p { margin: 12px 0; color: #475569; font-size: 15px; }
+        .contact a { color: #059669; text-decoration: none; font-weight: 600; }
+        footer { background: #f8fafc; color: #64748b; text-align: center; padding: 25px; font-size: 13px; border-top: 1px solid rgba(0, 0, 0, 0.05); }
 
-        /* --- 5. BOTTOM NAV --- */
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); display: flex; justify-content: space-around; align-items: center; padding: 14px 0; border-top: 1px solid rgba(0, 0, 0, 0.05); z-index: 1000; }
-        .nav-item { text-decoration: none; color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 11px; gap: 4px; cursor: pointer; transition: 0.2s; }
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.94); backdrop-filter: blur(10px); display: none; flex-direction: column; gap: 20px; justify-content: center; align-items: center; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; }
+        .lightbox img { max-width: 92%; max-height: 70%; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: scale(0.93); transition: transform 0.35s; border: 2px solid #ffffff; }
+        .lightbox.show { opacity: 1; }
+        .lightbox.show img { transform: scale(1); }
+        .download-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 10px; transform: translateY(20px); opacity: 0; transition: all 0.4s; }
+        .lightbox.show .download-btn { opacity: 1; transform: translateY(0); }
+
+        .feature-popup-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.82); backdrop-filter: blur(8px); z-index: 100000; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .feature-popup-content { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.08); padding: 30px; border-radius: 24px; max-width: 390px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); text-align: center; }
+        .close-popup-btn { background: rgba(16, 185, 129, 0.1); color: #059669; border: none; padding: 12px 28px; font-weight: 600; border-radius: 50px; cursor: pointer; }
+        
+        .map-container { border-radius: 20px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
+        .map-btn { display: block; width: 100%; text-align: center; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 15px; }
+
+        /* --- BOTTOM NAV --- */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); display: flex; justify-content: space-around; align-items: center; padding: 14px 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); border-top: 1px solid rgba(0, 0, 0, 0.05); z-index: 1000; }
+        .nav-item { color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 11px; gap: 4px; transition: 0.25s; cursor: pointer; }
         .nav-item i { font-size: 19px; }
         .nav-item.active { color: #059669; font-weight: 700; }
-        .nav-item.active i { transform: translateY(-2px); }
+        .nav-item.active i { transform: scale(1.15) translateY(-1px); }
+
+        @media (max-width: 600px) {
+            section { padding: 40px 4%; }
+            .title { font-size: 25px; margin-bottom: 25px; }
+            .video-card video { height: 240px; border-radius: 12px; } 
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
+            .gallery img { height: 110px; border-radius: 12px; }
+        }
     </style>
 </head>
 <body>
@@ -105,6 +202,16 @@
     <!-- MUSIC -->
     <audio id="bgMusic" loop preload="auto"><source src="assetsmusiconetime.mp3" type="audio/mpeg"></audio>
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()"><i class="fas fa-play" id="musicIcon"></i></div>
+
+    <!-- FEATURE POPUP -->
+    <div class="feature-popup-modal" id="featurePopup">
+        <div class="feature-popup-content">
+            <i id="popupIcon" class="fas fa-tree" style="font-size: 42px; color: #059669; margin-bottom: 16px;"></i>
+            <h3 id="popupTitle" style="font-size: 20px; color: #1e293b; margin-bottom: 12px; font-weight: 700;">Feature Title</h3>
+            <p id="popupDesc" style="font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 24px;">Descriptions...</p>
+            <button class="close-popup-btn" onclick="closeFeaturePopup()">Close Details</button>
+        </div>
+    </div>
 
     <!-- ROLE SELECTION & LOGIN -->
     <div class="full-overlay" id="roleOverlay">
@@ -129,85 +236,182 @@
         </div>
     </div>
 
-    <!-- ADMIN MODALS -->
-    <!-- Food Modal -->
+    <!-- WELCOME GUEST (GLASSMORPHISM TABLE) -->
+    <div class="welcome-overlay" id="welcomeOverlay">
+        <div class="welcome-container">
+            <h1>Hello, Welcome!</h1>
+            <p class="subtitle">Quickly review CherryJoe River Park highlights inside our structured tables before moving forward.</p>
+            
+            <div class="feature-table-box table-one">
+                <div class="table-header"><i class="fas fa-swimming-pool"></i> Table 1: Amenities & Rates</div>
+                <div class="table-row-grid">
+                    <div class="table-cell cell-1">
+                        <i class="fas fa-home" style="color: #f97316;"></i><span>Open Cottage</span><a onclick="openFeaturePopup('cottage')">View Rate</a>
+                    </div>
+                    <div class="table-cell cell-2">
+                        <i class="fas fa-water-ladder" style="color: #38bdf8;"></i><span>Resort Pool</span><a onclick="openFeaturePopup('pool')">View Details</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-table-box table-two">
+                <div class="table-header"><i class="fas fa-leaf"></i> Table 2: Park Experience</div>
+                <div class="table-row-grid">
+                    <div class="table-cell cell-1">
+                        <i class="fas fa-water" style="color: #22d3ee;"></i><span>River View</span><a onclick="openFeaturePopup('river')">View Setup</a>
+                    </div>
+                    <div class="table-cell cell-2">
+                        <i class="fas fa-utensils" style="color: #f43f5e;"></i><span>Local Food</span><a onclick="openFeaturePopup('food')">View Menu</a>
+                    </div>
+                </div>
+            </div>
+
+            <button class="welcome-btn" onclick="closeWelcomeScreen()">Enter Full Website</button>
+        </div>
+    </div>
+
+    <!-- ADMIN DATA MODALS -->
     <div class="modal-overlay" id="adminFoodModal">
         <div class="modal-content">
             <h2>Add New Food</h2>
             <select id="foodCategory">
-                <option value="specialties">Specialties</option>
-                <option value="combo">Combo Meal</option>
-                <option value="finger">Finger Foods</option>
-                <option value="drinks">Drinks & Beverages</option>
+                <option value="specialties">Specialties</option><option value="combo">Combo Meal</option>
+                <option value="finger">Finger Foods</option><option value="drinks">Drinks & Beverages</option>
             </select>
             <input type="text" id="foodName" placeholder="Food Name" required>
             <input type="text" id="foodPrice" placeholder="Price (e.g. ₱200)" required>
             <textarea id="foodDesc" placeholder="Description (Optional)" rows="2"></textarea>
             <input type="text" id="foodImage" placeholder="Image URL / Filename (Optional)">
-            <select id="foodStatus">
-                <option value="Available">Available</option>
-                <option value="Unavailable">Unavailable</option>
-            </select>
+            <select id="foodStatus"><option value="Available">Available</option><option value="Unavailable">Unavailable</option></select>
             <div class="modal-buttons">
-                <button class="btn-cancel" onclick="closeModals()">Cancel</button>
-                <button class="btn-save" onclick="saveFoodItem()">Save Item</button>
+                <button style="background: #f1f5f9; color: #475569;" onclick="closeModals()">Cancel</button>
+                <button style="background: #10b981; color: white;" onclick="saveFoodItem()">Save Item</button>
             </div>
         </div>
     </div>
 
-    <!-- Video Modal -->
     <div class="modal-overlay" id="adminVideoModal">
         <div class="modal-content">
             <h2>Add Video Tour</h2>
             <input type="text" id="videoTitle" placeholder="Video Title (e.g. Pool Amenities)">
             <input type="text" id="videoUrl" placeholder="Video URL or Filename (e.g. tour.mp4)">
             <div class="modal-buttons">
-                <button class="btn-cancel" onclick="closeModals()">Cancel</button>
-                <button class="btn-save" onclick="saveVideo()">Save Video</button>
+                <button style="background: #f1f5f9; color: #475569;" onclick="closeModals()">Cancel</button>
+                <button style="background: #10b981; color: white;" onclick="saveVideo()">Save Video</button>
             </div>
         </div>
     </div>
 
-    <!-- Gallery Modal -->
     <div class="modal-overlay" id="adminGalleryModal">
         <div class="modal-content">
             <h2>Add Gallery Photo</h2>
             <input type="text" id="photoUrl" placeholder="Image URL or Filename (e.g. pool.jpg)">
             <div class="modal-buttons">
-                <button class="btn-cancel" onclick="closeModals()">Cancel</button>
-                <button class="btn-save" onclick="savePhoto()">Save Photo</button>
+                <button style="background: #f1f5f9; color: #475569;" onclick="closeModals()">Cancel</button>
+                <button style="background: #10b981; color: white;" onclick="savePhoto()">Save Photo</button>
             </div>
         </div>
     </div>
 
+    <!-- MAIN NAVBAR -->
     <nav>
-        <div class="logo">CherryJoe River Park</div>
+        <div class="nav-left">
+            <i class="fas fa-chevron-left back-btn" onclick="goBack()"></i>
+            <div class="logo">CherryJoe River Park</div>
+        </div>
     </nav>
 
     <!-- PAGE 1: HOME -->
     <div id="page-home" class="app-page page-active">
-        <section style="padding-top:100px;">
-            <h2 class="title">Welcome to CherryJoe</h2>
-            <p style="text-align:center; color:#64748b;">The ultimate riverside getaway in Cateel, Davao Oriental.</p>
+        <section class="hero" id="home" style="padding:0; max-width:100%;">
+            <div class="hero-slides">
+                <div class="slide active" style="background-image: url('imagesgallery7.jpg');"></div>
+                <div class="slide" style="background-image: url('imagescherryjoe-hero.jpg');"></div>
+                <div class="slide" style="background-image: url('imagesgallery2.jpg');"></div>
+                <div class="slide" style="background-image: url('imagesgallery3.jpg');"></div>
+                <div class="slide" style="background-image: url('imagesgallery4.jpg');"></div>
+                <div class="slide" style="background-image: url('imagesgallery1.jpg');"></div>
+            </div>
+            <div class="hero-content">
+                <div class="carousel-dots">
+                    <div class="dot active" onclick="changeSlide(0)"></div><div class="dot" onclick="changeSlide(1)"></div>
+                    <div class="dot" onclick="changeSlide(2)"></div><div class="dot" onclick="changeSlide(3)"></div>
+                    <div class="dot" onclick="changeSlide(4)"></div><div class="dot" onclick="changeSlide(5)"></div>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="reveal">
+            <h2 class="title">About CherryJoe River Park</h2>
+            <div class="grid">
+                <div class="card"><h3>📍 Location</h3><p>Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p></div>
+                <div class="card"><h3>🕒 Opening Hours</h3><p>11:00 AM - 2:00 AM</p></div>
+                <div class="card"><h3>📞 Contact</h3><p>0920 408 7956</p></div>
+                <div class="card"><h3>📧 Email</h3><p>cherryday103080@gmail.com</p></div>
+            </div>
+        </section>
+
+        <section id="location" class="reveal">
+            <h2 class="title">Visit Us</h2>
+            <div class="map-container">
+                <iframe src="https://maps.google.com/maps?q=CherryJoe%20River%20Park,%20Cateel,%20Davao%20Oriental&t=k&z=18&ie=UTF8&iwloc=&output=embed" width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+            <a href="https://share.google/7u3FzgC9UR5maQkR4" target="_blank" class="map-btn"><i class="fas fa-location-arrow"></i> Get Directions</a>
+        </section>
+
+        <section class="contact reveal" id="contact" style="max-width:100%;">
+            <h2 class="title" style="color:#1e293b;">Contact Us</h2>
+            <p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel</p>
+            <p><i class="fas fa-phone"></i> 0920 408 7956</p>
+            <p><i class="fas fa-envelope"></i> cherryday103080@gmail.com</p>
+            <p><i class="fab fa-facebook"></i> <a href="https://www.facebook.com/search/top/?q=CherryJoe%20River%20Park" target="_blank">CherryJoe River Park</a></p>
         </section>
     </div>
 
-    <!-- PAGE 2: EXPLORE (Video & Gallery) -->
+    <!-- PAGE 2: EXPLORE -->
     <div id="page-explore" class="app-page">
-        <section style="padding-top:100px;">
+        <section id="management" class="reveal">
+            <h2 class="title">Management</h2>
+            <div class="management">
+                <div class="card"><h3>Owner</h3><p>CherryJoe River Park Owner</p></div>
+                <div class="card"><h3>Manager</h3><p>Santi Day</p></div>
+            </div>
+        </section>
+        
+        <section id="rates-and-cottage" class="reveal">
+            <h2 class="title">Rates & Cottages</h2>
+            <div class="cottage-section">
+                <div class="entrance-card"><div class="entrance-icon"><i class="fas fa-ticket-alt"></i></div><div class="entrance-details"><h3>Entrance Fee</h3><p><strong>Price:</strong> ₱20 per person</p></div></div>
+                <div class="cottage"><img src="imagescottage.jpg" alt="Open Cottage"><div class="cottage-content"><h3>Open Cottage</h3><p><strong>Price:</strong> ₱100</p><p><strong>Capacity:</strong> 8 Persons</p></div></div>
+            </div>
+        </section>
+        
+        <section id="facilities" class="reveal">
+            <h2 class="title">Facilities</h2>
+            <div class="facilities">
+                <div class="facility"><img src="images/pool.jpg" alt="Pool"><div class="facility-content"><h3>Pool</h3></div></div>
+                <div class="facility"><img src="images/river.jpg" alt="River"><div class="facility-content"><h3>River View</h3></div></div>
+                <div class="facility"><img src="images/restaurant.jpg" alt="Restaurant"><div class="facility-content"><h3>Restaurant</h3></div></div>
+                <div class="facility"><img src="images/functionhall.jpg" alt="Function Hall"><div class="facility-content"><h3>Function Hall</h3></div></div>
+            </div>
+        </section>
+        
+        <section id="video" style="text-align:center;" class="reveal">
             <h2 class="title">Resort Video Tour</h2>
             <button class="add-btn admin-only" onclick="document.getElementById('adminVideoModal').style.display='flex'">+ Add New Video</button>
-            <div class="video-grid" id="video-container">Loading...</div>
-
-            <h2 class="title" style="margin-top:60px;">Photo Gallery</h2>
+            <div class="video-grid" id="video-container">Loading Videos...</div>
+        </section>
+        
+        <section id="gallery" class="reveal">
+            <h2 class="title">Gallery</h2>
             <button class="add-btn admin-only" onclick="document.getElementById('adminGalleryModal').style.display='flex'">+ Add New Photo</button>
-            <div class="gallery" id="gallery-container">Loading...</div>
+            <div class="gallery" id="gallery-container">Loading Gallery...</div>
         </section>
     </div>
 
     <!-- PAGE 3: FOOD MENU -->
     <div id="page-food" class="app-page">
-        <section style="padding-top:100px;">
+        <section id="food-section">
             <h2 class="title">Delicious Menu</h2>
             <div class="food-grid-container">
                 <button class="add-btn admin-only" onclick="document.getElementById('adminFoodModal').style.display='flex'">+ Add New Menu Item</button>
@@ -229,15 +433,35 @@
 
     <!-- PAGE 4: PROFILE -->
     <div id="page-profile" class="app-page">
-        <section style="padding-top:100px;">
+        <section id="profile-section">
             <h2 class="title">User Profile</h2>
-            <div style="text-align:center; padding: 40px; border:1px solid #eee; border-radius: 20px;">
-                <i class="fas fa-user-circle" style="font-size: 60px; color: #059669; margin-bottom: 15px;"></i>
-                <h3 id="profileName">Guest User</h3>
-                <p id="profileRole" style="color:#64748b;">Role: Visitor</p>
-                <button id="logoutBtn" style="display:none; margin-top:20px; padding:12px 25px; background:#ef4444; color:white; border:none; border-radius:50px; cursor:pointer; font-weight:bold;" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout Admin</button>
+            <div class="profile-container">
+                <div class="profile-banner"><div class="profile-avatar-wrapper"><div class="profile-avatar"><i class="fas fa-user-astronaut"></i></div></div></div>
+                <div class="profile-details">
+                    <span class="welcome-visitor" id="profileBadge">Welcome Visitor!</span>
+                    <h2 id="profileName">Guest User</h2>
+                    <p class="email" id="profileEmail">resort-guest@cherryjoe.com</p>
+                    <span class="membership-tag"><i class="fas fa-medal"></i> <span id="profileRole">Resort Visitor</span></span>
+                    
+                    <button id="logoutBtn" style="display:none; margin-top:20px; padding:12px 25px; background:#ef4444; color:white; border:none; border-radius:50px; cursor:pointer; font-weight:bold; width:100%;" onclick="logoutAdmin()"><i class="fas fa-sign-out-alt"></i> Logout Admin</button>
+
+                    <div class="profile-menu-list" style="margin-top: 25px;">
+                        <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item"><div><i class="fas fa-utensils"></i> View Food Menu</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
+                        <a onclick="navigateTo('explore', 'nav-about')" class="profile-menu-item"><div><i class="fas fa-compass"></i> Explore Facilities</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
+                    </div>
+                </div>
             </div>
         </section>
+    </div>
+
+    <footer>© 2026 CherryJoe River Park</footer>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" onclick="hideImage()">
+        <img id="lightbox-img" alt="Lightbox Preview">
+        <a id="lightbox-download" href="#" download="CherryJoe_Gallery.jpg" class="download-btn" onclick="event.stopPropagation()">
+            <i class="fas fa-download"></i> Download Photo
+        </a>
     </div>
 
     <div class="bottom-nav">
@@ -258,9 +482,10 @@
         let isAdmin = false;
 
         // ==========================================
-        // 2. CORE SYSTEM & AUTHENTICATION
+        // 2. AUTHENTICATION & INITIALIZATION
         // ==========================================
         window.addEventListener('load', () => {
+            initScrollRevealEngine();
             checkAdminSession();
             fetchAllData();
         });
@@ -273,14 +498,12 @@
             }
         }
 
-        // --- DIRECT GUEST & ADMIN FLOW ---
+        // --- ROLE SELECTION (Guest vs Admin) ---
         function selectRole(role) {
             if(role === 'user') {
-                // Kon Guest, tago-a ang overlay ug diretso na sa Dashboard Website
                 document.getElementById('roleOverlay').style.display = 'none';
-                toggleMusic(); // I-play ang background music
+                document.getElementById('welcomeOverlay').style.display = 'flex';
             } else {
-                // Kon Admin, tago-a ang mga boxes ug ipakita ang Login Form
                 document.getElementById('roleSelectionBoxes').style.display = 'none';
                 document.getElementById('adminLoginForm').style.display = 'flex';
             }
@@ -292,6 +515,8 @@
         }
 
         async function handleLogin() {
+            // Note: If you registered simply as 'cherryjoe-river-park', Supabase usually requires an email format. 
+            // If it fails, make sure you created the user as cherryjoe-river-park@gmail.com in Supabase Authentication.
             const email = document.getElementById('adminEmail').value;
             const password = document.getElementById('adminPass').value;
             const btn = document.getElementById('loginBtnBtn');
@@ -299,29 +524,28 @@
             if(!email || !password) return alert("Enter email and password");
 
             btn.innerText = "Logging in...";
-
             const { error } = await supabase.auth.signInWithPassword({ email, password });
-            
             btn.innerText = "Login";
 
             if(error) {
                 alert("Login Failed: " + error.message);
             } else {
-                // Kon successful, i-on ang Admin Dashboard Mode ug tago-a ang overlay
                 setAdminMode(true);
                 document.getElementById('roleOverlay').style.display = 'none';
-                toggleMusic();
+                document.getElementById('welcomeOverlay').style.display = 'flex';
             }
         }
 
         function setAdminMode(status) {
             isAdmin = status;
+            document.getElementById('profileBadge').innerText = status ? "Welcome Back!" : "Welcome Visitor!";
             document.getElementById('profileName').innerText = status ? "Admin Account" : "Guest User";
-            document.getElementById('profileRole').innerText = status ? "Role: Administrator" : "Role: Visitor";
-            document.getElementById('logoutBtn').style.display = status ? "inline-block" : "none";
+            document.getElementById('profileEmail').innerText = status ? "admin@cherryjoe.com" : "resort-guest@cherryjoe.com";
+            document.getElementById('profileRole').innerText = status ? "System Administrator" : "Resort Visitor";
+            document.getElementById('logoutBtn').style.display = status ? "block" : "none";
             
             document.querySelectorAll('.admin-only').forEach(el => el.style.display = status ? 'block' : 'none');
-            fetchAllData(); // Re-render everything to show/hide delete buttons
+            fetchAllData(); 
         }
 
         async function logoutAdmin() {
@@ -331,7 +555,7 @@
         }
 
         // ==========================================
-        // 3. DATA FETCHING & RENDERING (CRUD)
+        // 3. DATA FETCHING (Food, Video, Gallery)
         // ==========================================
         function closeModals() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); }
 
@@ -354,14 +578,12 @@
                     sections['drinks'] += `
                         <div class="drink-item">
                             ${delBtn}
-                            <div style="display:flex; justify-content:space-between; width:100%;">
-                                <span class="drink-name" style="font-weight:600;">${item.name}</span> 
-                                <span class="food-price">${item.price}</span>
-                            </div>
+                            <span class="drink-name">${item.name}</span> 
+                            <span class="food-price">${item.price}</span>
                         </div>`;
                 } else {
                     const imgTag = item.image_url ? `<img src="${item.image_url}" onerror="this.src='https://placehold.co/400x250?text=Food'">` : `<img src="https://placehold.co/400x250?text=No+Image">`;
-                    const descTag = item.description ? `<p style="font-size:13px; color:#64748b; margin-bottom:10px; line-height:1.4;">${item.description}</p>` : '';
+                    const descTag = item.description ? `<p class="desc">${item.description}</p>` : '';
                     
                     sections[item.category] += `
                         <div class="food-card-with-img">
@@ -371,7 +593,7 @@
                                 <div><h3>${item.name}</h3>${descTag}</div>
                                 <div class="food-card-footer">
                                     <span class="food-price">${item.price}</span>
-                                    <span style="font-size:11px; background:rgba(16,185,129,0.1); color:#059669; padding:4px 12px; border-radius:50px; font-weight:bold;">${item.status}</span>
+                                    <span class="food-status">${item.status}</span>
                                 </div>
                             </div>
                         </div>`;
@@ -411,8 +633,8 @@
                 let delBtn = isAdmin ? `<button class="admin-del-btn" onclick="deleteVideo(${item.id})"><i class="fas fa-trash"></i></button>` : '';
                 html += `<div class="video-card">
                             ${delBtn}
-                            <video controls playsinline preload="metadata"><source src="${item.video_url}" type="video/mp4"></video>
-                            <h3 style="font-size: 15px; margin-top: 12px;">${item.title}</h3>
+                            <video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="${item.video_url}" type="video/mp4"></video>
+                            <h3>${item.title}</h3>
                          </div>`;
             });
             document.getElementById('video-container').innerHTML = html || 'No videos found.';
@@ -438,7 +660,7 @@
                 let delBtn = isAdmin ? `<button class="admin-del-btn" style="top:5px; right:5px;" onclick="deletePhoto(${item.id})"><i class="fas fa-trash"></i></button>` : '';
                 html += `<div class="gallery-item">
                             ${delBtn}
-                            <img src="${item.image_url}" onerror="this.src='https://placehold.co/150x150?text=Error'">
+                            <img src="${item.image_url}" alt="Gallery" onclick="showImage(this.src)" onerror="this.src='https://placehold.co/150x150?text=Error'">
                          </div>`;
             });
             document.getElementById('gallery-container').innerHTML = html || 'No photos found.';
@@ -456,30 +678,146 @@
         }
 
         // ==========================================
-        // 4. NAVIGATION & UTILITIES
+        // 4. ORIGINAL UI SCRIPTS (Preserved)
         // ==========================================
+        const audio = document.getElementById('bgMusic');
+        const musicBtn = document.getElementById('musicBtn');
+        const musicIcon = document.getElementById('musicIcon');
+
+        function toggleMusic() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicIcon.className = "fas fa-pause";
+                    musicBtn.classList.add('playing');
+                }).catch(err => console.log("Audio block."));
+            } else {
+                audio.pause();
+                musicIcon.className = "fas fa-play";
+                musicBtn.classList.remove('playing');
+            }
+        }
+
+        function handleVideoPlay(playingVideo) {
+            if (!audio.paused) {
+                audio.pause();
+                musicIcon.className = "fas fa-play";
+                musicBtn.classList.remove('playing');
+            }
+            document.querySelectorAll('video').forEach(v => {
+                if (v !== playingVideo) v.pause();
+            });
+        }
+
+        function forceAutoplayOnInteraction() {
+            if (audio.paused) {
+                audio.play().then(() => {
+                    musicIcon.className = "fas fa-pause";
+                    musicBtn.classList.add('playing');
+                    document.removeEventListener('click', forceAutoplayOnInteraction);
+                    document.removeEventListener('touchstart', forceAutoplayOnInteraction);
+                    document.removeEventListener('scroll', forceAutoplayOnInteraction);
+                }).catch(e => console.log("Browser block."));
+            }
+        }
+
+        function initScrollRevealEngine() {
+            const targets = document.querySelectorAll('.reveal');
+            const visualObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('active');
+                });
+            }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
+            targets.forEach(element => visualObserver.observe(element));
+        }
+
+        const featureData = {
+            cottage: { title: "Open Cottages Setup", icon: "fas fa-home", desc: "Relax in our comfortable Open Cottages built perfect for families and barkadas. Current rental rate is fixed at only ₱100 with an 8-person maximum capacity limit." },
+            pool: { title: "Resort Swimming Pool", icon: "fas fa-swimming-pool", desc: "Enjoy a pristine, treated, and completely cold swim in our integrated pool structure. Highly dynamic safety setup designed for children and adults." },
+            river: { title: "Scenic River View", icon: "fas fa-water", desc: "Nature at its best! CherryJoe is directly parallel to the clean refreshing river flow of Cateel, Davao Oriental, providing natural therapeutic acoustics." },
+            food: { title: "Authentic Food Menu", icon: "fas fa-utensils", desc: "Savor premium local delicacies cooked fresh: Grilled Tuna Belly, Sinuwag Pork Belly, Tuna Panga, Freshwater Eel, and strong hot Native Coffee." }
+        };
+
+        function openFeaturePopup(key) {
+            const context = featureData[key];
+            if (context) {
+                document.getElementById('popupIcon').className = context.icon;
+                document.getElementById('popupTitle').innerText = context.title;
+                document.getElementById('popupDesc').innerText = context.desc;
+                document.getElementById('featurePopup').style.display = 'flex';
+            }
+        }
+
+        function closeFeaturePopup() { document.getElementById('featurePopup').style.display = 'none'; }
+
+        function closeWelcomeScreen() {
+            document.getElementById('welcomeOverlay').classList.add('hide-welcome');
+            setTimeout(() => { document.getElementById('welcomeOverlay').style.display = 'none'; }, 500);
+            
+            document.addEventListener('click', forceAutoplayOnInteraction);
+            document.addEventListener('touchstart', forceAutoplayOnInteraction);
+            document.addEventListener('scroll', forceAutoplayOnInteraction);
+            toggleMusic();
+        }
+
         function navigateTo(pageId, navItemId) {
-            document.querySelector('.app-page.page-active').classList.remove('page-active');
-            document.getElementById('page-' + pageId).classList.add('page-active');
+            const activePage = document.querySelector('.app-page.page-active');
+            const targetPage = document.getElementById('page-' + pageId);
+            
+            if (activePage && activePage !== targetPage) {
+                activePage.style.opacity = '0';
+                activePage.style.transform = 'scale(0.98) translateY(12px)';
+                setTimeout(() => {
+                    activePage.classList.remove('page-active');
+                    targetPage.classList.add('page-active');
+                    requestAnimationFrame(() => {
+                        targetPage.style.opacity = '1';
+                        targetPage.style.transform = 'scale(1) translateY(0)';
+                    });
+                }, 250);
+            } else if (!activePage) {
+                targetPage.classList.add('page-active');
+                targetPage.style.opacity = '1';
+                targetPage.style.transform = 'scale(1) translateY(0)';
+            }
             
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             document.getElementById(navItemId).classList.add('active');
             window.scrollTo({ top: 0 });
         }
 
-        function toggleMusic() {
-            const audio = document.getElementById('bgMusic');
-            const icon = document.getElementById('musicIcon');
-            const btn = document.getElementById('musicBtn');
-            if (audio.paused) { 
-                audio.play().catch(e => console.log("Audio block.")); 
-                icon.className = "fas fa-pause"; 
-                btn.classList.add('playing'); 
-            } else { 
-                audio.pause(); 
-                icon.className = "fas fa-play"; 
-                btn.classList.remove('playing'); 
-            }
+        function goBack() { navigateTo('home', 'nav-home'); }
+
+        let currentSlideIndex = 0;
+        const slides = document.querySelectorAll('.slide');
+        const dots = document.querySelectorAll('.dot');
+        let slideInterval;
+
+        function showSlide(index) {
+            slides.forEach(slide => slide.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+            if (slides[index]) slides[index].classList.add('active');
+            if (dots[index]) dots[index].classList.add('active');
+            currentSlideIndex = index;
+        }
+
+        function nextSlide() { let targetIndex = (currentSlideIndex + 1) % slides.length; showSlide(targetIndex); }
+        function changeSlide(index) { showSlide(index); clearInterval(slideInterval); slideInterval = setInterval(nextSlide, 4500); }
+        slideInterval = setInterval(nextSlide, 4500);
+
+        function showImage(src) { 
+            const box = document.getElementById('lightbox');
+            document.getElementById('lightbox-img').src = src;
+            const downloadBtn = document.getElementById('lightbox-download');
+            downloadBtn.href = src;
+            downloadBtn.download = src.split('/').pop() || 'CherryJoe_Gallery.jpg';
+            box.style.display = 'flex'; 
+            setTimeout(() => box.classList.add('show'), 15);
+        }
+        
+        function hideImage() { 
+            const box = document.getElementById('lightbox');
+            box.classList.remove('show');
+            setTimeout(() => box.style.display = 'none', 300);
         }
     </script>
 </body>
