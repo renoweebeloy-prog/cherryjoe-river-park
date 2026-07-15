@@ -33,66 +33,36 @@
             overflow-x: hidden;
         }
 
-        /* Custom Scrollbar for modern feel */
-        ::-webkit-scrollbar {
-            width: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #ffffff;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #cbd5e1;
-            border-radius: 10px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #10b981;
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #ffffff; }
+        ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: #10b981; }
 
         /* --- BACKGROUND MUSIC FLOATING BUTTON --- */
         .music-control-btn {
-            position: fixed;
-            bottom: 85px;
-            right: 20px;
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, #10b981, #059669); /* Elegant Green */
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
-            z-index: 9999;
-            transition: all 0.3s ease;
-            border: 2px solid rgba(255, 255, 255, 0.5);
+            position: fixed; bottom: 85px; right: 20px; width: 50px; height: 50px;
+            background: linear-gradient(135deg, #10b981, #059669); color: white;
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            z-index: 9999; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.5);
         }
-        .music-control-btn:hover {
-            transform: scale(1.1);
-        }
+        .music-control-btn:hover { transform: scale(1.1); }
         .music-control-btn.playing {
             animation: pulseMusic 1.5s infinite ease-in-out;
-            background: linear-gradient(135deg, #ef4444, #b91c1c); /* Red for playing state */
+            background: linear-gradient(135deg, #ef4444, #b91c1c); 
             box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4);
         }
-        @keyframes pulseMusic {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-        }
+        @keyframes pulseMusic { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-        /* --- 2. SCROLL REVEAL TIMING PACK --- */
+        /* --- SCROLL REVEAL TIMING PACK --- */
         .reveal {
-            opacity: 0;
-            transform: translateY(35px) scale(0.98);
+            opacity: 0; transform: translateY(35px) scale(0.98);
             transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0) scale(1);
-        }
+        .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
-        /* --- ADDED: ROLE SELECTION & LOGIN OVERLAYS --- */
+        /* --- ROLE SELECTION & LOGIN OVERLAYS --- */
         .full-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: radial-gradient(circle at center, rgba(248, 250, 252, 0.98), rgba(255, 255, 255, 0.99));
@@ -121,7 +91,7 @@
         .login-box button:hover { background: #047857; }
         .back-link { font-size: 13px; color: #64748b; text-align: center; cursor: pointer; margin-top: 10px; }
 
-        /* --- ADDED: ADMIN MODALS & BUTTONS --- */
+        /* --- ADMIN MODALS & BUTTONS --- */
         .admin-only { display: none; }
         .add-btn { background: #10b981; color: white; padding: 12px 20px; border-radius: 8px; border: none; font-weight: bold; margin-bottom: 20px; cursor: pointer; width: 100%; font-size: 15px; transition: 0.3s; }
         .add-btn:hover { background: #059669; }
@@ -131,180 +101,12 @@
         .modal-buttons { display: flex; gap: 10px; margin-top: 15px; }
         .modal-buttons button { flex: 1; padding: 12px; border: none; border-radius: 10px; font-weight: bold; cursor: pointer; transition: 0.3s; }
 
-        /* --- 3. GLASSMORPHISM WELCOME OVERLAY --- */
-        .welcome-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(248, 250, 252, 0.92), rgba(255, 255, 255, 0.99));
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            z-index: 99999; 
-            display: none; 
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .welcome-container {
-            max-width: 480px;
-            width: 100%;
-            max-height: 92vh;
-            overflow-y: auto;
-            padding: 10px 5px;
-            text-align: center;
-        }
-        .welcome-container h1 {
-            font-size: 32px;
-            color: #1e293b;
-            margin-bottom: 8px;
-            font-weight: 800;
-            letter-spacing: -0.5px;
-        }
-        .welcome-container .subtitle {
-            font-size: 14px;
-            color: #64748b;
-            margin-bottom: 25px;
-            line-height: 1.5;
-        }
+        /* --- SMOOTH MOBILE PAGE APP TRANSITIONS --- */
+        .app-page { display: none; opacity: 0; transform: scale(0.98) translateY(15px); transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
+        .app-page.page-active { display: block; opacity: 1; transform: scale(1) translateY(0); }
 
-        /* TABLES GLASSMORPHISM DESIGN */
-        .feature-table-box {
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 24px;
-            padding: 22px;
-            margin-bottom: 18px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(0, 0, 0, 0.08);
-            text-align: left;
-            opacity: 0; 
-        }
-        .table-one { animation: tableEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s forwards; }
-        .table-two { animation: tableEntrance 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s forwards; }
-
-        @keyframes tableEntrance {
-            0% { transform: translateY(40px) scale(0.96); opacity: 0; }
-            100% { transform: translateY(0) scale(1); opacity: 1; }
-        }
-
-        .table-header {
-            font-size: 13px;
-            font-weight: 700;
-            color: #059669;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 16px;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            padding-bottom: 10px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .table-row-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .table-cell {
-            background: #ffffff;
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            padding: 16px;
-            border-radius: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 6px;
-            opacity: 0;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .table-cell:hover {
-            border-color: #059669;
-            background: #f8fafc;
-            transform: translateY(-4px);
-            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.1);
-        }
-
-        .table-one .cell-1 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.5s forwards; }
-        .table-one .cell-2 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.6s forwards; }
-        .table-two .cell-1 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards; }
-        .table-two .cell-2 { animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
-
-        @keyframes cellEntrance {
-            0% { transform: translateY(15px); opacity: 0; }
-            100% { transform: translateY(0); opacity: 1; }
-        }
-
-        .table-cell i { font-size: 22px; margin-bottom: 2px; }
-        .table-cell span { font-size: 14px; font-weight: 600; color: #1e293b; }
-        .table-cell a { font-size: 12px; color: #0284c7; text-decoration: none; font-weight: 600; cursor: pointer; margin-top: 2px; }
-        .table-cell a:hover { text-decoration: underline; color: #0369a1; }
-
-        .welcome-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            border: none;
-            padding: 16px 30px;
-            font-size: 15px;
-            font-weight: 700;
-            border-radius: 50px;
-            cursor: pointer;
-            box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.3);
-            width: 100%;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            margin-top: 10px;
-            opacity: 0;
-            animation: cellEntrance 0.6s cubic-bezier(0.16, 1, 0.3, 1) 1.0s forwards;
-            transition: all 0.3s ease;
-        }
-        .welcome-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 30px -5px rgba(16, 185, 129, 0.5);
-        }
-
-        .welcome-overlay.hide-welcome {
-            opacity: 0 !important;
-            visibility: hidden !important;
-            pointer-events: none !important;
-        }
-        .welcome-overlay.hide-welcome .welcome-container {
-            transform: scale(0.92) translateY(-20px);
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        /* --- 4. SMOOTH MOBILE PAGE APP TRANSITIONS --- */
-        .app-page {
-            display: none; 
-            opacity: 0;
-            transform: scale(0.98) translateY(15px);
-            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .app-page.page-active {
-            display: block; 
-            opacity: 1;
-            transform: scale(1) translateY(0);
-        }
-
-        /* --- 5. MODERN GLOBAL APP UI PARTS --- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            height: 60px;
-        }
+        /* --- MODERN GLOBAL APP UI PARTS --- */
+        nav { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; height: 60px; }
         .nav-left { display: flex; align-items: center; gap: 15px; color: #1e293b; }
         .back-btn { font-size: 20px; cursor: pointer; transition: 0.3s; color: #1e293b; }
         .back-btn:hover { color: #059669; }
@@ -314,62 +116,27 @@
         .title { text-align: center; font-size: 30px; margin-bottom: 35px; color: #1e293b; font-weight: 800; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
 
-        /* Modernized Dynamic Cards */
-        .card { 
-            background: #ffffff; 
-            border: 1px solid rgba(0, 0, 0, 0.06);
-            padding: 25px; 
-            border-radius: 20px; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.08);
-        }
+        .card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
+        .card:hover { transform: translateY(-5px); border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.08); }
         .card h3 { color: #059669; margin-bottom: 10px; font-weight: 700; font-size: 18px; }
         .card p { color: #475569; font-size: 15px; line-height: 1.5; }
 
-        /* --- 6. PREMIUM HERO SLIDESHOW --- */
-        .hero {
-            height: calc(100vh - 60px);
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: flex-end;
-            text-align: center;
-        }
+        /* --- PREMIUM HERO SLIDESHOW --- */
+        .hero { height: calc(100vh - 60px); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: flex-end; text-align: center; }
         .hero-slides { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-        .slide {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background-size: cover; background-position: center; background-repeat: no-repeat;
-            opacity: 0; transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 7s ease;
-            transform: scale(1.06);
-        }
+        .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 7s ease; transform: scale(1.06); }
         .slide.active { opacity: 1; transform: scale(1); }
-        .hero::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, transparent 30%, #ffffff 100%); z-index: 1;
-        }
+        .hero::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, transparent 30%, #ffffff 100%); z-index: 1; }
         .hero-content { position: relative; color: #1e293b; z-index: 2; width: 100%; padding: 0 20px; margin-bottom: 40px; }
         .carousel-dots { display: flex; justify-content: center; gap: 10px; }
-        .dot {
-            width: 9px; height: 9px; background-color: rgba(0, 0, 0, 0.2);
-            border-radius: 50%; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
+        .dot { width: 9px; height: 9px; background-color: rgba(0, 0, 0, 0.2); border-radius: 50%; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .dot.active { background-color: #059669; transform: scale(1.2); width: 26px; border-radius: 6px; }
 
-        /* --- 7. FOOD MANAGEMENT PACK --- */
+        /* --- FOOD MANAGEMENT PACK --- */
         .food-grid-container { max-width: 1000px; margin: 0 auto; }
         .food-category-title { font-size: 20px; color: #1e293b; border-left: 5px solid #059669; padding-left: 12px; margin: 40px 0 20px 0; font-weight: 700; letter-spacing: 0.5px; }
         .food-item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .food-card-with-img { 
-            background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); 
-            border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease; 
-            box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative;
-        }
+        .food-card-with-img { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.03); position: relative;}
         .food-card-with-img:hover { transform: translateY(-5px); border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.1); }
         .food-card-with-img img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .food-card-with-img:hover img { transform: scale(1.05); }
@@ -380,13 +147,12 @@
         .food-price { font-size: 18px; font-weight: 700; color: #059669; }
         .food-status { font-size: 11px; background: rgba(16, 185, 129, 0.1); color: #059669; padding: 4px 12px; border-radius: 50px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
-        /* Condensed Item Layout for Drinks/Extras */
         .drinks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
-        .drink-item { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 15px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s ease; }
+        .drink-item { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 15px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s ease; position: relative; }
         .drink-item:hover { border-color: #059669; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.08); }
         .drink-name { font-size: 15px; font-weight: 600; color: #1e293b; }
 
-        /* --- 8. PREMIUM PROFILE & SETTINGS SYSTEM --- */
+        /* --- PREMIUM PROFILE & SETTINGS SYSTEM --- */
         .profile-container { max-width: 500px; margin: 0 auto; background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
         .profile-banner { background: linear-gradient(135deg, #10b981, #059669); height: 120px; position: relative; }
         .profile-avatar-wrapper { width: 105px; height: 105px; border-radius: 50%; background: #ffffff; padding: 5px; position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); }
@@ -400,9 +166,8 @@
         .profile-menu-list { text-align: left; margin-top: 25px; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 15px; }
         .profile-menu-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 8px; color: #475569; text-decoration: none; font-size: 15px; border-bottom: 1px solid rgba(0, 0, 0, 0.03); cursor: pointer; transition: 0.2s ease; border-radius: 10px; }
         .profile-menu-item:hover { color: #059669; padding-left: 14px; background: rgba(16, 185, 129, 0.05); }
-        .profile-menu-item div i { margin-right: 12px; width: 20px; color: #10b981; }
 
-        /* --- 9. EXPLORE ARCHITECTURE --- */
+        /* --- EXPLORE ARCHITECTURE --- */
         .management { display: flex; gap: 20px; flex-wrap: wrap; }
         .management .card { flex: 1; min-width: 240px; }
         .cottage-section { display: flex; flex-direction: column; gap: 25px; }
@@ -413,169 +178,54 @@
         .entrance-card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 22px; border-radius: 20px; display: flex; align-items: center; gap: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         .entrance-icon { font-size: 32px; color: #059669; background: rgba(16, 185, 129, 0.1); padding: 18px; border-radius: 16px; }
         .entrance-details h3 { font-size: 18px; color: #1e293b; margin-bottom: 4px; }
-        .entrance-details p { color: #475569; }
-        
         .facilities { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 20px; }
         .facility { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         .facility img { width: 100%; height: 210px; object-fit: cover; }
         .facility-content { padding: 16px; text-align: center; font-weight: 600; font-size: 15px; color: #1e293b; }
 
-        /* TOUR VIDEOS COMPONENT */
         .video-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
-        .video-card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 12px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); position: relative;}
-        .video-card video { 
-            width: 100%; 
-            height: 460px; 
-            object-fit: cover; 
-            border-radius: 14px; 
-            background: #000; 
-            display: block; 
-        }
+        .video-card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 12px; border-radius: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.03); position: relative; }
+        .video-card video { width: 100%; height: 460px; object-fit: cover; border-radius: 14px; background: #000; display: block; }
         .video-card h3 { font-size: 15px; color: #1e293b; margin-top: 12px; font-weight: 600; padding-left: 4px; text-align: left; }
 
-        /* --- 10. PREMIUM ANIMATED GALLERY STYLES --- */
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
         .gallery-item { position: relative; }
-        .gallery-item img { 
-            width: 100%; height: 150px; object-fit: cover; border-radius: 16px; cursor: pointer; 
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; 
-            border: 1px solid rgba(0, 0, 0, 0.08);
-        }
-        .gallery-item img:hover { 
-            transform: scale(1.05) translateY(-3px); 
-            box-shadow: 0 12px 24px rgba(0,0,0,0.15);
-            border-color: #059669;
-        }
+        .gallery-item img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; cursor: pointer; transition: transform 0.4s, border-color 0.4s, box-shadow 0.4s; border: 1px solid rgba(0, 0, 0, 0.08); }
+        .gallery-item img:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); border-color: #059669; }
 
         /* --- OVERLAYS & COMPONENT ENGINE --- */
         .contact { background: #f8fafc; border-top: 1px solid rgba(0, 0, 0, 0.05); text-align: center; }
-        .contact p { margin: 12px 0; color: #475569; font-size: 15px; }
-        .contact a { color: #059669; text-decoration: none; font-weight: 600; }
         footer { background: #f8fafc; color: #64748b; text-align: center; padding: 25px; font-size: 13px; border-top: 1px solid rgba(0, 0, 0, 0.05); }
 
-        /* PREMIUM GLASSMORPHISM LIGHTBOX WITH DOWNLOAD BUTTON */
-        .lightbox { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(248, 250, 252, 0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); 
-            display: none; flex-direction: column; gap: 20px; justify-content: center; align-items: center; 
-            z-index: 99999; opacity: 0; transition: opacity 0.3s ease; 
-        }
-        .lightbox img { 
-            max-width: 92%; max-height: 70%; border-radius: 16px; 
-            box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: scale(0.93); 
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); border: 2px solid #ffffff; 
-        }
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.94); backdrop-filter: blur(10px); display: none; flex-direction: column; gap: 20px; justify-content: center; align-items: center; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; }
+        .lightbox img { max-width: 92%; max-height: 70%; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: scale(0.93); transition: transform 0.35s; border: 2px solid #ffffff; }
         .lightbox.show { opacity: 1; }
         .lightbox.show img { transform: scale(1); }
+        .download-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 10px; transform: translateY(20px); opacity: 0; transition: all 0.4s; }
+        .lightbox.show .download-btn { opacity: 1; transform: translateY(0); }
 
-        /* Download Button Styles */
-        .download-btn {
-            background: linear-gradient(135deg, #10b981, #059669);
-            color: white;
-            padding: 12px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transform: translateY(20px);
-            opacity: 0;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3);
-            border: 2px solid rgba(255, 255, 255, 0.5);
-            cursor: pointer;
-        }
-        .download-btn:hover {
-            background: linear-gradient(135deg, #059669, #047857);
-            transform: scale(1.05) translateY(18px) !important;
-            box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4);
-        }
-        .lightbox.show .download-btn {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* APP DETAIL ENGINE POPUP */
-        .feature-popup-modal {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(248, 250, 252, 0.82); backdrop-filter: blur(8px);
-            z-index: 100000; display: none; justify-content: center; align-items: center; padding: 20px;
-        }
-        .feature-popup-content {
-            background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.08); padding: 30px; border-radius: 24px;
-            max-width: 390px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); text-align: center;
-            animation: modalZoomIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes modalZoomIn { from { transform: scale(0.92) translateY(12px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
-        .feature-popup-content i { font-size: 42px; color: #059669; margin-bottom: 16px; }
-        .feature-popup-content h3 { font-size: 20px; color: #1e293b; margin-bottom: 12px; font-weight: 700; }
-        .feature-popup-content p { font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 24px; }
-        .close-popup-btn { background: rgba(16, 185, 129, 0.1); color: #059669; border: none; padding: 12px 28px; font-size: 14px; font-weight: 600; border-radius: 50px; cursor: pointer; transition: 0.2s; }
-        .close-popup-btn:hover { background: rgba(16, 185, 129, 0.2); }
-
-        /* --- 11. MODERN MOBILE TAB APP-BAR (BOTTOM BAR) --- */
-        .bottom-nav { 
-            position: fixed; bottom: 0; left: 0; width: 100%; 
-            background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            display: flex; justify-content: space-around; align-items: center; padding: 14px 0; 
-            box-shadow: 0 -5px 20px rgba(0,0,0,0.05); border-top: 1px solid rgba(0, 0, 0, 0.05); z-index: 1000; 
-        }
-        .nav-item { text-decoration: none; color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 11px; gap: 4px; transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; }
-        .nav-item i { font-size: 19px; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
-        .nav-item:hover i { transform: translateY(-2px); color: #059669; }
+        /* --- MODERN MOBILE TAB APP-BAR (BOTTOM BAR) --- */
+        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); display: flex; justify-content: space-around; align-items: center; padding: 14px 0; border-top: 1px solid rgba(0, 0, 0, 0.05); z-index: 1000; }
+        .nav-item { text-decoration: none; color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 11px; gap: 4px; cursor: pointer; }
         .nav-item.active { color: #059669; font-weight: 700; }
-        .nav-item.active i { transform: scale(1.15) translateY(-1px); }
-
-        /* --- MOBILE MEDIA & SYSTEM REFINEMENTS --- */
+        
         @media (max-width: 600px) {
             section { padding: 40px 4%; }
             .title { font-size: 25px; margin-bottom: 25px; }
-            .video-card video { height: 240px; border-radius: 12px; } 
-            .gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
-            .gallery img { height: 110px; border-radius: 12px; }
-            .welcome-container h1 { font-size: 26px; }
-            .feature-table-box { padding: 18px; border-radius: 20px; }
-            .table-row-grid { gap: 10px; }
-            .table-cell { padding: 14px; border-radius: 12px; }
+            .video-card video { height: 240px; } 
+            .gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); }
+            .gallery img { height: 110px; }
         }
-
-        /* --- DUGANG PARA SA MAPA --- */
-        .map-container { 
-            border-radius: 20px; 
-            overflow: hidden; 
-            border: 1px solid rgba(0, 0, 0, 0.05); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); 
-            margin-top: 20px; 
-        }
-        .map-btn { 
-            display: block; 
-            width: 100%; 
-            text-align: center; 
-            background: linear-gradient(135deg, #10b981, #059669); 
-            color: white; 
-            padding: 15px; 
-            border-radius: 50px; 
-            text-decoration: none; 
-            font-weight: 700; 
-            margin-top: 15px; 
-            transition: 0.3s; 
-        }
-        .map-btn:hover { 
-            box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4);
-            transform: translateY(-2px); 
-        }
+        .map-container { border-radius: 20px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.05); margin-top: 20px; }
+        .map-btn { display: block; width: 100%; text-align: center; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 15px; }
     </style>
 </head>
 <body>
 
-    <!-- GI-UPDATE ANG AUDIO TAG PARA MA-AUTOPLAY -->
+    <!-- AUDIO -->
     <audio id="bgMusic" loop preload="auto">
-        <!-- Siguroha lang nga ang filename parehas gyud aning naa sa source -->
         <source src="assetsmusiconetime.mp3" type="audio/mpeg">
     </audio>
-
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
         <i class="fas fa-play" id="musicIcon"></i>
     </div>
@@ -624,17 +274,8 @@
         </div>
     </div>
 
-    <div class="feature-popup-modal" id="featurePopup">
-        <div class="feature-popup-content">
-            <i id="popupIcon" class="fas fa-tree"></i>
-            <h3 id="popupTitle">Feature Title</h3>
-            <p id="popupDesc">Descriptions...</p>
-            <button class="close-popup-btn" onclick="closeFeaturePopup()">Close Details</button>
-        </div>
-    </div>
-
     <!-- ROLE SELECTION & LOGIN OVERLAY -->
-    <div class="full-overlay" id="roleOverlay" style="display: none;">
+    <div class="full-overlay" id="roleOverlay">
         <h1 style="color: #1e293b; font-weight: 800; margin-bottom: 10px;">Select Experience</h1>
         <p style="color: #64748b;">Are you visiting or managing?</p>
         
@@ -656,51 +297,7 @@
         </div>
     </div>
 
-    <div class="welcome-overlay" id="welcomeOverlay">
-        <div class="welcome-container">
-            <h1>Hello, Welcome!</h1>
-            <p class="subtitle">Quickly review CherryJoe River Park highlights inside our structured tables before moving forward.</p>
-            
-            <div class="feature-table-box table-one">
-                <div class="table-header">
-                    <i class="fas fa-swimming-pool"></i> Table 1: Amenities & Rates
-                </div>
-                <div class="table-row-grid">
-                    <div class="table-cell cell-1">
-                        <i class="fas fa-home" style="color: #f97316;"></i>
-                        <span>Open Cottage</span>
-                        <a onclick="openFeaturePopup('cottage')">View Rate</a>
-                    </div>
-                    <div class="table-cell cell-2">
-                        <i class="fas fa-water-ladder" style="color: #38bdf8;"></i>
-                        <span>Resort Pool</span>
-                        <a onclick="openFeaturePopup('pool')">View Details</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="feature-table-box table-two">
-                <div class="table-header">
-                    <i class="fas fa-leaf"></i> Table 2: Park Experience
-                </div>
-                <div class="table-row-grid">
-                    <div class="table-cell cell-1">
-                        <i class="fas fa-water" style="color: #22d3ee;"></i>
-                        <span>River View</span>
-                        <a onclick="openFeaturePopup('river')">View Setup</a>
-                    </div>
-                    <div class="table-cell cell-2">
-                        <i class="fas fa-utensils" style="color: #f43f5e;"></i>
-                        <span>Local Food</span>
-                        <a onclick="openFeaturePopup('food')">View Menu</a>
-                    </div>
-                </div>
-            </div>
-
-            <button class="welcome-btn" onclick="closeWelcomeScreen()">Enter Full Website</button>
-        </div>
-    </div>
-
+    <!-- MAIN NAVBAR -->
     <nav>
         <div class="nav-left">
             <i class="fas fa-chevron-left back-btn" onclick="goBack()"></i>
@@ -708,6 +305,7 @@
         </div>
     </nav>
 
+    <!-- PAGE 1: HOME -->
     <div id="page-home" class="app-page page-active">
         <section class="hero" id="home" style="padding:0; max-width:100%;">
             <div class="hero-slides">
@@ -767,6 +365,7 @@
         </section>
     </div>
 
+    <!-- PAGE 2: EXPLORE -->
     <div id="page-explore" class="app-page">
         <section id="management" class="reveal">
             <h2 class="title">Management</h2>
@@ -796,7 +395,6 @@
         
         <section id="video" style="text-align:center;" class="reveal">
             <h2 class="title">Resort Video Tour</h2>
-            <!-- ADMIN ONLY BUTTON -->
             <button class="add-btn admin-only" onclick="document.getElementById('adminVideoModal').style.display='flex'">+ Add New Video</button>
             <div class="video-grid" id="video-container">
                 <div class="video-card"><video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
@@ -810,7 +408,6 @@
         
         <section id="gallery" class="reveal">
             <h2 class="title">Gallery</h2>
-            <!-- ADMIN ONLY BUTTON -->
             <button class="add-btn admin-only" onclick="document.getElementById('adminGalleryModal').style.display='flex'">+ Add New Photo</button>
             <div class="gallery" id="gallery-container">
                 <img src="imagesgallery1.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery2.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery3.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery4.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery5.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery6.jpg" alt="Gallery" onclick="showImage(this.src)">
@@ -819,17 +416,16 @@
         </section>
     </div>
 
+    <!-- PAGE 3: FOOD MENU -->
     <div id="page-food" class="app-page">
         <section id="food-section">
             <h2 class="title">Delicious Menu</h2>
             <div class="food-grid-container">
-                
-                <!-- ADMIN ONLY BUTTON -->
                 <button class="add-btn admin-only" onclick="openAddFoodModal()">+ Add New Menu Item</button>
 
-                <!-- SPECIALTIES -->
                 <div class="food-category-title"><i class="fas fa-star"></i> Our Specialties</div>
                 <div class="food-item-grid" id="grid-specialties">
+                    <!-- Static Fallback if DB empty -->
                     <div class="food-card-with-img">
                         <img src="imagestunabelly.jpg" alt="Grilled Tuna Belly" onerror="this.src='https://placehold.co/400x250?text=Tuna+Belly'">
                         <div class="food-card-body">
@@ -851,65 +447,8 @@
                             <div class="food-card-footer"><span class="food-price">₱200 / ₱300 / ₱400</span><span class="food-status">Available</span></div>
                         </div>
                     </div>
-                    <div class="food-card-with-img">
-                        <img src="imagesnativechicken.jpg" alt="Grilled Native Chicken" onerror="this.src='https://placehold.co/400x250?text=Native+Chicken'">
-                        <div class="food-card-body">
-                            <div><h3>Grilled Native Chicken</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱200</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <img src="imageskinilaw.jpg" alt="Kinilaw" onerror="this.src='https://placehold.co/400x250?text=Kinilaw'">
-                        <div class="food-card-body">
-                            <div><h3>Kinilaw</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱200</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <img src="imageslumpia.jpg" alt="Lumpia" onerror="this.src='https://placehold.co/400x250?text=Lumpia'">
-                        <div class="food-card-body">
-                            <div><h3>Lumpia</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱150</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <img src="imagesbihon.jpg" alt="Bihon" onerror="this.src='https://placehold.co/400x250?text=Bihon'">
-                        <div class="food-card-body">
-                            <div><h3>Bihon</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱250</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <img src="imagessisig.jpg" alt="Sisig" onerror="this.src='https://placehold.co/400x250?text=Sisig'">
-                        <div class="food-card-body">
-                            <div><h3>Sisig</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱200</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <img src="imagessotanghon.jpg" alt="Sotanghon" onerror="this.src='https://placehold.co/400x250?text=Sotanghon'">
-                        <div class="food-card-body">
-                            <div><h3>Sotanghon</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱250</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <img src="imagesgarlicchicken.jpg" alt="Garlic Chicken" onerror="this.src='https://placehold.co/400x250?text=Garlic+Chicken'">
-                        <div class="food-card-body">
-                            <div><h3>Garlic Chicken</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱250</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <img src="imagesbicolexpress.jpg" alt="Bicol Express" onerror="this.src='https://placehold.co/400x250?text=Bicol+Express'">
-                        <div class="food-card-body">
-                            <div><h3>Bicol Express</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱300</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
                 </div>
 
-                <!-- COMBO MEAL -->
                 <div class="food-category-title"><i class="fas fa-utensils"></i> Combo Meal</div>
                 <div class="food-item-grid" id="grid-combo" style="grid-template-columns: 1fr;">
                     <div class="food-card-with-img" style="flex-direction: row; align-items: center; padding-left: 20px;">
@@ -924,79 +463,24 @@
                     </div>
                 </div>
 
-                <!-- FINGER FOODS -->
                 <div class="food-category-title"><i class="fas fa-hamburger"></i> Finger Foods</div>
                 <div class="food-item-grid" id="grid-finger">
-                    <div class="food-card-with-img">
-                        <div class="food-card-body">
-                            <div><h3>French Fries</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱150</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <div class="food-card-body">
-                            <div><h3>Chicharon</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱180</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <div class="food-card-body">
-                            <div><h3>Buffalo Wings</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱250</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <div class="food-card-body">
-                            <div><h3>Garlic Chicken</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱150</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <div class="food-card-body">
-                            <div><h3>Kropek</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱150</span></div>
-                        </div>
-                    </div>
-                    <div class="food-card-with-img">
-                        <div class="food-card-body">
-                            <div><h3>Peanuts in tub</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱150</span></div>
-                        </div>
-                    </div>
+                    <div class="food-card-with-img"><div class="food-card-body"><div><h3>French Fries</h3></div><div class="food-card-footer"><span class="food-price">₱150</span></div></div></div>
+                    <div class="food-card-with-img"><div class="food-card-body"><div><h3>Chicharon</h3></div><div class="food-card-footer"><span class="food-price">₱180</span></div></div></div>
+                    <div class="food-card-with-img"><div class="food-card-body"><div><h3>Buffalo Wings</h3></div><div class="food-card-footer"><span class="food-price">₱250</span></div></div></div>
                 </div>
 
-                <!-- DRINKS & BEVERAGES -->
                 <div class="food-category-title"><i class="fas fa-glass-cheers"></i> Drinks & Beverages</div>
                 <div class="drinks-grid" id="grid-drinks">
                     <div class="drink-item"><span class="drink-name">Water Bottle (330ml)</span> <span class="food-price">₱20</span></div>
                     <div class="drink-item"><span class="drink-name">Soda (Swakto)</span> <span class="food-price">₱20</span></div>
                     <div class="drink-item"><span class="drink-name">Soda 1 Liter</span> <span class="food-price">₱60</span></div>
-                    <div class="drink-item"><span class="drink-name">Soda 1.5 Liter</span> <span class="food-price">₱70</span></div>
-                    <div class="drink-item"><span class="drink-name">C2 (330ml)</span> <span class="food-price">₱20</span></div>
-                    <div class="drink-item"><span class="drink-name">Mulberry Juice (250ml)</span> <span class="food-price">₱60</span></div>
-                    <div class="drink-item"><span class="drink-name">Mulberry Wine (500ml)</span> <span class="food-price">₱200</span></div>
-                    <div class="drink-item"><span class="drink-name">Cali in can/bottle</span> <span class="food-price">₱80</span></div>
-                    <div class="drink-item"><span class="drink-name">Pineapple in can</span> <span class="food-price">₱80</span></div>
-                    <div class="drink-item"><span class="drink-name">Four seasons</span> <span class="food-price">₱80</span></div>
-                    <div class="drink-item"><span class="drink-name">Cucumber Lemon Juice</span> <span class="food-price">₱120</span></div>
-                    <div class="drink-item"><span class="drink-name">San Mig Light</span> <span class="food-price">₱80</span></div>
-                    <div class="drink-item"><span class="drink-name">San Mig Apple</span> <span class="food-price">₱80</span></div>
-                    <div class="drink-item"><span class="drink-name">Red Horse</span> <span class="food-price">₱180</span></div>
-                    <div class="drink-item"><span class="drink-name">San Miguel Pilsen</span> <span class="food-price">₱80</span></div>
-                    <div class="drink-item"><span class="drink-name">Tanduay Light 750 ml</span> <span class="food-price">₱200</span></div>
-                    <div class="drink-item"><span class="drink-name">CLVB</span> <span class="food-price">₱380</span></div>
-                    <div class="drink-item"><span class="drink-name">Fundador Light 700 ml</span> <span class="food-price">₱450</span></div>
-                    <div class="drink-item"><span class="drink-name">Fundador Light 1 Liter</span> <span class="food-price">₱450</span></div>
-                    <div class="drink-item"><span class="drink-name">Fundador Light Super 1.5L</span> <span class="food-price">₱750</span></div>
-                    <div class="drink-item"><span class="drink-name">Carlo Rossi</span> <span class="food-price">₱420</span></div>
-                    <div class="drink-item"><span class="drink-name">Mojito</span> <span class="food-price">₱200</span></div>
-                    <div class="drink-item"><span class="drink-name">The Bar</span> <span class="food-price">₱200</span></div>
                 </div>
-
             </div>
         </section>
     </div>
 
+    <!-- PAGE 4: PROFILE -->
     <div id="page-profile" class="app-page">
         <section id="profile-section">
             <h2 class="title">User Profile</h2>
@@ -1020,10 +504,9 @@
         </section>
     </div>
 
-    <!-- KUHA ANG NGAN SA DEVELOPER -->
     <footer>© 2026 CherryJoe River Park</footer>
 
-    <!-- GI-UPDATE NGA LIGHTBOX NGA NAAY DOWNLOAD BUTTON -->
+    <!-- LIGHTBOX -->
     <div class="lightbox" id="lightbox" onclick="hideImage()">
         <img id="lightbox-img" alt="Lightbox Preview">
         <a id="lightbox-download" href="#" download="CherryJoe_Gallery.jpg" class="download-btn" onclick="event.stopPropagation()">
@@ -1031,6 +514,7 @@
         </a>
     </div>
 
+    <!-- BOTTOM NAV -->
     <div class="bottom-nav">
         <div class="nav-item active" id="nav-home" onclick="navigateTo('home', 'nav-home')"><i class="fas fa-home"></i><span>Home</span></div>
         <div class="nav-item" id="nav-about" onclick="navigateTo('explore', 'nav-about')"><i class="fas fa-compass"></i><span>Explore</span></div>
@@ -1059,7 +543,7 @@
                 audio.play().then(() => {
                     musicIcon.className = "fas fa-pause";
                     musicBtn.classList.add('playing');
-                }).catch(err => console.log("Audio play blocked by device constraint."));
+                }).catch(err => console.log("Audio play blocked."));
             } else {
                 audio.pause();
                 musicIcon.className = "fas fa-play";
@@ -1073,11 +557,8 @@
                 musicIcon.className = "fas fa-play";
                 musicBtn.classList.remove('playing');
             }
-            const allVideos = document.querySelectorAll('video');
-            allVideos.forEach(v => {
-                if (v !== playingVideo) {
-                    v.pause();
-                }
+            document.querySelectorAll('video').forEach(v => {
+                if (v !== playingVideo) v.pause();
             });
         }
 
@@ -1089,7 +570,7 @@
                     document.removeEventListener('click', forceAutoplayOnInteraction);
                     document.removeEventListener('touchstart', forceAutoplayOnInteraction);
                     document.removeEventListener('scroll', forceAutoplayOnInteraction);
-                }).catch(e => console.log("Browser block active until explicit interaction."));
+                }).catch(e => console.log("Browser block."));
             }
         }
 
@@ -1097,12 +578,9 @@
             const targets = document.querySelectorAll('.reveal');
             const visualObserver = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                    }
+                    if (entry.isIntersecting) entry.target.classList.add('active');
                 });
             }, { threshold: 0.08, rootMargin: "0px 0px -40px 0px" });
-            
             targets.forEach(element => visualObserver.observe(element));
         }
 
@@ -1110,25 +588,20 @@
         // 3. ROLE SELECTION & LOGIN LOGIC
         // ==========================================
         window.addEventListener('load', () => {
-            const roleOverlay = document.getElementById('roleOverlay');
+            initScrollRevealEngine();
             
-            // Suwayan nato ug play diritso ang music as soon as mo load.
             const playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
                     musicIcon.className = "fas fa-pause";
                     musicBtn.classList.add('playing');
-                }).catch(error => {
-                    console.log("Gi-block sa browser ang Autoplay. Maghuwat ra tag tap gikan sa user.");
-                });
+                }).catch(error => {});
             }
 
-            initScrollRevealEngine(); 
-            
             checkAdminSession().then(() => {
                 if(!isAdmin) {
-                    // Kung walay naka login na Admin, i-show ang Role Selection
-                    roleOverlay.style.display = 'flex';
+                    // Pakita dayon ang Role Selection screen (Guest ug Admin) inig load
+                    document.getElementById('roleOverlay').style.display = 'flex';
                 }
             });
         });
@@ -1139,7 +612,6 @@
                 if (session) {
                     setAdminMode(true);
                     document.getElementById('roleOverlay').style.display = 'none';
-                    document.getElementById('welcomeOverlay').style.display = 'none';
                 }
             } catch(error) { console.error(error); }
             fetchAllData();
@@ -1147,26 +619,16 @@
 
         function selectRole(role) {
             if(role === 'user') {
+                // BYPASS WELCOME OVERLAY: Pag-click as Guest, diritso na sa main website
                 document.getElementById('roleOverlay').style.display = 'none';
                 
-                // I-check kung naka-sulod na ba siya sauna
-                const hasEnteredBefore = localStorage.getItem('welcomeScreenDismissed');
-                const savedPage = localStorage.getItem('currentPage');
-                const savedNav = localStorage.getItem('currentNav');
+                // Allow audio upon clicking
+                forceAutoplayOnInteraction();
                 
-                if (hasEnteredBefore === 'true') {
-                    document.getElementById('welcomeOverlay').style.display = 'none';
-                    document.addEventListener('click', forceAutoplayOnInteraction);
-                    document.addEventListener('touchstart', forceAutoplayOnInteraction);
-                    document.addEventListener('scroll', forceAutoplayOnInteraction);
-                    if (savedPage && savedNav) {
-                        navigateTo(savedPage, savedNav);
-                    }
-                } else {
-                    document.getElementById('welcomeOverlay').style.display = 'flex';
-                }
-
+                // Siguraduhon nga ang Home Dashboard ang makita
+                navigateTo('home', 'nav-home');
             } else if(role === 'admin') {
+                // Pag-click sa Admin, mawala ang buttons unya mogawas ang Login Form
                 document.getElementById('roleSelectionBoxes').style.display = 'none';
                 document.getElementById('adminLoginForm').style.display = 'flex';
             }
@@ -1191,9 +653,10 @@
                 if(error) { alert("Login Failed: " + error.message); } 
                 else {
                     setAdminMode(true);
+                    // Inig ka-login, diritso na sa dashboard
                     document.getElementById('roleOverlay').style.display = 'none';
-                    document.getElementById('welcomeOverlay').style.display = 'none';
                     navigateTo('home', 'nav-home');
+                    forceAutoplayOnInteraction();
                 }
             } catch(err) { btn.innerText = "Login"; }
         }
@@ -1222,16 +685,11 @@
         // ==========================================
         function closeModals() { document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none'); }
 
-        async function fetchAllData() {
-            fetchFood(); fetchVideos(); fetchGallery();
-        }
+        async function fetchAllData() { fetchFood(); fetchVideos(); fetchGallery(); }
 
         async function fetchFood() {
             const { data, error } = await supabase.from('food_menu').select('*').order('id', { ascending: true });
-            if(error || !data || data.length === 0) {
-                // Kon walay data sa database, ayaw usba aron mo-display gihapon tong default HTML fallback
-                return;
-            }
+            if(error || !data || data.length === 0) return;
             
             const sections = { 'specialties': '', 'combo': '', 'finger': '', 'drinks': '' };
             data.forEach(item => {
@@ -1268,10 +726,7 @@
                             ${imgTag}
                             <div class="food-card-body">
                                 <div><h3>${item.name}</h3>${descTag}</div>
-                                <div class="food-card-footer">
-                                    <span class="food-price">${item.price}</span>
-                                    <span class="food-status">${item.status}</span>
-                                </div>
+                                <div class="food-card-footer"><span class="food-price">${item.price}</span><span class="food-status">${item.status}</span></div>
                             </div>
                         </div>`;
                 }
@@ -1284,20 +739,15 @@
         }
 
         function openAddFoodModal() {
-            document.getElementById('foodId').value = '';
-            document.getElementById('foodName').value = ''; document.getElementById('foodPrice').value = '';
-            document.getElementById('foodDesc').value = ''; document.getElementById('foodImage').value = '';
-            document.getElementById('foodStatus').value = 'Available';
-            document.getElementById('foodModalHeader').innerText = "Add New Food";
-            document.getElementById('adminFoodModal').style.display = 'flex';
+            document.getElementById('foodId').value = ''; document.getElementById('foodName').value = ''; document.getElementById('foodPrice').value = '';
+            document.getElementById('foodDesc').value = ''; document.getElementById('foodImage').value = ''; document.getElementById('foodStatus').value = 'Available';
+            document.getElementById('foodModalHeader').innerText = "Add New Food"; document.getElementById('adminFoodModal').style.display = 'flex';
         }
 
         function editFood(id, category, name, price, desc, img, status) {
-            document.getElementById('foodId').value = id; document.getElementById('foodCategory').value = category;
-            document.getElementById('foodName').value = name; document.getElementById('foodPrice').value = price;
-            document.getElementById('foodDesc').value = desc; document.getElementById('foodImage').value = img;
-            document.getElementById('foodStatus').value = status;
-            document.getElementById('foodModalHeader').innerText = "Edit Food Item";
+            document.getElementById('foodId').value = id; document.getElementById('foodCategory').value = category; document.getElementById('foodName').value = name;
+            document.getElementById('foodPrice').value = price; document.getElementById('foodDesc').value = desc; document.getElementById('foodImage').value = img;
+            document.getElementById('foodStatus').value = status; document.getElementById('foodModalHeader').innerText = "Edit Food Item";
             document.getElementById('adminFoodModal').style.display = 'flex';
         }
 
@@ -1309,8 +759,7 @@
                 image_url: document.getElementById('foodImage').value, status: document.getElementById('foodStatus').value
             };
             if(!payload.name || !payload.price) return alert("Name and Price are required.");
-            if (id) await supabase.from('food_menu').update(payload).eq('id', id);
-            else await supabase.from('food_menu').insert([payload]);
+            if (id) await supabase.from('food_menu').update(payload).eq('id', id); else await supabase.from('food_menu').insert([payload]);
             closeModals(); fetchFood();
         }
 
@@ -1322,11 +771,7 @@
             let html = '';
             data.forEach(item => {
                 let delBtn = isAdmin ? `<button class="admin-del-btn" style="position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; z-index: 10;" onclick="deleteVideo(${item.id})"><i class="fas fa-trash"></i></button>` : '';
-                html += `<div class="video-card">
-                            ${delBtn}
-                            <video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="${item.video_url}" type="video/mp4"></video>
-                            <h3>${item.title}</h3>
-                         </div>`;
+                html += `<div class="video-card">${delBtn}<video controls playsinline preload="metadata" onplay="handleVideoPlay(this)"><source src="${item.video_url}" type="video/mp4"></video><h3>${item.title}</h3></div>`;
             });
             document.getElementById('video-container').innerHTML = html;
         }
@@ -1345,10 +790,7 @@
             let html = '';
             data.forEach(item => {
                 let delBtn = isAdmin ? `<button class="admin-del-btn" style="position: absolute; top: 5px; right: 5px; background: #ef4444; color: white; border: none; padding: 5px 10px; border-radius: 5px; cursor: pointer; z-index: 10;" onclick="deletePhoto(${item.id})"><i class="fas fa-trash"></i></button>` : '';
-                html += `<div class="gallery-item" style="position:relative;">
-                            ${delBtn}
-                            <img src="${item.image_url}" alt="Gallery" onclick="showImage(this.src)" onerror="this.src='https://placehold.co/150x150?text=Error'">
-                         </div>`;
+                html += `<div class="gallery-item" style="position:relative;">${delBtn}<img src="${item.image_url}" alt="Gallery" onclick="showImage(this.src)" onerror="this.src='https://placehold.co/150x150?text=Error'"></div>`;
             });
             document.getElementById('gallery-container').innerHTML = html;
         }
@@ -1362,43 +804,9 @@
         async function deletePhoto(id) { if(confirm("Delete this photo?")) { await supabase.from('gallery').delete().eq('id', id); fetchGallery(); } }
 
         // ==========================================
-        // 5. REMAINING UI/COMPONENT FUNCTIONS
+        // 5. NAVIGATION AND INTERFACE ENGINE
         // ==========================================
-        const featureData = {
-            cottage: { title: "Open Cottages Setup", icon: "fas fa-home", desc: "Relax in our comfortable Open Cottages built perfect for families and barkadas. Current rental rate is fixed at only ₱100 with an 8-person maximum capacity limit." },
-            pool: { title: "Resort Swimming Pool", icon: "fas fa-swimming-pool", desc: "Enjoy a pristine, treated, and completely cold swim in our integrated pool structure. Highly dynamic safety setup designed for children and adults." },
-            river: { title: "Scenic River View", icon: "fas fa-water", desc: "Nature at its best! CherryJoe is directly parallel to the clean refreshing river flow of Cateel, Davao Oriental, providing natural therapeutic acoustics." },
-            food: { title: "Authentic Food Menu", icon: "fas fa-utensils", desc: "Savor premium local delicacies cooked fresh: Grilled Tuna Belly, Sinuwag Pork Belly, Tuna Panga, Freshwater Eel, and strong hot Native Coffee." }
-        };
-
-        function openFeaturePopup(key) {
-            const context = featureData[key];
-            if (context) {
-                document.getElementById('popupIcon').className = context.icon;
-                document.getElementById('popupTitle').innerText = context.title;
-                document.getElementById('popupDesc').innerText = context.desc;
-                document.getElementById('featurePopup').style.display = 'flex';
-            }
-        }
-
-        function closeFeaturePopup() { document.getElementById('featurePopup').style.display = 'none'; }
-
-        function closeWelcomeScreen() {
-            localStorage.setItem('welcomeScreenDismissed', 'true');
-            localStorage.setItem('currentPage', 'home');
-            localStorage.setItem('currentNav', 'nav-home');
-            
-            document.getElementById('welcomeOverlay').classList.add('hide-welcome');
-            setTimeout(() => { document.getElementById('welcomeOverlay').style.display = 'none'; }, 500);
-            toggleMusic();
-        }
-
         function navigateTo(pageId, navItemId) {
-            if (localStorage.getItem('welcomeScreenDismissed') === 'true') {
-                localStorage.setItem('currentPage', pageId);
-                localStorage.setItem('currentNav', navItemId);
-            }
-
             const activePage = document.querySelector('.app-page.page-active');
             const targetPage = document.getElementById('page-' + pageId);
             if (activePage && activePage !== targetPage) {
