@@ -10,7 +10,7 @@
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-    <!-- KINI ANG IMONG CSS FILE -->
+    <!-- LINK SA IMONG CSS FILE -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -19,7 +19,7 @@
     <audio id="bgMusic" loop preload="auto">
         <source src="assetsmusiconetime.mp3" type="audio/mpeg">
     </audio>
-    <div class="music-control-btn" id="musicBtn" onclick="window.toggleMusic()">
+    <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
         <i class="fas fa-play" id="musicIcon"></i>
     </div>
 
@@ -38,8 +38,8 @@
             <input type="text" id="foodImage" placeholder="Image URL / Filename (Optional)">
             <select id="foodStatus"><option value="Available">Available</option><option value="Unavailable">Unavailable</option></select>
             <div class="modal-buttons">
-                <button style="background: #f1f5f9; color: #475569;" onclick="window.closeModals()">Cancel</button>
-                <button style="background: #10b981; color: white;" onclick="window.saveFoodItem()">Save Item</button>
+                <button style="background: #f1f5f9; color: #475569;" onclick="closeModals()">Cancel</button>
+                <button style="background: #10b981; color: white;" onclick="saveFoodItem()">Save Item</button>
             </div>
         </div>
     </div>
@@ -50,8 +50,8 @@
             <input type="text" id="videoTitle" placeholder="Video Title (e.g. Pool Amenities)">
             <input type="text" id="videoUrl" placeholder="Video URL or Filename (e.g. tour.mp4)">
             <div class="modal-buttons">
-                <button style="background: #f1f5f9; color: #475569;" onclick="window.closeModals()">Cancel</button>
-                <button style="background: #10b981; color: white;" onclick="window.saveVideo()">Save Video</button>
+                <button style="background: #f1f5f9; color: #475569;" onclick="closeModals()">Cancel</button>
+                <button style="background: #10b981; color: white;" onclick="saveVideo()">Save Video</button>
             </div>
         </div>
     </div>
@@ -61,8 +61,8 @@
             <h2>Add Gallery Photo</h2>
             <input type="text" id="photoUrl" placeholder="Image URL or Filename (e.g. pool.jpg)">
             <div class="modal-buttons">
-                <button style="background: #f1f5f9; color: #475569;" onclick="window.closeModals()">Cancel</button>
-                <button style="background: #10b981; color: white;" onclick="window.savePhoto()">Save Photo</button>
+                <button style="background: #f1f5f9; color: #475569;" onclick="closeModals()">Cancel</button>
+                <button style="background: #10b981; color: white;" onclick="savePhoto()">Save Photo</button>
             </div>
         </div>
     </div>
@@ -73,10 +73,10 @@
         <p style="color: #64748b;">Are you visiting or managing?</p>
         
         <div class="role-cards" id="roleSelectionBoxes">
-            <div class="role-card" onclick="window.selectRole('user')">
+            <div class="role-card" onclick="selectRole('user')">
                 <i class="fas fa-user"></i><h3>Guest</h3>
             </div>
-            <div class="role-card" onclick="window.selectRole('admin')">
+            <div class="role-card" onclick="selectRole('admin')">
                 <i class="fas fa-user-shield"></i><h3>Admin</h3>
             </div>
         </div>
@@ -85,15 +85,15 @@
             <h2 style="text-align: center; color: #1e293b;">Admin Login</h2>
             <input type="email" id="adminEmail" placeholder="Email Address">
             <input type="password" id="adminPass" placeholder="Password">
-            <button id="loginBtnBtn" onclick="window.handleLogin()">Login</button>
-            <div class="back-link" onclick="window.cancelLogin()"><i class="fas fa-arrow-left"></i> Back to Role Selection</div>
+            <button id="loginBtnBtn" onclick="handleLogin()">Login</button>
+            <div class="back-link" onclick="cancelLogin()"><i class="fas fa-arrow-left"></i> Back to Role Selection</div>
         </div>
     </div>
 
     <!-- MAIN NAVBAR -->
     <nav>
         <div class="nav-left">
-            <i class="fas fa-chevron-left back-btn" onclick="window.goBack()"></i>
+            <i class="fas fa-chevron-left back-btn" onclick="goBack()"></i>
             <div class="logo">CherryJoe River Park</div>
         </div>
     </nav>
@@ -111,12 +111,12 @@
             </div>
             <div class="hero-content">
                 <div class="carousel-dots">
-                    <div class="dot active" onclick="window.changeSlide(0)"></div>
-                    <div class="dot" onclick="window.changeSlide(1)"></div>
-                    <div class="dot" onclick="window.changeSlide(2)"></div>
-                    <div class="dot" onclick="window.changeSlide(3)"></div>
-                    <div class="dot" onclick="window.changeSlide(4)"></div>
-                    <div class="dot" onclick="window.changeSlide(5)"></div>
+                    <div class="dot active" onclick="changeSlide(0)"></div>
+                    <div class="dot" onclick="changeSlide(1)"></div>
+                    <div class="dot" onclick="changeSlide(2)"></div>
+                    <div class="dot" onclick="changeSlide(3)"></div>
+                    <div class="dot" onclick="changeSlide(4)"></div>
+                    <div class="dot" onclick="changeSlide(5)"></div>
                 </div>
             </div>
         </section>
@@ -190,12 +190,7 @@
             <h2 class="title">Resort Video Tour</h2>
             <button class="add-btn admin-only" onclick="document.getElementById('adminVideoModal').style.display='flex'">+ Add New Video</button>
             <div class="video-grid" id="video-container">
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="window.handleVideoPlay(this)"><source src="videosresort-tour.mp4" type="video/mp4"></video><h3>Overview Tour</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="window.handleVideoPlay(this)"><source src="videosresort-tour2.mp4" type="video/mp4"></video><h3>River Side View</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="window.handleVideoPlay(this)"><source src="videosresort-tour3.mp4" type="video/mp4"></video><h3>Pool Amenities</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="window.handleVideoPlay(this)"><source src="videosresort-tour4.mp4" type="video/mp4"></video><h3>Night Ambient</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="window.handleVideoPlay(this)"><source src="videosresort-tour5.mp4" type="video/mp4"></video><h3>Cottage Walkthrough</h3></div>
-                <div class="video-card"><video controls playsinline preload="metadata" onplay="window.handleVideoPlay(this)"><source src="videosresort-tour6.mp4" type="video/mp4"></video><h3>Event Function Hall</h3></div>
+                <!-- Videos rendered dynamically -->
             </div>
         </section>
         
@@ -203,8 +198,7 @@
             <h2 class="title">Gallery</h2>
             <button class="add-btn admin-only" onclick="document.getElementById('adminGalleryModal').style.display='flex'">+ Add New Photo</button>
             <div class="gallery" id="gallery-container">
-                <img src="imagesgallery1.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery2.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery3.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery4.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery5.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery6.jpg" alt="Gallery" onclick="window.showImage(this.src)">
-                <img src="imagesgallery7.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery8.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery9.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery10.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery11.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery12.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery13.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery14.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery15.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery16.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery17.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery18.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery19.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery20.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery21.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery22.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery23.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery24.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery25.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery26.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery27.jpg" alt="Gallery" onclick="showImage(this.src)"><img src="imagesgallery28.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery29.jpg" alt="Gallery" onclick="window.showImage(this.src)"><img src="imagesgallery30.jpg" alt="Gallery" onclick="window.showImage(this.src)">
+                <!-- Gallery rendered dynamically -->
             </div>
         </section>
     </div>
@@ -214,42 +208,15 @@
         <section id="food-section">
             <h2 class="title">Delicious Menu</h2>
             <div class="food-grid-container">
-                <button class="add-btn admin-only" onclick="window.openAddFoodModal()">+ Add New Menu Item</button>
-
+                <button class="add-btn admin-only" onclick="openAddFoodModal()">+ Add New Menu Item</button>
                 <div class="food-category-title"><i class="fas fa-star"></i> Our Specialties</div>
-                <div class="food-item-grid" id="grid-specialties">
-                    <div class="food-card-with-img">
-                        <img src="imagestunabelly.jpg" alt="Grilled Tuna Belly" onerror="this.src='https://placehold.co/400x250?text=Tuna+Belly'">
-                        <div class="food-card-body">
-                            <div><h3>Grilled Tuna Belly</h3></div>
-                            <div class="food-card-footer"><span class="food-price">₱200 / ₱300 / ₱400</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
-                </div>
-
+                <div class="food-item-grid" id="grid-specialties"></div>
                 <div class="food-category-title"><i class="fas fa-utensils"></i> Combo Meal</div>
-                <div class="food-item-grid" id="grid-combo" style="grid-template-columns: 1fr;">
-                    <div class="food-card-with-img" style="flex-direction: row; align-items: center; padding-left: 20px;">
-                        <i class="fas fa-concierge-bell" style="font-size: 50px; color: #059669;"></i>
-                        <div class="food-card-body" style="border-top: none;">
-                            <div>
-                                <h3>Special Combo Meal</h3>
-                                <p class="desc">• 1 pc. Rice<br>• 1 slice Pork Chop<br>• 2 pcs. Lumpia<br>• 1 bottle water/soda</p>
-                            </div>
-                            <div class="food-card-footer"><span class="food-price">₱195</span><span class="food-status">Available</span></div>
-                        </div>
-                    </div>
-                </div>
-
+                <div class="food-item-grid" id="grid-combo" style="grid-template-columns: 1fr;"></div>
                 <div class="food-category-title"><i class="fas fa-hamburger"></i> Finger Foods</div>
-                <div class="food-item-grid" id="grid-finger">
-                    <div class="food-card-with-img"><div class="food-card-body"><div><h3>French Fries</h3></div><div class="food-card-footer"><span class="food-price">₱150</span></div></div></div>
-                </div>
-
+                <div class="food-item-grid" id="grid-finger"></div>
                 <div class="food-category-title"><i class="fas fa-glass-cheers"></i> Drinks & Beverages</div>
-                <div class="drinks-grid" id="grid-drinks">
-                    <div class="drink-item"><span class="drink-name">Water Bottle (330ml)</span> <span class="food-price">₱20</span></div>
-                </div>
+                <div class="drinks-grid" id="grid-drinks"></div>
             </div>
         </section>
     </div>
@@ -266,11 +233,11 @@
                     <p class="email" id="profileEmail">resort-guest@cherryjoe.com</p>
                     <span class="membership-tag"><i class="fas fa-medal"></i> <span id="profileRole">Resort Visitor</span></span>
                     
-                    <button id="logoutBtn" style="display:none; margin-top:20px; padding:12px 25px; background:#ef4444; color:white; border:none; border-radius:50px; cursor:pointer; font-weight:bold; width:100%;" onclick="window.logoutAdmin()">Logout Admin</button>
+                    <button id="logoutBtn" style="display:none; margin-top:20px; padding:12px 25px; background:#ef4444; color:white; border:none; border-radius:50px; cursor:pointer; font-weight:bold; width:100%;" onclick="logoutAdmin()">Logout Admin</button>
 
                     <div class="profile-menu-list" style="margin-top: 25px;">
-                        <a onclick="window.navigateTo('food', 'nav-food')" class="profile-menu-item"><div><i class="fas fa-utensils"></i> View Food Menu</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
-                        <a onclick="window.navigateTo('explore', 'nav-about')" class="profile-menu-item"><div><i class="fas fa-compass"></i> Explore Facilities</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
+                        <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item"><div><i class="fas fa-utensils"></i> View Food Menu</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
+                        <a onclick="navigateTo('explore', 'nav-about')" class="profile-menu-item"><div><i class="fas fa-compass"></i> Explore Facilities</div><i class="fas fa-chevron-right" style="font-size:12px;"></i></a>
                     </div>
                 </div>
             </div>
@@ -280,7 +247,7 @@
     <footer>© 2026 CherryJoe River Park</footer>
 
     <!-- LIGHTBOX -->
-    <div class="lightbox" id="lightbox" onclick="window.hideImage()">
+    <div class="lightbox" id="lightbox" onclick="hideImage()">
         <img id="lightbox-img" alt="Lightbox Preview">
         <a id="lightbox-download" href="#" download="CherryJoe_Gallery.jpg" class="download-btn" onclick="event.stopPropagation()">
             <i class="fas fa-download"></i> Download Photo
@@ -289,13 +256,13 @@
 
     <!-- BOTTOM NAV -->
     <div class="bottom-nav">
-        <div class="nav-item active" id="nav-home" onclick="window.navigateTo('home', 'nav-home')"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="nav-item" id="nav-about" onclick="window.navigateTo('explore', 'nav-about')"><i class="fas fa-compass"></i><span>Explore</span></div>
-        <div class="nav-item" id="nav-food" onclick="window.navigateTo('food', 'nav-food')"><i class="fas fa-utensils"></i><span>Food</span></div>
-        <div class="nav-item" id="nav-profile" onclick="window.navigateTo('profile', 'nav-profile')"><i class="fas fa-user"></i><span>Profile</span></div>
+        <div class="nav-item active" id="nav-home" onclick="navigateTo('home', 'nav-home')"><i class="fas fa-home"></i><span>Home</span></div>
+        <div class="nav-item" id="nav-about" onclick="navigateTo('explore', 'nav-about')"><i class="fas fa-compass"></i><span>Explore</span></div>
+        <div class="nav-item" id="nav-food" onclick="navigateTo('food', 'nav-food')"><i class="fas fa-utensils"></i><span>Food</span></div>
+        <div class="nav-item" id="nav-profile" onclick="navigateTo('profile', 'nav-profile')"><i class="fas fa-user"></i><span>Profile</span></div>
     </div>
 
-    <!-- KINI ANG IMONG JAVASCRIPT FILE -->
+    <!-- LINK SA IMONG JAVASCRIPT FILE -->
     <script src="script.js"></script>
 
 </body>
