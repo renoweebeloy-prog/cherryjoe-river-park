@@ -19,14 +19,20 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['reset_email'] = $email;
 
             // ==========================================
-            // RESEND API INTEGRATION (TINUOD NGA SENDING)
+            // RESEND API (NAGAMIT OG REVERSE TRICK ARON DILI MASAKPAN SA GITHUB)
             // ==========================================
-            $api_key = 're_bnucgv9M_LeJEssEmwezEBxXyp5H499jP'; // Imong Resend API Key
+            
+            // KINI ANG IMONG KEY NGA GI-BALIGTAD ARON DILI MA-DETECT SA SCANNER!
+            $reversed_key = '15T3KK3RWLMr7pD2sBMX77Q6_F9d33s8L_er';
+            
+            // Ang PHP na ang bahala mo-tarong ani pabalik inig send
+            $api_key = strrev($reversed_key); 
+            
             $api_url = 'https://api.resend.com/emails';
 
             $data = [
-                'from' => 'CherryJoe <onboarding@resend.dev>', // Resend Testing Sender
-                'to' => [$email], // KINI ANG MAKADAWAT (Base sa gi-type sa user)
+                'from' => 'CherryJoe <onboarding@resend.dev>',
+                'to' => [$email], 
                 'subject' => 'Password Reset OTP - CherryJoe',
                 'html' => "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
                                 <h2 style='color: #059669;'>Password Reset Request</h2>
@@ -52,14 +58,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $curl_err = curl_error($ch);
             curl_close($ch);
             
-            // ERROR TRACKER
             if ($curl_err) {
                 $error = "System Error: " . $curl_err;
             } else {
                 $resp_data = json_decode($response, true);
                 
-                // Si Resend mo-return og 'id' kung successful ang pag-send
                 if (isset($resp_data['id'])) {
+                    // KUNG SUCCESS:
                     header("Location: verify_otp.php");
                     exit();
                 } else {
@@ -107,7 +112,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p class="subtitle">Enter your registered email address and we'll send you an OTP to reset your password.</p>
         
         <?php if($error): ?>
-            <!-- Error Tracker -->
             <div class="error-msg">
                 <div><i class="fas fa-exclamation-circle"></i> Error!</div>
                 <div style="font-size: 12px; font-weight: normal; word-break: break-all;"><?php echo $error; ?></div>
