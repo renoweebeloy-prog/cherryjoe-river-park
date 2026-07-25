@@ -9,50 +9,63 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
 
     try {
-        // Pangitaon sa database kung na-register ba ang gi-type nga email
         $stmt = $conn->prepare("SELECT id, full_name FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
 
         if ($user) {
-            // Paghimo og 6-digit OTP code
             $otp = rand(100000, 999999);
             $_SESSION['reset_otp'] = $otp;
             $_SESSION['reset_email'] = $email;
 
             // ==========================================
-            // NATIVE PHP MAIL (GENERIC SENDER)
+            // RESEND API INTEGRATION (TINUOD NGA SENDING)
             // ==========================================
-            
-            $to = $email; // KINI ANG MAKADAWAT (Kung unsa ang gi-type sa form)
-            $subject = "Password Reset OTP - CherryJoe";
-            
-            $message = "
-            <html>
-            <head>
-            <title>Password Reset Request</title>
-            </head>
-            <body style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
-                <h2 style='color: #059669;'>Password Reset Request</h2>
-                <p>Hello <b>{$user['full_name']}</b>,</p>
-                <p>Your One-Time Password (OTP) is:</p>
-                <h1 style='color: #ef4444; letter-spacing: 5px; text-align: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ef4444;'>{$otp}</h1>
-                <p>Please enter this code on the website.</p>
-            </body>
-            </html>
-            ";
+            $api_key = 're_bnucgv9M_LeJEssEmwezEBxXyp5H499jP'; // Imong Resend API Key
+            $api_url = 'https://api.resend.com/emails';
 
-            // GENERIC SENDER (Wala na ang imong personal nga email)
-            $headers = "MIME-Version: 1.0" . "\r\n";
-            $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-            $headers .= "From: CherryJoe System <no-reply@cherryjoe.com>" . "\r\n";
+            $data = [
+                'from' => 'CherryJoe <onboarding@resend.dev>', // Resend Testing Sender
+                'to' => [$email], // KINI ANG MAKADAWAT (Base sa gi-type sa user)
+                'subject' => 'Password Reset OTP - CherryJoe',
+                'html' => "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
+                                <h2 style='color: #059669;'>Password Reset Request</h2>
+                                <p>Hello <b>{$user['full_name']}</b>,</p>
+                                <p>Your One-Time Password (OTP) is:</p>
+                                <h1 style='color: #ef4444; letter-spacing: 5px; text-align: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ef4444;'>{$otp}</h1>
+                                <p>Please enter this code on the website.</p>
+                              </div>"
+            ];
 
-            // I-send ang email
-            $mail_sent = mail($to, $subject, $message, $headers);
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $api_url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'Authorization: Bearer ' . $api_key,
+                'Content-Type: application/json'
+            ]);
+
+            $response = curl_exec($ch);
+            $curl_err = curl_error($ch);
+            curl_close($ch);
             
-            // Mo-lahos dayon sa verify_otp.php
-            header("Location: verify_otp.php");
-            exit();
+            // ERROR TRACKER
+            if ($curl_err) {
+                $error = "System Error: " . $curl_err;
+            } else {
+                $resp_data = json_decode($response, true);
+                
+                // Si Resend mo-return og 'id' kung successful ang pag-send
+                if (isset($resp_data['id'])) {
+                    header("Location: verify_otp.php");
+                    exit();
+                } else {
+                    $error = "API Error: " . $response;
+                }
+            }
             
         } else {
             $error = "Sorry, we can't find that email in our system.";
@@ -94,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p class="subtitle">Enter your registered email address and we'll send you an OTP to reset your password.</p>
         
         <?php if($error): ?>
+            <!-- Error Tracker -->
             <div class="error-msg">
                 <div><i class="fas fa-exclamation-circle"></i> Error!</div>
                 <div style="font-size: 12px; font-weight: normal; word-break: break-all;"><?php echo $error; ?></div>
