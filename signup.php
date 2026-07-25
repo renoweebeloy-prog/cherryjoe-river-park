@@ -120,6 +120,53 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
         .success-msg { background: #d1fae5; color: #059669; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #a7f3d0; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
+
+        /* --- GOOGLE/GMAIL BUTTON STYLES --- */
+        .divider {
+            display: flex;
+            align-items: center;
+            text-align: center;
+            margin: 25px 0 20px 0;
+            color: #94a3b8;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .divider::before, .divider::after {
+            content: '';
+            flex: 1;
+            border-bottom: 1px solid #cbd5e1;
+        }
+        .divider::before { margin-right: 15px; }
+        .divider::after { margin-left: 15px; }
+
+        .google-btn {
+            background: #ffffff;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+            padding: 15px;
+            width: 100%;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 15px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            text-decoration: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .google-btn:hover {
+            background: #f8fafc;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px rgba(0,0,0,0.05);
+            border-color: #94a3b8;
+        }
+        .google-btn i {
+            color: #ea4335; /* Google Red */
+            font-size: 18px;
+        }
     </style>
 </head>
 <body>
@@ -151,6 +198,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <button type="submit" class="submit-btn">Sign Up</button>
         </form>
+
+        <!-- CONTINUE WITH GMAIL SECTION -->
+        <div class="divider">OR</div>
+        <a href="#" class="google-btn" onclick="alert('Google API integration required to activate this feature.');">
+            <i class="fab fa-google"></i> Continue with Gmail
+        </a>
         
         <a href="login.php" class="bottom-link">Already have an account? <span>Log in</span></a>
     </div>
