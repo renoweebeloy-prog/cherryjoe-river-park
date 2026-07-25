@@ -15,7 +15,7 @@ if (!isset($_SESSION['user_id']) && isset($_COOKIE['cherryjoe_user'])) {
             $_SESSION['email'] = $user['email'];
         }
     } catch(PDOException $e) {
-        // Ignore error
+        // Ignore error, pasagdan ra nga mo-login siya usab
     }
 }
 
@@ -34,18 +34,21 @@ $error = '';
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $remember = isset($_POST['remember']);
+    $remember = isset($_POST['remember']); // I-check kung gi-tikan ang box
 
     try {
+        // Kuhaon ang user data gamit ang PDO
         $stmt = $conn->prepare("SELECT id, full_name, password, email FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
 
+        // I-verify ang password
         if ($user && password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
             $_SESSION['name'] = $user['full_name'];
             $_SESSION['email'] = $user['email'];
             
+            // KUNG GI-CHECK ANG "KEEP ME SIGNED IN", MAGHIMO OG COOKIE NGA MO-LAST OG 30 DAYS
             if ($remember) {
                 setcookie('cherryjoe_user', $user['id'], time() + (86400 * 30), "/"); 
             }
@@ -104,6 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         .input-group input:focus { border-color: #10b981; background: #ffffff; outline: none; box-shadow: 0 0 0 4px rgba(16,185,129,0.15); }
 
+        /* CHECKBOX STYLES */
         .remember-flex { display: flex; align-items: center; justify-content: flex-start; gap: 8px; margin-bottom: 20px; }
         .remember-flex input[type="checkbox"] { width: 16px; height: 16px; accent-color: #059669; cursor: pointer; }
         .remember-flex label { font-size: 14px; color: #475569; font-weight: 600; cursor: pointer; user-select: none; }
@@ -120,11 +124,25 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .bottom-link:hover span { text-decoration: underline; }
 
         .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
+
+        /* --- GOOGLE/GMAIL BUTTON STYLES --- */
+        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0 20px 0; color: #94a3b8; font-size: 13px; font-weight: 600; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #cbd5e1; }
+        .divider::before { margin-right: 15px; }
+        .divider::after { margin-left: 15px; }
+
+        .google-btn {
+            background: #ffffff; color: #475569; border: 1px solid #cbd5e1; padding: 15px; width: 100%;
+            border-radius: 50px; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.3s ease;
+            display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+        }
+        .google-btn:hover { background: #f8fafc; transform: translateY(-2px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); border-color: #94a3b8; }
+        .google-btn i { color: #ea4335; font-size: 18px; }
     </style>
 </head>
 <body>
     <div class="auth-card">
-        <i class="fas fa-user logo-icon"></i>
+        <i class="fas fa-leaf logo-icon"></i>
         <h2>Welcome Back</h2>
         <p class="subtitle">Sign in to continue to CherryJoe</p>
         
@@ -142,11 +160,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <input type="password" name="password" required placeholder="Password">
             </div>
             
-            <!-- FORGOT PASSWORD LINK GIDUGANG DINHI -->
-            <div style="text-align: right; margin-top: -10px; margin-bottom: 15px;">
-                <a href="forgot_password.php" style="color: #059669; font-size: 13px; font-weight: 700; text-decoration: none;">Forgot Password?</a>
-            </div>
-            
+            <!-- KEEP ME SIGNED IN CHECKBOX -->
             <div class="remember-flex">
                 <input type="checkbox" id="remember" name="remember">
                 <label for="remember">Keep me signed in</label>
@@ -154,6 +168,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <button type="submit" class="submit-btn">Log In</button>
         </form>
+
+        <!-- CONTINUE WITH GMAIL SECTION -->
+        <div class="divider">OR</div>
+        <a href="#" class="google-btn" onclick="alert('Google API integration required to activate this feature.');">
+            <i class="fab fa-google"></i> Continue with Gmail
+        </a>
         
         <a href="signup.php" class="bottom-link">Don't have an account? <span>Sign up</span></a>
     </div>
