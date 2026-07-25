@@ -9,31 +9,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST['full_name'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    
-    // Hash the password for security
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
 
-    // Check if email already exists
-    $check_stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-    $check_stmt->bind_param("s", $email);
-    $check_stmt->execute();
-    $check_stmt->store_result();
-
-    if ($check_stmt->num_rows > 0) {
-        $error = "Email is already registered!";
-    } else {
-        // Insert new user (default role is 'user')
-        $stmt = $conn->prepare("INSERT INTO users (full_name, email, password, role) VALUES (?, ?, ?, 'user')");
-        $stmt->bind_param("sss", $name, $email, $hashed_password);
+    try {
+        // I-check kung naa nay naggamit sa email
+        $check = $conn->prepare("SELECT id FROM users WHERE email = :email");
+        $check->execute(['email' => $email]);
         
-        if ($stmt->execute()) {
-            $success = "Registration successful! You can now log in.";
+        if ($check->rowCount() > 0) {
+            $error = "Email is already registered!";
         } else {
-            $error = "Error: Something went wrong.";
+            // Insert sa database
+            $stmt = $conn->prepare("INSERT INTO users (full_name, email, password) VALUES (:name, :email, :password)");
+            $stmt->execute([
+                'name' => $name,
+                'email' => $email,
+                'password' => $hashed_password
+            ]);
+            $success = "Registration successful! You can now log in.";
         }
-        $stmt->close();
+    } catch(PDOException $e) {
+        $error = "System Error: " . $e->getMessage();
     }
-    $check_stmt->close();
 }
 ?>
 <!DOCTYPE html>
@@ -42,44 +39,120 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign Up - CherryJoe River Park</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: #f8fafc; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .auth-card { background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); width: 100%; max-width: 400px; text-align: center; }
-        .auth-card h2 { color: #059669; margin-bottom: 20px; }
-        .input-group { margin-bottom: 15px; text-align: left; }
-        .input-group label { display: block; font-size: 14px; color: #475569; margin-bottom: 5px; }
-        .input-group input { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px; font-size: 15px; outline: none; transition: 0.3s; box-sizing: border-box; }
-        .input-group input:focus { border-color: #059669; box-shadow: 0 0 0 3px rgba(16,185,129,0.1); }
-        .btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 15px; width: 100%; border-radius: 50px; font-weight: bold; font-size: 16px; cursor: pointer; transition: 0.3s; margin-top: 10px; }
-        .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 20px rgba(16,185,129,0.3); }
-        .link { color: #059669; text-decoration: none; font-size: 14px; display: inline-block; margin-top: 20px; }
-        .message { padding: 10px; border-radius: 8px; margin-bottom: 15px; font-size: 14px; }
-        .error { background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; }
-        .success { background: #d1fae5; color: #059669; border: 1px solid #6ee7b7; }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
+        
+        body { 
+            background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.2)), url('imagesgallery7.jpg') center/cover fixed; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+            padding: 20px;
+        }
+
+        .auth-card { 
+            background: rgba(255, 255, 255, 0.85); 
+            backdrop-filter: blur(16px); 
+            -webkit-backdrop-filter: blur(16px);
+            padding: 40px; 
+            border-radius: 24px; 
+            box-shadow: 0 25px 50px rgba(0,0,0,0.1); 
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            width: 100%; 
+            max-width: 420px; 
+            text-align: center; 
+            animation: fadeIn 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        .logo-icon { font-size: 45px; color: #059669; margin-bottom: 10px; }
+        h2 { color: #1e293b; font-size: 26px; font-weight: 800; margin-bottom: 5px; }
+        p.subtitle { color: #64748b; font-size: 14px; margin-bottom: 25px; }
+
+        .input-group { position: relative; margin-bottom: 18px; text-align: left; }
+        .input-group i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #10b981; font-size: 18px; }
+        .input-group input { 
+            width: 100%; 
+            padding: 15px 15px 15px 45px; 
+            border: 2px solid transparent; 
+            background: rgba(255, 255, 255, 0.9); 
+            border-radius: 14px; 
+            font-size: 15px; 
+            color: #1e293b;
+            transition: all 0.3s ease; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+        }
+        .input-group input:focus { 
+            border-color: #10b981; 
+            background: #ffffff; 
+            outline: none; 
+            box-shadow: 0 0 0 4px rgba(16,185,129,0.15); 
+        }
+
+        .submit-btn { 
+            background: linear-gradient(135deg, #10b981, #059669); 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            width: 100%; 
+            border-radius: 50px; 
+            font-weight: 700; 
+            font-size: 16px; 
+            cursor: pointer; 
+            transition: 0.3s ease; 
+            margin-top: 10px; 
+            box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);
+        }
+        .submit-btn:hover { 
+            transform: translateY(-3px); 
+            box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4); 
+        }
+
+        .bottom-link { display: block; margin-top: 25px; color: #475569; font-size: 14px; text-decoration: none; transition: 0.3s; }
+        .bottom-link span { color: #059669; font-weight: 700; }
+        .bottom-link:hover span { text-decoration: underline; }
+
+        .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
+        .success-msg { background: #d1fae5; color: #059669; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #a7f3d0; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
     </style>
 </head>
 <body>
     <div class="auth-card">
+        <i class="fas fa-user-plus logo-icon"></i>
         <h2>Create Account</h2>
-        <?php if($error) echo "<div class='message error'>$error</div>"; ?>
-        <?php if($success) echo "<div class='message success'>$success</div>"; ?>
+        <p class="subtitle">Join CherryJoe River Park today</p>
         
-        <form method="POST" action="">
+        <?php if($error): ?>
+            <div class="error-msg"><i class="fas fa-exclamation-circle"></i> <?php echo $error; ?></div>
+        <?php endif; ?>
+        
+        <?php if($success): ?>
+            <div class="success-msg"><i class="fas fa-check-circle"></i> <?php echo $success; ?></div>
+        <?php endif; ?>
+        
+        <form method="POST">
             <div class="input-group">
-                <label>Full Name</label>
-                <input type="text" name="full_name" required placeholder="Juan Dela Cruz">
+                <i class="fas fa-user"></i>
+                <input type="text" name="full_name" required placeholder="Full Name">
             </div>
             <div class="input-group">
-                <label>Email Address</label>
-                <input type="email" name="email" required placeholder="juan@example.com">
+                <i class="fas fa-envelope"></i>
+                <input type="email" name="email" required placeholder="Email Address">
             </div>
             <div class="input-group">
-                <label>Password</label>
-                <input type="password" name="password" required placeholder="••••••••">
+                <i class="fas fa-lock"></i>
+                <input type="password" name="password" required placeholder="Password">
             </div>
-            <button type="submit" class="btn">Sign Up</button>
+            <button type="submit" class="submit-btn">Sign Up</button>
         </form>
-        <a href="login.php" class="link">Already have an account? Log in</a>
+        
+        <a href="login.php" class="bottom-link">Already have an account? <span>Log in</span></a>
     </div>
 </body>
 </html>
