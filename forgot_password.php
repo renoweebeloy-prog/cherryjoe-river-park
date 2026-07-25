@@ -22,8 +22,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // BREVO (SENDINBLUE) API INTEGRATION
             // ==========================================
             
-            // I-PASTE DINHI ANG IMONG NA-COPY NGA API KEY GIKAN SA BREVO:
-            $api_key = 'I_PASTE_DIRI_ANG_IMONG_API_KEY_GIKAN_SA_BREVO'; 
+            // IMONG BREVO API KEY:
+            $api_key = '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'; 
             
             $api_url = 'https://api.brevo.com/v3/smtp/email';
 
@@ -94,6 +94,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .input-group input { width: 100%; padding: 15px 15px 15px 45px; border: 2px solid transparent; background: rgba(255, 255, 255, 0.9); border-radius: 14px; font-size: 15px; color: #1e293b; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
         .input-group input:focus { border-color: #10b981; background: #ffffff; outline: none; box-shadow: 0 0 0 4px rgba(16,185,129,0.15); }
         .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 16px; width: 100%; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s ease; margin-top: 5px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25); }
+        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4); }
         .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
         .bottom-link { display: block; margin-top: 25px; color: #475569; font-size: 14px; text-decoration: none; }
         .bottom-link span { color: #059669; font-weight: 700; }
