@@ -2,6 +2,14 @@
 session_start();
 require 'db_connect.php';
 
+// TAWAGON NATO ANG PHPMAILER FILES
+require 'Exception.php';
+require 'PHPMailer.php';
+require 'SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 $error = '';
 $success = '';
 
@@ -18,34 +26,45 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['reset_otp'] = $otp;
             $_SESSION['reset_email'] = $email;
 
-            // ==========================================
-            // MAKE.COM WEBHOOK INTEGRATION
-            // ==========================================
-            
-            // IMONG MAKE.COM WEBHOOK URL
-            $webhook_url = 'https://hook.eu1.make.com/71wmk31q74tg97e4ql34pnvflm6zy88j'; 
+            $mail = new PHPMailer(true);
 
-            $data = [
-                'email' => $email,
-                'full_name' => $user['full_name'],
-                'otp' => $otp
-            ];
+            try {
+                // SERVER SETTINGS PARA SA GMAIL
+                $mail->isSMTP();
+                $mail->Host       = 'smtp.gmail.com';
+                $mail->SMTPAuth   = true;
+                $mail->Username   = 'renoweebeloy536@gmail.com'; // Imong Gmail
+                
+                // KINI ANG IMONG GOOGLE APP PASSWORD (Gikuhaan na nako og spaces)
+                $mail->Password   = 'gidhusfoizvtmhlov'; 
+                
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+                $mail->Port       = 587;
 
-            $ch = curl_init($webhook_url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_POST, true);
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Content-Type: application/json'
-            ]);
+                // SENDER UG RECEIVER
+                $mail->setFrom('renoweebeloy536@gmail.com', 'CherryJoe River Park');
+                $mail->addAddress($email, $user['full_name']); // Mo-send ni sa BISAN UNSA nga Gmail!
 
-            curl_exec($ch);
-            curl_close($ch);
-            
-            header("Location: verify_otp.php");
-            exit();
-            
+                // SULOD SA EMAIL
+                $mail->isHTML(true);
+                $mail->Subject = 'Password Reset OTP - CherryJoe';
+                $mail->Body    = "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
+                                    <h2 style='color: #059669;'>Password Reset Request</h2>
+                                    <p>Hello <b>{$user['full_name']}</b>,</p>
+                                    <p>Your One-Time Password (OTP) is:</p>
+                                    <h1 style='color: #ef4444; letter-spacing: 5px; text-align: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ef4444;'>{$otp}</h1>
+                                    <p>Please enter this code on the website.</p>
+                                  </div>";
+
+                $mail->send();
+                
+                // KUNG SUCCESS, MO-ADTO SA OTP PAGE
+                header("Location: verify_otp.php");
+                exit();
+                
+            } catch (Exception $e) {
+                $error = "Wala na-send ang email. Error: {$mail->ErrorInfo}";
+            }
         } else {
             $error = "Sorry, we can't find that email in our system.";
         }
