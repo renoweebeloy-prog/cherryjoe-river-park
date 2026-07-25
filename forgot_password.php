@@ -2,8 +2,6 @@
 session_start();
 require 'db_connect.php';
 
-// WALA NAY PHPMAILER DIRE, LIMPYO UG SIMPLE NA!
-
 $error = '';
 $success = '';
 
@@ -11,31 +9,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
 
     try {
-        // I-check kung naa ba sa database ang gi-type nga email
         $stmt = $conn->prepare("SELECT id, full_name FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
 
         if ($user) {
-            // Paghimo og 6-digit OTP code
             $otp = rand(100000, 999999);
             $_SESSION['reset_otp'] = $otp;
             $_SESSION['reset_email'] = $email;
 
-            // NATIVE PHP MAIL FUNCTION (Wala nay require files)
-            $to = $email;
-            $subject = "Password Reset OTP - CherryJoe";
-            $message = "Hello " . $user['full_name'] . ",\n\nYour One-Time Password (OTP) is: " . $otp . "\n\nPlease enter this code on the website to reset your password.";
-            $headers = "From: CherryJoe System <no-reply@cherryjoe.com>\r\n";
-            $headers .= "Reply-To: renowee.beloy@dorsu.edu.ph\r\n";
-            $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
-
-            // I-send ang email (Pahinumdom: Basin ma-block ni sa Render server)
-            mail($to, $subject, $message, $headers);
+            // ==========================================
+            // BREVO (SENDINBLUE) API INTEGRATION
+            // ==========================================
             
-            // Mo-lahos dayon sa verify_otp.php aron mangayo sa code
+            // I-PASTE DINHI ANG IMONG NA-COPY NGA API KEY GIKAN SA BREVO:
+            $api_key = 'I_PASTE_DIRI_ANG_IMONG_API_KEY_GIKAN_SA_BREVO'; 
+            
+            $api_url = 'https://api.brevo.com/v3/smtp/email';
+
+            $data = [
+                'sender' => [
+                    'name' => 'CherryJoe River Park',
+                    'email' => 'renowee.beloy@dorsu.edu.ph' // Ang email nga imong gi-register sa Brevo
+                ],
+                'to' => [
+                    [
+                        'email' => $email,
+                        'name' => $user['full_name']
+                    ]
+                ],
+                'subject' => 'Password Reset OTP - CherryJoe',
+                'htmlContent' => "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
+                                    <h2 style='color: #059669;'>Password Reset Request</h2>
+                                    <p>Hello <b>{$user['full_name']}</b>,</p>
+                                    <p>Your One-Time Password (OTP) is:</p>
+                                    <h1 style='color: #ef4444; letter-spacing: 5px; text-align: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ef4444;'>{$otp}</h1>
+                                    <p>Please enter this code on the website.</p>
+                                  </div>"
+            ];
+
+            // Paggamit sa PHP cURL aron ipasa ang data sa API
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $api_url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_HTTPHEADER, [
+                'accept: application/json',
+                'api-key: ' . $api_key,
+                'content-type: application/json'
+            ]);
+
+            $response = curl_exec($ch);
+            curl_close($ch);
+            
+            // Inig human og send sa API, mo-lahos dayon sa OTP page
             header("Location: verify_otp.php");
             exit();
+            
         } else {
             $error = "Sorry, we can't find that email in our system.";
         }
@@ -63,11 +94,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .input-group input { width: 100%; padding: 15px 15px 15px 45px; border: 2px solid transparent; background: rgba(255, 255, 255, 0.9); border-radius: 14px; font-size: 15px; color: #1e293b; transition: all 0.3s ease; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
         .input-group input:focus { border-color: #10b981; background: #ffffff; outline: none; box-shadow: 0 0 0 4px rgba(16,185,129,0.15); }
         .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 16px; width: 100%; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s ease; margin-top: 5px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25); }
-        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4); }
-        .bottom-link { display: block; margin-top: 25px; color: #475569; font-size: 14px; text-decoration: none; transition: 0.3s; }
-        .bottom-link span { color: #059669; font-weight: 700; }
-        .bottom-link:hover span { text-decoration: underline; }
         .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
+        .bottom-link { display: block; margin-top: 25px; color: #475569; font-size: 14px; text-decoration: none; }
+        .bottom-link span { color: #059669; font-weight: 700; }
     </style>
 </head>
 <body>
