@@ -47,7 +47,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <!-- SPAM WARNING MESSAGE -->
         <div class="spam-warning">
-            <i class="fas fa-exclamation-triangle"></i> Dili makita? Palihug i-check ang imong <b>Spam</b> o <b>Junk</b> folder.
+            <i class="fas fa-exclamation-triangle"></i> Can't see it? Please check your  <b>Spam</b>  folder.
         </div>
         
         <?php if($error): ?>
