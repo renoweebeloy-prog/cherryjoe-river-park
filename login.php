@@ -124,25 +124,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .bottom-link:hover span { text-decoration: underline; }
 
         .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
-
-        /* --- GOOGLE/GMAIL BUTTON STYLES --- */
-        .divider { display: flex; align-items: center; text-align: center; margin: 25px 0 20px 0; color: #94a3b8; font-size: 13px; font-weight: 600; }
-        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid #cbd5e1; }
-        .divider::before { margin-right: 15px; }
-        .divider::after { margin-left: 15px; }
-
-        .google-btn {
-            background: #ffffff; color: #475569; border: 1px solid #cbd5e1; padding: 15px; width: 100%;
-            border-radius: 50px; font-weight: 700; font-size: 15px; cursor: pointer; transition: 0.3s ease;
-            display: flex; align-items: center; justify-content: center; gap: 12px; text-decoration: none; box-shadow: 0 4px 6px rgba(0,0,0,0.02);
-        }
-        .google-btn:hover { background: #f8fafc; transform: translateY(-2px); box-shadow: 0 10px 15px rgba(0,0,0,0.05); border-color: #94a3b8; }
-        .google-btn i { color: #ea4335; font-size: 18px; }
     </style>
 </head>
 <body>
     <div class="auth-card">
-        <i class="fas fa-leaf logo-icon"></i>
+        <!-- LOGO (USER ICON) -->
+        <i class="fas fa-user logo-icon"></i>
         <h2>Welcome Back</h2>
         <p class="subtitle">Sign in to continue to CherryJoe</p>
         
@@ -168,12 +155,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <button type="submit" class="submit-btn">Log In</button>
         </form>
-
-        <!-- CONTINUE WITH GMAIL SECTION -->
-        <div class="divider">OR</div>
-        <a href="#" class="google-btn" onclick="alert('Google API integration required to activate this feature.');">
-            <i class="fab fa-google"></i> Continue with Gmail
-        </a>
         
         <a href="signup.php" class="bottom-link">Don't have an account? <span>Sign up</span></a>
     </div>
