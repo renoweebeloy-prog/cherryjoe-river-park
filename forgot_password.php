@@ -2,8 +2,10 @@
 session_start();
 require 'db_connect.php';
 
-// KINI NGA LINYA ANG MO-TWEAK ARON AWTOMATIKO NA NIYANG GAMITON ANG PHPMAILER
-require 'vendor/autoload.php';
+// DIRECT NGA GIPANGITA ANG FILES (Wala nay folders)
+require 'Exception.php';
+require 'PHPMailer.php';
+require 'SMTP.php';
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
