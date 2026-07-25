@@ -171,7 +171,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="auth-card">
-        <i class="fas fa-user-plus logo-icon"></i>
+        <!-- PURE USER ICON (Wala nay plus sign) -->
+        <i class="fas fa-user logo-icon"></i>
         <h2>Create Account</h2>
         <p class="subtitle">Join CherryJoe River Park today</p>
         
@@ -199,9 +200,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <button type="submit" class="submit-btn">Sign Up</button>
         </form>
 
-        <!-- CONTINUE WITH GMAIL SECTION -->
+        <!-- CONTINUE WITH GMAIL SECTION (Naka-link na sa google_login.php) -->
         <div class="divider">OR</div>
-        <a href="#" class="google-btn" onclick="alert('Google API integration required to activate this feature.');">
+        <a href="google_login.php" class="google-btn">
             <i class="fab fa-google"></i> Continue with Gmail
         </a>
         
