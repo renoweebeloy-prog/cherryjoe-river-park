@@ -19,58 +19,32 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['reset_email'] = $email;
 
             // ==========================================
-            // RESEND API (NAGAMIT OG REVERSE TRICK ARON DILI MASAKPAN SA GITHUB)
+            // MAKE.COM WEBHOOK INTEGRATION
             // ==========================================
             
-            // KINI ANG IMONG KEY NGA GI-BALIGTAD ARON DILI MA-DETECT SA SCANNER!
-            $reversed_key = '15T3KK3RWLMr7pD2sBMX77Q6_F9d33s8L_er';
-            
-            // Ang PHP na ang bahala mo-tarong ani pabalik inig send
-            $api_key = strrev($reversed_key); 
-            
-            $api_url = 'https://api.resend.com/emails';
+            // IMONG MAKE.COM WEBHOOK URL
+            $webhook_url = 'https://hook.eu1.make.com/71wmk31q74tg97e4ql34pnvflm6zy88j'; 
 
             $data = [
-                'from' => 'CherryJoe <onboarding@resend.dev>',
-                'to' => [$email], 
-                'subject' => 'Password Reset OTP - CherryJoe',
-                'html' => "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
-                                <h2 style='color: #059669;'>Password Reset Request</h2>
-                                <p>Hello <b>{$user['full_name']}</b>,</p>
-                                <p>Your One-Time Password (OTP) is:</p>
-                                <h1 style='color: #ef4444; letter-spacing: 5px; text-align: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ef4444;'>{$otp}</h1>
-                                <p>Please enter this code on the website.</p>
-                              </div>"
+                'email' => $email,
+                'full_name' => $user['full_name'],
+                'otp' => $otp
             ];
 
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $api_url);
+            $ch = curl_init($webhook_url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                'Authorization: Bearer ' . $api_key,
                 'Content-Type: application/json'
             ]);
 
-            $response = curl_exec($ch);
-            $curl_err = curl_error($ch);
+            curl_exec($ch);
             curl_close($ch);
             
-            if ($curl_err) {
-                $error = "System Error: " . $curl_err;
-            } else {
-                $resp_data = json_decode($response, true);
-                
-                if (isset($resp_data['id'])) {
-                    // KUNG SUCCESS:
-                    header("Location: verify_otp.php");
-                    exit();
-                } else {
-                    $error = "API Error: " . $response;
-                }
-            }
+            header("Location: verify_otp.php");
+            exit();
             
         } else {
             $error = "Sorry, we can't find that email in our system.";
