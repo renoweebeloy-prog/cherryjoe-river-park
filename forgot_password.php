@@ -2,13 +2,7 @@
 session_start();
 require 'db_connect.php';
 
-// DIRECT NGA GIPANGITA ANG FILES (Wala nay folders)
-require 'Exception.php';
-require 'PHPMailer.php';
-require 'SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
+// WALA NAY PHPMAILER DIRE, LIMPYO UG SIMPLE NA!
 
 $error = '';
 $success = '';
@@ -17,48 +11,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
 
     try {
+        // I-check kung naa ba sa database ang gi-type nga email
         $stmt = $conn->prepare("SELECT id, full_name FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
 
         if ($user) {
+            // Paghimo og 6-digit OTP code
             $otp = rand(100000, 999999);
             $_SESSION['reset_otp'] = $otp;
             $_SESSION['reset_email'] = $email;
 
-            $mail = new PHPMailer(true);
+            // NATIVE PHP MAIL FUNCTION (Wala nay require files)
+            $to = $email;
+            $subject = "Password Reset OTP - CherryJoe";
+            $message = "Hello " . $user['full_name'] . ",\n\nYour One-Time Password (OTP) is: " . $otp . "\n\nPlease enter this code on the website to reset your password.";
+            $headers = "From: CherryJoe System <no-reply@cherryjoe.com>\r\n";
+            $headers .= "Reply-To: renowee.beloy@dorsu.edu.ph\r\n";
+            $headers .= "Content-Type: text/plain; charset=UTF-8\r\n";
 
-            $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = 'renowee.beloy@dorsu.edu.ph'; 
-            $mail->Password   = 'xapwed-vihzeK-hobmi4';
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-            $mail->Port       = 465;
-
-            $mail->setFrom('renowee.beloy@dorsu.edu.ph', 'CherryJoe River Park');
-            $mail->addAddress($email, $user['full_name']);
-
-            $mail->isHTML(true);
-            $mail->Subject = 'Password Reset OTP - CherryJoe';
-            $mail->Body    = "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
-                                <h2 style='color: #059669;'>Password Reset Request</h2>
-                                <p>Hello <b>{$user['full_name']}</b>,</p>
-                                <p>We received a request to reset your password. Here is your One-Time Password (OTP):</p>
-                                <h1 style='color: #ef4444; letter-spacing: 5px; text-align: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ef4444;'>{$otp}</h1>
-                                <p>Please enter this code on the website to verify your identity.</p>
-                                <p><small>If you didn't request this, please ignore this email.</small></p>
-                              </div>";
-
-            $mail->send();
+            // I-send ang email (Pahinumdom: Basin ma-block ni sa Render server)
+            mail($to, $subject, $message, $headers);
             
+            // Mo-lahos dayon sa verify_otp.php aron mangayo sa code
             header("Location: verify_otp.php");
             exit();
         } else {
             $error = "Sorry, we can't find that email in our system.";
         }
-    } catch (Exception $e) {
-        $error = "Failed to send OTP. Mailer Error: {$mail->ErrorInfo}";
     } catch(PDOException $e) {
         $error = "System Error: " . $e->getMessage();
     }
