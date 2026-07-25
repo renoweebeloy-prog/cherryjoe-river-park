@@ -36,13 +36,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .input-group input:focus { border-color: #10b981; outline: none; }
         .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 16px; width: 100%; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; }
         .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5;}
+        .spam-warning { background: #fffbeb; color: #d97706; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: bold; margin-bottom: 20px; border: 1px dashed #fcd34d; }
     </style>
 </head>
 <body>
     <div class="auth-card">
         <i class="fas fa-shield-alt logo-icon"></i>
         <h2>Verify Your OTP</h2>
-        <p style="color: #64748b; margin-bottom: 20px;">We've sent a 6-digit code to your email.</p>
+        <p style="color: #64748b; margin-bottom: 10px;">We've sent a 6-digit code to your email.</p>
+        
+        <!-- SPAM WARNING MESSAGE -->
+        <div class="spam-warning">
+            <i class="fas fa-exclamation-triangle"></i> Dili makita? Palihug i-check ang imong <b>Spam</b> o <b>Junk</b> folder.
+        </div>
         
         <?php if($error): ?>
             <div class="error-msg"><?php echo $error; ?></div>
