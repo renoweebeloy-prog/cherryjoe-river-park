@@ -2,19 +2,34 @@
 session_start();
 require 'db_connect.php';
 
-// Tawgon ang PHPMailer (I-setup nato ni sa Step 2)
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require 'PHPMailer/Exception.php';
-require 'PHPMailer/PHPMailer.php';
-require 'PHPMailer/SMTP.php';
+// --- SMART FILE DETECTOR (Para iwas "Fatal Error" o "Not Found") ---
+if (file_exists(__DIR__ . '/PHPMailer/Exception.php')) {
+    require __DIR__ . '/PHPMailer/Exception.php';
+    require __DIR__ . '/PHPMailer/PHPMailer.php';
+    require __DIR__ . '/PHPMailer/SMTP.php';
+} elseif (file_exists(__DIR__ . '/Exception.php')) {
+    // Kung wala sulod sa folder, diri niya pangitaon
+    require __DIR__ . '/Exception.php';
+    require __DIR__ . '/PHPMailer.php';
+    require __DIR__ . '/SMTP.php';
+} else {
+    // Kung wala gyud na-upload ang files
+    die("<div style='text-align:center; margin-top:50px; font-family:sans-serif;'>
+            <h2 style='color:red;'>System Error: Missing Files!</h2>
+            <p>Wala nakit-an ang <b>Exception.php</b>, <b>PHPMailer.php</b>, ug <b>SMTP.php</b> sa imong GitHub.<br>
+            Palihug paghimo ani nga mga file tupad sa index.php ug i-paste ang ilang code.</p>
+         </div>");
+}
+// --------------------------------------------------------------------
 
 $error = '';
 $success = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
+    $email = trim($_POST['email']);
 
     try {
         // I-check kung naa ba sa database ang email
@@ -28,17 +43,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['reset_otp'] = $otp;
             $_SESSION['reset_email'] = $email;
 
-            // I-SEND ANG EMAIL GAMIT ANG IMONG APP PASSWORD
+            // I-SEND ANG EMAIL
             $mail = new PHPMailer(true);
 
             $mail->isSMTP();
             $mail->Host       = 'smtp.gmail.com';
             $mail->SMTPAuth   = true;
-            
-            // IMONG GOOGLE CREDENTIALS
             $mail->Username   = 'renowee.beloy@dorsu.edu.ph'; 
-            $mail->Password   = 'xapwed-vihzeK-hobmi4'; // Imong App Password
-            
+            $mail->Password   = 'xapwed-vihzeK-hobmi4';
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port       = 465;
 
@@ -58,7 +70,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $mail->send();
             
-            // Kung mo-success og send, i-redirect dayon siya para mo-type sa OTP
             header("Location: verify_otp.php");
             exit();
         } else {
@@ -81,8 +92,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
         body { background: linear-gradient(135deg, rgba(16,185,129,0.1), rgba(5,150,105,0.2)), url('imagesgallery7.jpg') center/cover fixed; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
-        .auth-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 40px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.5); width: 100%; max-width: 420px; text-align: center; animation: fadeIn 0.6s forwards; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px) scale(0.95); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        .auth-card { background: rgba(255, 255, 255, 0.85); backdrop-filter: blur(16px); padding: 40px; border-radius: 24px; box-shadow: 0 25px 50px rgba(0,0,0,0.1); border: 1px solid rgba(255, 255, 255, 0.5); width: 100%; max-width: 420px; text-align: center; }
         .logo-icon { font-size: 45px; color: #059669; margin-bottom: 10px; }
         h2 { color: #1e293b; font-size: 26px; font-weight: 800; margin-bottom: 5px; }
         p.subtitle { color: #64748b; font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
