@@ -18,19 +18,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['reset_otp'] = $otp;
             $_SESSION['reset_email'] = $email;
 
-            // ==========================================
-            // BREVO (SENDINBLUE) API INTEGRATION
-            // ==========================================
-            
-            // IMONG BREVO API KEY:
+            // BREVO API KEY
             $api_key = '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'; 
-            
             $api_url = 'https://api.brevo.com/v3/smtp/email';
 
             $data = [
                 'sender' => [
                     'name' => 'CherryJoe River Park',
-                    'email' => 'renowee.beloy@dorsu.edu.ph' // Ang email nga imong gi-register sa Brevo
+                    'email' => 'renowee.beloy@dorsu.edu.ph' // SIGUROHA NGA NA-VERIFY NI SA BREVO DASHBOARD NIMO
                 ],
                 'to' => [
                     [
@@ -48,12 +43,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                   </div>"
             ];
 
-            // Paggamit sa PHP cURL aron ipasa ang data sa API
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, $api_url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false); // Gi-disable aron iwas server blocking
             curl_setopt($ch, CURLOPT_HTTPHEADER, [
                 'accept: application/json',
                 'api-key: ' . $api_key,
@@ -61,11 +56,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             ]);
 
             $response = curl_exec($ch);
+            $httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+            $curl_err = curl_error($ch);
             curl_close($ch);
             
-            // Inig human og send sa API, mo-lahos dayon sa OTP page
-            header("Location: verify_otp.php");
-            exit();
+            // ERROR TRACKER: Dinhi nato mahibal-an kung naay problema
+            if ($curl_err) {
+                $error = "System Error: Dili maka-connect sa API. " . $curl_err;
+            } elseif ($httpcode == 201 || $httpcode == 200) {
+                // KUNG SUCCESS, mo-adto dayon sa verify OTP
+                header("Location: verify_otp.php");
+                exit();
+            } else {
+                // KUNG BLOCKED SA BREVO, i-display ang error
+                $error = "Wala na-send ang email. API Error: " . $response;
+            }
             
         } else {
             $error = "Sorry, we can't find that email in our system.";
@@ -95,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .input-group input:focus { border-color: #10b981; background: #ffffff; outline: none; box-shadow: 0 0 0 4px rgba(16,185,129,0.15); }
         .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 16px; width: 100%; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s ease; margin-top: 5px; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25); }
         .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4); }
-        .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
+        .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 13px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; flex-direction: column; gap: 8px; font-weight: 600; text-align: left;}
         .bottom-link { display: block; margin-top: 25px; color: #475569; font-size: 14px; text-decoration: none; }
         .bottom-link span { color: #059669; font-weight: 700; }
     </style>
@@ -107,7 +112,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <p class="subtitle">Enter your registered email address and we'll send you an OTP to reset your password.</p>
         
         <?php if($error): ?>
-            <div class="error-msg"><i class="fas fa-exclamation-circle"></i> <?php echo $error; ?></div>
+            <!-- Ang mo-gawas kung naay error sa API -->
+            <div class="error-msg">
+                <div><i class="fas fa-exclamation-circle"></i> Error!</div>
+                <div style="font-size: 12px; font-weight: normal; word-break: break-all;"><?php echo $error; ?></div>
+            </div>
         <?php endif; ?>
         
         <form method="POST">
