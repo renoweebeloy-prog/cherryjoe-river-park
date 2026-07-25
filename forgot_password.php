@@ -2,28 +2,11 @@
 session_start();
 require 'db_connect.php';
 
+// KINI NGA LINYA ANG MO-TWEAK ARON AWTOMATIKO NA NIYANG GAMITON ANG PHPMAILER
+require 'vendor/autoload.php';
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
-
-// --- SMART FILE DETECTOR (Para iwas "Fatal Error" o "Not Found") ---
-if (file_exists(__DIR__ . '/PHPMailer/Exception.php')) {
-    require __DIR__ . '/PHPMailer/Exception.php';
-    require __DIR__ . '/PHPMailer/PHPMailer.php';
-    require __DIR__ . '/PHPMailer/SMTP.php';
-} elseif (file_exists(__DIR__ . '/Exception.php')) {
-    // Kung wala sulod sa folder, diri niya pangitaon
-    require __DIR__ . '/Exception.php';
-    require __DIR__ . '/PHPMailer.php';
-    require __DIR__ . '/SMTP.php';
-} else {
-    // Kung wala gyud na-upload ang files
-    die("<div style='text-align:center; margin-top:50px; font-family:sans-serif;'>
-            <h2 style='color:red;'>System Error: Missing Files!</h2>
-            <p>Wala nakit-an ang <b>Exception.php</b>, <b>PHPMailer.php</b>, ug <b>SMTP.php</b> sa imong GitHub.<br>
-            Palihug paghimo ani nga mga file tupad sa index.php ug i-paste ang ilang code.</p>
-         </div>");
-}
-// --------------------------------------------------------------------
 
 $error = '';
 $success = '';
@@ -32,18 +15,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
 
     try {
-        // I-check kung naa ba sa database ang email
         $stmt = $conn->prepare("SELECT id, full_name FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
 
         if ($user) {
-            // Mag-himo og random 6-digit OTP code
             $otp = rand(100000, 999999);
             $_SESSION['reset_otp'] = $otp;
             $_SESSION['reset_email'] = $email;
 
-            // I-SEND ANG EMAIL
             $mail = new PHPMailer(true);
 
             $mail->isSMTP();
