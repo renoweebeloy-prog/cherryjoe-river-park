@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['reset_email'] = $email;
 
             // BREVO API KEY
-            $api_key = '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'; 
+            $api_key = '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'; 
             $api_url = 'https://api.brevo.com/v3/smtp/email';
 
             $data = [
