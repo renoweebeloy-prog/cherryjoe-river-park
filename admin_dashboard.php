@@ -2,12 +2,13 @@
 session_start();
 require 'db_connect.php';
 
-// I-check kung admin ba gyud ang nag log in. Kung user ra o walay log in, i-kick out sa index.
-if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'admin') {
+// KUNG WALA LOG-IN O DILI ADMIN, E-KICK OUT PAINGON SA INDEX
+if (!isset($_SESSION['user_id']) || $_SESSION['email'] !== 'admin@cherryjoe.com') {
     header("Location: index.php");
     exit();
 }
 
+// ... (ug ang sunod nimo nga PHP/HTML codes para sa admin)
 $message = '';
 
 // KUNG MAG ADD OG PAGKAON ANG ADMIN
