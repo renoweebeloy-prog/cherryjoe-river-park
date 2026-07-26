@@ -8,17 +8,46 @@ if (!isset($_SESSION['user_id'])) {
     exit();
 }
 
-// I-check kung Admin ba base sa email
-$isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
+// HANDLE PROFILE PICTURE UPLOAD
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
+    $uploadDir = 'uploads/';
+    // Pagbuhat og folder kung wala pa
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0777, true);
+    }
+    
+    $fileName = time() . '_' . basename($_FILES['profile_pic']['name']);
+    $targetFilePath = $uploadDir . $fileName;
+    $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
+    
+    $allowTypes = array('jpg','png','jpeg','gif');
+    if(in_array(strtolower($fileType), $allowTypes)){
+        if(move_uploaded_file($_FILES['profile_pic']['tmp_name'], $targetFilePath)){
+            // I-update ang database
+            $updateStmt = $conn->prepare("UPDATE users SET profile_pic = :pic WHERE id = :id");
+            $updateStmt->execute(['pic' => $targetFilePath, 'id' => $_SESSION['user_id']]);
+        }
+    }
+}
 
-// Kuhaon ang pangalan ug himoan og Initials (e.g. Renowee Beloy -> RB)
-$userName = $_SESSION['name'] ?? 'Guest';
+// KUHAON ANG LATEST DATA SA USER LAbI NA ANG PICTURE UG PANGALAN
+$stmt = $conn->prepare("SELECT full_name, email, profile_pic FROM users WHERE id = :id");
+$stmt->execute(['id' => $_SESSION['user_id']]);
+$currentUser = $stmt->fetch();
+
+$userName = $currentUser['full_name'] ?? 'Guest';
+$userEmail = $currentUser['email'] ?? '';
+$profilePic = $currentUser['profile_pic'] ?? null;
+
+$isAdmin = ($userEmail === 'admin@cherryjoe.com');
+$userRole = $isAdmin ? 'Admin' : 'Visitor';
+
+// Himoan og Initials (e.g. Renowee Beloy -> RB)
 $nameParts = explode(' ', trim($userName));
 $initials = strtoupper(substr($nameParts[0], 0, 1));
 if (isset($nameParts[1])) {
     $initials .= strtoupper(substr($nameParts[1], 0, 1));
 }
-$userRole = $isAdmin ? 'Admin' : 'Visitor';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -92,18 +121,23 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
         nav { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; height: 60px; }
         .nav-left { display: flex; align-items: center; gap: 15px; color: #1e293b; }
         
-        /* NEW HAMBURGER MENU BUTTON */
-        .menu-toggle-btn { background: #2dd4bf; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 1px solid #fff; box-shadow: 0 4px 10px rgba(45, 212, 191, 0.3); transition: 0.3s; }
-        .menu-toggle-btn:hover { background: #14b8a6; transform: scale(1.05); }
+        .menu-toggle-btn { background: #10b981; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 1px solid #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); transition: 0.3s; }
+        .menu-toggle-btn:hover { background: #059669; transform: scale(1.05); }
         
         .logo { font-size: 20px; font-weight: bold; color: #1e293b; white-space: nowrap; margin-left: 5px;}
         section { padding: 50px 5%; max-width: 1200px; margin: 0 auto; }
         .title { text-align: center; font-size: 30px; margin-bottom: 35px; color: #1e293b; font-weight: 800; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
-        .card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
-        .card:hover { transform: translateY(-5px); border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 15px 35px rgba(16, 185, 129, 0.08); }
-        .card h3 { color: #059669; margin-bottom: 10px; font-weight: 700; font-size: 18px; }
-        .card p { color: #475569; font-size: 15px; line-height: 1.5; }
+
+        /* --- ABOUT US DESIGN STYLES --- */
+        .about-intro { text-align: center; max-width: 800px; margin: 0 auto 40px auto; color: #475569; font-size: 16px; line-height: 1.8; padding: 25px; background: rgba(16, 185, 129, 0.05); border-radius: 16px; border: 1px dashed rgba(16, 185, 129, 0.3); box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
+        .about-intro strong { color: #059669; font-size: 18px; }
+        .section-subtitle { text-align: center; font-size: 22px; color: #1e293b; margin-bottom: 25px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
+        .feature-card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 35px 25px; border-radius: 20px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.03); transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; }
+        .feature-card:hover { transform: translateY(-5px); border-color: #10b981; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.1); }
+        .feature-card i { font-size: 30px; color: #059669; margin-bottom: 20px; background: rgba(16, 185, 129, 0.1); width: 75px; height: 75px; display: flex; align-items: center; justify-content: center; border-radius: 50%; border: 1px solid rgba(16, 185, 129, 0.2); }
+        .feature-card h4 { color: #1e293b; font-size: 18px; margin-bottom: 12px; font-weight: 800; }
+        .feature-card p { color: #64748b; font-size: 14px; line-height: 1.6; }
 
         /* --- 6. PREMIUM HERO SLIDESHOW --- */
         .hero { height: calc(100vh - 60px); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: flex-end; text-align: center; }
@@ -137,7 +171,9 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
 
         /* --- 8. EXPLORE ARCHITECTURE --- */
         .management { display: flex; gap: 20px; flex-wrap: wrap; }
-        .management .card { flex: 1; min-width: 240px; }
+        .management .card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex: 1; min-width: 240px; }
+        .management .card h3 { color: #059669; margin-bottom: 10px; font-weight: 700; font-size: 18px; }
+        .management .card p { color: #475569; font-size: 15px; line-height: 1.5; }
         .cottage-section { display: flex; flex-direction: column; gap: 25px; }
         .cottage { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 20px; overflow: hidden; box-shadow: 0 5px 15px rgba(0,0,0,0.03); }
         .cottage img { width: 100%; height: 320px; object-fit: cover; }
@@ -159,24 +195,32 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
         .gallery img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; border: 1px solid rgba(0, 0, 0, 0.08); }
         .gallery img:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); border-color: #059669; }
 
-        /* --- 9. NEW SIDE MENU (DRAWER) SETTINGS --- */
+        /* --- 9. NEW WHITE SIDE MENU (DRAWER) SETTINGS --- */
         .side-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 100001; opacity: 0; visibility: hidden; transition: 0.3s ease; }
         .side-menu-overlay.active { opacity: 1; visibility: visible; }
-        .side-menu { position: fixed; top: 15px; left: -320px; width: 280px; height: calc(100vh - 30px); background: #0f172a; border-radius: 20px; z-index: 100002; display: flex; flex-direction: column; padding: 25px; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 10px 0 30px rgba(0,0,0,0.3); overflow-y: auto; }
+        
+        .side-menu { position: fixed; top: 15px; left: -320px; width: 280px; height: calc(100vh - 30px); background: #ffffff; border-radius: 20px; z-index: 100002; display: flex; flex-direction: column; padding: 25px; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 10px 0 30px rgba(0,0,0,0.15); overflow-y: auto; }
         .side-menu.active { left: 15px; }
         
-        .close-menu-btn { position: absolute; top: -10px; right: -10px; background: #2dd4bf; color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 2px solid #0f172a; transition: 0.3s; z-index: 10; }
-        .close-menu-btn:hover { background: #14b8a6; transform: scale(1.1); }
+        .close-menu-btn { position: absolute; top: -10px; right: -10px; background: #10b981; color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 2px solid #ffffff; transition: 0.3s; z-index: 10; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.3); }
+        .close-menu-btn:hover { background: #059669; transform: scale(1.1); }
 
-        .side-profile { text-align: left; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
-        .profile-initials { background: #2dd4bf; color: #ffffff; width: 65px; height: 65px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; margin-bottom: 15px; border: 2px solid rgba(255,255,255,0.2); }
-        .profile-name { color: #ffffff; font-size: 22px; font-weight: 800; line-height: 1.2; margin-bottom: 5px; }
-        .profile-role { color: #94a3b8; font-size: 14px; }
+        .side-profile { text-align: left; margin-bottom: 30px; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 20px; }
+        
+        /* NEW: PROFILE PICTURE UPLOAD STYLES */
+        .profile-pic-container { position: relative; width: 70px; height: 70px; margin-bottom: 15px; cursor: pointer; border-radius: 18px; overflow: hidden; border: 2px solid rgba(16,185,129,0.3); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2); }
+        .profile-img-preview { width: 100%; height: 100%; object-fit: cover; }
+        .upload-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; color: white; font-size: 20px; }
+        .profile-pic-container:hover .upload-overlay { opacity: 1; }
+        .profile-initials { background: #10b981; color: #ffffff; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; }
+        
+        .profile-name { color: #1e293b; font-size: 22px; font-weight: 800; line-height: 1.2; margin-bottom: 5px; }
+        .profile-role { color: #64748b; font-size: 14px; }
 
         .side-nav-links { display: flex; flex-direction: column; gap: 8px; }
-        .side-link { display: flex; align-items: center; gap: 15px; padding: 14px 16px; color: #cbd5e1; text-decoration: none; font-size: 16px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s ease; }
+        .side-link { display: flex; align-items: center; gap: 15px; padding: 14px 16px; color: #475569; text-decoration: none; font-size: 16px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s ease; }
         .side-link i { font-size: 20px; width: 25px; text-align: center; }
-        .side-link:hover, .side-link.active { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; padding-left: 22px; }
+        .side-link:hover, .side-link.active { background: rgba(16, 185, 129, 0.08); color: #059669; padding-left: 22px; }
 
         /* --- OVERLAYS & COMPONENT ENGINE --- */
         .contact { background: #f8fafc; border-top: 1px solid rgba(0, 0, 0, 0.05); text-align: center; }
@@ -210,6 +254,7 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
             .table-row-grid { gap: 10px; }
             .table-cell { padding: 14px; border-radius: 12px; }
             .side-menu { width: 260px; left: -280px; }
+            .about-intro { padding: 15px; font-size: 14px; }
         }
         .map-container { border-radius: 20px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
         .map-btn { display: block; width: 100%; text-align: center; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 15px; transition: 0.3s; }
@@ -232,7 +277,7 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
         <div class="loader-text">Loading Experience...</div>
     </div>
 
-    <!-- NEW SIDE MENU DRAWER -->
+    <!-- NEW WHITE SIDE MENU DRAWER WITH PHOTO UPLOAD -->
     <div class="side-menu-overlay" id="sideMenuOverlay" onclick="toggleSideMenu()"></div>
     <div class="side-menu" id="sideMenu">
         <div class="close-menu-btn" onclick="toggleSideMenu()">
@@ -241,8 +286,24 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
         
         <!-- PROFILE AT THE TOP OF SIDE MENU -->
         <div class="side-profile">
-            <div class="profile-initials"><?php echo $initials; ?></div>
-            <div class="profile-name">CherryJoe</div>
+            <!-- PROFILE PHOTO AREA WITH CLICK-TO-UPLOAD -->
+            <div class="profile-pic-container" onclick="document.getElementById('profilePicInput').click()" title="Click to change photo">
+                <?php if ($profilePic): ?>
+                    <img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture" class="profile-img-preview">
+                <?php else: ?>
+                    <div class="profile-initials"><?php echo $initials; ?></div>
+                <?php endif; ?>
+                <div class="upload-overlay">
+                    <i class="fas fa-camera"></i>
+                </div>
+            </div>
+
+            <!-- HIDDEN FORM PARA UPLOAD -->
+            <form id="uploadForm" method="POST" enctype="multipart/form-data" style="display: none;">
+                <input type="file" id="profilePicInput" name="profile_pic" accept="image/*" onchange="document.getElementById('uploadForm').submit()">
+            </form>
+
+            <div class="profile-name"><?php echo htmlspecialchars($userName); ?></div>
             <div class="profile-role"><?php echo $userRole; ?></div>
         </div>
 
@@ -262,12 +323,12 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
             </a>
             
             <?php if($isAdmin): ?>
-            <a href="admin_dashboard.php" class="side-link" style="margin-top: 10px; color: #fbbf24;">
+            <a href="admin_dashboard.php" class="side-link" style="margin-top: 10px; color: #d97706;">
                 <i class="fas fa-cogs"></i> Admin Panel
             </a>
             <?php endif; ?>
 
-            <a href="logout.php" class="side-link" style="margin-top: auto; color: #f87171;">
+            <a href="logout.php" class="side-link" style="margin-top: auto; color: #dc2626;">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
         </div>
@@ -356,13 +417,36 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
             </div>
         </section>
 
+        <!-- BEAUTIFUL ABOUT US SECTION -->
         <section id="about" class="reveal">
-            <h2 class="title">About CherryJoe River Park</h2>
-            <div class="grid">
-                <div class="card"><h3>📍 Location</h3><p>Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p></div>
-                <div class="card"><h3>🕒 Opening Hours</h3><p>11:00 AM - 2:00 AM</p></div>
-                <div class="card"><h3>📞 Contact</h3><p>0920 408 7956</p></div>
-                <div class="card"><h3>📧 Email</h3><p>cherryday103080@gmail.com</p></div>
+            <h2 class="title">About Us</h2>
+            
+            <div class="about-intro">
+                <p><strong>CherryJoe River Park</strong> is a popular nature trip and eco-tourism destination located in Purok Magong-ong, Barangay San Rafael, Cateel, Davao Oriental, Philippines. Known for its peaceful, uncommercialized atmosphere, it highlights the natural beauty of the Cateel River area.</p>
+            </div>
+
+            <h3 class="section-subtitle">Key Features & Amenities</h3>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bridge-water"></i>
+                    <h4>Scenic Hanging Bridge</h4>
+                    <p>Offers sweeping views of the surrounding river and lush greenery.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-swimmer"></i>
+                    <h4>Natural Swimming</h4>
+                    <p>Features fresh, cool river water and scenic rock formations perfect for swimming and relaxing.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-users"></i>
+                    <h4>Inclusivity & Accessibility</h4>
+                    <p>The park welcomes families and is noted as being good for kids and LGBTQ+ friendly.</p>
+                </div>
+                <div class="feature-card">
+                    <i class="fas fa-leaf"></i>
+                    <h4>Nature Trips</h4>
+                    <p>Highly recommended for visitors looking to escape busy city life, take photos, and bond in a natural environment.</p>
+                </div>
             </div>
         </section>
 
@@ -385,11 +469,11 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
         </section>
 
         <section class="contact reveal" id="contact" style="max-width:100%;">
-            <h2 class="title" style="color:#1e293b;">Contact Us</h2>
-            <p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
-            <p><i class="fas fa-phone"></i> 0920 408 7956</p>
+            <h2 class="title" style="color:#1e293b;">Contact Details</h2>
+            <p><i class="fas fa-phone"></i> +63 920 408 7956</p>
             <p><i class="fas fa-envelope"></i> cherryday103080@gmail.com</p>
-            <p><i class="fab fa-facebook"></i> Facebook: <a href="https://www.facebook.com/search/top/?q=CherryJoe%20River%20Park" target="_blank">CherryJoe River Park</a></p>
+            <p><i class="fas fa-map-marker-alt"></i> Purok Magong-ong Brgy. San Rafael Cateel Davao Oriental</p>
+            <p><i class="fab fa-facebook"></i> Facebook: <a href="https://www.facebook.com/search/top/?q=CherryJoe%20River%20Park" target="_blank">CherryJoe River Park Website</a></p>
         </section>
     </div>
 
@@ -561,7 +645,7 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
             }
         }
 
-        // --- NEW SIDE MENU FUNCTIONS ---
+        // --- SIDE MENU FUNCTIONS ---
         function toggleSideMenu() {
             const menu = document.getElementById('sideMenu');
             const overlay = document.getElementById('sideMenuOverlay');
@@ -570,18 +654,15 @@ $userRole = $isAdmin ? 'Admin' : 'Visitor';
         }
 
         function navigateMenu(pageId, linkId) {
-            // Update Active Link Color
             document.querySelectorAll('.side-link').forEach(link => link.classList.remove('active'));
             if(linkId) {
                 document.getElementById(linkId).classList.add('active');
             }
-            // Navigate and Close Menu
             navigateTo(pageId);
             toggleSideMenu();
         }
 
         function scrollToAbout() {
-            // Mo adto sa Home unya mo scroll paubos didto sa About Us
             navigateMenu('home', 'slink-about');
             setTimeout(() => {
                 const aboutSection = document.getElementById('about');
