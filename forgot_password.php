@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $payload = json_encode([
                 "to" => $email,
-                "subject" => "Password Reset OTP - welcome to CherryJoeriverpark",
+                "subject" => "Password Reset OTP -CherryJoe",
                 "htmlBody" => $html_content
             ]);
 // HTTPS Call gamit ang cURL (Dili gyud ma-block sa Render)
