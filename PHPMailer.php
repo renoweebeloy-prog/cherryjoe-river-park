@@ -1,41 +1,5587 @@
-<!doctype html><html itemscope="" itemtype="http://schema.org/SearchResultsPage" lang="en-PH"><head><meta charset="UTF-8"><meta content="dark light" name="color-scheme"><meta content="origin" name="referrer"><link href="//www.gstatic.com/images/branding/searchlogo/ico/favicon.ico" rel="icon"><meta content="/images/branding/googleg/1x/googleg_standard_color_128dp.png" itemprop="image"><title>https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php - Google Search</title><script nonce="fjCswvWN1ycKTMKpIvFMfg">window._hst=Date.now();</script><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var _g={kEI:'iE1laqfPEI2IosUP4tOE-Qs',kEXPI:'31',u:'1f58aefd',kBL:'Whev',kOPI:89978449};(function(){var a;((a=window.google)==null?0:a.stvsc)?google.kEI=_g.kEI:window.google=_g;}).call(this);})();(function(){google.sn='web';google.kHL='en-PH';google.usb=true;})();(function(){
-var h=this||self;var k=/#|$/;function l(a,c){var e=a.search(k);a:{var b=0;for(var f=c.length;(b=a.indexOf(c,b))>=0&&b<e;){var d=a.charCodeAt(b-1);if(d==38||d==63)if(d=a.charCodeAt(b+f),!d||d==61||d==38||d==35)break a;b+=f+1}b=-1}if(b<0)return null;f=a.indexOf("&",b);if(f<0||f>e)f=e;b+=c.length+1;return decodeURIComponent(a.slice(b,f!==-1?f:0).replace(/\+/g," "))};function m(){return window.google&&window.google.kOPI||null};var n;function p(a){for(var c;a&&(!a.getAttribute||!(c=a.getAttribute("eid")));)a=a.parentNode;return c||n}function q(a){for(var c=null;a&&(!a.getAttribute||!(c=a.getAttribute("leid")));)a=a.parentNode;return c}
-function t(a,c,e,b,f){var d="";c.search("&ei=")===-1&&(d="&ei="+p(b),c.search("&lei=")===-1&&(b=q(b))&&(d+="&lei="+b));var r=c.search("&cshid=")===-1&&a!=="slh";var g=g===void 0?window.location:g;b="&zx="+Date.now().toString();h._cshid&&r&&(b+="&cshid="+h._cshid);(e=e())&&(b+="&opi="+e);(e=l(g.search,"gemcid"))&&(b+="&gemcid="+e);(g=l(g.search,"gemrid"))&&(b+="&gemrid="+g);return"/"+(f||"gen_204")+"?atyp=i&ct="+String(a)+"&cad="+(c+d+b)};n=google.kEI;google.getEI=p;google.getLEI=q;google.ml=function(){return null};google.log=function(a,c,e,b,f,d){d=d===void 0?m:d;e||(e=t(a,c,d,b,f));a=e;/^http:/i.test(a)&&window.location.protocol==="https:"&&(google.ml&&google.ml(Error("a"),!1,{src:a,glmm:1}),a="");if(e=a)try{window.navigator.sendBeacon(e,"")}catch(r){}};google.logUrl=function(a,c){c=c===void 0?m:c;return t("",a,c)};}).call(this);(function(){google.y={};google.sy={};function e(a,b,d){if(a)var c=a.id;else{do c=Math.random();while(d[c])}d[c]=[a,b]}var f;(f=google).x||(f.x=function(a,b){e(a,b,google.y)});var g;(g=google).sx||(g.sx=function(a,b){e(a,b,google.sy)});google.bx=!1;var h;(h=google).lx||(h.lx=function(){});var k=[],l;(l=google).fce||(l.fce=function(a,b,d,c){k.push([a,b,d,c])});google.qce=k;google.adl=[];}).call(this);google.f={};(function(){
-document.documentElement.addEventListener("submit",function(b){var a;if(a=b.target){var c=a.getAttribute("data-submitfalse");a=c==="1"||c==="q"&&!a.elements.q.value?!0:!1}else a=!1;a&&(b.preventDefault(),b.stopPropagation())},!0);document.documentElement.addEventListener("click",function(b){var a;a:{for(a=b.target;a&&a!==document.documentElement;a=a.parentElement)if(a.tagName==="A"){a=a.getAttribute("data-nohref")==="1";break a}a=!1}a&&b.preventDefault()},!0);}).call(this);(function(){google.hs={h:true,nhs:false,sie:false};})();(function(){google.c={cap:2000,timl:false,vis:true};})();(function(){
-var n=this||self;window.google=window.google||{};var p=window.performance&&window.performance.timing&&"navigationStart"in window.performance.timing,aa=google.stvsc&&google.stvsc.ns,r=p?aa||window.performance.timing.navigationStart:void 0;function t(){return window.performance.now()-(google.stvsc&&google.stvsc.pno||0)}var ba=google.stvsc&&google.stvsc.rs,u=p?ba||window.performance.timing.responseStart:void 0;function w(){var a,c;return(a=window.performance)==null?void 0:(c=a.getEntriesByType)==null?void 0:c.call(a,"navigation")[0]};var ca=google.c.cap,da=google.c.ehcl,x=google.c.ehcla,ea=google.c.ssdi,y=google.c.timl;function z(a,c,d){google.tick("load",a,c,d)}function A(a,c){google.c.e("load",a,String(c))};var B={};function C(a,c){google.timers.load.m[a]===!1?c():(B[a]||(B[a]=[]),B[a].push(c))}google.c.q=C;google.caft=function(a){C("aft",a)};function D(a,c,d){a:{var b=a.parentElement;if(b&&(b.classList.contains("q1MG4e")||b.classList.contains("uhHOwf"))&&(b.style.height||b.style.width)){var f=b.getBoundingClientRect(),e=a.getBoundingClientRect();if(f.height<e.height||f.width<e.width){a=b;break a}}}if(c)b=null;else for(b=a;b&&!b.hasAttribute("data-csic");)b=b.parentElement;if(!b)for(b=a;b&&b!==c&&b.tagName!=="G-SCROLLING-CAROUSEL"&&!b.hasAttribute("data-sn-container");)b=b.parentElement;c=b;f=google.vx;b=google.vy;!(e=!a)&&(e=!d)&&(a.style.display===
-"none"?e=!0:document.defaultView&&document.defaultView.getComputedStyle?(e=document.defaultView.getComputedStyle(a),e=!!e&&(e.visibility==="hidden"||e.height==="0px"&&e.width==="0px")):e=!1);if(e)d=0;else if(a.getBoundingClientRect){if(e=!d){b:{for(e=a;e&&e!==c;e=e.parentElement)if(e.style.overflow==="hidden")break b;e=null}var h=e;h?(e=a.getBoundingClientRect(),h=h.getBoundingClientRect(),e=e.bottom<h.top||e.top>=h.bottom||e.right<h.left||e.left>=h.right):e=!1}if(e)d=0;else{e=a.getBoundingClientRect();var l=e.left+(window.pageXOffset-(f||0));b=e.top+(window.pageYOffset-(b||0));f=e.width;h=e.height;var g=0;if(!(!d&&h<=0&&f<=0)){d=document.documentElement.clientHeight;b+h<0?g=2:b>=d&&(g=4);if(l+f<0||l>=(window.innerWidth||document.documentElement.clientWidth))g|=8;else if(c){for(l=e.left;a&&a!==c;a=a.parentElement)l+=a.scrollLeft;a=c.getBoundingClientRect();if(l+f<a.left||l>=a.right)g|=8;e.top>=a.bottom&&(g|=4)}g||(g=1,b+h>d&&(g|=4))}d=g}}else d=1;return d};google.timers={};google.startTick=function(a,c){google.timers[a]={t:{start:c||Date.now()},e:{},m:{}}};google.tick=function(a,c,d,b){d=d!==void 0?d:Date.now();google.timers[a].t[c]=d;b&&r&&performance.mark&&(a=d-r,a>0&&performance.mark(b,{startTime:a}))};google.c.e=function(a,c,d){google.timers[a].e[c]=d};google.c.b=function(a){var c=google.timers.load.m;c[a]&&google.ml(Error("b"),!1,{m:a});c[a]=!0};google.c.u=function(a){var c=google.timers.load.m,d=!0;if(c[a]){for(var b=B[a]||[],f=0;f<b.length;++f)try{b[f]()}catch(h){google.ml(h,!1)}b.length=0;c[a]=!1;for(var e in c)c[e]&&(d=!1)}else{d="";for(b in c)d+=b+":"+c[b]+";";google.ml(Error("a"),!1,{m:a,s:d});d=!1}(a=d)&&google.csiReport(google.timers.load,"all");return a};google.rll=function(a,c,d){function b(f){d(f);a.removeEventListener("load",b,!1);a.removeEventListener("error",b,!1)}a.addEventListener("load",b,!1);c&&a.addEventListener("error",b,!1)};var E,F=Date.now(),G=window.performance;G&&(G.now&&(E=Math.floor(t())),r&&u&&u>r&&u<=F&&(F=u,E=u-r));google.startTick("load",F);var H=E;google.timers.load.wsrt=H;performance.mark&&performance.mark("SearchAFTStart",{startTime:H});z("hst",window._hst,"SearchHeadStart");google.c.b("xe");function I(a){return document.visibilityState==="hidden"?(z("fht",a),!0):!1}function J(){I()&&K()}function K(){document.removeEventListener("visibilitychange",J,!0)}I(0)||document.addEventListener("visibilitychange",J,!0);google.c.rq=[K];google.cv=D;if(da||x){var L=w();L&&L.deliveryType==="cache"&&(L.type==="navigate"||x&&(L.type==="reload"||L.type==="back_forward"))&&(window._csc="http",window._cshid=String(Date.now()))};function fa(a){function c(e,h){e=e.querySelectorAll("img");for(var l=0;l<e.length;l++)h.push(e[l])}var d=[];c(a,d);a=a.querySelectorAll("[data-shadow-root]");for(var b=0;b<a.length;b++){var f=a[b];f.shadowRoot&&c(f.shadowRoot,d)}return d};var ha=/#|$/;function M(a,c){var d=a.search(ha);a:{var b=0;for(var f=c.length;(b=a.indexOf(c,b))>=0&&b<d;){var e=a.charCodeAt(b-1);if(e==38||e==63)if(e=a.charCodeAt(b+f),!e||e==61||e==38||e==35)break a;b+=f+1}b=-1}if(b<0)return null;f=a.indexOf("&",b);if(f<0||f>d)f=d;b+=c.length+1;return decodeURIComponent(a.slice(b,f!==-1?f:0).replace(/\+/g," "))};function N(){var a,c;return(a=window.performance)==null?void 0:(c=a.navigation)==null?void 0:c.type};var ia=window.location;function O(a){return(a=ia.search.match(new RegExp("[?&]"+a+"=(\\d+)\\b")))?Number(a[1]):-1}
-function P(a){var c=google.timers.load,d=c.e,b=google.stvsc;b&&(d.ssr=1);b?b=b.isBF:b=(b=w())?b.type==="back_forward"?b.notRestoredReasons===void 0?!0:!!b.notRestoredReasons:!1:N()===2;b&&(d.bb=1);((b=w())?b.type==="reload":N()===1)&&(d.r=1);if(b=w()){var f=b.type;f&&(d.nt=f);f=b.deliveryType;f!=null&&(d.dt=f);f=b.transferSize;f!=null&&(d.ts=f);b=b.nextHopProtocol;b!=null&&(d.nhp=b)}(b=window.navigation)&&(b=b.activation)&&(b=b.navigationType)&&(d.ant=b);d=c.m;if(!d||!d.prs){b=window._csc==="agsa"&&
-window._cshid;f=!!google.stvsc;var e=c.qtt===2;d=O("qsubts");var h;(h=w())?(h=h.type,h=!h||h==="navigate"):h=!N();f=!h||e||f||b?0:c.qsubts||d;e="r";f>0&&(b=c.fbts||O("fbts"),b>0&&(c.t.start=Math.max(f,b),e=c.fbts===b?"i":"u"));h=c.t;var l=h.start;b={};c.wsrt!==void 0&&(b.wsrt=c.wsrt);if(l)for(var g in h)if(g!=="start"&&g!=="sgls"){var v=h[g];b[g]=g==="sgl"||g==="sgsrt"?v:g==="prs"?l-v:Math.max(v-l,0)}f>0&&(b.gsasrt=c.t.start-f,g=O("qsd"),g>0&&A("qsd",g),A("ests",(c.qsubts===f?"i":"u")+e),c.qsubts&&
-d>0&&c.qsubts!==d&&A("qd",c.qsubts-d));g=c.t.sgls;g>=0&&(e=d=b.sgl,g===0?e=0:f>g&&(e=f-g),d!==void 0&&(b.sglo=d),e!==void 0&&(b.sgl=e));c=c.e;a="/gen_204?s="+google.sn+"&t="+a+"&atyp=csi&ei="+google.kEI+"&rt=";g="";for(var k in b)a+=""+g+k+"."+b[k],g=",";for(var m in c)a+="&"+m+"="+c[m];k=a;var q=q===void 0?window.location:q;m="";n._cshid&&(m+="&cshid="+n._cshid);(a=window.google&&window.google.kOPI||null)&&(m+="&opi="+a);(a=M(q.search,"gemcid"))&&(m+="&gemcid="+a);(q=M(q.search,"gemrid"))&&(m+="&gemrid="+
-q);q=k+m;a:{try{var Y=window.navigator.sendBeacon(q,"");var Z=Y===void 0?!0:Y;break a}catch(wa){}Z=!1}Z||google.log("","",q)}};function ja(){z("cbt");P("cap")};var ma=function(a){this.g=a;this.l=[];var c=this.g.getAttribute("data-deferred");this.B=a.hasAttribute("data-noaft");this.i=!!c;if(c=!this.i)a:{for(c=0;c<ka.length;++c)if(a.getAttribute("data-"+ka[c])){c=!0;break a}c=!1}this.j=c;(c=a.src)&&this.j&&(this.D=c);!this.j&&c||a.setAttribute("data-lzy_","1");(this.A=this.B?!0:this.i||this.j?!1:!this.g.src||this.g.complete)||la(this);!google.c.wpr&&google.c.wh>10&&Q(this)},la=function(a){google.rll(a.g,!0,function(){var c=Date.now();if(a.D&&a.g.src===a.D||
-a.g.getAttribute("data-deferred")==="1")la(a);else if(!a.C){a.i&&a.g.setAttribute("data-deferred","3");a.C=c;a.g.setAttribute("data-iml",String(c));for(var d=0;d<a.l.length;++d)a.l[d](c);a.l.length=0}})},Q=function(a){a.v===void 0&&(a.v=google.cv(a.g),a.g.setAttribute("data-atf",String(a.v)));return a.v},ka="src bsrc url ll image img-url lioi".split(" ");google.c.iim=google.c.iim||{};var R=google.c.iim,na=0;function oa(a){var c=a.getAttribute("data-csiid")||google.kEI+"_"+String(++na);R[c]||(a.setAttribute("data-csiid",c),R[c]=new ma(a));return R[c]}function S(a,c){c=ea?fa(c||document):(c||document).getElementsByTagName("img");for(var d=0,b=c.length;d<b;++d)a(oa(c[d]))};function T(a,c,d){function b(g){l=Math.max(l,g);++h;f||e!==h||d(l)}var f=!0,e=0,h=0,l=0;S(function(g){a(g)&&(++e,g.C||g.A?b(g.C||0):g.l.push(b))});c();(f=!1,e!==h)||d(l)};var pa=!1,U=0,V=0,W=0,X;function qa(){X&&clearTimeout(X)}
-function ra(a,c){google.c.wh>10||(google.c.wh=Math.floor(document.documentElement.clientHeight));var d=google.c.wh;var b=!c,f=!W&&document.getElementById("rhs");c=c?Math.floor(c.getBoundingClientRect().top+window.pageYOffset):-1;f&&!b?(W=a,S(function(k){k.F=!0},f)):(f=b||google.c.wh>10&&c>=d,!V&&f&&(V=a,U=c));if(b&&V){var e=0,h=0,l=0,g=!1,v=!1;T(function(k){if(!(Q(k)&1))return!1;if(k.A)return++l,!k.B;Q(k)&4&&(k.F?v=!0:g=!0);k.i&&++h;++e;return!0},function(){A("ima",e);A("imad",h);A("imac",l);document.querySelector("[data-doodle]")&&
-A("ddl",1);var k=document.getElementById("eKIzJc");k&&(k=D(k),A("aio",k));A("wh",d)},function(k){k&&z("afti",k);U>0&&z("afts",V);W&&z("aftr",W);var m=V;W>m&&(m=W);k&&(k>m||g&&(!W||U<0)||v&&U>0)&&(m=k);z("aft",m,"trigger:SearchAFTEnd");google.c.q("frt",function(){qa();P("aft")});google.c.u("aft")})}};function sa(a){T(function(c){return!!(Q(c)&1)},function(){z("frts",a)},function(c){z("frvt",Math.max(c,a));google.c.u("frt")})};var ta=!1;google.c.wh=Math.floor(document.documentElement.clientHeight);google.c.b("prt");var ua=ca||0;if(ua>0){a:{if(r!==void 0){var va=ua-t();if(va>0){X=setTimeout(ja,va);break a}ja()}X=void 0}google.c.rq.push(qa)}google.c.maft=function(a,c){S(function(){});pa||(google.c.b("aft"),pa=!0);ra(a,c)};google.c.mfrvt=function(a){sa(a)};google.c.miml=function(a){function c(b){Q(b);return y&&!b.B&&(!b.j||!!(Q(b)&1))}function d(b){y&&z("iml",b||a);google.c.u("iml")}ta||(google.c.b("iml"),function(){T(c,function(){},d)}(0),ta=!0)};google.c.b("frt");google.c.ubf=!0;google.c.setup=function(a){a=oa(a);return!google.c.wpr&&google.c.wh>10?Q(a):null};}).call(this);(function(){function b(){for(var a=google.drc.shift();a;)a(),a=google.drc.shift()};google.drc=[function(){google.tick&&google.tick("load","dcl")}];google.dclc=function(a){google.drc.length?google.drc.push(a):a()};window.addEventListener?(document.addEventListener("DOMContentLoaded",b,!1),window.addEventListener("load",b,!1)):window.attachEvent&&window.attachEvent("onload",b);}).call(this);(function(){
-function e(a){var b=[],c=function(d){b.push(d)};return{c:a,q:b,et:[],etc:[],d:c,h:function(d){c({eventType:d.type,event:d,targetElement:d.target,eic:a,timeStamp:Date.now(),eia:void 0,eirp:void 0,eiack:void 0})}}}function f(a,b,c){for(var d=0;d<b.length;d++){var h=b[d];(c?a.etc:a.et).push(h);a.c.addEventListener(h,a.h,c)}};var g="click focusin focusout auxclick change copy dblclick beforeinput input keyup keydown keypress mousedown mouseenter mouseleave mousemove mouseout mouseover mouseup paste pointerdown pointerenter pointerleave pointerup touchstart touchmove touchend touchcancel transitioncancel transitionend transitionrun transitionstart animationcancel animationend dragover dragenter dragleave drop dragstart dragend scroll speech".split(" "),k=["focus","blur","error","load"];var l=e(window.document.documentElement);f(l,g);f(l,k,!0);window._ejsa=l;window.jsac_init=function(a){if(a){var b=document.getElementById(a);var c=c===void 0?window:c;b=e(b);c._ejsas||(c._ejsas={});c._ejsas[a]=b;f(b,g);f(b,k,!0)}};}).call(this);(function(){window.google.erd={jsr:1,bv:2496,sd:true,de:true,dpf:'SViy5_bVq5vVloGpbBx72WorM3mrCFWfPxBXhp7rYM4',c:'2e2a'};})();(function(){var sdo=false;var mei=10;var jstl=0;var diel=0;
-var f=this||self;var k,l=(k=f.mei)!=null?k:1,m,p=(m=f.diel)!=null?m:0,q,r=(q=f.sdo)!=null?q:!0;typeof jstl==="number"&&jstl>0&&(Error.stackTraceLimit=jstl);var t=0,u,v=google.erd,w=v.jsr;google.ml=function(a,b,c,n,e){e=e===void 0?2:e;b&&(u=a&&a.message);c===void 0&&(c={});c.cad="ple_"+google.ple+".aple_"+google.aple;if(google.dl)return google.dl(a,e,c,!0),null;b=c;if(w<0){window.console&&console.error(a,b);if(w===-2)throw a;b=!1}else b=!a||!a.message||a.message==="Error loading script"||t>=l&&!n?!1:!0;if(!b)return null;t++;c=c||{};b=encodeURIComponent;var d="&ei="+b(google.kEI);google.kEXPI&&(d+="&jexpid="+b(google.kEXPI));d+="&srcpg="+b(google.sn)+"&jsr="+b(v.jsr)+"&bver="+b(v.bv);v.dpf&&(d+="&dpf="+b(v.dpf));var g=a.lineNumber;g!==void 0&&(d+="&line="+g);var h=a.fileName;h&&(h.indexOf("-extension:/")>0&&(e=3),d+="&script="+b(h),g&&h===window.location.href&&(g=document.documentElement.outerHTML.split("\n")[g],d+="&cad="+b(g?g.substring(0,300):"No script found.")));google.ple&&google.ple===1&&(e=2);c&&v.c&&(c.ofc=String(v.c));d=d+("&jsel="+e)+"&ectx="+b(JSON.stringify(c));d+="&emsg=";d+=b(a.name+": "+a.message);d+="&jsst=";d+=b(a.stack||"N/A");d.length>=12288&&(d=d.substring(0,12288));a=d;c=("/gen_204?atyp=i"+a).substring(0,12288);n||(google.log(0,"",c),google.log(0,"",("/httpservice/retry/jserror?atyp=i"+a).substring(0,12288)));return c};window.onerror=function(a,b,c,n,e){u!==a&&(a=e instanceof Error?e:Error(a),c===void 0||"lineNumber"in a||(a.lineNumber=c),b===void 0||"fileName"in a||(a.fileName=b),google.ml(a,!1,void 0,!1,a.name==="SyntaxError"||a.message.substring(0,11)==="SyntaxError"||a.message.indexOf("Script error")!==-1?3:p));u=null;r&&t>=l&&(window.onerror=null)};})();(function(){history.replaceState(history.state,"",function(a,b){return b.replace(new RegExp("(\\?|&)"+a+"=[^&#]*(&?)"),function(e,c,d){return d?c:""})}("sg_ss",location.href));}).call(this);google.arwt=function(a){a.href=document.getElementById(a.id.substring(a.id.slice(0,3)==="vcs"?3:1)).href;return!0};(function(){google.eufsv=true;(function(){var e=function(){for(var a=Number(this),c=[],b=a;b<arguments.length;b++)c[b-a]=arguments[b];return c};function g(a){var c=e.apply(1,arguments).filter(Boolean).join("&");if(!c)return a;var b=a.match(/[?&]adurl=/);return b?a.slice(0,b.index+1)+c+"&"+a.slice(b.index+1):a+(a.indexOf("?")<0?"?":"&")+c}function h(a,c){return a===0?"ri=1":a===1?c?"ri=24":"ri=27":a===2?c?"ri=25":"ri=26":""}function k(a,c){return c?"&"+a+"="+encodeURIComponent(c):""}
-var l=function(a){var c=a.url;a=a.A;this.i=c;this.B=a;this.v=(new Date).getTime()-17040672E5;this.g={};for(var b=/[?&]([^&=]+)=([^&]*)/g;a=b.exec(c);)this.g[a[1]]=a[2]},m=function(a,c){return a.g[c]},p=function(a,c){if(a.g.dsh==="1")return null;var b=a.g.ae;if(b==="1"){var d=a.g.adurl;if(d)try{return{version:3,l:decodeURIComponent(d),j:g(a.i,"act=1",h(c,!0),n(a))}}catch(f){}}return b==="2"?{version:4,l:g(a.i,"dct=1","suid="+a.v,h(c,!1)),j:g(a.i,"act=1",h(c,!0),"suid="+a.v)}:null},q=function(a,c){return c===
-2?g(a.i,"ri=2"):c===0?g(a.i,"ri=16"):a.i},n=function(a){a=a.B;if(!a)return"";var c=k("uap",a.platform)+k("uapv",a.platformVersion)+k("uafv",a.uaFullVersion)+k("uaa",a.architecture)+k("uam",a.model)+k("uab",a.bitness);a.fullVersionList&&(c+="&uafvl="+encodeURIComponent(a.fullVersionList.map(function(b){return encodeURIComponent(b.brand)+";"+encodeURIComponent(b.version)}).join("|")));a.wow64!=null&&(c+="&uaw="+Number(a.wow64));return c.slice(1)};
-var r=/^\s*(?!javascript:)(?:[\w+.-]+:|[^:/?#]*(?:[/?#]|$))/i;var t=function(){var a=google.eufsv,c=this;this.g=null;(a===void 0?0:a)&&navigator.userAgentData&&navigator.userAgentData.getHighEntropyValues&&navigator.userAgentData.getHighEntropyValues("platform platformVersion uaFullVersion architecture model bitness fullVersionList wow64".split(" ")).then(function(b){c.g=b})};t.prototype.handle=function(a){var c=a.hasAttribute("data-ohref"),b=c?a.getAttribute("data-ohref"):a.href;c||a.setAttribute("data-ohref",b);c=m(new l({url:b}),"ch")===void 0?g(b,"ch=1"):b;b=new l({url:c,A:this.g});a:{var d=b.g.co;if(d==="1")d="https://www.googleadservices.com/pagead/conversion/16521530460/?gad_source=1&adview_type=3";else if(d==="2")d="https://www.google.com/pagead/1p-conversion/16521530460/?gad_source=1&adview_type=5";else break a;var f=b.g.gclid;f&&(d+="&adview_gclid="+f);navigator.sendBeacon(d,"")||v(d,!1)}a:{d=b.g.cce;if(d==="1")d=0;else if(d==="2")d=1;else{d=null;break a}f=g(b.i,"cc=1");var u=f.indexOf("?");d=u<0?null:{url:"https://www.googleadservices.com/pagead/aclk"+f.slice(u),method:d}}d&&(d.method===0?navigator.sendBeacon&&navigator.sendBeacon(d.url,""):d.method===1&&v(d.url,!0));w()&&b.g.ase==="5"?(b=p(b,2))?(a.attributionSrc=b.j,b=b.l):b="":b="";b||(b=this.g,b=new l({url:c,A:b===void 0?null:b}),b.g.dsh==="1"||b.g.aspm!=="1"?b=(d=p(b,0))?navigator.sendBeacon?navigator.sendBeacon(d.j,"")?d.l:q(b,2):q(b,0):c:(b=p(b,1))?(v(b.j,!0),b=b.l):b=c);b&&b!==a.href&&(c=b,r.test(c)&&(a.href=c))};function v(a,c){var b={keepalive:!0,mode:"no-cors"};c&&(b.credentials="include");fetch(a,b)}function x(a,c){var b=m(new l({url:a}),"nis");return b===c?a:b!==void 0?a.replace(/([?&])nis=[^&]*/,function(d,f){return f+"nis="+c}):g(a,"nis="+c)}function w(){var a;return!((a=document.featurePolicy)==null||!a.allowsFeature("attribution-reporting"))};var y=new t;google.ausb=function(a){if(!a)return google.ml(Error("a"),!1),!0;if(a.hasAttribute("data-impdclcc"))try{var c=a.hasAttribute("attributionsourceid")&&a.hasAttribute("attributiondestination")?"2":a.hasAttribute("attributionsrc")?w()?"6":"5":w()?"7":"8";var b=x(a.href,c);r.test(b)&&(a.href=b)}catch(d){}a.getAttribute("data-sbv2")&&y.handle(a);return!0};}).call(this);})();(function(){
-var c=this||self;function d(a){return a?a.closest("A"):null}function e(a){if(a=d(a.target))switch(a.getAttribute("data-agdh")){case "arwt":google.arwt(a);break;case "fvd3vc":c.J4LCUe(a);break;case "EdKoMd":(0,google.f.LmvwCb)(a)}return!0};window.document.documentElement.addEventListener("mousedown",e,!0);window.document.documentElement.addEventListener("touchstart",e,!0);window.document.documentElement.addEventListener("click",function(a){var b=d(a.target);if(b)switch(b.getAttribute("data-agch")){case "ausb":google.ausb(b);break;case "HJ3bqe":window.YvikHb(a,b);break;case "cqUJI":(0,google.f.DfwaCb)(b)}return!0},!0);}).call(this);/*CSH_START*//*CSH_END*/
-(function(){var t=2500;(function(){'use strict';function a(){var c=document.querySelectorAll("link[blocking=render]");for(let d of c)d.remove()}var b=t-performance.now();b>0?setTimeout(a,b):a();}).call(this);})();(function(){'use strict';
-var g=this||self;var m=g.JSON.parse,p=g.JSON.stringify;function q(b,a,d){(b=b.getItem(a+";;"+d))?(a=b.indexOf("_"),b=a<0?null:m(b.substr(a+1))):b=null;return b}function t(b,a,d,c,e="m",f=!0){var k=!1;try{if(e!="x"){var h=b=="s"?window.sessionStorage:window.localStorage,l=q(h,"_c","i")||0,n=p(l+1);h.setItem("_c;;i","p:*|l:9007199254740991_"+n);var r=l;n=h;h=a;l=d;var z=r,A=p(c);n.setItem(h+";;"+l,"p:"+e+"|l:"+(z+"_")+A);k=!0}}catch(D){}f&&(g.mPPkxd||(g.mPPkxd=[]),g.mPPkxd.push([k,arguments,r]))};var u=[{i:"data-vt-d",types:[]},{i:"data-vt-mb",types:["aimc","sb","mb"]},{i:"data-vt-rq",types:["rq"]},{i:"data-vt-spth",types:["spth"]},{i:"data-vt-lows",types:["lows"]},{i:"data-vt-stad",types:["stad"]},{i:"data-vt-msu-left",types:["mcsl","mbu","sb"]},{i:"data-vt-msu-right",types:["mcsr","mbu","sb"]}];function v(b,a,d){try{b?.viewTransition?.types?.clear();for(let c of a)b?.viewTransition?.types?.add(c)}catch(c){google.ml(c,!0,{src:d})}}
-function w(b){window.addEventListener("pageswap",a=>{v(a,b,"mpa_vt-ps");t("s","mpavt","mpa-vt-types",JSON.stringify(b));if(window.navigation){a=window.navigation.currentEntry?.getState()||{};a.g||(a.g={});var d;(d=a.g).next||(d.next={});a.g.next.types=b;window.navigation.updateCurrentEntry({state:a})}},{once:!0})};var x;window.addEventListener("pagereveal",async b=>{a:{try{var a=q(window.sessionStorage,"mpavt","mpa-vt-types");break a}catch(k){}a=null}var d=a;a=[];var c=window.navigation;c=c?.activation?.from&&c.activation.navigationType!=="reload"?c.activation.navigationType==="traverse"&&c.activation.entry&&c.activation.entry.index<c.activation.from.index?"b":"f":"o";if(d){c="f";a=JSON.parse(d);try{window.sessionStorage.removeItem("mpavt;;mpa-vt-types")}catch(k){}d=a;if(window.navigation){var e=window.navigation.currentEntry?.getState()||{};e.g||(e.g={});var f;(f=e.g).j||(f.j={});e.g.j.types=d||e.g.j.types;window.navigation.updateCurrentEntry({state:e})}}else window.navigation&&(f=window.navigation.currentEntry?.getState()?.g,a=c==="f"?f?.j?.types:c==="b"?f?.next?.types:[]);a=a||[];a.push(c);v(b,a,"mpa_vt-pr");try{await b?.viewTransition?.finished}finally{y()}},{once:!0});B();document.addEventListener("click",b=>{try{a:{for(let {i:d,types:c}of u)if(b.target?.closest(`[${d}]`)){var a=c;break a}a=[]}b=a;b.length>0?(B(),w(b)):y()}catch(d){google.ml(d,!0,{src:"mpa_vt-t"})}},{capture:!0,passive:!0});function C(){x||(x=document.createElement("style"),document.head.append(x));return x}function y(){C().textContent="@view-transition{navigation:none;}"}function B(){C().textContent="@view-transition{navigation:auto;}"};}).call(this);(function(){'use strict';window.addEventListener("pagereveal",async a=>{try{let b=a.viewTransition;if(b){await b.ready;a=[["root"],["sb"],["mb"],["ubi",!0],["mode-selector-underbar",!0]];for(let [h,d]of a)g(h,d)}}catch(b){google.ml(b,!0,{src:"mpa_vt-c"})}});function p(a){return Number(a.split("px")[0])}
-function g(a,b){var h=`::view-transition-group(${a})`,d=document.getAnimations().find(q=>q.effect?.pseudoElement===h);if(d){var l=d.effect,c=l.getKeyframes(),e=new DOMMatrix(c[0].transform),k=p(c[0].width),m=p(c[0].height),f=new DOMMatrix(c[1].transform),n=p(c[1].height);k/=p(c[1].width);b=b?m/n:k;var r=e.e;e=e.f;var t=f.e;f=f.f;a!=="sb"&&(e+m<0||f+n<0)&&d.cancel();l.setKeyframes([{transform:`translate(${r}px, ${e}px) scale(${k}, ${b})`,easing:c[0].easing},{transform:`translate(${t}px, ${f}px) scale(1, 1)`,easing:c[1].easing}])}};}).call(this);</script>      <link href="#ZnpjSd" blocking="render" rel="expect">    <style>::view-transition-old(sb){height:100%}::view-transition-new(sb){height:100%}@keyframes sb-slide-down-fade-in{0%{transform:scale(.5) translateY(-50px);opacity:0}20%{opacity:0}to{transform:scale(1) translateY(0);opacity:1}}@keyframes sb-slide-up-fade-out{0%{transform:scale(1) translateY(0);opacity:1}20%{opacity:0}to{transform:scale(.5) translateY(-50px);opacity:0}}@keyframes ubi-fade-in{0%{transform:translateY(-20px);opacity:0}20%{opacity:0}to{transform:translateY(0);opacity:1}}@keyframes ubi-fade-out{0%{transform:translateY(0);opacity:1}20%{opacity:0}to{transform:translateY(-20px);opacity:0}}html:active-view-transition-type(aimc)::view-transition-new(sb),html:active-view-transition-type(aimc)::view-transition-old(sb){height:100%}html:active-view-transition-type(aimc)::view-transition-old(sb):only-child{animation:sb-slide-up-fade-out .5s cubic-bezier(.38,.72,0,1) forwards}html:active-view-transition-type(aimc)::view-transition-new(sb):only-child{animation:sb-slide-down-fade-in .5s cubic-bezier(.38,.72,0,1) forwards}html:active-view-transition-type(aimc)::view-transition-new(mb),html:active-view-transition-type(aimc)::view-transition-old(mb){width:auto;animation-duration:.5s;animation-timing-function:cubic-bezier(.38,.72,0,1)}html:active-view-transition-type(aimc)::view-transition-group(*){transform-origin:top left}html:active-view-transition-type(aimc)::view-transition-new(ubi),html:active-view-transition-type(aimc)::view-transition-old(ubi){width:100%;height:100%;animation-duration:.5s;animation-timing-function:cubic-bezier(.38,.72,0,1)}html:active-view-transition-type(aimc)::view-transition-old(ubi):only-child{animation:ubi-fade-out .5s cubic-bezier(.38,.72,0,1)}html:active-view-transition-type(aimc)::view-transition-new(ubi):only-child{animation:ubi-fade-in .5s cubic-bezier(.38,.72,0,1)}html,body,h1,input,select{font-family:Arial,sans-serif}body,h1{font-size:var(--Mhs7de);}h1{font-weight:normal;margin:0;padding:0}h3{font-weight:normal;margin:0;padding:0;font-size:20px;line-height:1.3}body{margin:0;background:var(--xhUGwc);color:var(--YLNNHc);}a{color:var(--JKqx2);text-decoration:none;-webkit-tap-highlight-color:rgba(255,255,255,.1)}a:visited{color:#c58af9}a:hover{text-decoration:underline}a:hover h3{text-decoration:underline}a.a-no-hover-decoration:hover,a.a-no-hover-decoration:hover h3{text-decoration:none}cite,cite a:link,cite a:visited{color:#bdc1c6;font-style:normal}button{margin:0}ol li{list-style:none}ol,ul,li{margin:0;padding:0}input{font-size:var(--Mhs7de)}em{font-weight:bold;font-style:normal}.aCOpRe em,.yXK7lf em,.p4wth em,.ycrdod em{}.aCOpRe a em,.p4wth a em,.ycrdod a em{color:inherit}.z1asCe{display:inline-block;fill:currentColor;height:24px;line-height:24px;position:relative;width:24px}.z1asCe svg{display:block;height:100%;width:100%}:root{}.ynAwRc{color:var(--JKqx2)}a:visited .ynAwRc,a:visited.ynAwRc{color:#c58af9}.JIFdL{color:#8ab4f8}.NUnG9d{color:var(--YLNNHc);font-family:var(--YfiKf);font-size:var(--gOs6Bf);font-weight:var(--MzKBpd);line-height:var(--punZlc)}.kqEaA{color:var(--IXoxUe);font-family:var(--LI4Bo);font-size:var(--Mhs7de);font-weight:var(--ofwUBc);line-height:var(--XWv1if)}.N8MDs{font-family:Arial,sans-serif}.z8gr9e{color:var(--bbQxAb)}.x2sBq{color:#f28b82}.tGXccd{color:#81c995}.XEI2lf{color:#fff}.Q7PwXb{text-decoration:none}.NnEaBd{text-align:right}.xLQxIf{text-transform:capitalize}.uKdaQe{text-transform:lowercase}.MUmB9{text-transform:none}.xpdclps,.xpdxpnd{overflow:hidden}.xpdclps,.xpdxpnd{-webkit-transition:max-height 0.3s}.xpdxpnd,.xpdopen .xpdclps,.xpdopen .xpdxpnd.xpdnoxpnd{max-height:0}.xpdopen .xpdxpnd{max-height:none}.xpdopen .xpdbox .xpdxpnd,.xpdopen .xpdbox.xpdopen .xpdclps{max-height:0}.xpdopen .xpdbox.xpdopen .xpdxpnd,.xpdopen .xpdbox .xpdclps{max-height:none}.xpdclose .k5nfEc{display:none}html:not(.zAoYTe) [tabindex],html:not(.zAoYTe) [href],html:not(.zAoYTe) button,html:not(.zAoYTe) iframe,html:not(.zAoYTe) input,html:not(.zAoYTe) select,html:not(.zAoYTe) textarea{outline:0}.bNg8Rb{clip:rect(1px,1px,1px,1px);height:1px;overflow:hidden;position:absolute;white-space:nowrap;width:1px;user-select:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none}.btku5b{display:inline-block;vertical-align:middle;cursor:pointer}.btku5b,.brKmxb:focus-visible{outline:0;-webkit-tap-highlight-color:transparent}.niO4u::before,.niO4u::after{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:inherit}.btku5b:not([disabled]):hover .niO4u::after,.btku5b:not([disabled]):active .niO4u::after{content:'';z-index:-1}.btku5b:focus-visible .niO4u::after,.brKmxb:focus-visible .niO4u::after{content:'';outline:2px solid var(--Pa8Wlb);outline-offset:3px}.niO4u{display:flex;justify-content:center;position:relative;align-items:center;width:100%;z-index:0;box-sizing:border-box;padding:calc(8px - 1px) calc(16px - 1px);border:1px solid transparent;border-radius:9999px}.niO4u::before{content:'';height:48px;margin-top:-24px;top:50%}@media (forced-colors:active){.niO4u{border-color:ButtonBorder}}.btku5b[disabled]{cursor:auto}.btku5b[disabled] .niO4u{color:rgb(from var(--pEa0Bc) r g b/0.38)}.FR7ZSc[disabled]:not(.dmKIje):not([selected]) .niO4u,.zqrO0[disabled]:not(.dmKIje):not([selected]) .niO4u,.GQ0bde[disabled]:not(.dmKIje):not([selected]) .niO4u,.fqiILb.fqiILb[selected][disabled] .niO4u{border-color:var(--kloG3)}.r69FZ[disabled] .niO4u,.Bmegof[disabled] .niO4u,.expUPd[disabled] .niO4u,.qVhvac.qVhvac[selected][disabled] .niO4u{background:var(--YaIeMb)}@media (forced-colors:active){.btku5b.btku5b[disabled]{opacity:1;color:GrayText}.btku5b.btku5b.btku5b.btku5b.btku5b.btku5b[disabled] .niO4u{outline:1px solid GrayText}}.qVhvac[selected]{color:var(--xPpiM)}.qVhvac[selected]:hover .niO4u::after{background:rgb(from var(--Nsm0ce) r g b/0.08)}.qVhvac[selected] .niO4u{background:var(--KIZPne);border-color:transparent}.qVhvac[selected]:active .niO4u::after{background:rgb(from var(--Nsm0ce) r g b/0.24)}.vVVcqf{grid-column:span 7/-2}.vVVcqf{display:none}@media (min-width:800px){.vVVcqf{display:block}}body[data-sv-shown="1"] .TQc1id[data-csic="1"]{opacity:0;visibility:hidden;transition:opacity 150ms cubic-bezier(0.2,0,0,1),visibility 0s 150ms}#rhs{position:relative;padding-bottom:15px;}#rhs .VjDLd{border:1px solid #050607;padding-left:17px;padding-right:16px;position:relative;box-sizing:border-box}.s6JM6d .SwlyWb{display:none}#rhs .VjDLd{width:100%}.N4Xssf.vVVcqf,.TQc1id.N4Xssf{width:var(--rhs-width)}.k5T88b .nmrhhd{background:none !important;display:none !important}.N4Xssf .SwlyWb{background:none !important;display:none !important}.srp.DfE4Hf{--rhs-width:457px}@media (max-width:799.98px){.YNk70c .vVVcqf:not(.jBpNZc){display:block;grid-column:span 1/-1;margin-left:calc(36px + 20px);width:var(--rhs-width)}}html{scrollbar-gutter:stable}.YNk70c{display:grid;grid-template-columns:minmax(4px,4px) repeat(12,1fr) 4px;column-gap:12px}@media (min-width:684px){.YNk70c{grid-template-columns:minmax(4px,8px) repeat(12,calc(520px/12)) minmax(4px,8px)}}@media (min-width:692px){.YNk70c{grid-template-columns:minmax(0,1fr) repeat(12,36px) minmax(0,1fr);column-gap:20px}}@media (min-width:800px){.YNk70c{grid-template-columns:minmax(0,1fr) repeat(14,36px) minmax(0,1fr)}}@media (min-width:940px){.YNk70c{grid-template-columns:minmax(0,1fr) repeat(16,36px) minmax(0,1fr)}}@media (min-width:1164px){.YNk70c{grid-template-columns:minmax(0,210px) repeat(20,36px) minmax(0,210px)}}@media (min-width:1560px){.YNk70c{grid-template-columns:minmax(0,210px) repeat(20,36px) minmax(0,1fr)}}@media (max-width:359.98px){.YNk70c{column-gap:2px;grid-template-columns:minmax(0,14px) repeat(12,minmax(23.5px,1fr)) minmax(0,14px)}}.bzXtMb{grid-column:1/-1;max-width:100vw}.SLPe5b{grid-column:2/-2}.ufC5Cb{container-type:inline-size;grid-column:2/span 12}.KpqFHb .vVVcqf{grid-column:span 3/-2}@media (min-width:940px){.KpqFHb .ufC5Cb{grid-column:2/span 16}}.P3mIxe{grid-column:2/-1}.SxCvHe{grid-column:1}@media (max-width:799.98px){.cKhQJf .SxCvHe{background:var(--xhUGwc);box-shadow:10px 0 15px -15px rgba(23,23,23,0.6);margin-top:45px;top:72px;width:190px}.cKhQJf .SxCvHe .Pl4aJc{padding-right:20px}.cKhQJf .appbar{z-index:120}}@media (max-width:799.98px){.jBpNZc{width:0;overflow:hidden}}.GLcBOb{color:var(--IXoxUe);font-size:14px;font-family:Google Sans,Arial,sans-serif;position:relative;}.dURPMd{margin-top:6px}.KpqFHb .dURPMd{display:grid;grid-template-columns:repeat(12,minmax(0,1fr))}@media (min-width:940px){.KpqFHb .dURPMd{grid-template-columns:repeat(16,minmax(0,1fr))}}.yhQgZb{grid-column:1/-1}.V9qXjb{grid-column:1/span 12}.Fgyi2e{flex:1;position:relative;z-index:126}.Fgyi2e:empty{min-height:54px;}.wZQcA{position:relative;height:0;z-index:1;top:42px;}.wZQcA .BO2cCe{border-bottom:1px solid var(--Aqn7xd);}.rZj61{margin-top:-12px;}.beZ0tf{display:flex}.beZ0tf{margin-left:-16px}.BdqKIe .o0VWn{background-color:var(--xhUGwc)}.GG4mbd{padding-top:6px;max-width:861px;}.rQTE8b{display:flex;justify-content:space-between;flex:1}.rQTE8b .R0DW9c{z-index:200}.yeKjxb{display:flex;align-items:center;margin-right:8px}.mOKdDc{cursor:pointer}a.C6AK7c,a.C6AK7c:link,a.C6AK7c:visited,a.C6AK7c:hover,a.C6AK7c:active{-webkit-tap-highlight-color:transparent;text-decoration:none}a.C6AK7c:focus{outline-offset:-2px}a.C6AK7c.wbH0pd{-webkit-tap-highlight-color:rgba(255,255,255,.1)}.mXwfNd{display:flex;min-height:48px;padding:0 12px;align-items:end;}.R1QWuf{display:inline-block;white-space:nowrap;width:fit-content;font-family:var(--qR8X0);font-size:var(--hbmnje);line-height:20px;border-bottom:3px solid transparent;padding-bottom:8px}.R1QWuf,.M5dSnd{color:#80868b;font-weight:500;}[selected] .R1QWuf,[selected] .M5dSnd{border-bottom-color:var(--YLNNHc);}[selected] .R1QWuf,[selected] .M5dSnd,.mXwfNd:hover .R1QWuf,.mXwfNd:hover .M5dSnd,.rNHry:hover .R1QWuf,.mTpL7c:hover .R1QWuf,.mTpL7c:hover .M5dSnd,[aria-expanded="true"] .R1QWuf,[aria-expanded="true"] .M5dSnd{color:var(--YLNNHc);}.mVH5Fc{display:flex;align-items:center;padding-bottom:8px;border-bottom:3px solid transparent}.mVH5Fc .R1QWuf{padding-bottom:0;border-bottom:0}.rNHry .mXwfNd,.rNHry .R1QWuf{padding:0;border-bottom:0;min-height:auto}.FXBAof{padding-left:2px}[dir='ltr'],[dir='rtl']{unicode-bidi:-webkit-isolate;unicode-bidi:isolate}bdo[dir='ltr'],bdo[dir='rtl']{unicode-bidi:bidi-override;unicode-bidi:-webkit-isolate-override;unicode-bidi:isolate-override}.l{font-size:18px !important}.EE3Upf.lVm3ye.TElO2c.OSrXXb>a{font-size:18px !important}@-webkit-keyframes qs-timer {0%{}}.GyAeWb{}.srp{--center-abs-margin:180px;--center-width:652px;--rhs-margin:76px;--rhs-width:372px;--lhs-refinements-width:0px;--lhs-margin:24px;--lhs-width:calc(var(--center-abs-margin) - var(--lhs-margin) - var(--center-margin));--center-margin:24px;position:relative;min-height:100vh;}@media (min-width:1475px) and (max-width:1675px){.srp{--center-abs-margin:calc(25vw + -188.75px)}}@media (min-width:1675px){.srp{--center-abs-margin:230px}}@media (min-width:1124px) and (max-width:1300px){.srp{--center-abs-margin:calc((100vw - 1068px)/2)}}@media (max-width:1124px){.srp{--center-abs-margin:28px}}.eqAnXb{font-size:medium;font-weight:normal;}.main{width:100%;}.srp:not(.cKhQJf) .main.n48JGd{overflow-x:clip}.s6JM6d{position:relative;flex:0 auto;}.e9EfHf{font-family:Arial,sans-serif;clear:both;margin-left:0;box-sizing:border-box;min-height:100vh;padding-top:8px;}.appbar{position:relative;-webkit-box-sizing:border-box;}</style> </head><body jsmodel="hspDDf JfINdf" class="srp" jscontroller="Eox39d" data-dt="1" marginheight="3" topmargin="3" jsaction="rcuQ6b:npT2md" id="gsr"><style>.wYq63b{display:flex;left:0;position:absolute;top:0;z-index:1001}.S6VXfe{align-items:center;background-color:var(--xhUGwc);border-radius:0 2px 2px 0;box-shadow:0 2px 2px 0 rgba(0,0,0,.16),0 0 0 1px rgba(0,0,0,.08);display:flex;margin:80px auto 8px 0;overflow:hidden}.gyPpGe,.gyPpGe:visited,.qlVNAd{border:2px solid rgba(255,255,255,.16);border-radius:2px;color:#c58af9;cursor:pointer;display:inline-block;font-size:var(--hbmnje);line-height:20px;margin:6px 11px;min-height:32px;text-decoration:underline;text-align:center;width:106px}.gyPpGe:not(:focus){clip:rect(1px,1px,1px,1px);overflow:hidden;position:absolute;padding:0}.xrOgrb{padding-top:16px}.CvDJxb{width:100%;z-index:128;position:relative;padding:10px 0;overflow-x:clip}@media (max-width:499.98px){.VHFyob .CvDJxb{padding-top:10px}.VHFyob .CvDJxb .logo,.VHFyob .CvDJxb .Efnghe{margin-bottom:0;margin-top:6px}}#gb{min-width:unset;position:relative}.tsf{flex-grow:1;max-width:861px;}.NDnoQ{display:flex;justify-content:space-between;}.Q3DXx{display:flex}.Efnghe{padding-left:16px}@media (max-width:640px){.Efnghe{padding-left:8px}}@media (max-width:499.98px){.Efnghe{padding-left:0}}@media (max-width:499.98px){.P3mIxe{grid-column:2/-2}.Efnghe{display:none}.mxW9Je{height:25px;}.CvDJxb:not(.minidiv) .NDnoQ{flex-wrap:wrap;margin-top:-20px}.CvDJxb:not(.minidiv) .Efnghe{display:flex;height:48px;margin-bottom:8px;order:-1;width:100%}}.Efnghe{padding-top:2px}.CvDJxb iframe{color-scheme:light}.A8SBwf{--client-adapter-margin-base:var(--center-abs-margin);}.A8SBwf,.IormK{box-sizing:border-box;width:100%;}.RNNXgb{display:flex;z-index:3;position:relative;min-height:50px;background:#4d5156;border:1px solid transparent;box-shadow:none;border-radius:26px;margin:0 auto;box-sizing:border-box;width:100%;}@media (max-width:939.98px){html .A8SBwf{padding-left:0}}@media (min-width:940px) and (max-width:1460px){html .A8SBwf{margin-left:136px;width:calc(100% - 136px)}}@media (min-width:1461px){html .A8SBwf{margin-left:-20px}}.RNNXgb:hover{background:#303134;box-shadow:0 4px 12px rgba(23,23,23,.9);border-color:transparent;}.RNNXgb:hover{background:#5f6368;box-shadow:none}.logo{position:absolute;top:6px;left:0;padding:4px 44px 0 24px;left:-160px;}@media (max-width:939.98px){.logo{visibility:hidden}.FgNLaf{display:block;width:36px;height:36px;align-self:center;padding-left:8px}@media (max-width:499.98px){.P3mIxe .RNNXgb .SDkEP{padding:0 8px 0 2px}.FgNLaf,.RNNXgb .iblpc{display:none}.RNNXgb{flex-direction:row-reverse}.RNNXgb .HZVG1b{padding:0 2px 0 8px}.CvDJxb .c58wS{margin:0}.CvDJxb:not(.minidiv) .logo{left:0;top:-45px;margin:0;padding:0;width:100%;text-align:center;visibility:unset}}.minidiv .FgNLaf{height:32px;width:32px;padding-right:4px}.sbfc .FgNLaf,.emcav .FgNLaf,.BgPPrc .FgNLaf{display:none}.sbfc .SDkEP,.emcav .SDkEP,.BgPPrc .SDkEP{padding-left:14px}.SDkEP .iblpc{padding-left:3px;padding-right:0}.sbfc .iblpc,.emcav .iblpc,.BgPPrc .iblpc{padding-left:0}}.iblpc span{display:none}@media (min-width:1461px){.sbfc.A8SBwf,.emcav.A8SBwf,.BgPPrc.A8SBwf{width:calc(100% + 27px)}}@media (min-width:940px){.sbfc.A8SBwf,.emcav.A8SBwf,.BgPPrc.A8SBwf{transform:translateX(-27px)}}@media (min-width:940px) and (max-width:1460px){.sbfc.A8SBwf,.emcav.A8SBwf,.BgPPrc.A8SBwf{width:calc(100% - 109px)}}@media (min-width:0) and (max-width:1460px){.emcav.A8SBwf.pD4qTd{width:988px}}@media (min-width:1461px){.emcav.A8SBwf.pD4qTd{width:1148px}}#logo{overflow:hidden;position:relative;display:inline-block;}.hvhmMe{margin:auto}.Ty0Rrc{color:#9aa0a6}.gLFyf,.YacQv,.jOAti{font:16px Google Sans,Arial,sans-serif;line-height:40px;font-size:16px;flex:100%;line-height:39px}textarea.gLFyf,.YacQv,.jOAti{line-height:22px;border-bottom:8px solid transparent;padding-top:14px;overflow-x:hidden}textarea.gLFyf{white-space:nowrap;overflow:hidden}.gLFyf{resize:none;background-color:transparent;border:none;margin:0;padding:0 0 3px;color:#e8eaed;word-wrap:break-word;outline:none;display:flex;-webkit-tap-highlight-color:transparent}.a4bIc{display:flex;flex-wrap:wrap;flex:1;}.YacQv,.jOAti{color:transparent;white-space:pre;position:absolute;pointer-events:none;scrollbar-width:none}.YacQv span{text-decoration:#f28b82 dotted underline}.gLFyf::placeholder{color:var(--IXoxUe)}textarea.gLFyf{width:100%}.gLFyf.OVWmAd{display:block;position:absolute}.LNRLRe{white-space:nowrap;margin:20px;font-size:var(--Mhs7de);font-weight:bold;line-height:normal;color:#fff}.AeLhAe{font-weight:normal;border:1px solid #fff;border-radius:3px;padding:1px 3px 0 3px}.dRYYxd{display:flex;flex:0 0 auto;align-items:stretch;flex-direction:row;height:50px;}.ywK6Rd{background-color:inherit;display:flex;align-self:center}.BKRPef{background:transparent;align-items:center;flex:1 0 auto;flex-direction:row;display:flex;cursor:pointer;}.vOY7J{background:transparent;border:0;align-items:center;flex:1 0 auto;cursor:pointer;display:none;height:100%;line-height:44px;outline-offset:-2px;padding:0 12px;}.M2vV3{display:flex}.ExCKkf{height:100%;vertical-align:middle;outline:none;color:var(--bbQxAb)}.BKRPef{padding-right:4px}.ACRAdd{border-left:1px solid rgba(248, 249, 250, 0.25);height:65%;display:none}.ACRAdd.M2vV3{display:block}.fzj3ad{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;padding:0 8px;width:24px;line-height:44px;}.ByCvB{height:24px;width:24px;vertical-align:middle}.etxtjc{flex:1 0 auto;display:flex;cursor:pointer;align-items:center;border:0;background:transparent;padding:0 8px;width:24px;line-height:44px;}.hWdRGb{height:24px;width:24px;vertical-align:middle}.Tg7LZd{height:50px;width:44px;background:transparent;border:none;cursor:pointer;flex:0 0 auto;padding:0 13px 0 0}html:not(.zAoYTe) .Tg7LZd:focus{outline:none}.zgAlFc{background:none;color:var(--bbQxAb);height:24px;width:24px;margin:auto}@media (max-width:1300px){.A8SBwf:not(.pD4qTd) .IDVnvc{height:167px}.A8SBwf:not(.pD4qTd) .cRV9hb{width:79px}.A8SBwf:not(.pD4qTd) .aVbWac{height:79px}.A8SBwf:not(.pD4qTd) .aVbWac .sbic.vYOkbe{height:79px;width:79px}}.apFnFf{border-radius:9999px;color:rgba(255,255,255,.87);cursor:pointer;fill:rgba(255,255,255,.87);position:relative;white-space:nowrap;margin:4px 0 6px 0}.apFnFf:hover{background-color:rgba(60,64,67,.5)}.Qg9ale.OJeuxf:hover .niO4u::after{background-color:transparent}.Qg9ale.OJeuxf div.niO4u{background-color:transparent;border:none;height:40px;width:40px}#gb{height:0;padding-right:16px;width:unset}@media (max-width:499.98px){#gb{padding:0}#gb>div:first-child{flex-grow:1}.uZkjhb{width:100%}}</style><style>.gb_y{display:-webkit-box;display:-webkit-flex;display:flex;-webkit-box-pack:end;-webkit-justify-content:flex-end;justify-content:flex-end;width:100%}.gb_z{box-sizing:border-box;height:48px;padding:4px}.gb_A,.gb_B,.gb_C{-webkit-tap-highlight-color:rgba(0,0,0,0);-webkit-tap-highlight-color:transparent;box-sizing:border-box;float:right;outline:none}.gb_D{box-sizing:border-box;display:inline-block;height:48px;outline:none;padding:4px;position:relative}.gb_E{display:none}.gb_F{display:block}.gb_H,.gb_I,.gb_J{fill:currentColor;color:#444746;color:var(--og-svg-color,var(--gm3-sys-color-on-surface-variant,#444746))}.gb_K .gb_H,.gb_K .gb_I,.gb_K .gb_J{color:#c4c7c5;color:var(--og-svg-color,var(--gm3-sys-color-on-surface-variant,#c4c7c5))}.gb_L .gb_C,.gb_M .gb_C,.gb_N .gb_C{cursor:pointer;padding:8px}.gb_O,.gb_P{display:none}.gb_y a.gb_A{border-radius:100px;background:#0b57d0;background:var(--gm3-sys-color-primary,#0b57d0);box-sizing:border-box;color:#fff;color:var(--gm3-sys-color-on-primary,#fff);display:inline-block;font-size:14px;font-weight:500;min-height:40px;outline:none;padding:10px 24px;text-align:center;text-decoration:none;white-space:normal;line-height:18px;position:relative;font-family:Google Sans Text,Roboto,Helvetica,Arial,sans-serif;min-width:85px;padding:10px 12px}.gb_y.gb_K a.gb_A{background:#c2e7ff;background:var(--gm3-sys-color-secondary-fixed,#c2e7ff);color:#001d35;color:var(--gm3-sys-color-on-secondary-fixed,#001d35)}.gb_2{-webkit-box-orient:vertical;-webkit-line-clamp:2;max-height:40px;max-width:100%;overflow:hidden;overflow-wrap:break-word;word-break:break-word}.gb_T{fill:#1a73e8;margin:4px}.gb_K .gb_T{fill:#8ab4f8}@media (max-width:640px){.gb_y a.gb_A{min-width:75px}}.gb_V,.gb_W{position:absolute}.gb_W{right:0;top:0}.gb_V{right:-1px;top:-1px;width:42px}.gb_C{background-color:transparent;background-position:50%;background-repeat:no-repeat;border:0;display:inline-block;height:40px;padding:4px;position:relative;width:40px}.gb_X{border-radius:50%}.gb_C .gb_0.gb_1,.gb_Z{display:none}.gb_0{display:none}.gb_Q,.gb_R{display:none}sentinel{}@font-face{font-family:'Google Sans';font-style:normal;font-weight:400 700;font-feature-settings:"calt" 0,"liga" 0;font-display:optional;src:url(//fonts.gstatic.com/s/googlesans/v29/4UaGrENHsxJlGDuGo1OIlL3Owp4.woff2)format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}</style><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var w=["Google Sans",[400,500,700]];(function(){for(var a=0;a<w.length;a+=2)for(var b=w[a],e=w[a+1],d=0,c=void 0;c=e[d];++d)b==="Noto Color Emoji"?document.fonts.load(c+" 10pt "+b,"\ud83c\uddfa\ud83c\uddf8").catch(function(){}):document.fonts.load(c+" 10pt "+b).catch(function(){})})();})();(function(){setTimeout(function(){var a=document.querySelector(".medCX");a&&a.classList.remove("medCX")},1E4);}).call(this);</script><noscript><style>table,div,span,p{display:none}</style><meta content="0;url=/httpservice/retry/enablejs?sei=iE1laqfPEI2IosUP4tOE-Qs" http-equiv="refresh"><div style="display:block">Please click <a href="/httpservice/retry/enablejs?sei=iE1laqfPEI2IosUP4tOE-Qs">here</a> if you are not redirected within a few seconds.</div></noscript><div jscontroller="EufiNb" class="wYq63b" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q7LoDCAQ"><div class="S6VXfe"><a jsname="BKxS1e" class="gyPpGe" role="link" tabindex="0" jsaction="i3viod;focus:a0Q7Qd" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q67oDCAU">Skip to main content</a><a jsname="KI37ad" class="gyPpGe" href="https://support.google.com/websearch/answer/181196?hl=en-PH" jsaction="focus:a0Q7Qd" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QwcMDCAY" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;url=https://support.google.com/websearch/answer/181196%3Fhl%3Den-PH&amp;ved=0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QwcMDCAY&amp;opi=89978449">Accessibility help</a></div></div><div class="xrOgrb"></div><span jscontroller="Zby8rf" class="LoygGf" data-cls="VHFyob" data-h="70" data-mode="6" style="height:70px" jsaction="rcuQ6b:npT2md;MDuPYe:pcqARd"><div jsname="P9ya7d" class="Xx7Mif E5eFb" style="height:70px"><div class="CvDJxb YNk70c" id="searchform"><div class="NDnoQ P3mIxe"><form class="tsf" action="/search" id="tsf" autocomplete="off" data-submitfalse="q" method="GET" name="f" role="search"> <div jsmodel="b5W85 vNzKHd" jsdata="MuIEvd;_;iE1laqfPEI2IosUP4tOE-Qs1"> <div jscontroller="cnjECf" jsmodel="kjkykd EPRt9d LM7wx Qlyryb EtCx8b Ip3Erc L97mud zmptHf CoyuFb           YHnUBc" class="A8SBwf" data-alt="true" data-biboe="false" data-blu="https://lens.google.com" data-expids="" data-hp="false" jsdata="LVplcb;_;" jsaction="lX6RWd:w3Wsmc;aaFXSd:k0wtTd;ocDSvd:duwfG;XmGRxb:mVw6nb;R6Slyc:F3goue;FU8dpd:VH3XBb;DkpM0b:d3sQLd;IQOavd:dFyQEf;XzZZPe:jI3wzf;Aghsf:AVsnlb;iHd9U:Q7Cnrc;f5hEHe:G0jgYd;vmxUb:j3bJnb;XBqW7:ihYaWc;UkQk6c:VSb4De;nTzfpf:YPRawb;CudXPd:iu9yrc;R2c5O:LuRugf;qiCkJd:ANdidc;Q3vWPd:FtWxqb;NOg9L:HLgh3;zLdLw:eaGBS;H9muVd:J4e6lb;S8pxKe:u3rcXd;hBEIVb:nUZ9le;acb7qb:H8sTz;by9jW:LGmyb;rcuQ6b:npT2md"><div class="logo"><a aria-label="Go to Google Home" href="https://www.google.com/webhp?hl=en&amp;sa=X&amp;ved=0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QPAgI" title="Go to Google Home" id="logo" data-hveid="8"><svg aria-hidden="true" height="30" viewBox="0 0 92 30" width="92" xmlns="http://www.w3.org/2000/svg"><path fill="#fff" d="M83.4 23.08a7.4 7.4 0 0 0 6.34-3.52l-2.3-1.5a4.8 4.8 0 0 1-3.9 2.2 4.6 4.6 0 0 1-3.99-2.4l10.33-4.39a7 7 0 0 0-.28-1.07c-1.23-3.16-3.38-4.6-6.28-4.6-4.42 0-7.43 3.22-7.43 7.68 0 4.56 3.17 7.6 7.5 7.6m-4.51-7.61v-.17c0-2.93 1.68-4.9 4.32-4.9 1.26 0 2.39.57 3.15 1.9zM74.3 2.41h-3.08v20.23h3.08zM61.77 29.2q7.18 0 7.17-8.22V8.23h-2.93v1.8h-.06c-.92-1.43-2.66-2.23-4.62-2.23-4.24 0-6.82 3.23-6.82 7.54 0 4.3 2.51 7.46 6.93 7.46a5.5 5.5 0 0 0 4.47-2.26h.1v1.31c0 2.9-1.5 4.6-4.29 4.6-1.82 0-3.03-1-3.92-2.68l-2.66 1.17c1.4 2.96 3.4 4.26 6.63 4.26m0-9.2c-2.59 0-4.24-1.9-4.24-4.75 0-2.74 1.64-4.71 4.25-4.71s4.23 1.83 4.23 4.7c0 2.9-1.7 4.76-4.24 4.76m-16.01 3.1c4.44 0 7.6-3.24 7.6-7.72 0-4.4-3.12-7.67-7.6-7.67-4.24 0-7.57 3-7.57 7.67 0 4.45 3.15 7.73 7.57 7.73m0-2.68c-2.68 0-4.56-2.2-4.56-5.04s1.98-4.99 4.56-4.99c2.73 0 4.57 2.2 4.57 5 0 2.87-1.88 5.03-4.57 5.03M29.33 23.1c4.41 0 7.6-3.23 7.6-7.72 0-4.4-3.12-7.67-7.6-7.67-4.23 0-7.57 3-7.57 7.67 0 4.45 3.15 7.73 7.57 7.73m0-2.68c-2.68 0-4.56-2.2-4.56-5.04s1.98-4.99 4.56-4.99c2.73 0 4.57 2.2 4.57 5 0 2.87-1.88 5.03-4.57 5.03M10.35 23.1c5.89.06 9.9-3.9 9.9-9.98q0-.75-.14-1.7h-9.8v2.93h6.87c-.36 3.83-3.06 5.82-6.76 5.82-4.15 0-7.33-3.12-7.33-7.66 0-4.47 3.03-7.6 7.33-7.6 2.16 0 3.76.67 5.35 2.3l2.05-2.14c-1.8-2.1-4.4-3.1-7.44-3.1-5.9 0-10.49 4.43-10.49 10.5 0 5.8 4.43 10.58 10.46 10.64"></path></svg></a></div><div jsname="RNNXgb" class="RNNXgb" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q3tUDCAk"><a class="FgNLaf" href="https://www.google.com/webhp?hl=en&amp;ictx=0&amp;sa=X&amp;ved=0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpYkNCAo" id="_iE1laqfPEI2IosUP4tOE-Qs_1" data-hveid="10"></a><div class="SDkEP"><div jsname="uFMOof" class="iblpc"><div class="hvhmMe"><span class="Ty0Rrc z1asCe MZy1Rb" style="height:20px;line-height:20px;width:20px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></span></div></div><div jscontroller="vZr2rb" jsname="gLFyf" class="a4bIc" data-mnr="4" jsaction="KjsqPd;input:Lg5SV;blur:fpfTEe;paste:V64iSc;mousedown:LhvU2e"><div jsname="vdLsw" class="YacQv"></div><div jsname="aJyGR" jscontroller="xMclgd" class="gLFyf OVWmAd" jsaction="rcuQ6b:npT2md"><g-snackbar jsname="nH91he" jscontroller="OZLguc" style="display:none" data-dismiss="" jsshadow=""><div jsname="sM5MNb" aria-live="polite" class="jhZvod"><div jsname="Ng57nc" class="Wu0v9b v0rrvd" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q4G8ICw"><div class="b77HKf"><div jsname="bN97Pc" class="rIxsve" jsslot="" style="display:none"><span class="Txngnb wHYlTd yUTMj LNRLRe">Press <span class="AeLhAe">/</span> to jump to the search box</span></div></div></div></div></g-snackbar></div><textarea jsname="yZiJbe" class="gLFyf" aria-controls="Alh6id" aria-owns="Alh6id" aria-label="Search" placeholder="" aria-autocomplete="both" aria-expanded="false" aria-haspopup="false" autocapitalize="off" autocomplete="off" autocorrect="off" id="APjFqb" maxlength="2048" name="q" role="combobox" rows="1" spellcheck="false" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q39UDCAw">https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php</textarea></div><div class="fM33ce dRYYxd">   <div jscontroller="PymCCe" jsname="RP0xob" class="BKRPef">  <div class="vOY7J M2vV3" jsname="pkjasb" aria-label=" Clear" role="button" tabindex="0" jsaction="AVsnlb;rcuQ6b:npT2md" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q05YFCA0">   <span jsname="itVqKe" class="ExCKkf z1asCe rzyADb"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></span>  </div> <span jsname="s1VaRe" class="ACRAdd M2vV3"></span> </div> <div jsname="UdfVXc" class="ywK6Rd"><div jscontroller="unV4T" jsname="F7uqIe" class="fzj3ad" aria-label="Search by voice" role="button" tabindex="0" jsaction="h5M12e;rcuQ6b:npT2md;KHxBOb:EANhx;hATt5e:AkD3se;CQJmec:efDZmf" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qvs8DCA4"><svg class="ByCvB" aria-hidden="true" focusable="false" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg"><path fill="var(--bbQxAb)" d="M480-400q-50 0-85-35t-35-85v-240q0-50 35-85t85-35q50 0 85 35t35 85v240q0 50-35 85t-85 35Zm-40 280v-123q-104-14-172-93t-68-184h80q0 83 58.5 141.5T480-320q83 0 141.5-58.5T680-520h80q0 105-68 184t-172 93v123h-80Z"></path></svg></div><div jscontroller="lpsUAf" jsname="R5mgy" class="etxtjc" data-is-images-mode="false" aria-label="Search by image" role="button" tabindex="0" jsaction="rcuQ6b:npT2md;h5M12e;AMruCe:Zpug7c" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QhqEICA8"><svg class="hWdRGb" aria-hidden="true" focusable="false" viewbox="0 -960 960 960" xmlns="http://www.w3.org/2000/svg"><path fill="var(--bbQxAb)" d="M480-320q-50 0-85-35t-35-85q0-50 35-85t85-35q50 0 85 35t35 85q0 50-35 85t-85 35Zm240 160q-33 0-56.5-23.5T640-240q0-33 23.5-56.5T720-320q33 0 56.5 23.5T800-240q0 33-23.5 56.5T720-160Zm-440 40q-66 0-113-47t-47-113v-80h80v80q0 33 23.5 56.5T280-200h200v80H280Zm480-320v-160q0-33-23.5-56.5T680-680H280q-33 0-56.5 23.5T200-600v120h-80v-120q0-66 47-113t113-47h80l40-80h160l40 80h80q66 0 113 47t47 113v160h-80Z"></path></svg></div></div></div></div><button class="HZVG1b Tg7LZd" jsaction="pointerdown:trigger.acb7qb" jsname="Tg7LZd" aria-label="Search" type="submit" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q4dUDCBA">  <div class="zgAlFc"> <span class="z1asCe MZy1Rb"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg></span> </div> </button><div jsname="mvaK7d" class="M8H8pb" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q4d8ICBE"></div></div><div id="_iE1laqfPEI2IosUP4tOE-Qs_5"></div></div>  <script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){
-var a=this||self;var c=document.querySelector("form");if(c){var d=function(b){b.key!=="Enter"||b.shiftKey||(b.preventDefault(),c.submit&&c.submit())};c.addEventListener("keydown",d);a.sbmlhf=d};}).call(this);</script>   </div> <div id="tophf"><input name="sca_esv" value="46714cf388915209" type="hidden"><input name="sxsrf" value="APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280" type="hidden"><input value="iE1laqfPEI2IosUP4tOE-Qs" name="ei" type="hidden"></div></form><div class="Q3DXx Efnghe"><div class="apFnFf" jscontroller="Wct42" data-dt="" data-ho="1" data-sem="epsd1 rimspwouoe" data-sf="110" data-sm="1" role="button" tabindex="0" jsaction="KjsqPd;rcuQ6b:npT2md;nY9Cyd:KjsqPd;yoKyEf:CLN7sd;nVW9lb:HR5wBe;tfcxtb:ImCKxc" aria-label="Share" jsdata="B34zmc;_;iE1laqfPEI2IosUP4tOE-Qs6" data-hveid="27" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QxMsQCBs"><div class="Qg9ale btku5b zqrO0 dmKIje OJeuxf"><div class="niO4u KnB5rb"><span class="Qg9ale"><svg height="22" width="22" aria-hidden="true" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"></path></svg></span></div></div><div id="_iE1laqfPEI2IosUP4tOE-Qs_13"></div></div><span class="gb" style="display:none"></span><div jscontroller="SJpD2c" jsname="uZkjhb" class="uZkjhb" data-cca="" jsaction="rcuQ6b:npT2md;YQNWc:MMAZpe;zWO23b:FPeyVe" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QnJQPCCw"><header class="gb_y gb_K gb_Ld" id="gb" role="none"><div class="gb_L gb_Cd gb_8" data-ogsr-fb="true" data-ogsr-alt="" id="gbwa"><div class="gb_D"><a class="gb_C" aria-label="Google apps" href="https://www.google.com.ph/intl/en/about/products?tab=wh" aria-expanded="false" role="button" tabindex="0"><svg class="gb_H" aria-hidden="true" focusable="false" viewbox="0 0 24 24"><path d="M6,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM6,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM12,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM16,6c0,1.1 0.9,2 2,2s2,-0.9 2,-2 -0.9,-2 -2,-2 -2,0.9 -2,2zM12,8c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,14c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2zM18,20c1.1,0 2,-0.9 2,-2s-0.9,-2 -2,-2 -2,0.9 -2,2 0.9,2 2,2z"></path><image src="https://ssl.gstatic.com/gb/images/bar/al-icon.png" alt="" height="24" width="24" style="border:none;display:none \9"></image></svg></a></div></div><div class="gb_z" data-ogsr-up=""><a class="gb_C gb_7a" aria-label="Google Account: Renowee Beloy  &#10;(renoweebeloy536@gmail.com)" href="https://accounts.google.com/SignOutOptions?hl=en&amp;continue=https://www.google.com/search%3Fq%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;ec=futura_srp_og_si_72236_p" aria-expanded="false" aria-haspopup="true" role="button" tabindex="0"><div class="gb_W"><svg focusable="false" height="40px" version="1.1" viewbox="0 0 40 40" width="40px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="opacity:1.0"><path d="M4.02,28.27C2.73,25.8,2,22.98,2,20c0-2.87,0.68-5.59,1.88-8l-1.72-1.04C0.78,13.67,0,16.75,0,20c0,3.31,0.8,6.43,2.23,9.18L4.02,28.27z" fill="#F6AD01"></path><path d="M32.15,33.27C28.95,36.21,24.68,38,20,38c-6.95,0-12.98-3.95-15.99-9.73l-1.79,0.91C5.55,35.61,12.26,40,20,40c5.2,0,9.93-1.98,13.48-5.23L32.15,33.27z" fill="#249A41"></path><path d="M33.49,34.77C37.49,31.12,40,25.85,40,20c0-5.86-2.52-11.13-6.54-14.79l-1.37,1.46C35.72,9.97,38,14.72,38,20c0,5.25-2.26,9.98-5.85,13.27L33.49,34.77z" fill="#3174F1"></path><path d="M20,2c4.65,0,8.89,1.77,12.09,4.67l1.37-1.46C29.91,1.97,25.19,0,20,0l0,0C12.21,0,5.46,4.46,2.16,10.96L3.88,12C6.83,6.08,12.95,2,20,2" fill="#E92D18"></path></svg></div><img class="gb_X" src="https://lh3.googleusercontent.com/ogw/AF2bZyjFcSYf8pGinSmH_cQaGk2lGQE1YLRKsoRftWNBOxCUsA=s32-c-mo" srcset="https://lh3.googleusercontent.com/ogw/AF2bZyjFcSYf8pGinSmH_cQaGk2lGQE1YLRKsoRftWNBOxCUsA=s32-c-mo 1x, https://lh3.googleusercontent.com/ogw/AF2bZyjFcSYf8pGinSmH_cQaGk2lGQE1YLRKsoRftWNBOxCUsA=s64-c-mo 2x " alt="" aria-hidden="true" data-noaft=""><div class="gb_0 gb_1" aria-hidden="true"><svg class="gb_Sa" height="14" viewBox="0 0 14 14" width="14" xmlns="http://www.w3.org/2000/svg"><circle class="gb_Ta" cx="7" cy="7" r="7"></circle><path class="gb_Va" d="M6 10H8V12H6V10ZM6 2H8V8H6V2Z"></path></svg></div></a></div></header><div jsname="hJoEPd" style="display:none" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QxMIJCC0"></div><div jsname="micRse" style="display:none" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q7JsICC4"></div><div jsname="t5CbBf" style="display:none" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QraQMCC8"></div><div jsname="Du1Fsb" style="display:none" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QzegNCDA"></div><div jsname="ZOjQVc" style="display:none"></div><div jsname="rEatab" style="display:none" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q7fYTCDE"></div><div jsname="NG1V7d" style="display:none" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8JsICDI"></div><div jsname="IZKNDc" style="display:none" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8ZsICDM"></div><div jsname="tP7ayb" style="display:none" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q65sICDQ"></div><div jsname="uO6mde" style="display:none" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8psICDU"></div><g-snackbar jsname="PWj1Zb" jscontroller="OZLguc" style="display:none" jsshadow=""><div jsname="sM5MNb" aria-live="polite" class="LH3wG"><div jsname="Ng57nc" class="yK6jqe" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q4G8INg"><div class="b77HKf"><div jsname="bN97Pc" class="rIxsve" jsslot="" style="display:none"><span class="Txngnb wHYlTd yUTMj">Something went wrong. Your history wasn't deleted.</span></div></div></div></div></g-snackbar></div></div></div></div></div></span><span class="kp-collapsed-osrp kpshf line gsr bilit big mdm" style="display:none"></span><div jsmodel=" " class="main n48JGd" id="main"><div jsmodel=" ROaKxe" class="e9EfHf" id="cnt"><div class="mxW9Je" id="sfcnt"></div><div class="Fgyi2e wZQcA"><span jscontroller="uUzMF" jsaction="rcuQ6b:npT2md" data-c="3"><div jsname="KbJTVc" class="zLSRge w2jn8d" style="z-index:999"></div></span></div><div id="ZnpjSd"></div><style>:root{--COEmY:var(--YLNNHc);--xhUGwc:#22242a}:root{--vZe0jb:#515a7b;--nwXobb:var(--vZe0jb);--VuZXBd:#eef0ff;--uLz37c:#c3c6d6;--jINu6c:#eef0ff;--TyVYld:#8ab4f8;--ZEpPmd:#515a7b;--QWaaaf:var(--ZEpPmd);--DEeStf:#242832;--TSWZIb:#2c303d;--BRLwE:#3a3f50;--gS5jXb:#444746;--Aqn7xd:var(--gS5jXb);--EpFNW:#1f1f1f;--Xqboce:#fff;--IXoxUe:#9e9e9e;--bbQxAb:#bfbfbf;--YLNNHc:#e8e8e8;--TMYS9:#a8c7fa;--JKqx2:#99c3ff;--rrJJUc:#a8c7fa;--mXZkqc:#444746;--JclFj:#444746;--Nsm0ce:#a8c7fa;--vdwxpe:#0b57d0;--ywz01c:#fdd663;--XKMDxc:#2c2e35;--aYn2S:#363840;--Lm570b:#42444d}:root{--amnPwe:#9e9e9e;--ZXiaGf:#202124;--EoKObe:#fff;--cIehld:var(--xhUGwc);--ONhrGd:#444746;--gVUKcd:rgba(0,0,0,0.6);--jwFC2e:#213da0;--yTtsEf:#c4eed0}.Xx7Mif{contain:style;position:relative}.E5eFb{width:100%;contain:size style}.LoygGf{width:100%;display:block}.CTOaxb{position:fixed;top:0;left:0;contain:size layout style}.OMqmfd{position:sticky;top:0}.zLSRge{border-bottom:1px solid var(--gS5jXb)}.AX1Qf{position:absolute;left:50vw;width:1px;height:2px;visibility:hidden;pointer-events:none}.oDzakc{display:inline-block;float:left}.wXpfVb{position:relative;top:-1px;width:100%;height:0}.DpgmK,.Enb9pe,.FAoEle,.LwDUdc,.MTIaKb,.RlTCPd,.RoOVmf,.V3Ezn,.Vnob4b,.YKUhfb,.aVsZpf,.bbxTBb,.caNvfd,.dIfvQd,.iQMtqe,.kJSB8,.mYuoaf,.tUr4Kc,.uNnvb,.wPNfjb{--Yi4Nb:var(--mXZkqc);--pEa0Bc:var(--bbQxAb);--kloG3:var(--mXZkqc);--YaIeMb:var(--XKMDxc);--Pa8Wlb:var(--Nsm0ce);--izGsqb:var(--Nsm0ce);--todMNcl:var(--EpFNW);--p9J9c:var(--Nsm0ce)}:root{--KIZPne:#34517d;--xPpiM:#eef0ff;--Ehh4mf:var(--Nsm0ce)}:root{--pEa0Bc:#bfbfbf;--Pa8Wlb:#a8c7fa;--YaIeMb:#28292a;--Yi4Nb:#444746;--ngPXTb:var(--rrJJUc);--hwEqod:var(--jINu6c);--kloG3:#444746;--lv6yU:#a8c7fa;--Wmwad:#b1c5ff;--vWq1if:var(--jINu6c);--Ijc2tf:#2c303d;--VeLyLc:#eef0ff;--fuvksc:#a8c7fa;--gJjJk:#b1c5ff;--LMFHUd:var(--jINu6c);--Zia6nf:var(--BRLwE);--y01ou:#eef0ff;--p9J9c:#a8c7fa;--MoaHse:#b1c5ff;--CRMNZd:var(--jINu6c);--izGsqb:#a8c7fa;--todMNc:#202124;--NoaQW:#eef0ff;--qdHZF:rgba(0,0,0,.6);--V9ysqf:var(--EoKObe);--PBxOKe:#1f1f1f;--MV2sG:#2c2e35;--bcxd3b:var(--YLNNHc);--D9aNi:rgba(232,232,232,0.08)}.dmKIje.dmKIje .niO4u{border-color:transparent}.dmKIje[selected]{color:var(--xPpiM)}.zqrO0{color:var(--uLz37c)}.zqrO0 .niO4u{background:var(--xhUGwc);border-color:var(--Yi4Nb)}.zqrO0 .niO4u{border-color:var(--amnPwe)}.zqrO0:hover .niO4u:after{background:rgb(from var(--uLz37c) r g b / 0.08)}.zqrO0:active .niO4u:after{background:rgb(from var(--uLz37c) r g b / 0.24)}:root{--nkmQOe:Arial,sans-serif;--a9X0Jc:24px;--z3BFIe:16px;--XWliwc:400;--LI4Bo:Arial,sans-serif;--XWv1if:22px;--Mhs7de:14px;--ofwUBc:400;--YfiKf:Arial,sans-serif;--punZlc:16px;--gOs6Bf:12px;--MzKBpd:400;--IT7y3c:Google Sans,Arial,sans-serif;--hPDMFf:36px;--Ia70Xd:28px;--Vyi8yc:400;--Aoh9Xe:Google Sans,Arial,sans-serif;--qYGXw:28px;--qpdFp:22px;--JT4IPc:400;--rTk0E:Google Sans,Arial,sans-serif;--Ok3irf:24px;--uBdgTe:18px;--Zf9Xnd:400;--qR8X0:Google Sans,Arial,sans-serif;--CbdmE:20px;--hbmnje:14px;--Oycjt:500;--qBwyqb:Arial,sans-serif;--nUOqEc:16px;--cMTvjf:12px;--CUS15e:500;--Eou8Yc:Google Sans,Arial,sans-serif;--qWZYEc:26px;--GiToJf:20px;--p2Lqxe:400;--ztTqPe:Google Sans,Arial,sans-serif;--C74x2e:24px;--gyu5L:16px;--Yoa6qd:400;--lI1Trc:Arial,sans-serif;--HIyEKc:18px;--ZNg88:14px;--qjVU3d:400}.QuU3Wb{margin-top:6px}.B6OMee.B6OMee{width:calc(16px + var(--CbdmE));height:calc(16px + var(--CbdmE))}.TcBmm.TcBmm{width:calc(16px + var(--nUOqEc));height:calc(16px + var(--nUOqEc))}.KnB5rb.KnB5rb{width:calc(24px + var(--CbdmE));height:calc(24px + var(--CbdmE))}.OJeuxf.OJeuxf .niO4u{margin:0 auto;padding:0}.OJeuxf .niO4u:before{width:48px;margin-left:-24px;left:50%}.v0rrvd{padding-bottom:16px}.jhZvod{bottom:0;height:0;position:fixed;z-index:999;left:16px;right:auto}.Wu0v9b{box-sizing:border-box;visibility:hidden;position:relative}@media (min-width:569px) and (min-height:569px){.jhZvod{text-align:center}.Wu0v9b{display:inline-block;max-width:568px;min-width:288px;text-align:left}}.zJUuqf{margin-bottom:4px}.AB4Wff{margin-left:16px}@keyframes g-snackbar-show{0%{pointer-events:none;transform:translateY(0)}to{transform:translateY(-100%)}}@keyframes g-snackbar-hide{0%{transform:translateY(-100%)}to{transform:translateY(0)}}@keyframes g-snackbar-show-content{0%{opacity:0}}@keyframes g-snackbar-hide-content{to{opacity:0}}.LH3wG{bottom:0;height:0;position:fixed;z-index:999}.yK6jqe{box-sizing:border-box;visibility:hidden}.rTYTNb{animation:g-snackbar-hide .4s cubic-bezier(0.4,0,0.2,1) both;visibility:inherit}.UewPMd.UewPMd{animation:g-snackbar-show .5s cubic-bezier(0.4,0,0.2,1) both;visibility:inherit}.b77HKf{background-color:#3c4043;padding:0 24px}@media (forced-colors:active){.b77HKf{border:1px solid CanvasText}}.rIxsve{align-items:center;display:flex}.rTYTNb .rIxsve{animation:g-snackbar-hide-content .35s cubic-bezier(0.4,0,0.2,1) both}.UewPMd .rIxsve{animation:g-snackbar-show-content .35s cubic-bezier(0.4,0,0.2,1) .15s both}.Txngnb.Txngnb{line-height:20px}.Txngnb{color:#fff;flex:1 1 auto;margin:14px 0;word-break:break-word}@media (min-width:569px) and (min-height:569px){.LH3wG{text-align:center}.yK6jqe{display:inline-block;max-width:568px;min-width:288px;text-align:left}.b77HKf{border-radius:8px}}.LH3wG{left:0;right:0}.yK6jqe{position:relative}.mqsAne{margin-bottom:env(safe-area-inset-bottom)}html:active-view-transition-type(sb) .RNNXgb{view-transition-name:sb}.SDkEP{flex:1;display:flex}.SDkEP{padding:0 4px 0 0}.minidiv .SDkEP{padding-top:0}.M8H8pb{position:absolute;top:0;left:0;right:0;padding:inherit}.M8H8pb{width:100%}.A8SBwf.BgPPrc .XWrYL{display:block;margin-right:8px}.A8SBwf{margin:0 auto}.A8SBwf{position:relative}.iblpc{display:flex}.iblpc{align-items:center}.iblpc{padding-right:6px}.iblpc{padding-left:14px}.iblpc{margin-top:-2px}.iblpc{margin-top:0;height:50px}.yUTMj{font-family:Arial,sans-serif;font-weight:400}.wHYlTd{font-family:var(--LI4Bo);font-size:var(--Mhs7de);line-height:var(--XWv1if)}</style><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){google.tick("load","sct",void 0,"SearchBodyStart");}).call(this);</script><div class="Fgyi2e rZj61" data-st-cnt="fb"></div><style>.rfiSsc{position:relative;}.sBbkle{display:flex;height:max-content}.TrmO7{white-space:nowrap;flex:1;min-width:0;position:relative;z-index:126;padding-top:8px;margin-bottom:-8px;}.xhjkHe{position:relative;display:flex;flex:1;min-width:0}@media (min-width:1460px){.aAbqZ .xhjkHe{margin-left:-20px;max-width:861px}}.xhjkHe .TrmO7{width:0}@media (max-width:1435px){.xhjkHe.CEXVle:not(.YoVbHc){width:calc(100% - 155px)}}@media (max-width:1300px){.xhjkHe.YoVbHc{width:calc(var(--center-width) + 4px)}}.sBbkle{justify-content:space-between}@media (max-width:1163.98px){.y3NyWc{max-width:100vw;width:auto}.y3NyWc .TrmO7{min-width:0}}</style><div class="rfiSsc YNk70c"><div class="sBbkle P3mIxe"><div class="xhjkHe"><div class="TrmO7" data-st-cnt="mode"></div></div></div></div><h1 class="bNg8Rb">Search Results</h1><style>.Qe0THe{z-index:1101;position:absolute;top:-1000px}@keyframes pulse-animation {0%{opacity:1}50%{animation-timing-function:cubic-bezier(0,0,1,1);opacity:0.5}100%{opacity:1}}</style><div jscontroller="HYSCof" class="gke0pe" data-push-down-results="true" data-st-u="top_nav" id="top_nav" jsdata="Z1JpA;_;iE1laqfPEI2IosUP4tOE-Qs7" role="presentation" jsaction="rcuQ6b:npT2md"><div class="GLcBOb" id="hdtb"><div jscontroller="sHZ92c" class="pZvJc" id="tn_iE1laqfPEI2IosUP4tOE-Qs_1" jsaction="rcuQ6b:npT2md;L7T4N:iA74Xe"></div></div></div><div id="before-appbar"><div id="_iE1laqfPEI2IosUP4tOE-Qs_17"></div></div><div class="Qe0THe OLKT8d" id="lb"></div><div class="appbar" data-st-cnt="appbar" id="appbar"><div data-st-tgt="appbar"><style>.c4bKff{min-height:12px;-webkit-transition:height .22s ease-in-out}</style><div style="margin-top:12px"></div><div style="position:relative"><div class="c4bKff" id="slim_appbar"></div></div></div></div> <div id="_iE1laqfPEI2IosUP4tOE-Qs_28" role="presentation"></div>  <div class="YNk70c CuvrIe EjQTId"><div class="SLPe5b"><div data-iatvcap="1" data-st-cnt="atvcap" id="atvcap"></div></div></div><div class="NbTBrb YNk70c EjQTId uW3HW GyAeWb" id="rcnt"><div class="s6JM6d ufC5Cb ZPOWwb EYIWQc" id="center_col" data-csic="1" role="main"><style>.vt6azd{margin:0px 0px 30px}.Ww4FFb .mnr-c:not(:empty),.mnr-c:not(:empty) .Ww4FFb{box-shadow:none;margin-bottom:0px}.VDgVie{text-align:center}.OSrXXb{overflow:hidden;text-overflow:ellipsis}.cHaqb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.MBeuO{font-size:var(--GiToJf)}.MBeuO{font-weight:var(--p2Lqxe)}.MBeuO{font-family:var(--Eou8Yc)}.MBeuO{line-height:var(--qWZYEc)}.jbBItf{display:block;position:relative}.DU0NJ{bottom:0;left:0;position:absolute;right:0;top:0}.lP3Jof{display:inline-block;position:relative}.nNMuOd{animation:qli-container-rotate 1568.2352941176ms linear infinite}@keyframes qli-container-rotate{0%{transform:rotate(0)}to{transform:rotate(1turn)}}.RoKmhb{height:100%;opacity:0;position:absolute;width:100%}.nNMuOd .VQdeab{animation:qli-fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,qli-blue-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both}.nNMuOd .IEqiAf{animation:qli-fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,qli-red-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both}.nNMuOd .smocse{animation:qli-fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,qli-yellow-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both}.nNMuOd .FlKbCe{animation:qli-fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both,qli-green-fade-in-out 5332ms cubic-bezier(0.4,0,0.2,1) infinite both}.BSnLb .nNMuOd .RoKmhb{animation:qli-fill-unfill-rotate 5332ms cubic-bezier(0.4,0,0.2,1) infinite both;opacity:0.99}@keyframes qli-fill-unfill-rotate{0%{transform:rotate(0)}12.5%{transform:rotate(135deg)}25%{transform:rotate(270deg)}37.5%{transform:rotate(405deg)}50%{transform:rotate(540deg)}62.5%{transform:rotate(675deg)}75%{transform:rotate(810deg)}87.5%{transform:rotate(945deg)}to{transform:rotate(3turn)}}@keyframes qli-blue-fade-in-out{0%{opacity:0.99}25%{opacity:0.99}26%{opacity:0}89%{opacity:0}90%{opacity:0.99}to{opacity:0.99}}@keyframes qli-red-fade-in-out{0%{opacity:0}15%{opacity:0}25%{opacity:0.99}50%{opacity:0.99}51%{opacity:0}}@keyframes qli-yellow-fade-in-out{0%{opacity:0}40%{opacity:0}50%{opacity:0.99}75%{opacity:0.99}76%{opacity:0}}@keyframes qli-green-fade-in-out{0%{opacity:0}65%{opacity:0}75%{opacity:0.99}90%{opacity:0.99}to{opacity:0}}.beDQP{display:inline-block;height:100%;overflow:hidden;position:relative;width:50%}.FcXfi{box-sizing:border-box;height:100%;left:45%;overflow:hidden;position:absolute;top:0;width:10%}.SPKFmc{border-radius:50%;border:3px solid transparent;box-sizing:border-box}@media (forced-colors:active),(prefers-contrast:more){.beDQP:last-child .SPKFmc{border:none}}.x3SdXd{width:200%}.J7uuUe{transform:rotate(129deg)}.sDPIC{left:-100%;transform:rotate(-129deg)}.tS3P5{left:-450%;width:1000%}.VQdeab .SPKFmc{border-color:#4487f6}.IEqiAf .SPKFmc{border-color:#ff7769}.smocse .SPKFmc{border-color:#824300}.FlKbCe .SPKFmc{border-color:#219540}.RoKmhb .J7uuUe{border-bottom-color:transparent;border-right-color:transparent}.RoKmhb .sDPIC{border-bottom-color:transparent;border-left-color:transparent}.RoKmhb .tS3P5{border-bottom-color:transparent}.GgTJWe .nNMuOd .J7uuUe{animation:qli-left-spin 1333ms cubic-bezier(0.4,0,0.2,1) infinite both}.GgTJWe .nNMuOd .sDPIC{animation:qli-right-spin 1333ms cubic-bezier(0.4,0,0.2,1) infinite both}.BSnLb .nNMuOd .J7uuUe{animation:qli-left-spin 1333ms cubic-bezier(0.4,0,0.2,1) infinite both;border-left-color:var(--EpFNW);border-top-color:var(--EpFNW)}.BSnLb .nNMuOd .sDPIC{animation:qli-right-spin 1333ms cubic-bezier(0.4,0,0.2,1) infinite both;border-right-color:var(--EpFNW);border-top-color:var(--EpFNW)}.BSnLb .nNMuOd .tS3P5{border-color:var(--EpFNW);border-bottom-color:transparent}@keyframes qli-left-spin{0%{transform:rotate(130deg)}50%{transform:rotate(-5deg)}to{transform:rotate(130deg)}}@keyframes qli-right-spin{0%{transform:rotate(-130deg)}50%{transform:rotate(5deg)}to{transform:rotate(-130deg)}}.FR7ZSc{color:var(--ngPXTb)}.FR7ZSc .niO4u{background:transparent;border-color:var(--Yi4Nb)}.FR7ZSc:hover .niO4u:after{background:rgb(from var(--lv6yU) r g b / 0.0824)}.FR7ZSc:active .niO4u:after{background:rgb(from var(--lv6yU) r g b / 0.224)}.iRPzcb{border-bottom:1px solid var(--gS5jXb)}.lUn2nc{padding-right:12px}.eY4mx{padding-left:12px}.rNSxBe{padding-bottom:20px}.IjabWd{margin-left:2px}.iTPLzd:hover .D6lY4c{background-color:#373839}.xTFaxe{color:var(--IXoxUe)}.D6lY4c{height:22px;width:22px;position:absolute;border-radius:11px;left:50%;transform:translateX(-50%);text-align:center}.D6lY4c{display:flex;justify-content:center;align-items:center}.D6lY4c:before{content:"";position:absolute;width:24px;height:24px;top:0;left:0}.iTPLzd{cursor:pointer;top:0}.iTPLzd{left:0;width:28px}.iTPLzd{z-index:1}.iTPLzd{line-height:16px}.iTPLzd.APQRre{height:18px;width:18px}.byrV5b{align-items:center;display:flex;flex-direction:row}.nwox1b{padding-top:6px}.O4saGe{vertical-align:'top'}.tF2Cxc{position:relative}.yuRUbf{font-weight:normal;font-size:small;line-height:1.5800000429153442;}.IsZvec{max-width:48em;color:#bdc1c6;line-height:1.5800000429153442}.b8lM7{display:flex;flex-direction:column-reverse}.V9tjod,.V9tjod .LC20lb,.V9tjod .ESMNde{text-wrap:wrap;transform:scaleY(-1)}.V9tjod .LC20lb{margin:3px 0 0}.zReHs:hover{text-decoration:none}a:hover h3.LC20lb{text-decoration:underline}.LC20lb{display:inline-block;margin-bottom:3px;}.DKV0Md{padding-top:4px;padding-top:5px;}.DKV0Md,.Z3xoIb{margin-top:0;}.HGLrXd{display:inline-block;-webkit-text-size-adjust:none}.q0vns{display:inline-block;padding-bottom:2px;padding-top:1px}.ojE3Fb{padding:0;flex:0 1 auto;max-width:calc(100% - 36px);min-width:0}.ojE3Fb .q0vns{display:flex;padding:0;overflow:hidden;align-items:center;}.GvPZzd{font-size:var(--gOs6Bf);line-height:18px;max-width:max-content;overflow-x:hidden;text-overflow:ellipsis;width:100%}.H9lube{background-color:#fff;border:1px solid var(--JclFj);border-radius:50%;display:inline-flex;justify-content:center;align-items:center;height:26px;width:26px;margin-right:12px;flex-shrink:0;vertical-align:middle;}.eqA2re.NjwKYd{margin-right:0}.Vwoesf:not(.oRVWZ){display:inline-block}.Vwoesf{vertical-align:middle}.XNo5Ab.XNo5Ab{display:block;}.VuuXrf{color:var(--YLNNHc);font-size:var(--ZNg88);display:block;line-height:20px;white-space:nowrap;overflow-x:hidden;text-overflow:ellipsis;width:auto;}.CA5RN{overflow:hidden}.ob9lvb{color:#bdc1c6;font-size:var(--gOs6Bf);}.ylgVCe{color:#bdc1c6}.B6fmyf{max-height:0;position:relative;top:19px;visibility:hidden}.B6fmyf.Mg1HEd{height:auto}.csDOgf{display:inline;visibility:visible}.csDOgf.BCF2pd.ezY6nb,.csDOgf.L48a4c{height:18px}.csDOgf{flex:0 0 auto;margin-left:8px;position:relative}.csDOgf.L48a4c{margin-top:16px}.csDOgf .MJ8UF{padding-left:0;padding-right:0;position:relative;}.p4wth{font-family:var(--LI4Bo);font-size:var(--Mhs7de);font-weight:var(--ofwUBc);line-height:var(--XWv1if);color:var(--bbQxAb);}.VwiC3b{word-break:break-word}.Hdw6tb{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}.SwU7oc{padding-left:calc(36px/2 + 0px);width:100%;margin-left:0;margin-left:0;margin-top:6px;}.ZPOWwb .SwU7oc,.ZPOWwb .SwU7oc tbody,.ZPOWwb .SwU7oc tr,.ZPOWwb .SwU7oc td{display:block}.om4jw{margin-bottom:7px}.hGkN0{margin-top:5px}.mslg td{padding-right:6px;padding-top:4px;}.dmenKe td{padding-bottom:4px;padding-top:12px}.c9EJob td{padding-bottom:4px}.mslg td{vertical-align:top}.mslg .l{font-weight:var(--p2Lqxe);}.mslg .dUH2Zd{position:relative}.mslg .dUH2Zd a.l::after{bottom:0;content:'';cursor:pointer;left:0;position:absolute;right:0;top:0}.s6JM6d .mslg .usJj9c{border:1px solid transparent;border-radius:2px;border-radius:2px;margin-top:0px;padding:3px 0 3px 0;-webkit-transition:opacity .2s ease;transition:opacity .2s ease;width:100%;}.usJj9c{display:inline-block;position:relative;width:100%}.usJj9c .zz3gNc{overflow:hidden;color:#bdc1c6;max-width:568px;overflow-x:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%;margin-bottom:-3px;font-weight:var(--ofwUBc);}#gevUs .mslg h3{display:block;}.mONHtb{display:flex;align-items:center}.l0hqVd{position:absolute;right:0;top:0.65em;width:60px;height:60px;}.fMW8kc{border-radius:100px;position:absolute;right:0;top:0.45em;width:36px;height:36px}.Y2By6d{background-image:url('data:image/svg+xml,\00003csvg focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\00003cpath fill="%239E9E9E" d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z">\00003c/path>\00003c/svg>');height:24px;margin-left:auto;margin-right:auto;margin-top:0.3em;width:24px}html[dir='rtl'] .Y2By6d{transform:scaleX(-1)}.uil1Hd{padding-right:56px}.D33W6b{font-family:var(--Eou8Yc);}.Qr6egd{line-height:0;position:relative}.Qr6egd{margin-left:16px}.Qr6egd .bHPMwb::after{content:attr(data-tooltip-text);position:absolute;top:50%;left:100%;transform:translateY(-50%);background-color:var(--XKMDxc);color:var(--YLNNHc);padding:4px 8px;border-radius:4px;border:1px solid var(--mXZkqc);line-height:16px;font-size:12px;white-space:nowrap;opacity:0;visibility:hidden;transition:opacity 0.3s ease,visibility 0.3s ease;margin-left:8px;z-index:9}.Qr6egd .bHPMwb:hover::after,.Qr6egd .bHPMwb:focus-within::after{opacity:1;visibility:visible}.Gwptse{min-height:24px;display:inline-flex;align-items:center}.E5IKVc{margin-top:30px}</style><div id="taw"><div id="oFNiHe" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QL3oECAsQAw"></div><div id="tvcap"><div data-aqid="iE1lar_FFtWGs8IP7oqdsQE" id="tads" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QGHoECAsQBA"><div class="GUyUUb" data-hb="t" data-vcap="1"><div></div></div><div class="GUyUUb" data-hb="t" data-vcap="1"><div></div></div></div></div></div><div class="eqAnXb" id="gevUs"><div id="topstuff"></div><div id="search"><div data-hveid="CAsQBg" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QGnoECAsQBg"><div class="dURPMd" eid="iE1laqfPEI2IosUP4tOE-Qs" data-async-context="query:https%3A%2F%2Fraw.githubusercontent.com%2FPHPMailer%2FPHPMailer%2Fmaster%2Fsrc%2FPHPMailer.php" id="rso"><div class="MjjYud"><div class="A6K0A" data-rpos="0"><div class="Ww4FFb vt6azd" data-hveid="CA8QAA"><h2 class="bNg8Rb">Web Result with Site Links</h2><div class="kbSIic"><div class="k7vlx"><div class="Y6JuXb"><div lang="en" data-hveid="CBAQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIEBAA"><div style="position:relative" class="tF2Cxc"><div class="yuRUbf"><div class="b8lM7"><span class="V9tjod" jsaction="trigger.mLt3mc"><a jsname="UWckNb" class="zReHs" href="https://github.com/phpmailer/phpmailer" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECA0QAQ" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://github.com/phpmailer/phpmailer&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECA0QAQ"><h3 class="LC20lb MBeuO DKV0Md" id="_iE1laqfPEI2IosUP4tOE-Qs_39">PHPMailer/PHPMailer: The classic email sending library ...</h3><br><div class="notranslate ESMNde HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="H9lube"><div class="eqA2re NjwKYd Vwoesf" aria-hidden="true"><img class="XNo5Ab" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX////4+Pi3ubtvcnZNUVU+Q0cpLjLr6+x3en0sMTYkKS59gIORk5aUl5n8/Pzw8PFTV1tbX2Pc3d5DSEzn5+g3PECLjpFKTlKFh4qxs7XCxMUuMze/wcLh4uPV1tZzd3o/Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA+KkidVAa/WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV/eC2H3e0C7lk1aBEzd+7SpigJOZVoXx+J5UxzADil+8+KZYoRaK5y2WZxSdgm0j+dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y+EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII=" style="height:18px;width:18px" alt=""></div></span></span><div class="CA5RN"><div><span class="VuuXrf">GitHub</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://github.com<span class="ylgVCe ob9lvb" role="text"> › phpmailer › phpmailer</span></cite></div></div></div></div></a></span><div class="B6fmyf byrV5b Mg1HEd"><div class="HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="H9lube"><div class="eqA2re XXS2Kd NjwKYd" style="height:18px;width:18px"></div></span></span><div class="CA5RN"><div><span class="VuuXrf">GitHub</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://github.com<span class="ylgVCe ob9lvb" role="text"> › phpmailer › phpmailer</span></cite></div></div></div></div><div class="csDOgf BCF2pd ezY6nb L48a4c"><div jsdata="l7Bhpb;_;iE1laqfPEI2IosUP4tOE-Qs15" jscontroller="i8S0p" id="atritem-_iE1laqfPEI2IosUP4tOE-Qs_40" jsslot="" jsaction="rcuQ6b:npT2md;h5M12e" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2esEegQIDRAJ"><div class="MJ8UF iTPLzd rNSxBe eY4mx lUn2nc" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_39" aria-label="About this result" role="button" tabindex="0"><span class="D6lY4c"><span class="xTFaxe z1asCe" style="height:18px;line-height:18px;width:18px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></span></div></div></div></div></div></div><div class="IsZvec"><div class="VwiC3b yXK7lf p4wth r025kc Hdw6tb" style="-webkit-line-clamp:2"><span>The classic email sending library for <em>PHP</em>. Contribute to <em>PHPMailer</em>/<em>PHPMailer</em> development by creating an account on <em>GitHub</em>.</span></div></div></div></div></div></div><table class="SwU7oc wHYlTd" aria-label="Personalized recommendations based on your history" cellpadding="0" cellspacing="0" role="group"><tr class="mslg dmenKe"><td class="cIkxbf"><div class="om4jw iRPzcb"></div><div class="dUH2Zd"><div class="usJj9c"><div><div class="uil1Hd"><div><span class="mONHtb"><h3 class="D33W6b"><a class="l" href="https://github.com/PHPMailer/PHPMailer/blob/master/src/SMTP.php" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QmuEJegQIFRAB" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://github.com/PHPMailer/PHPMailer/blob/master/src/SMTP.php&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QmuEJegQIFRAB">PHPMailer/src/SMTP.php at ...</a></h3><span class="l0hqVd"><span jscontroller="pF8uhd" class="Qr6egd" data-delete-url="/async/on_srp_privacy_delete?authuser=0&amp;data=GjBBRjV0U080ZS10WTI5bVdISXJTQTgtSV91azBVYlYzQkR3OjE3ODUwMjM4ODA1MjgiSwo_aHR0cHM6Ly9naXRodWIuY29tL1BIUE1haWxlci9QSFBNYWlsZXIvYmxvYi9tYXN0ZXIvc3JjL1NNVFAucGhwENv-xd3Mr4CDIg%3D%3D" data-flagship="0" data-popup-client-side-rendering="1" data-utm-campaign="stateful_controls" jsdata="MvppLb;_;iE1laqfPEI2IosUP4tOE-Qs14" jsaction="XJ59If:xJbJS"><span class="bHPMwb" data-tooltip-text="Manage your page visits"><div jsname="hyP9Qc" aria-label="Manage your page visits for PHPMailer/src/SMTP.php at ..." jsaction="trigger.XJ59If" role="button" tabindex="0" class="btku5b FR7ZSc OJeuxf" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QqqYLegQIFRAC"><div class="niO4u B6OMee"><span style="height:18px;line-height:18px;width:18px" class="z1asCe dAmgBb"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"></path></svg></span></div></div></span><span jsname="WGFGYc" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q6LENegQIFRAE"></span></span></span></span><div class="zz3gNc">&lt;?php /** * PHPMailer RFC821 SMTP email transport class ...<br></div></div></div></div></div></div></td></tr><tr class="mslg c9EJob"><td class="cIkxbf"><div class="om4jw iRPzcb"></div><div class="dUH2Zd"><div class="usJj9c"><div><div class="uil1Hd"><div><span class="mONHtb"><h3 class="D33W6b"><a class="l" href="https://github.com/PHPMailer/PHPMailer/blob/master/src/Exception.php" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QmuEJegQIFBAB" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://github.com/PHPMailer/PHPMailer/blob/master/src/Exception.php&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QmuEJegQIFBAB">Exception.php</a></h3><span class="l0hqVd"><span jscontroller="pF8uhd" class="Qr6egd" data-delete-url="/async/on_srp_privacy_delete?authuser=0&amp;data=GjBBRjV0U080ZS10WTI5bVdISXJTQTgtSV91azBVYlYzQkR3OjE3ODUwMjM4ODA1MjgiUApEaHR0cHM6Ly9naXRodWIuY29tL1BIUE1haWxlci9QSFBNYWlsZXIvYmxvYi9tYXN0ZXIvc3JjL0V4Y2VwdGlvbi5waHAQue_fhpS13dg-" data-flagship="0" data-popup-client-side-rendering="1" data-utm-campaign="stateful_controls" jsdata="MvppLb;_;iE1laqfPEI2IosUP4tOE-Qs13" jsaction="XJ59If:xJbJS"><span class="bHPMwb" data-tooltip-text="Manage your page visits"><div jsname="hyP9Qc" aria-label="Manage your page visits for Exception.php" jsaction="trigger.XJ59If" role="button" tabindex="0" class="btku5b FR7ZSc OJeuxf" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QqqYLegQIFBAC"><div class="niO4u B6OMee"><span style="height:18px;line-height:18px;width:18px" class="z1asCe dAmgBb"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 3a9 9 0 0 0-9 9H1l3.89 3.89.07.14L9 12H6c0-3.87 3.13-7 7-7s7 3.13 7 7-3.13 7-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.954 8.954 0 0 0 13 21a9 9 0 0 0 0-18zm-1 5v5l4.28 2.54.72-1.21-3.5-2.08V8H12z"></path></svg></span></div></div></span><span jsname="WGFGYc" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q6LENegQIFBAE"></span></span></span></span><div class="zz3gNc">&lt;?php /** * PHPMailer Exception class. * PHP Version 5.5 ...<br></div></div></div></div></div></div></td></tr><tr class="mslg c9EJob"><td class="cIkxbf"><div class="om4jw iRPzcb"></div><div class="dUH2Zd"><div class="usJj9c"><div><div class="uil1Hd"><div><h3 class="D33W6b"><a class="l" href="https://github.com/phpmailer" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QjBB6BAgTEAE" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://github.com/phpmailer&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QjBB6BAgTEAE">Sign in<span class="fMW8kc"><div class="Y2By6d"></div></span></a></h3><div class="zz3gNc">The classic email sending library for PHP. PHPMailer has 4 ...<br></div></div></div></div></div></div></td></tr><tr class="mslg c9EJob"><td class="cIkxbf"><div class="om4jw iRPzcb"></div><div class="dUH2Zd"><div class="usJj9c"><div><div class="uil1Hd"><div><h3 class="D33W6b"><a class="l" href="https://github.com/phpmailer/phpmailer/releases" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QjBB6BAgREAE" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://github.com/phpmailer/phpmailer/releases&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QjBB6BAgREAE">Releases<span class="fMW8kc"><div class="Y2By6d"></div></span></a></h3><div class="zz3gNc">The classic email sending library for PHP. Contribute to ...<br></div></div></div></div></div></div></td></tr><tr class="mslg c9EJob"><td class="cIkxbf"><div class="om4jw iRPzcb"></div><div class="dUH2Zd"><div class="usJj9c"><div><div class="uil1Hd"><div><h3 class="D33W6b"><a class="l" href="https://github.com/PHPMailer/PHPMailer/blob/master/README.md" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QjBB6BAgSEAE" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://github.com/PHPMailer/PHPMailer/blob/master/README.md&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QjBB6BAgSEAE">README.md<span class="fMW8kc"><div class="Y2By6d"></div></span></a></h3><div class="zz3gNc">Probably the world&#39;s most popular code for sending email from ...<br></div></div></div></div></div></div></td></tr><tr class="mslg"><td class="cIkxbf"><div class="om4jw iRPzcb"></div><div class="dUH2Zd"><div class="usJj9c"><div><div class="uil1Hd"><div><h3 class="D33W6b"><a class="l" href="https://github.com/PHPMailer/PHPMailer?client_id=377658945.1782345602&amp;session_id=1782345602" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QjBB6BAgWEAE" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://github.com/PHPMailer/PHPMailer%3Fclient_id%3D377658945.1782345602%26session_id%3D1782345602&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QjBB6BAgWEAE">PHPMailer/PHPMailer<span class="fMW8kc"><div class="Y2By6d"></div></span></a></h3><div class="zz3gNc">... PHP. Contribute to PHPMailer/PHPMailer development by ...<br></div></div></div></div></div></div><div class="om4jw hGkN0 iRPzcb"></div></td></tr><tr><td class="O4saGe" colspan="2"><div class="nwox1b"><a class="Gwptse fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php+site:github.com&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QrAN6BAgPEAE">More results from github.com&nbsp;&raquo;</a></div></td></tr></table></div></div></div><g-loading-icon class="E5IKVc jbBItf GgTJWe VDgVie" style="height:30px;min-width:30px"><div class="lP3Jof nNMuOd" style="height:30px;width:30px" aria-label="Loading..." role="progressbar"><div class="VQdeab RoKmhb"><div class="beDQP"><div class="DU0NJ SPKFmc x3SdXd J7uuUe"></div></div><div class="FcXfi"><div class="DU0NJ SPKFmc tS3P5"></div></div><div class="beDQP"><div class="DU0NJ SPKFmc x3SdXd sDPIC"></div></div></div><div class="IEqiAf RoKmhb"><div class="beDQP"><div class="DU0NJ SPKFmc x3SdXd J7uuUe"></div></div><div class="FcXfi"><div class="DU0NJ SPKFmc tS3P5"></div></div><div class="beDQP"><div class="DU0NJ SPKFmc x3SdXd sDPIC"></div></div></div><div class="smocse RoKmhb"><div class="beDQP"><div class="DU0NJ SPKFmc x3SdXd J7uuUe"></div></div><div class="FcXfi"><div class="DU0NJ SPKFmc tS3P5"></div></div><div class="beDQP"><div class="DU0NJ SPKFmc x3SdXd sDPIC"></div></div></div><div class="FlKbCe RoKmhb"><div class="beDQP"><div class="DU0NJ SPKFmc x3SdXd J7uuUe"></div></div><div class="FcXfi"><div class="DU0NJ SPKFmc tS3P5"></div></div><div class="beDQP"><div class="DU0NJ SPKFmc x3SdXd sDPIC"></div></div></div></div></g-loading-icon><span id="z9PoV" data-csim=""></span><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var src='https://www.googleadservices.com/pagead/conversion/16521530460/?gad_source\x3d1\x26adview_type\x3d1\x26adview_query_id\x3dCL-puJKE75UDFVXDTAIdbkUnFg';var sendAft=true;(function(){function a(){var c=src,b=new Image;b.src=c;b.setAttribute("attributionsrc","")}sendAft&&google&&google.caft?google.caft(function(){a()}):a();}).call(this);})();(function(){var src='https://www.google.com/pagead/1p-conversion/16521530460/?gad_source\x3d1\x26adview_type\x3d4\x26adview_query_id\x3dCL-puJKE75UDFVXDTAIdbkUnFg';var sendAft=true;(function(){function a(){var c=src,b=new Image;b.src=c;b.setAttribute("attributionsrc","")}sendAft&&google&&google.caft?google.caft(function(){a()}):a();}).call(this);})();(function(){var id='z9PoV';document.getElementById(id).setAttribute("lta",Date.now());})();</script><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var eid='z9PoV';var pd=-1;var pi=0;(function(c,e){function a(){e&&(google.c.mfrvt(d,b),google.c.ubf=!1);google.c.maft(d,b)}var f=Date.now(),b=document.getElementById(c);if(b){var d=(c=b.getAttribute("lta"))?Number(c):f;google.c.wpr?google.c.q("prs",function(){if(pd>=0)if(pi>0)var g=Date.now(),h=setInterval(function(){if(google.c.wh>10||Date.now()-g>=pd)clearInterval(h),a()},pi);else setTimeout(a,pd);else a()}):a()}})(eid,!0);})();</script><style>.YrbPuc{color:var(--IXoxUe);font-family:var(--LI4Bo);font-size:var(--Mhs7de);font-weight:var(--ofwUBc);line-height:var(--XWv1if)}.oPWl9c{color:var(--IXoxUe);font-family:Arial,sans-serif;font-size:12px;font-weight:400;line-height:20px}.BjWz4c{color:var(--IXoxUe);font-family:var(--YfiKf);font-size:var(--gOs6Bf);font-weight:var(--MzKBpd);line-height:var(--punZlc)}.cj1ht{color:var(--bbQxAb);font-family:var(--YfiKf);font-size:var(--gOs6Bf);font-weight:var(--MzKBpd);line-height:var(--punZlc)}.BToiNc{display:flex;flex-direction:column;justify-content:start}.vzmbzf,.vzmbzf:visited{color:var(--bbQxAb);margin-left:8px;text-decoration:underline}.vzmbzf:hover{color:var(--YLNNHc)}.tF2Cxc.asEBEc{margin-bottom:30px;}.N54PNb{position:relative}.kb0PBd{display:block;flex:0 0 auto}.A9Y9g{flex:1 1 100%;min-width:0}.DDKf1c{margin-right:12px;}.UnOTSe img{border:1px solid var(--JclFj);background-color:#fff;border-radius:50%}.XXS2Kd{display:inline-block;padding:1px}</style></div><div class="MjjYud"></div><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var ldic='E5IKVc';(function(){var a=document.getElementsByClassName(ldic)[0];a&&(a.style.display="none");}).call(this);})();</script><div><div class="MjjYud"><div class="A6K0A" data-rpos="2"><div jscontroller="SC7lYd" class="wHYlTd Ww4FFb tF2Cxc asEBEc vt6azd" lang="en" style="max-width:100%;width:inherit" jsaction="QyLbLe:OMITjf;ewaord:qsYrDe;xd28Mb:A6j43c" data-hveid="CCUQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIJRAA"><div class="N54PNb BToiNc" data-snc="HjS1xc"><div class="kb0PBd A9Y9g jGGQ5e" data-snf="x5WNvb" data-snhf="0"><div class="yuRUbf"><div class="b8lM7"><span class="V9tjod" jsaction="trigger.mLt3mc"><a jsname="UWckNb" class="zReHs" href="https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.10.0/src/PHPMailer.php" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECCQQAQ" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.10.0/src/PHPMailer.php&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECCQQAQ"><h3 class="LC20lb MBeuO DKV0Md" id="_iE1laqfPEI2IosUP4tOE-Qs_49">https://raw.githubusercontent.com/PHPMailer/PHPMai...</h3><br><div class="notranslate ESMNde HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="H9lube"><div class="eqA2re NjwKYd Vwoesf" aria-hidden="true"><img class="XNo5Ab" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX////4+Pi3ubtvcnZNUVU+Q0cpLjLr6+x3en0sMTYkKS59gIORk5aUl5n8/Pzw8PFTV1tbX2Pc3d5DSEzn5+g3PECLjpFKTlKFh4qxs7XCxMUuMze/wcLh4uPV1tZzd3o/Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA+KkidVAa/WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV/eC2H3e0C7lk1aBEzd+7SpigJOZVoXx+J5UxzADil+8+KZYoRaK5y2WZxSdgm0j+dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y+EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII=" style="height:18px;width:18px" alt=""></div></span></span><div class="CA5RN"><div><span class="VuuXrf">GitHub</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://raw.githubusercontent.com<span class="ylgVCe ob9lvb" role="text"> › PHPMailer › src › P...</span></cite></div></div></div></div></a></span><div class="B6fmyf byrV5b Mg1HEd"><div class="HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="H9lube"><div class="eqA2re XXS2Kd NjwKYd" style="height:18px;width:18px"></div></span></span><div class="CA5RN"><div><span class="VuuXrf">GitHub</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://raw.githubusercontent.com<span class="ylgVCe ob9lvb" role="text"> › PHPMailer › src › P...</span></cite></div></div></div></div><div class="csDOgf BCF2pd ezY6nb L48a4c"><div jsdata="l7Bhpb;_;iE1laqfPEI2IosUP4tOE-Qs19" jscontroller="i8S0p" id="atritem-_iE1laqfPEI2IosUP4tOE-Qs_52" jsslot="" jsaction="rcuQ6b:npT2md;h5M12e" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2esEegQIJBAJ"><div class="MJ8UF iTPLzd rNSxBe eY4mx lUn2nc" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_49" aria-label="About this result" role="button" tabindex="0"><span class="D6lY4c"><span class="xTFaxe z1asCe" style="height:18px;line-height:18px;width:18px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></span></div></div></div></div></div></div></div><div class="kb0PBd A9Y9g" data-snf="nke7rc" data-sncf="1"><div class="VwiC3b yXK7lf p4wth r025kc Hdw6tb" style="-webkit-line-clamp:2"><span>&lt;?<em>php</em> /** * <em>PHPMailer</em> - <em>PHP</em> email creation and transport class. * <em>PHP</em> Version 5.5. * * @see <em>https</em>://<em>github.com/PHPMailer</em>/<em>PHPMailer</em>/ The <em>PHPMailer GitHub</em> ...</span><a class="vzmbzf" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_49" href="https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.10.0/src/PHPMailer.php#:~:text=php%20%2F**%20*%20PHPMailer%20%2D,%40see%20https%3A%2F%2Fgithub.com%2FPHPMailer%2FPHPMailer%2F%20The%20PHPMailer%20GitHub" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.10.0/src/PHPMailer.php%23:~:text%3Dphp%2520%252F**%2520*%2520PHPMailer%2520%252D,%2540see%2520https%253A%252F%252Fgithub.com%252FPHPMailer%252FPHPMailer%252F%2520The%2520PHPMailer%2520GitHub&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q77oQegQIJxAC"><span>Read more</span></a></div></div></div></div></div></div><div class="MjjYud"></div><div class="MjjYud"><div class="A6K0A" data-rpos="4"><div jscontroller="SC7lYd" class="wHYlTd Ww4FFb tF2Cxc asEBEc vt6azd" lang="en" style="max-width:100%;width:inherit" jsaction="QyLbLe:OMITjf;ewaord:qsYrDe;xd28Mb:A6j43c" data-hveid="CCgQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIKBAA"><div class="N54PNb BToiNc" data-snc="RSZqd"><div class="kb0PBd A9Y9g jGGQ5e" data-snf="x5WNvb" data-snhf="0"><div class="yuRUbf"><div class="b8lM7"><span class="V9tjod" jsaction="trigger.mLt3mc"><a jsname="UWckNb" class="zReHs" href="https://sourceforge.net/projects/phpmailer.mirror/" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECCYQAQ" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://sourceforge.net/projects/phpmailer.mirror/&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECCYQAQ"><h3 class="LC20lb MBeuO DKV0Md" id="_iE1laqfPEI2IosUP4tOE-Qs_48">PHPMailer download</h3><br><div class="notranslate ESMNde HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="DDKf1c"><div class="eqA2re UnOTSe Vwoesf" aria-hidden="true"><img class="XNo5Ab" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAIVBMVEVHcEzzfCDzfCD0fCDzfCD0fCDzfCDzfCDzfCDzfCDzfCCeSZfOAAAAC3RSTlMAJ0AO/xdMknO97rFAgpQAAACgSURBVHgBYsAGGJWUkbkqgLblAANhMIDi+OtrtQYMdY+QEBj9qxoodoBRAhB2gB2iI+yg2Z7lix4ez8/jEK0A19UPTljHmLCPUHPMxlQPszFpzUY1hdkYOPttTLjMzD2qoUzNHa3UQZYPvOEoAVmtBaWmUAuoau166fkNGIZewsm3gQO8jOZwl9EsGUce0VyMaM4jlG5fdKoYpe0z1598AJ+cLzftXmnHAAAAAElFTkSuQmCC" style="height:26px;width:26px" alt=""></div></span></span><div class="CA5RN"><div><span class="VuuXrf">SourceForge</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://sourceforge.net<span class="ylgVCe ob9lvb" role="text"> › ... › Communications › Email</span></cite></div></div></div></div></a></span><div class="B6fmyf byrV5b Mg1HEd"><div class="HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="DDKf1c"><div class="eqA2re XXS2Kd UnOTSe" style="height:26px;width:26px"></div></span></span><div class="CA5RN"><div><span class="VuuXrf">SourceForge</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://sourceforge.net<span class="ylgVCe ob9lvb" role="text"> › ... › Communications › Email</span></cite></div></div></div></div><div class="csDOgf BCF2pd ezY6nb L48a4c"><div jsdata="l7Bhpb;_;iE1laqfPEI2IosUP4tOE-Qs18" jscontroller="i8S0p" id="atritem-_iE1laqfPEI2IosUP4tOE-Qs_51" jsslot="" jsaction="rcuQ6b:npT2md;h5M12e" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2esEegQIJhAJ"><div class="MJ8UF iTPLzd rNSxBe eY4mx lUn2nc" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_48" aria-label="About this result" role="button" tabindex="0"><span class="D6lY4c"><span class="xTFaxe z1asCe" style="height:18px;line-height:18px;width:18px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></span></div></div></div></div></div></div></div><div class="kb0PBd A9Y9g" data-snf="nke7rc" data-sncf="1"><div class="VwiC3b yXK7lf p4wth r025kc Hdw6tb" style="-webkit-line-clamp:2"><span class="YrbPuc"><span>May 18, 2026</span> — </span><span>The classic email sending library for <em>PHP</em>. This is an exact mirror of the <em>PHPMailer</em> project, hosted at <em>https</em>://<em>github.com/PHPMailer</em>/<em>PHPMailer</em>.</span><a class="vzmbzf" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_48" href="https://sourceforge.net/projects/phpmailer.mirror/#:~:text=The%20classic%20email%20sending%20library,is%20not%20affiliated%20with%20PHPMailer." ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://sourceforge.net/projects/phpmailer.mirror/%23:~:text%3DThe%2520classic%2520email%2520sending%2520library,is%2520not%2520affiliated%2520with%2520PHPMailer.&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q77oQegQIKRAD"><span>Read more</span></a></div></div></div></div></div></div><div class="MjjYud"></div><div class="MjjYud"><div class="A6K0A" data-rpos="6"><div jscontroller="SC7lYd" class="wHYlTd Ww4FFb tF2Cxc asEBEc vt6azd" lang="en" style="max-width:100%;width:inherit" jsaction="QyLbLe:OMITjf;ewaord:qsYrDe;xd28Mb:A6j43c" data-hveid="CCsQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIKxAA"><div class="N54PNb BToiNc" data-snc="gojdXb"><div class="kb0PBd A9Y9g jGGQ5e" data-snf="x5WNvb" data-snhf="0"><div class="yuRUbf"><div class="b8lM7"><span class="V9tjod" jsaction="trigger.mLt3mc"><a jsname="UWckNb" class="zReHs" href="https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECCoQAQ" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECCoQAQ"><h3 class="LC20lb MBeuO DKV0Md" id="_iE1laqfPEI2IosUP4tOE-Qs_50">Fatal error: Class &#39;PHPMailer&#39; not found</h3><br><div class="notranslate ESMNde HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="DDKf1c"><div class="eqA2re UnOTSe Vwoesf" aria-hidden="true"><img class="XNo5Ab" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAclBMVEX/XgD/XwDHTA3/YABQKBoAER/QTwz/YQCZPhMAFB4fHB14NBcAFx4eHB3ZUgruWQZoLxg2IRtEJRvhVAkAGB2wRREYGh2BNhZfLBkLGR4aGx3nVggzIBymQhISGh32WwS8SQ9AJBuTPBSLORVWKhkADh+4PaZeAAAAuUlEQVR4AbzQRQLDMAwAQaturCqRw8z4/yeWMXTsXsco8Zdgjw5yG4+Gwg2TJzJJyY1D0WJN9pqCIwFd1rym6PkBohtqDhYqI4opEZhmeVjMFVTJOgujm3IAMwSsuNbsB25WOr8I1/uwsSjPOa2b+UYjs9oGg45NY/5cUKRrJv9kR6GFYo4pc5bnGWsKQMwVQfUdcZ13y+niPTgk9SAXlo73UjeLlmjW8SNuYYEhPZuWO0XzSVw2eAEARO8NFMONSEkAAAAASUVORK5CYII=" style="height:26px;width:26px" alt=""></div></span></span><div class="CA5RN"><div><span class="VuuXrf">Stack Overflow</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">10+ answers  ·  11 years ago</cite></div></div></div></div></a></span><div class="B6fmyf byrV5b Mg1HEd"><div class="HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="DDKf1c"><div class="eqA2re XXS2Kd UnOTSe" style="height:26px;width:26px"></div></span></span><div class="CA5RN"><div><span class="VuuXrf">Stack Overflow</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">10+ answers  ·  11 years ago</cite></div></div></div></div><div class="csDOgf BCF2pd ezY6nb L48a4c"><div jsdata="l7Bhpb;_;iE1laqfPEI2IosUP4tOE-Qs20" jscontroller="i8S0p" id="atritem-_iE1laqfPEI2IosUP4tOE-Qs_53" jsslot="" jsaction="rcuQ6b:npT2md;h5M12e" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2esEegQIKhAK"><div class="MJ8UF iTPLzd rNSxBe eY4mx lUn2nc" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_50" aria-label="About this result" role="button" tabindex="0"><span class="D6lY4c"><span class="xTFaxe z1asCe" style="height:18px;line-height:18px;width:18px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></span></div></div></div></div></div></div></div><div class="kb0PBd A9Y9g" data-snf="nke7rc" data-sncf="1"><div class="VwiC3b yXK7lf p4wth r025kc Hdw6tb" style="-webkit-line-clamp:2"><span>It sounds like the PHPMailerAutoload.<em>php</em> file is trying to locate the actual class file for <em>PHPMailer</em> and is not able to do so.</span><a class="vzmbzf" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_50" href="https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found#:~:text=based%20on%20it's%20name%20alone%2C,not%20able%20to%20do%20so." ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found%23:~:text%3Dbased%2520on%2520it%27s%2520name%2520alone%252C,not%2520able%2520to%2520do%2520so.&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q77oQegQILBAC"><span>Read more</span></a></div></div></div></div></div></div><div class="MjjYud"><span class="n6AgNe" id="fld_iE1laqfPEI2IosUP4tOE-Qs_1" data-csim=""></span><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var id='fld_iE1laqfPEI2IosUP4tOE-Qs_1';document.getElementById(id).setAttribute("lta",Date.now());})();</script><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var eid='fld_iE1laqfPEI2IosUP4tOE-Qs_1';var pd=-1;var pi=0;(function(b){function a(){google.c.maft(d,c)}var e=Date.now(),c=document.getElementById(b);if(c){var d=(b=c.getAttribute("lta"))?Number(b):e;google.c.wpr?google.c.q("prs",function(){if(pd>=0)if(pi>0)var f=Date.now(),g=setInterval(function(){if(google.c.wh>10||Date.now()-f>=pd)clearInterval(g),a()},pi);else setTimeout(a,pd);else a()}):a()}})(eid,!1);})();</script><style>.BBwThe{font-weight:700}.RES9jf{color:var(--YLNNHc)}.tNxQIb{font-family:var(--ztTqPe);font-size:var(--gyu5L);font-weight:var(--Yoa6qd);line-height:var(--C74x2e)}.IFnjPb{font-family:var(--Aoh9Xe);font-size:var(--qpdFp);font-weight:var(--JT4IPc);line-height:var(--qYGXw)}.fxvkXe,.p8Jhnd{width:36px;height:36px;background:var(--XKMDxc);border-radius:50%;display:flex;justify-content:center;align-items:center;flex-shrink:0;margin:0 0 0 12px}.dnXCYb:hover .fxvkXe,.dnXCYb:hover .p8Jhnd{background-color:#373839}.dnXCYb:not(.FjLqqd):not(.CC4Ctb) .p8Jhnd{margin:12px 0 12px 12px}html:not(.zAoYTe) .dnXCYb,html:not(.zAoYTe) :where(:scope) .dnXCYb{outline:0}.ilulF .ABs8Y,.ilulF .APjcId,.ilulF .JCzEY,.ilulF .WltAjf{-webkit-line-clamp:unset!important;word-break:unset!important}.JGD2rd{display:-webkit-box;overflow:hidden;text-overflow:ellipsis;white-space:normal!important;-webkit-box-orient:vertical}@media (max-width:360px){.JGD2rd{word-break:break-word!important;-webkit-line-clamp:3!important}}.Wt5Tfe{padding-left:0px;padding-right:0px}.fJOpI.H9lube{border:1px solid #fff;background-color:#fff;}.Jj3Uob{color:#5e5e5e;}.ULSxyf{margin-bottom:44px}.cUnQKe{margin-bottom:44px;position:relative}.cUnQKe.wHYlTd{line-height:20px}.eJH8qe.eJH8qe{padding:0 0 8px}.adDDi{display:flex;flex-wrap:wrap;position:relative;padding:0 0 12px}.mgAbYb{-webkit-line-clamp:1}.YR2tRd{position:relative;align-self:center;height:22px}.YC72Wc{max-width:calc(100% - 34px)}.LQCGqc{position:relative}.dG2XIf.cUnQKe .related-question-pair .wDYxhc:not(.NFQFxe),.cUnQKe .related-question-pair .Y6JuXb{padding-left:0px;padding-right:0px}.wQiwMc .Y6JuXb{margin-bottom:4px;clear:both}.CSkcDe,.related-question-pair div.iDjcJe{color:var(--YLNNHc);font-family:Google Sans,Arial,sans-serif;font-size:var(--gyu5L);font-weight:400;line-height:24px}.cS7M8 .ysxiae{display:none}.oST1qe .JCzEY{color:var(--YLNNHc)}.g7pt6d .JCzEY{font-family:Arial,sans-serif;font-size:var(--gyu5L)}.o3PDvf .p8Jhnd,.o3PDvf .fxvkXe{margin-top:8px !important;margin-bottom:8px !important}.aj35ze{fill:#c3c6d6;display:inline-block;height:24px;width:24px}@media (forced-colors:active){.aj35ze{fill:ButtonText}}.h373nd{position:relative}.dnXCYb{align-items:center;box-sizing:border-box;display:flex;position:relative;width:100%;cursor:pointer}.JlqpRe{flex:1;margin:12px 0;overflow:hidden}.ABs8Y,.JCzEY{color:#e8e8e8}.ru2Kjc{display:none}.L3Ezfd{position:absolute;height:100%;width:100%;left:0;top:0}.ABs8Y,.JCzEY,.bJi8Dd,.APjcId,.WltAjf{display:-webkit-box;-webkit-box-orient:vertical;overflow:hidden}.JCzEY{-webkit-line-clamp:2}@media (forced-colors:active){.fm06If .ILfuVd b,.c2xzTb .ILfuVd b,.trNcde .ILfuVd b,.cUnQKe .ILfuVd b,.w5mTAe .ILfuVd b,.W0urI .ILfuVd b{background-color:Mark;color:MarkText}}@keyframes highlight {to{background-position:0 0}}@media (prefers-reduced-motion:no-preference){.cUnQKe .aoRk1c .ILfuVd b{animation:0.75s cubic-bezier(0.05,0.7,0.1,1) highlight 0.25s forwards;background:linear-gradient(90deg,var(--jwFC2e) 50%,#0000 50%) no-repeat 75% 0;background-size:200% 100%;color:var(--jINu6c)}}.bsmXxe{display:contents}.AaVjTc a:link{display:block;color:var(--JKqx2);font-weight:normal}.AaVjTc td{padding:0;text-align:center}.YyVfkd{color:var(--YLNNHc);font-weight:normal;overflow:hidden}.AaVjTc{margin:30px auto 30px;}.UUoiQc,.LLNLxf{max-width:calc(100vw - 32px - 335px + 55px);min-width:84px;overflow:hidden}@media (max-width:484px){.mYW5bd .NKTSme:nth-child(11),.RcEbob .NKTSme:nth-child(2){display:none}}@media (max-width:464px){.mYW5bd .NKTSme:nth-child(10),.RcEbob .NKTSme:nth-child(3){display:none}}@media (max-width:359px){.mYW5bd .NKTSme:nth-child(9),.RcEbob .NKTSme:nth-child(4){display:none}}@media (max-width:339px){.mYW5bd .NKTSme:nth-child(8),.RcEbob .NKTSme:nth-child(5){display:none}}.SJajHc{background:url(/images/nav_logo321_hr.webp) no-repeat;background-size:167px;overflow:hidden;background-position:0 0;height:40px;display:block}.NVbCr{cursor:pointer}.oeN89d{clear:both;text-decoration:inherit}.LLNLxf .oeN89d{float:right}.oeN89d{text-wrap:nowrap}@keyframes fadeIn {from{opacity:0}to{opacity:1}}.GeEc1b a:hover{text-decoration:none}.g0F6u{color:var(--JKqx2);font-size:var(--Mhs7de)}.gMZyfc{font-size:var(--Mhs7de);line-height:var(--XWv1if);color:var(--bbQxAb)}.GeEc1b{display:flex;align-items:center;flex-wrap:wrap;line-height:20px;padding:9px 0}.aCgTL{padding:0 4px}.DYidfe{padding:16px 0}</style><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var nsrp=true;var fsrp=true;var irrp=true;(function(){function b(a){return typeof a!=="undefined"&&a===!0}if(document.getElementsByClassName("KpqFHb").length){var c=document.getElementById("gsr");c&&c.classList.add("w3yrN")}if(b(nsrp)){var d=document.getElementById("center_col");d&&d.classList.add("ZPOWwb")}if(b(fsrp)){var f=document.getElementById("rcnt");f&&f.classList.add("uW3HW")}
-function g(a,p){var e=document.getElementById("center_col"),k=document.getElementById("rhs");e&&k&&(e.classList.toggle("ZFGGlf",a<=10),e.classList.toggle("B8S5Ve",a<=8),k.classList.toggle("UE2fsd",p<=5))}
-if(document.getElementById("rhs")&&b(nsrp)){var h=window.matchMedia("(max-width: 799.98px)"),l=window.matchMedia("(max-width: 939.98px)"),m=window.matchMedia("(max-width: 1163.98px)"),n=function(){h.matches&&irrp?g(12,0):l.matches?g(8,5):m.matches?g(10,5):g(12,7)};h.addEventListener("change",n);l.addEventListener("change",n);m.addEventListener("change",n);n()};}).call(this);})();</script></div><div class="MjjYud"><div class="A6K0A" data-rpos="10"><div jscontroller="SC7lYd" class="wHYlTd Ww4FFb tF2Cxc asEBEc vt6azd" lang="en" style="max-width:100%;width:inherit" jsaction="QyLbLe:OMITjf;ewaord:qsYrDe;xd28Mb:A6j43c" data-hveid="CDkQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIORAA"><div class="N54PNb BToiNc" data-snc="a6koCf"><div class="kb0PBd A9Y9g jGGQ5e" data-snf="x5WNvb" data-snhf="0"><div class="yuRUbf"><div class="b8lM7"><span class="V9tjod" jsaction="trigger.mLt3mc"><a jsname="UWckNb" class="zReHs" href="https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECDUQAQ" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECDUQAQ"><h3 class="LC20lb MBeuO DKV0Md" id="_iE1laqfPEI2IosUP4tOE-Qs_57">PHPMailer — Installing on a shared server</h3><br><div class="notranslate ESMNde HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="H9lube fJOpI"><div class="eqA2re NjwKYd Vwoesf" aria-hidden="true"><span class="Jj3Uob XNo5Ab z1asCe" style="height:18px;line-height:18px;width:18px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"></path></svg></span></div></span></span><div class="CA5RN"><div><span class="VuuXrf">DreamHost</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://help.dreamhost.com<span class="ylgVCe ob9lvb" role="text"> › ... › Email › Contact Forms</span></cite></div></div></div></div></a></span><div class="B6fmyf byrV5b Mg1HEd"><div class="HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="H9lube fJOpI"><div class="eqA2re XXS2Kd NjwKYd" style="height:18px;width:18px"></div></span></span><div class="CA5RN"><div><span class="VuuXrf">DreamHost</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://help.dreamhost.com<span class="ylgVCe ob9lvb" role="text"> › ... › Email › Contact Forms</span></cite></div></div></div></div><div class="csDOgf BCF2pd ezY6nb L48a4c"><div jsdata="l7Bhpb;_;iE1laqfPEI2IosUP4tOE-Qs23" jscontroller="i8S0p" id="atritem-_iE1laqfPEI2IosUP4tOE-Qs_62" jsslot="" jsaction="rcuQ6b:npT2md;h5M12e" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2esEegQINRAJ"><div class="MJ8UF iTPLzd rNSxBe eY4mx lUn2nc" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_57" aria-label="About this result" role="button" tabindex="0"><span class="D6lY4c"><span class="xTFaxe z1asCe" style="height:18px;line-height:18px;width:18px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></span></div></div></div></div></div></div></div><div class="kb0PBd A9Y9g" data-snf="nke7rc" data-sncf="1"><div class="VwiC3b yXK7lf p4wth r025kc Hdw6tb" style="-webkit-line-clamp:2"><span class="YrbPuc"><span>Oct 14, 2025</span> — </span><span>This article describes <em>how to install PHPMailer on a Shared web server</em>, which allows you to send email from your site via SMTP.</span><a class="vzmbzf" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_57" href="https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server#:~:text=This%20article%20describes%20how%20to,from%20your%20site%20via%20SMTP." ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server%23:~:text%3DThis%2520article%2520describes%2520how%2520to,from%2520your%2520site%2520via%2520SMTP.&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q77oQegQIOhAD"><span>Read more</span></a></div></div></div></div></div></div><div class="MjjYud"></div><div class="ULSxyf"><div class="MjjYud"><div class="A6K0A" data-rpos="12"><div jscontroller="Da4hkd" jsname="bq0EGf" class="cUnQKe" data-initq="https raw githubusercontent com phpmailer phpmailer master src phpmailer php" data-qc="c-PyySgpKShWKEosV0jPLMkoTSotTi1Kzs8rSc0rUUjOz1UoyCjITczMSS1CYuUmFpcAqeKiZFRpAYba7dwy9gA" jsdata="Dmybpc;_;iE1laqfPEI2IosUP4tOE-Qs24" jsaction="HUiaHb:mlZWMd;ue9o1d:qLv2nf" data-hveid="CEQQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QuU4oAHoECEQQAA"><srpx-bugfix></srpx-bugfix><div class="Wt5Tfe"><div class="eJH8qe adDDi"><span class="mgAbYb RES9jf YC72Wc IFnjPb JGD2rd" aria-level="2" id="_iE1laqfPEI2IosUP4tOE-Qs_67" role="heading"><span>People also ask</span></span><span class="YR2tRd"></span></div><div jsname="N760b" class="LQCGqc" data-bs="c-Py4FLwyC9XKMlXyMwrLknMyVEI8AjwTczMSS0CioA49hLTeI0UpeQzUJUVZBTkwpUBOVxWXJKexUi68wtS8xSK80uLklPtJVb5GUlJSWQWI2lDkucK4VLD54qM_OKSzLz01CJ7iR1ZRupSqvjcAlfMFc6lAzI1JV_BE4u55ZklGfmlJQrO-bkF-cUgs-dIGqlIKSEbBtEDU5kMVSnACAA" data-sgrd="true" id="_iE1laqfPEI2IosUP4tOE-Qs_68"><div jsname="yEVEwb"><div id="iE1laqfPEI2IosUP4tOE-Qs__51"><div jscontroller="xfmZMb" class="wQiwMc related-question-pair" data-lk="c5OSz8gvVyjJV8jMKy5JzMlRKMgoyE3MzEktAoqAOAA" data-notify-expansion="" data-q="How to install PHPMailer in PHP?" decode-data-ved="1" jsaction="rcuQ6b:npT2md;aVMkAb:o7YQ2;I4dl7e:MbYi2e;uUCWgf:NlNJyb;lpDHCb:XBVdTe;YTEvfe:CUKQPe" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qq7kBKAB6BAhIEAA"><div jsname="YrZdPb" class="roMIYb o3PDvf HYvwY cS7M8 oST1qe g7pt6d h373nd ilulF" data-dic="" data-ullb="" jscontroller="aD8OEe" data-g="" data-sm="" jsshadow="" jsaction="rcuQ6b:npT2md;C0pONd:mhSdVe;A0VnDe:rXa5ib;IKGI6b:VrL1hd"><div jsname="clz4Ic" class="ysxiae iRPzcb"></div><div data-hveid="CEgQAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qj7gIegQISBAB"><div jsname="tJHJj" class="dnXCYb" aria-controls="_iE1laqfPEI2IosUP4tOE-Qs_72" aria-expanded="false" role="button" tabindex="0" jsaction="AWEk5c;pointerdown:FEiYhc"><div jsname="lN6iy" class="JlqpRe"><span jsname="r4nke" class="JCzEY tNxQIb"><span class="CSkcDe">How to install PHPMailer in PHP?</span></span></div><div class="p8Jhnd" jsname="wgPSWd"><div jsname="Q8Kwad" class="aj35ze"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></div></div><div jsname="pcRaIe" class="L3Ezfd" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Quk56BAhIEAI"></div><div jsname="gwzXIc" class="ru2Kjc" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q36YDegQISBAD"></div></div></div><div jsname="NRdf4c" class="bCOlv" id="_iE1laqfPEI2IosUP4tOE-Qs_72" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q7NUEegQISBAE"></div></div></div></div></div><div jsname="yEVEwb"><div id="iE1laqfPEI2IosUP4tOE-Qs__63"><div jscontroller="xfmZMb" class="wQiwMc related-question-pair" data-lk="GhhpcyBwaHBtYWlsZXIgb3BlbiBzb3VyY2U" data-notify-expansion="" data-q="Is PHPMailer open source?" decode-data-ved="1" jsaction="rcuQ6b:npT2md;aVMkAb:o7YQ2;I4dl7e:MbYi2e;uUCWgf:NlNJyb;lpDHCb:XBVdTe;YTEvfe:CUKQPe" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qq7kBKAB6BAhFEAA"><div jsname="YrZdPb" class="roMIYb o3PDvf HYvwY oST1qe g7pt6d h373nd ilulF" data-dic="" data-ullb="" jscontroller="aD8OEe" data-g="" data-sm="" jsshadow="" jsaction="rcuQ6b:npT2md;C0pONd:mhSdVe;A0VnDe:rXa5ib;IKGI6b:VrL1hd"><div jsname="clz4Ic" class="ysxiae iRPzcb"></div><div data-hveid="CEUQAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qj7gIegQIRRAB"><div jsname="tJHJj" class="dnXCYb" aria-controls="_iE1laqfPEI2IosUP4tOE-Qs_70" aria-expanded="false" role="button" tabindex="0" jsaction="AWEk5c;pointerdown:FEiYhc"><div jsname="lN6iy" class="JlqpRe"><span jsname="r4nke" class="JCzEY tNxQIb"><span class="CSkcDe">Is PHPMailer open source?</span></span></div><div class="p8Jhnd" jsname="wgPSWd"><div jsname="Q8Kwad" class="aj35ze"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></div></div><div jsname="pcRaIe" class="L3Ezfd" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Quk56BAhFEAI"></div><div jsname="gwzXIc" class="ru2Kjc" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q36YDegQIRRAD"></div></div></div><div jsname="NRdf4c" class="bCOlv" id="_iE1laqfPEI2IosUP4tOE-Qs_70" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q7NUEegQIRRAE"></div></div></div></div></div><div jsname="yEVEwb"><div id="iE1laqfPEI2IosUP4tOE-Qs__66"><div jscontroller="xfmZMb" class="wQiwMc related-question-pair" data-lk="GiVob3cgdG8gaW5zdGFsbCBwaHBtYWlsZXIgaW4gaG9zdGluZ2Vy" data-notify-expansion="" data-q="How to install PHPMailer in hostinger?" decode-data-ved="1" jsaction="rcuQ6b:npT2md;aVMkAb:o7YQ2;I4dl7e:MbYi2e;uUCWgf:NlNJyb;lpDHCb:XBVdTe;YTEvfe:CUKQPe" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qq7kBKAB6BAhHEAA"><div jsname="YrZdPb" class="roMIYb o3PDvf HYvwY oST1qe g7pt6d h373nd ilulF" data-dic="" data-ullb="" jscontroller="aD8OEe" data-g="" data-sm="" jsshadow="" jsaction="rcuQ6b:npT2md;C0pONd:mhSdVe;A0VnDe:rXa5ib;IKGI6b:VrL1hd"><div jsname="clz4Ic" class="ysxiae iRPzcb"></div><div data-hveid="CEcQAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qj7gIegQIRxAB"><div jsname="tJHJj" class="dnXCYb" aria-controls="_iE1laqfPEI2IosUP4tOE-Qs_71" aria-expanded="false" role="button" tabindex="0" jsaction="AWEk5c;pointerdown:FEiYhc"><div jsname="lN6iy" class="JlqpRe"><span jsname="r4nke" class="JCzEY tNxQIb"><span class="CSkcDe">How to install PHPMailer in hostinger?</span></span></div><div class="p8Jhnd" jsname="wgPSWd"><div jsname="Q8Kwad" class="aj35ze"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></div></div><div jsname="pcRaIe" class="L3Ezfd" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Quk56BAhHEAI"></div><div jsname="gwzXIc" class="ru2Kjc" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q36YDegQIRxAD"></div></div></div><div jsname="NRdf4c" class="bCOlv" id="_iE1laqfPEI2IosUP4tOE-Qs_71" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q7NUEegQIRxAE"></div></div></div></div></div><div jsname="yEVEwb"><div id="iE1laqfPEI2IosUP4tOE-Qs__69"><div jscontroller="xfmZMb" class="wQiwMc related-question-pair" data-lk="GiJwaHBtYWlsZXIgaW5zdGFsbCB3aXRob3V0IGNvbXBvc2Vy" data-notify-expansion="" data-q="How do I install PHPMailer without Composer?" decode-data-ved="1" jsaction="rcuQ6b:npT2md;aVMkAb:o7YQ2;I4dl7e:MbYi2e;uUCWgf:NlNJyb;lpDHCb:XBVdTe;YTEvfe:CUKQPe" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qq7kBKAB6BAhGEAA"><div jsname="YrZdPb" class="roMIYb o3PDvf HYvwY oST1qe g7pt6d h373nd ilulF" data-dic="" data-ullb="" jscontroller="aD8OEe" data-g="" data-sm="" jsshadow="" jsaction="rcuQ6b:npT2md;C0pONd:mhSdVe;A0VnDe:rXa5ib;IKGI6b:VrL1hd"><div jsname="clz4Ic" class="ysxiae iRPzcb"></div><div data-hveid="CEYQAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qj7gIegQIRhAB"><div jsname="tJHJj" class="dnXCYb" aria-controls="_iE1laqfPEI2IosUP4tOE-Qs_69" aria-expanded="false" role="button" tabindex="0" jsaction="AWEk5c;pointerdown:FEiYhc"><div jsname="lN6iy" class="JlqpRe"><span jsname="r4nke" class="JCzEY tNxQIb"><span class="CSkcDe">How do I install PHPMailer without Composer?</span></span></div><div class="p8Jhnd" jsname="wgPSWd"><div jsname="Q8Kwad" class="aj35ze"><svg aria-hidden="true" focusable="false" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M16.59 8.59L12 13.17 7.41 8.59 6 10l6 6 6-6z"></path></svg></div></div><div jsname="pcRaIe" class="L3Ezfd" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Quk56BAhGEAI"></div><div jsname="gwzXIc" class="ru2Kjc" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q36YDegQIRhAD"></div></div></div><div jsname="NRdf4c" class="bCOlv" id="_iE1laqfPEI2IosUP4tOE-Qs_69" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q7NUEegQIRhAE"></div></div></div></div></div><div jsname="grQLgb" class="yp" data-async-fc="EqEBCmJBSmlUNHRLTEVqaHljY0pxN19sdEM5UlQtdklKYVpXVVdfQjZqNUszSmxSVUZfNkhNVXVXOXpBNmVYOVZQZUdTanlHZ2s0VGZULW8zT210UEExdDNKc0NPSHdOU1E2Q2hhQRIXaUUxbGFxZlBFSTJJb3NVUDR0T0UtUXMaIkFEc3I5ZlNCYmFFZzhUVzBLVFRWeWlma2lDX0EwZGRSX1E" data-async-fcv="3" data-async-ons="10041" id="fc_iE1laqfPEI2IosUP4tOE-Qs_1" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QzOMHKAF6BAhEEAI"></div><div jsname="pyry" style="display:none" id="_iE1laqfPEI2IosUP4tOE-Qs_73" class="dsnoC" aria-valuetext="Loading..." role="progressbar"></div></div></div></div></div></div></div><div class="MjjYud"></div><div class="MjjYud"><div class="A6K0A" data-rpos="14"><div jscontroller="SC7lYd" class="wHYlTd Ww4FFb tF2Cxc asEBEc vt6azd" lang="en" style="max-width:100%;width:inherit" jsaction="QyLbLe:OMITjf;ewaord:qsYrDe;xd28Mb:A6j43c" data-hveid="CDYQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQINhAA"><div class="N54PNb BToiNc" data-snc="Bho5Cf"><div class="kb0PBd A9Y9g jGGQ5e" data-snf="x5WNvb" data-snhf="0"><div class="yuRUbf"><div class="b8lM7"><span class="V9tjod" jsaction="trigger.mLt3mc"><a jsname="UWckNb" class="zReHs" href="https://grokipedia.com/page/PHPMailer" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECDMQAQ" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://grokipedia.com/page/PHPMailer&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECDMQAQ"><h3 class="LC20lb MBeuO DKV0Md" id="_iE1laqfPEI2IosUP4tOE-Qs_58">PHPMailer</h3><br><div class="notranslate ESMNde HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="DDKf1c"><div class="eqA2re UnOTSe Vwoesf" aria-hidden="true"><img class="XNo5Ab" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAABJUlEQVR4AWLgxQOIlgSUSocwDgJBFEC/HDG2qqoSjcKuqVq1wZBU4wWpwSd1pyorq1ejkGfwKCwOnzVzkKW7e+HcjX2ZTP7PELYhTjFSpvS1OAPg38i4NLbvrO36d1OdKEVG+b30baVN/ZyWJUOKqBf3yvzN2yxFijAi7/0UoZFrgriMMqnPeaLpFpHROrGgkOBhIhL14toYik8nDoh8EmeQtJHkhJ5lKfB3fahWzD0S9glYhk3OS6O1NmVBH1TrzQqbUWWHxbnJ1mCPdB7EPfwmkPUiDcAh51OkJ9qPvp1cwbEhNcu8t8IeY32MVqTLEFCnxRNeIvbiQ7yclAG91mv3X6VS5j46V+HwCd04DuvYe0Ec0StwzlWR8fGHtmE6ft9x/o8/uFOK9/V3dV4AAAAASUVORK5CYII=" style="height:26px;width:26px" alt=""></div></span></span><div class="CA5RN"><div><span class="VuuXrf">Grokipedia</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://grokipedia.com<span class="ylgVCe ob9lvb" role="text"> › page › PHPMailer</span></cite></div></div></div></div></a></span><div class="B6fmyf byrV5b Mg1HEd"><div class="HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="DDKf1c"><div class="eqA2re XXS2Kd UnOTSe" style="height:26px;width:26px"></div></span></span><div class="CA5RN"><div><span class="VuuXrf">Grokipedia</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://grokipedia.com<span class="ylgVCe ob9lvb" role="text"> › page › PHPMailer</span></cite></div></div></div></div><div class="csDOgf BCF2pd ezY6nb L48a4c"><div jsdata="l7Bhpb;_;iE1laqfPEI2IosUP4tOE-Qs22" jscontroller="i8S0p" id="atritem-_iE1laqfPEI2IosUP4tOE-Qs_61" jsslot="" jsaction="rcuQ6b:npT2md;h5M12e" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2esEegQIMxAJ"><div class="MJ8UF iTPLzd rNSxBe eY4mx lUn2nc" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_58" aria-label="About this result" role="button" tabindex="0"><span class="D6lY4c"><span class="xTFaxe z1asCe" style="height:18px;line-height:18px;width:18px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></span></div></div></div></div></div></div></div><div class="kb0PBd A9Y9g" data-snf="nke7rc" data-sncf="1"><div class="VwiC3b yXK7lf p4wth r025kc Hdw6tb" style="-webkit-line-clamp:2"><span><em>PHPMailer</em> is a full-featured, open-source email creation and transfer library for PHP, designed to simplify sending emails from web servers via protocols ...</span></div></div></div></div></div></div><div class="MjjYud"></div><div class="MjjYud"><div class="A6K0A" data-rpos="16"><div jscontroller="SC7lYd" class="wHYlTd Ww4FFb tF2Cxc asEBEc vt6azd" lang="en" style="max-width:100%;width:inherit" jsaction="QyLbLe:OMITjf;ewaord:qsYrDe;xd28Mb:A6j43c" data-hveid="CDgQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIOBAA"><div class="N54PNb BToiNc" data-snc="egSY4"><div class="kb0PBd A9Y9g jGGQ5e" data-snf="x5WNvb" data-snhf="0"><div class="yuRUbf"><div class="b8lM7"><span class="V9tjod" jsaction="trigger.mLt3mc"><a jsname="UWckNb" class="zReHs" href="https://mailtrap.io/blog/phpmailer/" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECDQQAQ" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://mailtrap.io/blog/phpmailer/&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECDQQAQ"><h3 class="LC20lb MBeuO DKV0Md" id="_iE1laqfPEI2IosUP4tOE-Qs_59">PHPMailer: Tutorial with Code Snippets [2026]</h3><br><div class="notranslate ESMNde HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="DDKf1c"><div class="eqA2re UnOTSe Vwoesf" aria-hidden="true"><img class="XNo5Ab" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAABWUlEQVR4AWJwL/ABtFu+oA1DQRg3c/OqpgziVjFPZCHMzMVDvMgmaqK3iHgXb0q9n4fGU2+iChFTb9/BE8eRC+8bYVRU/Ezeu/vl/T+K7fO+AmOkYuMZURElwTCCghf6ogwMWuJwBtmfhdvd/hEJjk7yUXDajhJLCRFUO8kmUJhpnpy+s+vLjK5emPbaGaUvfBree3ACuVm/lthYrV5HyQW+Qa+F0vAFgkI6bWInGomNOYLiUwv7+NHSU2f09e1hOZcV+jQJo2r8eF4o/IByRlTGtsAKdeINuDiB+P6xExb7IEfyCM3fX0FI5KpngRaqwEOC7GDjeKFB+jE7mRf6Z+wk6LO6tpDnLlTbOl9RmIPLnLAEjb4Tcet3IKMk6oWRHEpcClFIvW1chWDEgpW9gODQLr+DblyRUmJ0CwkqUzIGh27NImoSiCKKLhPPTnLNALKbK4T/vdT/BWo6QP6lrlrXAAAAAElFTkSuQmCC" style="height:26px;width:26px" alt=""></div></span></span><div class="CA5RN"><div><span class="VuuXrf">Mailtrap</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://mailtrap.io<span class="ylgVCe ob9lvb" role="text"> › blog › phpmailer</span></cite></div></div></div></div></a></span><div class="B6fmyf byrV5b Mg1HEd"><div class="HGLrXd ojE3Fb"><div class="q0vns"><span aria-hidden="true"><span class="DDKf1c"><div class="eqA2re XXS2Kd UnOTSe" style="height:26px;width:26px"></div></span></span><div class="CA5RN"><div><span class="VuuXrf">Mailtrap</span></div><div class="byrV5b"><cite class="qLRx3b tjvcx GvPZzd cHaqb" role="text">https://mailtrap.io<span class="ylgVCe ob9lvb" role="text"> › blog › phpmailer</span></cite></div></div></div></div><div class="csDOgf BCF2pd ezY6nb L48a4c"><div jsdata="l7Bhpb;_;iE1laqfPEI2IosUP4tOE-Qs21" jscontroller="i8S0p" id="atritem-_iE1laqfPEI2IosUP4tOE-Qs_60" jsslot="" jsaction="rcuQ6b:npT2md;h5M12e" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2esEegQINBAJ"><div class="MJ8UF iTPLzd rNSxBe eY4mx lUn2nc" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_59" aria-label="About this result" role="button" tabindex="0"><span class="D6lY4c"><span class="xTFaxe z1asCe" style="height:18px;line-height:18px;width:18px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg></span></span></div></div></div></div></div></div></div><div class="kb0PBd A9Y9g" data-snf="nke7rc" data-sncf="1"><div class="VwiC3b yXK7lf p4wth r025kc Hdw6tb" style="-webkit-line-clamp:2"><span class="YrbPuc"><span>Mar 22, 2024</span> — </span><span>In this article, I'll describe the process of <em>installing PHPMailer</em>, configuring SMTP settings, and adding email-sending functionality to your app step-by-step.</span><a class="vzmbzf" aria-describedby="_iE1laqfPEI2IosUP4tOE-Qs_59" href="https://mailtrap.io/blog/phpmailer/#:~:text=In%20this%20article%2C%20I'll%20describe,functionality%20to%20your%20app%20step%2Dby%2Dstep." ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://mailtrap.io/blog/phpmailer/%23:~:text%3DIn%2520this%2520article%252C%2520I%27ll%2520describe,functionality%2520to%2520your%2520app%2520step%252Dby%252Dstep.&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q77oQegQIOxAD"><span>Read more</span></a></div></div></div></div></div></div><div class="MjjYud"></div></div></div></div></div></div><div id="botstuff"><div data-hveid="CC4QAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QCHoECC4QAA"><div><div data-sstk="AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA"></div></div><div class="bsmXxe" id="tsuid_iE1laqfPEI2IosUP4tOE-Qs_54" role="none"></div><div id="bres"></div><div role="navigation"><h1 class="bNg8Rb">Page Navigation</h1><table class="AaVjTc" style="border-collapse:collapse;text-align:left" role="presentation"><tr jsname="TeSSVd" class="mYW5bd" valign="top"><td class="d6cvqb BBwThe"><span class="SJajHc" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-24px -112px;background-size:167px;width:28px"></span></td><td class="YyVfkd NKTSme"><span class="SJajHc" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-53px -112px;background-size:167px;width:20px"></span>1</td><td class="NKTSme"><a aria-label="Page 2" class="fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=10&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8tMDegQILhAE"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-74px -112px;background-size:167px;width:20px"></span>2</a></td><td class="NKTSme"><a aria-label="Page 3" class="fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=20&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8tMDegQILhAG"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-74px -112px;background-size:167px;width:20px"></span>3</a></td><td class="NKTSme"><a aria-label="Page 4" class="fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=30&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8tMDegQILhAI"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-74px -112px;background-size:167px;width:20px"></span>4</a></td><td class="NKTSme"><a aria-label="Page 5" class="fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=40&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8tMDegQILhAK"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-74px -112px;background-size:167px;width:20px"></span>5</a></td><td class="NKTSme"><a aria-label="Page 6" class="fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=50&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8tMDegQILhAM"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-74px -112px;background-size:167px;width:20px"></span>6</a></td><td class="NKTSme"><a aria-label="Page 7" class="fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=60&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8tMDegQILhAO"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-74px -112px;background-size:167px;width:20px"></span>7</a></td><td class="NKTSme"><a aria-label="Page 8" class="fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=70&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8tMDegQILhAQ"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-74px -112px;background-size:167px;width:20px"></span>8</a></td><td class="NKTSme"><a aria-label="Page 9" class="fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=80&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8tMDegQILhAS"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-74px -112px;background-size:167px;width:20px"></span>9</a></td><td class="NKTSme"><a aria-label="Page 10" class="fl" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=90&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8tMDegQILhAU"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-74px -112px;background-size:167px;width:20px"></span>10</a></td><td aria-level="2" class="d6cvqb BBwThe" role="heading"><a class="LLNLxf" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ei=iE1laqfPEI2IosUP4tOE-Qs&amp;start=10&amp;sa=N&amp;sstk=AU9db-AZvLUtNZO9U3dWEHWkpiShFBuRMgOr8x9aUtZ5o2ukFlzhQ8AjpfBAkLJd1m7PGXTaiquXHO3nEhedRzd8RT7JVZsIou05MA&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8NMDegQILhAW" id="pnnext" style="text-align:left"><span class="SJajHc NVbCr" style="background:url(/images/nav_logo321_hr.webp) no-repeat;background-position:-96px -112px;background-size:167px;width:71px;float:left"></span><span class="oeN89d" style="display:block;margin-left:53px">Next</span></a></td></tr></table></div><div class="uCD6gd" style="display:none" id="_iE1laqfPEI2IosUP4tOE-Qs_55"></div><div jscontroller="CSaDbc" style="display:none" jsaction="rcuQ6b:npT2md"><div jsname="f4yUNb"><div><span class="GeEc1b"><span class="gMZyfc">Results are personalized</span><span class="aCgTL">-</span><span><a href="https://www.google.com/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;peek_pws=0&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.google.com/search%3Fq%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php%26peek_pws%3D0%26sxsrf%3DAPpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QyYIOegQILhAY"><span class="DYidfe"><span class="g0F6u">Try without personalization</span></span></a></span></span></div></div></div><div><div class="OLKT8d save-components-async yp" data-api="AIzaSyAlpy4kDC13CDmwQCqYR7-JihW1XXz9vw8" data-jiis="up" data-async-type="svcps" id="gws-plugins-collections-tray__save-components-async" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QnbUCKA16BAguEBk"></div></div></div></div><div data-hveid="CAsQCA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qh6kJegQICxAI"></div><div jscontroller="zGLm3b" style="display:none" data-fc="0" data-pcon="0" data-pcs="2" jsaction="rcuQ6b:npT2md"></div><div role="navigation"><span id="xjs"></span><div id="gfn"></div><span id="fvf"></span></div></div></div><style>.FJCJfd{border:none;box-shadow:0px 1px 3px rgba(95,99,104,0.64)}.Tg0csd{bottom:0;left:0;position:fixed;right:0;z-index:312}.h5JSWd{padding:0 4px}.XVMlrc{text-decoration:none;cursor:pointer}.XVMlrc:hover{text-decoration:none}.olrp5b{display:flex}.mTpL7c{display:inline-block}.mTpL7c:not([disabled]){cursor:pointer}.R0DW9c:not(.vpR9sb){display:none}.R0DW9c{position:relative}.vH6rvf{padding:8px 0;z-index:100;opacity:0;top:0;position:absolute;background:var(--aYn2S);border-radius:8px;overflow:hidden}@media (forced-colors:active){.vH6rvf{outline:1px solid}}.LJefwf{display:none}</style><div class="Tg0csd"><div data-st-tgt="fb" data-hveid="CBsQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q96AJegQIGxAA"><div class="YNk70c iFBYke"><div class="GG4mbd P3mIxe" jscontroller="O63OXd" role="navigation" tabindex="-1" jsaction="rcuQ6b:npT2md;YcfJ:rWvwbc;"><div class="h5JSWd"><div class="rQTE8b" data-hveid="CBsQAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QjMEKegQIGxAB"><div class="beZ0tf O1uzAe" role="list"><div jsname="xBNgKe" role="listitem" data-hveid="CBsQAg" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAgbEAI"><div><div class="olrp5b" data-fbs="ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg"><a class="XVMlrc C6AK7c" data-mstk-u="" data-vt-mb="" href="/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;udm=50&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;aep=1&amp;ntc=1&amp;cs=1&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2J8OegQIGxAD" tabindex="0" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2J8OegQIGxAD"><div class="mXwfNd"><div class="mVH5Fc"><span class="R1QWuf"><span jsname="KliEFc">AI Mode</span></span></div></div></a></div></div></div><div role="listitem" data-hveid="CB4QAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJegQIHhAA"><a class="C6AK7c" aria-disabled="true" role="link" tabindex="0" data-hveid="CB4QAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2Z0MegQIHhAB"><div jsname="xBNgKe" aria-current="page" selected="" class="mXwfNd"><span class="R1QWuf">All</span></div></a></div><div role="listitem" data-hveid="CB8QAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAgfEAA"><a jsname="pxBnId" class="C6AK7c" href="/search?sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;udm=7&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtKgLegQIHxAB" jsaction="" data-hveid="CB8QAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtKgLegQIHxAB"><div jsname="xBNgKe" class="mXwfNd"><span class="R1QWuf">Videos</span></div></a></div><div role="listitem" data-hveid="CCIQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAgiEAA"><a jsname="pxBnId" class="C6AK7c" href="/search?sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;udm=18&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qs6gLegQIIhAB" jsaction="" data-hveid="CCIQAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qs6gLegQIIhAB"><div jsname="xBNgKe" class="mXwfNd"><span class="R1QWuf">Forums</span></div></a></div><div role="listitem" data-hveid="CCMQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAgjEAA"><a jsname="pxBnId" class="C6AK7c" href="/search?sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;udm=28&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;ved=1t:220175&amp;ictx=111" jsaction="" data-hveid="CCMQAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qj7gNegQIIxAB" ping="/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=/search%3Fsca_esv%3D46714cf388915209%26sxsrf%3DAPpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280%26udm%3D28%26fbs%3DABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg%26q%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php%26ved%3D1t:220175%26ictx%3D111&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qj7gNegQIIxAB"><div jsname="xBNgKe" class="mXwfNd"><span class="R1QWuf">Shopping</span></div></a></div><div role="listitem" data-hveid="CCEQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAghEAA"><a jsname="pxBnId" class="C6AK7c" href="/search?sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;udm=2&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtKgLegQIIRAB" jsaction="" data-hveid="CCEQAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtKgLegQIIRAB"><div jsname="xBNgKe" class="mXwfNd"><span class="R1QWuf">Images</span></div></a></div><div role="listitem" data-hveid="CCAQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAggEAA"><a jsname="pxBnId" class="C6AK7c" href="/search?sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;udm=39&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qs6gLegQIIBAB" jsaction="" data-hveid="CCAQAQ" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qs6gLegQIIBAB"><div jsname="xBNgKe" class="mXwfNd"><span class="R1QWuf">Short videos</span></div></a></div><div role="listitem" jscontroller="eBYPP" jsaction="keydown:uYT2Vb;UBsZj:gk6SMd;JkcjMe:AOJsKd;UszG1b:Seb4Qb;r4FAn:TvD9Pc" jsshadow=""><div class="mTpL7c" aria-controls="_iE1laqfPEI2IosUP4tOE-Qs_42" jsname="oYxtQd" jsaction="gq6u4d;" aria-expanded="false" role="button" tabindex="0" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q7p0OegQIGxAF"><div aria-label="More filters" class="mXwfNd"><div class="mVH5Fc"><span class="R1QWuf">More</span><span class="FXBAof M5dSnd z1asCe K1bG5d" style="height:16px;line-height:16px;width:16px"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7 10l5 5 5-5z"></path></svg></span></div></div></div><div jsname="H9P06b" class="R0DW9c"><div class="vH6rvf FJCJfd" data-mw="280" jsname="xl07Ob" id="_iE1laqfPEI2IosUP4tOE-Qs_42" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q750OegQIGxAG"><div class="bsmXxe" id="iE1laqfPEI2IosUP4tOE-Qs__24" role="none"></div><div class="bsmXxe" id="iE1laqfPEI2IosUP4tOE-Qs__25" role="none"></div><div class="bsmXxe" id="iE1laqfPEI2IosUP4tOE-Qs__26" role="none"></div><div class="bsmXxe" id="iE1laqfPEI2IosUP4tOE-Qs__27" role="none"></div><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){
-(this||self).y9PREe=function(a,b,c){a=document.querySelector(a);b=document.querySelector(b);a&&b&&a!==b&&a.parentNode!==b&&(b.appendChild(a),c&&google.tick("load","uddfrt"))};}).call(this);</script></div></div></div></div><div class="yeKjxb" data-noaftde="" id="_iE1laqfPEI2IosUP4tOE-Qs_43"></div></div></div><div id="_iE1laqfPEI2IosUP4tOE-Qs_45"></div></div></div><div jsname="wKal9e"></div><span class="LJefwf"></span><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var target_content_query_selector='[data-st-tgt\x3dfb]';var destination_container_query_selector='[data-st-cnt\x3dfb]';var record_udd_frt=false;var fro_splicing_inline_script='y9PREe';window[fro_splicing_inline_script](target_content_query_selector,destination_container_query_selector,record_udd_frt);})();</script></div></div><div class="Tg0csd"><div jscontroller="KHourd" jsdata="C4mkuf;_;iE1laqfPEI2IosUP4tOE-Qs16" jsaction="rcuQ6b:npT2md" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QuqMJegQIGhAA"></div></div> <div jscontroller="T5VV" data-ssc="0" jsaction="rcuQ6b:npT2md"></div>  <div jscontroller="aDVF7" jsaction="rcuQ6b:npT2md"></div>  <div jscontroller="rhYw1b" data-dmd="" data-dvt="d" jsaction="rcuQ6b:npT2md"></div> <div class="EyBRub"><div jscontroller="Wo3n8" jsname="aadvhe" jsmodel=" d5EhJe" data-fhs="" data-maindata='[null,null,null,"glbl"]' data-ofbl="114,120,134" jsaction="kPzEO: MlP2je;qjLxRc: FbhRG;w8f1fc: hRwSgb;kq2wxf: s5CUif;aIJAdf: UhDUnd;rwuG3b: KGQHJd;BqbTbe: naa5ve;kYAKrf: CqUGrf;hwhRRe: KyxjCd;rcuQ6b: npT2md;TB1oCf: GdEbxc" jsdata="vST7rb;_;iE1laqfPEI2IosUP4tOE-Qs11 zEIyGd;_;"><div id="_iE1laqfPEI2IosUP4tOE-Qs_33"><style>.i1eWpb .GTERze{display:none}.ky4hfd{display:none}.i1eWpb .ky4hfd{display:block}</style><div jsname="GkjeIf" id="_iE1laqfPEI2IosUP4tOE-Qs_35" data-jiis="up" data-async-type="kp_feedback" class="yp" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q68cEegQICxAJ"></div><div jsname="WKijSd" id="_iE1laqfPEI2IosUP4tOE-Qs_37" data-jiis="up" data-async-type="unified_feedback" class="yp" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q68cEegQICxAK"></div></div></div></div><div jscontroller="oPmHrb" jsaction="rcuQ6b:npT2md"><div jscontroller="FzTajd" jsname="GuKejc" jsaction="rcuQ6b:npT2md;Zea3Wc:NYVLBc;C6Hrtf:jEKfHe"></div></div><div jscontroller="LnZNCd" jsdata="Sk13Xb;_;iE1laqfPEI2IosUP4tOE-Qs12" jsaction="rcuQ6b:npT2md"></div><style>@keyframes allow-alert {from{opacity:1}to{opacity:.35}}.puIGge{position:sticky;top:100vh}</style><div><span style="display:none"><span jscontroller="DhPYme" style="display:none" data-atsd="5" data-db="1" data-mmcnt="100" jsaction="rcuQ6b:npT2md"></span></span></div><div class="spch" style="display:none" id="spch"></div><div class="puIGge" id="sfooter" data-crust-trigger="5415" role="contentinfo" data-hveid="CAcQAA" data-ved="2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qpyp6BAgHEAA"><h1 class="bNg8Rb">Footer Links</h1><div id="footcnt"><div id="fbarcnt"><div class="f6F9Be TrMVnc YNk70c" id="fbar"></div></div></div><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var zbu='/verify/ALSKRH37KjLX7RxCzMxE12OAFO4yhOhu9GIWj2QNKR3C0hSLf-yYuRkJc5wcMCXwv27mZEaY_hiwKFw9El7WqyFxyly6KocNC3nDH5lTCCsMcvaSBwg--cJnMogs2UtkLOFjX0eGObuXzJC_JnHqFT26Aw';try{var a=new Image;google.zbi=a;a.onload=a.onerror=function(){delete google.zbi};a.src=zbu}catch(b){};})();</script></div><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var pd=-1;var pi=0;(function(){function h(){function b(e,l){e=e.querySelectorAll("img");for(var g=0;g<e.length;g++)l.push(e[g])}var a=document,c=[];b(a,c);a=a.querySelectorAll("[data-shadow-root]");for(var d=0;d<a.length;d++){var f=a[d];f.shadowRoot&&b(f.shadowRoot,c)}return c};var k=google.c.ssdi;function m(b,a){google.c.e("load",b,String(a))};window.google=window.google||{};google.c.iim=google.c.iim||{};(function(){function b(){google.c.ubf&&google.c.u("frt");google.c.cae||google.c.maft(a,null);google.c.miml(a);google.c.u("prt")}var a=Date.now();google.tick("load","prt",a,"SearchBodyEnd");var c=k?h():document.getElementsByTagName("img");m("imn",c.length);m("dtc",document.getElementsByTagName("div").length);m("stc",document.getElementsByTagName("span").length);google.c.wpr?google.c.q("prs",function(){if(pd>=0)if(pi>0)var d=Date.now(),f=setInterval(function(){if(google.c.wh>10||Date.now()-d>=pd)clearInterval(f),b()},pi);else setTimeout(b,pd);else b()}):b()})();}).call(this);})();(function(){window.google=window.google||{};window.google.ishk=[];function a(){return window.scrollY+window.document.documentElement.clientHeight>=Math.max(document.body.scrollHeight,document.body.offsetHeight)}function b(){a()&&window.google.ishk.length===0&&(window.google.bs=!0,window.removeEventListener("scroll",b))}a()?window.google.bs=!0:(window.google.bs=!1,window.addEventListener("scroll",b));}).call(this);</script><style>.r8qWG{display:-webkit-box;overflow:hidden;text-overflow:ellipsis;white-space:normal!important;-webkit-box-orient:vertical}.aAJbCe{display:-webkit-box;overflow:hidden;text-overflow:ellipsis;white-space:normal!important;-webkit-box-orient:vertical}@media (max-width:360px){.aAJbCe{word-break:break-word!important;-webkit-line-clamp:5!important}}.aAJbCe.NccSHc{word-break:break-word!important;-webkit-line-clamp:5!important}.JGD2rd.NccSHc{word-break:break-word!important;-webkit-line-clamp:3!important}.mWcf0e{cursor:pointer}@media (forced-colors:active){.CNbPnc{background-color:ButtonFace;border:1px solid transparent;border-color:ButtonBorder;color:ButtonText}}.VfL2Y{position:relative;}.YQpX9d{cursor:pointer;position:relative;}.LRZwuc{display:inline-block}.BJ1Ird .LRZwuc{display:block}.nKHyTc{color:var(--IXoxUe);float:right;font-size:var(--gOs6Bf);line-height:var(--punZlc);padding-bottom:4px}.eDGqNd{color:var(--IXoxUe);float:right;font-size:var(--gOs6Bf);line-height:var(--punZlc)}.BJ1Ird,.k62gjb .W7GCoc:hover,.k62gjb:hover{text-decoration:underline}g-dropdown-menu{display:inline-block;position:relative}.Jb0Zif g-dropdown-menu{vertical-align:middle}.WNN1b{background-color:var(--xhUGwc)}.adGN6[disabled]{pointer-events:none;cursor:default;background-color:var(--YaIeMb)}.UjBGL{display:block;color:#1f1f1f}.UjBGL{color:#fff}.CcNe6e{cursor:pointer;display:inline-block}.shnMoc.CcNe6e{display:block}.v4Zpbe.CcNe6e{display:flex;height:100%;width:100%}.pkWBse{border-radius:8px;box-shadow:1px 1px 15px 0px #171717}.iRQHZe{position:absolute}.PBn44e{border-radius:8px}.yKUyj .EpPYLd:first-of-type{border-top-left-radius:8px;border-top-right-radius:8px}.yKUyj .EpPYLd:last-of-type{border-bottom-left-radius:8px;border-bottom-right-radius:8px}.yTik0{border:none;display:block;outline:none}.wplJBd{white-space:nowrap}.iQXTJe{padding:5px 0}.EpPYLd{display:block;position:relative}.YpcDnf{padding:0 16px;vertical-align:middle}.WtV5nd .YpcDnf{padding-left:28px}.EpPYLd:hover{cursor:pointer}.CB8nDe:hover,.EpPYLd{cursor:default}.EpPYLd[disabled],.LGiluc{pointer-events:none;cursor:default}@media (forced-colors:active){.EpPYLd[disabled]{color:GrayText}}.LGiluc{border-top:1px solid;height:0;margin:5px 0}.Zt0a5e.LGiluc{border-top-color:var(--gS5jXb)}.Zt0a5e.EpPYLd[disabled],.Zt0a5e.LGiluc{color:rgba(255,255,255,.26)!important}.CjiZvb,.GZnQqe.EpPYLd:active{background-color:rgba(255,255,255,.1)}.GZnQqe .YpcDnf{line-height:23px}.GZnQqe.CB8nDe{background:no-repeat 0}.GZnQqe.CB8nDe{background-image:url(https://ssl.gstatic.com/ui/v1/menu/checkmark2-light.png)}@media (forced-colors:active){.GZnQqe.CB8nDe{background-image:url(https://ssl.gstatic.com/ui/v1/menu/checkmark2-light.png)}}.GZnQqe.EpPYLd[disabled],.GZnQqe.LGiluc{opacity:0.38}.GZnQqe.LGiluc{border-top-color:var(--gS5jXb)}.KUf18.ivkdbf{background-color:var(--gVUKcd);opacity:1;visibility:inherit}.VfsLpf.ivkdbf{background-color:#000;opacity:.4;visibility:inherit}.J3Hnlf.ivkdbf{background-color:#1f1f1f;opacity:.7;visibility:inherit}.X46m8.ivkdbf{background-color:#000;opacity:.8;visibility:inherit}.cBoDed.ivkdbf{background-color:var(--aYn2S);opacity:.85;visibility:inherit}.kyk7qb.ivkdbf{background-color:#1f1f1f;opacity:.6;visibility:inherit}.qk7LXc.ivkdbf{opacity:1}.mcPPZ.ivkdbf{opacity:1;visibility:inherit}.mcPPZ.nP0TDe{cursor:pointer}.mcPPZ.nP0TDe .qk7LXc{cursor:default}.kJFf0c{position:fixed;z-index:9997;right:0;bottom:-200px;top:0;left:0;transition:opacity .25s;opacity:0;visibility:hidden}.qk7LXc{border-radius:8px;display:inline-block;z-index:9997;background-color:var(--xhUGwc);opacity:0;white-space:normal;overflow:hidden}.qk7LXc{box-shadow:0px 5px 26px 0px rgba(0,0,0,0.5),0px 20px 28px 0px rgba(0,0,0,0.5)}.qk7LXc.TSURG{border-bottom-left-radius:0;border-bottom-right-radius:0}.qk7LXc.DJEOfc{background-color:transparent}.qk7LXc.DJEOfc{box-shadow:none}.qk7LXc.OIQUsf{background:var(--XKMDxc)}.qk7LXc.Fb1AKc{position:relative;vertical-align:middle}.qk7LXc.By9mMc{position:fixed}.qk7LXc.W6Z5of{top:50%;left:50%;transform:translate(-50%,-50%)}.qk7LXc.ulWzbd{position:absolute}.qk7LXc.P1WYLb{border:1px solid var(--mXZkqc);box-shadow:#dadce0}.mcPPZ{position:fixed;right:0;bottom:0;top:0;left:0;z-index:9997;vertical-align:middle;visibility:hidden;white-space:nowrap;max-height:100%;max-width:100%;overflow-x:hidden;overflow-y:auto}.mcPPZ.xg7rAe{text-align:center}.mcPPZ:after{content:"";display:inline-block;height:100%;vertical-align:middle}.LjfRsf{height:0;opacity:0;position:absolute;width:0}.VH47ed{visibility:hidden}.TaoyYc{overflow:hidden}.TaoyYc{position:fixed;width:100%}.Sq3Zp .mcPPZ{pointer-events:none}.Sq3Zp .qk7LXc{pointer-events:auto}.Sq3Zp .kJFf0c{display:none}.TBC9ub{margin-left:0px;margin-right:0px}.OZ5bRd{margin-bottom:auto;margin-top:auto}.wgbRNb{cursor:pointer;height:72px;position:absolute;display:block;visibility:inherit;width:36px;bottom:0;opacity:.8;top:0;z-index:101}.wgbRNb.tHT0l{transition:opacity .5s,visibility .5s}.wgbRNb:hover{opacity:.9}.wgbRNb.pQXcHc,.wgbRNb.pQXcHc:hover{cursor:default;opacity:0;visibility:hidden}.b5K9zd{bottom:0;display:block;position:absolute!important;top:0}.wgbRNb.btpNFe:hover g-fab{color:#9aa0a6!important}.wgbRNb.btpNFe{height:36px;width:36px;opacity:.9}.wgbRNb.btpNFe:hover{opacity:1}.wgbRNb.btpNFe.pQXcHc,.wgbRNb.btpNFe.pQXcHc:hover{opacity:0}.VdehBf.btpNFe g-fab,.bCwlI.btpNFe g-fab{box-shadow:0 0 0 1px rgba(0,0,0,.04),0 4px 8px 0 rgba(0,0,0,.2);cursor:pointer;height:36px;width:36px}.bCwlI.btpNFe{left:-18px}.VdehBf.btpNFe{right:-18px}@media (max-width:683px){.bCwlI.btpNFe{left:-8px}.VdehBf.btpNFe{right:-7px}}.OvQkSb{border-radius:9999px}.S3PB2d{margin:auto}.sr9hec{cursor:pointer}.sr9hec{display:block;position:relative}.sr9hec{box-shadow:0,0,2,0 rgba(0,0,0,.5)}.sr9hec{z-index:0}.sr9hec:focus{outline:none}.sr9hec .U8v51e{position:absolute;left:0;right:0;top:0;bottom:0;width:24px;height:24px}.s3IB3{width:40px;height:40px}.qk7LXc.yMNJR,.yMNJR .qk7LXc{max-width:100%}.Ox8Cyd{height:0;position:fixed;z-index:999;left:0;right:0}.E7Hdgb{box-sizing:border-box;visibility:hidden;display:inline-block;position:relative}.sHFNYd{margin-right:-8px}@media (min-width:569px) and (min-height:569px){.sHFNYd{margin-left:40px}}.AT29bb .btku5b.btku5b.btku5b.btku5b:not([selected]) .niO4u{color:#a8c7fa}.YNk70c .vpFuDd{display:flex;flex-wrap:wrap;margin:0 -10px;overflow:hidden}.YNk70c .vpFuDd .Kx6mKf{flex-grow:1;margin:0 10px;min-width:260px;width:calc(50% - 20px)}.s6JM6d .eYa01b{width:148px}.s6JM6d .KtfA8c{width:204px}.s6JM6d .APo4S{margin-left:10px;margin-right:10px}.s6JM6d .THlyec{margin-left:-10px;margin-right:-10px;width:auto}.M8OgIe .hhv4Fb{margin-left:-38px;margin-right:-38px}.M8OgIe .JL6v7b{margin-left:38px;margin-right:38px}.M8OgIe .TRty9d{width:316px}@media (min-width:940px) and (max-width:1163.98px){.M8OgIe .TRty9d{width:260px}}@media (min-width:800px) and (max-width:939.98px){.M8OgIe .TRty9d{width:372px}}@media (min-width:550px) and (max-width:683.98px){.M8OgIe .TRty9d{width:calc(50% - 10px)}}@media (max-width:550px){.M8OgIe .TRty9d{width:100%}}.TQc1id .zLsiYe{margin-left:-21px;padding-left:0}.OhScic{margin:0px}.zsYMMe{padding:0px}.za1yy{color:var(--uLz37c)}.ZYHQ7e{color:var(--IXoxUe)}.GS5rRd{color:var(--JKqx2)}.GS5rRd:visited{color:#c58af9}.AraNOb{-webkit-text-decoration:underline;text-decoration:underline}.hWgrdb{font-style:italic}.RiJqbb{font-family:Google Sans,Arial,sans-serif;font-weight:500}.q8U8x{font-family:Google Sans,Arial,sans-serif;font-weight:400}.Z5bgrc{font-family:Arial,sans-serif;font-weight:500}.l97dzf{font-weight:400}.TUOsUe{text-align:left}.SlP8xc{text-transform:none}.n9iHLc{text-transform:uppercase}.NNMgCf{font-family:Arial,sans-serif;font-size:18px;line-height:24px}.Pqkn2e{font-family:var(--nkmQOe);font-size:var(--z3BFIe);line-height:var(--a9X0Jc)}.ApHyTb{font-family:var(--YfiKf);font-size:var(--gOs6Bf);line-height:var(--punZlc);letter-spacing:0}.SGNhVe{font-family:Google Sans,Arial,sans-serif;font-size:48px;letter-spacing:0;line-height:56px}.EX5Zne{font-family:Google Sans,Arial,sans-serif;font-size:36px;line-height:48px}.JgzqYd{font-family:Google Sans,Arial,sans-serif;font-size:28px;line-height:36px}.aTI8gc{font-family:var(--IT7y3c);font-size:var(--Ia70Xd);font-weight:var(--Vyi8yc);line-height:var(--hPDMFf)}.pb3iw{font-family:var(--rTk0E);font-size:var(--uBdgTe);font-weight:var(--Zf9Xnd);line-height:var(--Ok3irf)}.ILxcde{font-family:Google Sans,Arial,sans-serif;font-size:16px;font-weight:400;line-height:24px}.sjVJQd{font-family:var(--qR8X0);font-size:var(--hbmnje);font-weight:var(--Oycjt);line-height:var(--CbdmE)}.k1U36b{font-size:var(--cMTvjf);font-family:var(--qBwyqb);font-weight:var(--CUS15e);line-height:var(--nUOqEc)}.j5Egsc{font-family:Google Sans,Arial,sans-serif;font-size:16px;font-weight:400;line-height:22px}.ZwRhJd{font-family:var(--lI1Trc);font-size:var(--ZNg88);line-height:var(--HIyEKc)}.OjFzvd{display:flex;flex-direction:row;justify-content:start}.VCOFK{margin-left:8px;margin-right:8px}.eJtrMc{padding-bottom:8px;padding-top:8px}.s8bAkb{padding-bottom:0px;padding-top:0px}.Kc1gdb{padding-top:4px}.ouy7Mc{padding-left:16px;padding-right:16px}.Bb1JKe{padding-bottom:8px}</style><div jscontroller="oQfbDd" jsaction="rcuQ6b:npT2md"></div><div jscontroller="TDFkye" data-vpload="" jsaction="rcuQ6b:npT2md"></div><div jscontroller="qmjr3" jsaction="rcuQ6b:npT2md"></div><div jscontroller="IQw9J" jsaction="rcuQ6b:npT2md"></div><div jscontroller="ily0Be" jsaction="rcuQ6b:npT2md"></div><div jscontroller="Zihehd" data-vpload="" jsaction="rcuQ6b:npT2md"></div><div jscontroller="mf2ifc" data-vpload="" jsaction="rcuQ6b:npT2md"></div><div id="shdg" jscontroller="uLYJpc" jsaction="SJu0Rc:SlAvWb;TvD9Pc:TvD9Pc"><div jsname="EvA93" class="iMlap" style="display:none" jsaction="mLt3mc" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qy4IECDk"><div class="Rm2Avb"><h1 class="LBgq6">Share</h1><button jsname="tqp7ud" class="xjR8dd" aria-label="Close" jsaction="TvD9Pc" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QzIIECDo"><span class="Xe9GQc z1asCe"><svg focusable="false" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg></span></button></div><div jsname="Sy6N1c" class="lOZ7m"></div><div jsname="b0t70b" class="vZdNrc eU87wf" jscontroller="HPGtmd"><div jsname="GIN7Bd" jscontroller="n7qy6d"><div class="mXZJrb"><span jsname="zgnjS" class="F6Q4e" jsaction="aiBUrb"></span><button jsname="QhTh0d" class="p7eiqf" tabindex="0" jsaction="RNDhHe"><span jsname="uu7Hed" class="sWx2zb"><svg aria-hidden="true" focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M9 18C8.45 18 7.975 17.8083 7.575 17.425C7.19167 17.025 7 16.55 7 16V4C7 3.45 7.19167 2.98333 7.575 2.6C7.975 2.2 8.45 2 9 2H18C18.55 2 19.0167 2.2 19.4 2.6C19.8 2.98333 20 3.45 20 4V16C20 16.55 19.8 17.025 19.4 17.425C19.0167 17.8083 18.55 18 18 18H9ZM9 16H18V4H9V16ZM5 22C4.45 22 3.975 21.8083 3.575 21.425C3.19167 21.025 3 20.55 3 20V6H5V20H16V22H5ZM9 16V4V16Z"></path></svg><span>Copy link</span></span><span jsname="axr9cd" class="sWx2zb"><svg aria-hidden="true" focusable="false" height="24px" viewBox="0 0 24 24" width="24px" xmlns="http://www.w3.org/2000/svg"><path d="M9 18C8.45 18 7.975 17.8083 7.575 17.425C7.19167 17.025 7 16.55 7 16V4C7 3.45 7.19167 2.98333 7.575 2.6C7.975 2.2 8.45 2 9 2H18C18.55 2 19.0167 2.2 19.4 2.6C19.8 2.98333 20 3.45 20 4V16C20 16.55 19.8 17.025 19.4 17.425C19.0167 17.8083 18.55 18 18 18H9ZM9 16H18V4H9V16ZM5 22C4.45 22 3.975 21.8083 3.575 21.425C3.19167 21.025 3 20.55 3 20V6H5V20H16V22H5ZM9 16V4V16Z"></path></svg><span>Copy link</span></span><span jsname="pAZ6Ed" class="sWx2zb" style="display:none"><svg aria-hidden="true" focusable="false" height="11" viewBox="0 0 14 11" width="14" xmlns="http://www.w3.org/2000/svg"><path d="M4.25012 8.12738L1.12262 4.99988L0.0576172 6.05738L4.25012 10.2499L13.2501 1.24988L12.1926 0.192383L4.25012 8.12738Z"></path></svg><span>Link copied</span></span></button></div><div jsname="tQ9n1c" class="KZMqi" aria-hidden="true"></div></div><div class="km0gyc"><div class="EfSXq"><button jsaction="rT2OA" class="oIdq8b" jsname="RgELLe" tabindex="0"><svg aria-hidden="true" height="24px" version="1.1" viewBox="0 0 666.66668 666.66717" width="24px" xmlns="http://www.w3.org/2000/svg"><defs><clipPath clippathunits="userSpaceOnUse"><path d="M 0,700 H 700 V 0 H 0 Z"></path></clipPath></defs><g transform="matrix(1.3333333,0,0,-1.3333333,-133.33333,799.99999)"><g><g><g transform="translate(600,350)"><path fill="#0866ff" d="m 0,0 c 0,138.071 -111.929,250 -250,250 -138.071,0 -250,-111.929 -250,-250 0,-117.245 80.715,-215.622 189.606,-242.638 v 166.242 h -51.552 V 0 h 51.552 v 32.919 c 0,85.092 38.508,124.532 122.048,124.532 15.838,0 43.167,-3.105 54.347,-6.211 V 81.986 c -5.901,0.621 -16.149,0.932 -28.882,0.932 -40.993,0 -56.832,-15.528 -56.832,-55.9 V 0 h 81.659 l -14.028,-76.396 h -67.631 V -248.169 C -95.927,-233.218 0,-127.818 0,0" fill-opacity="1" fill-rule="nonzero" stroke="none"></path></g><g transform="translate(447.9175,273.6036)"><path fill="#fff" d="M 0,0 14.029,76.396 H -67.63 v 27.019 c 0,40.372 15.838,55.899 56.831,55.899 12.733,0 22.981,-0.31 28.882,-0.931 v 69.253 c -11.18,3.106 -38.509,6.212 -54.347,6.212 -83.539,0 -122.048,-39.441 -122.048,-124.533 V 76.396 h -51.552 V 0 h 51.552 v -166.242 c 19.343,-4.798 39.568,-7.362 60.394,-7.362 10.254,0 20.358,0.632 30.288,1.831 L -67.63,0 Z" fill-opacity="1" fill-rule="nonzero" stroke="none"></path></g></g></g></g></svg></button><span class="aelXHb">Facebook</span></div><div class="EfSXq"><button jsaction="eOZhO" class="oIdq8b" jsname="bVp1N" tabindex="0"><svg aria-hidden="true" enable-background="new 0 0 192 192" height="22px" viewBox="0 0 192 192" width="22px" xmlns="http://www.w3.org/2000/svg"><rect fill="none" height="192" width="192"></rect><g><g><path fill="#c5221f" d="M8,46v16l18.35,17.76L48,92l4-26.93L48,40l-11.2-8.4C24.93,22.7,8,31.17,8,46"></path><path fill="#ea4335" d="M144,40l-4,25.4l4,26.6l19.65-9.73L184,62V46c0-14.83-16.93-23.3-28.8-14.4L144,40z"></path><path fill="#4285f4" d="M20,160h28V92L8,62v86C8,154.63,13.37,160,20,160"></path><path fill="#34a853" d="M144,160h28c6.63,0,12-5.37,12-12V62l-40,30V160z"></path><polygon fill="#ea4335" points="96,76 48,40 48,92 96,128 144,92 144,40"></polygon></g></g></svg></button><span class="aelXHb">Gmail</span></div><div class="EfSXq"><button jsaction="re2RZb" class="oIdq8b" jsname="P8lkFb" tabindex="0"><svg aria-hidden="true" fill="currentColor" height="18px" viewBox="0 0 1200 1227" width="17.63px" xmlns="http://www.w3.org/2000/svg"><path d="M714.163 519.284L1160.89 0H1055.03L667.137 450.887L357.328 0H0L468.492 681.821L0 1226.37H105.866L515.491 750.218L842.672 1226.37H1200L714.137 519.284H714.163ZM569.165 687.828L521.697 619.934L144.011 79.6944H306.615L611.412 515.685L658.88 583.579L1055.08 1150.3H892.476L569.165 687.854V687.828Z"></path></svg></button><span class="aelXHb">X</span></div><div class="EfSXq"><button jsaction="ED9Thd" class="oIdq8b" jsname="Io1Xse" tabindex="0"><svg fill="#ff4500" aria-hidden="true" height="26px" viewBox="0 0 256 256" width="26px" xmlns="http://www.w3.org/2000/svg"><path d="m200.56,98.04c-6.85,0-13.16,2.31-18.2,6.19-13.72-8.49-31.04-13.83-49.99-14.54,0-.03,0-.05,0-.08,0-12.7,9.44-23.24,21.68-24.97,2.22,9.41,10.67,16.42,20.76,16.42,11.78,0,21.33-9.55,21.33-21.33s-9.55-21.33-21.33-21.33c-10.3,0-18.89,7.3-20.89,17.01-17.25,1.85-30.72,16.48-30.72,34.21,0,.04,0,.07,0,.11-18.76.79-35.89,6.13-49.49,14.56-5.05-3.91-11.39-6.24-18.27-6.24-16.51,0-29.89,13.38-29.89,29.89,0,11.98,7.04,22.3,17.21,27.07.99,34.7,38.8,62.61,85.31,62.61s84.37-27.94,85.31-62.67c10.09-4.8,17.07-15.09,17.07-27,0-16.51-13.38-29.89-29.89-29.89Z"></path></svg></button><span class="aelXHb">Reddit</span></div><div class="EfSXq"><button jsaction="cmaSVb" class="oIdq8b" jsname="EcD0F" tabindex="0"><svg aria-hidden="true" fill="none" height="22px" viewBox="0 0 360 362" width="22px" xmlns="http://www.w3.org/2000/svg"><path fill="#25d366" clip-rule="evenodd" d="M307.546 52.5655C273.709 18.685 228.706 0.0171895 180.756 0C81.951 0 1.53846 80.404 1.50408 179.235C1.48689 210.829 9.74646 241.667 25.4319 268.844L0 361.736L95.0236 336.811C121.203 351.096 150.683 358.616 180.679 358.625H180.756C279.544 358.625 359.966 278.212 360 179.381C360.017 131.483 341.392 86.4547 307.546 52.5741V52.5655ZM180.756 328.354H180.696C153.966 328.346 127.744 321.16 104.865 307.589L99.4242 304.358L43.034 319.149L58.0834 264.168L54.5423 258.53C39.6304 234.809 31.749 207.391 31.7662 179.244C31.8006 97.1036 98.6334 30.2707 180.817 30.2707C220.61 30.2879 258.015 45.8015 286.145 73.9665C314.276 102.123 329.755 139.562 329.738 179.364C329.703 261.513 262.871 328.346 180.756 328.346V328.354ZM262.475 216.777C257.997 214.534 235.978 203.704 231.869 202.209C227.761 200.713 224.779 199.966 221.796 204.452C218.814 208.939 210.228 219.029 207.615 222.011C205.002 225.002 202.389 225.372 197.911 223.128C193.434 220.885 179.003 216.158 161.891 200.902C148.578 189.024 139.587 174.362 136.975 169.875C134.362 165.389 136.7 162.965 138.934 160.739C140.945 158.728 143.412 155.505 145.655 152.892C147.899 150.279 148.638 148.406 150.133 145.423C151.629 142.432 150.881 139.82 149.764 137.576C148.646 135.333 139.691 113.287 135.952 104.323C132.316 95.5909 128.621 96.777 125.879 96.6309C123.266 96.5019 120.284 96.4762 117.293 96.4762C114.302 96.4762 109.454 97.5935 105.346 102.08C101.238 106.566 89.6691 117.404 89.6691 139.441C89.6691 161.478 105.716 182.785 107.959 185.776C110.202 188.767 139.544 234.001 184.469 253.408C195.153 258.023 203.498 260.782 210.004 262.845C220.731 266.257 230.494 265.776 238.212 264.624C246.816 263.335 264.71 253.786 268.44 243.326C272.17 232.866 272.17 223.893 271.053 222.028C269.936 220.163 266.945 219.037 262.467 216.794L262.475 216.777Z" fill-rule="evenodd"></path></svg></button><span class="aelXHb">WhatsApp</span></div></div></div></div></div></div></div><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){google.xjs={basecomb:'/xjs/_/js/k\x3dxjs.s.en.KUA7QjYcYR0.2019.O/ck\x3dxjs.s.TGkh3Xra1hI.L.B1.O/am\x3dAAAQAAAAAAAIAAAAAAAAAAAAAAQAIAIAAAAAAAAAAAAAAAAAAAAEAAIAABAAAAAAAAAAAAAAAAoAAAAAAAAQAAAAIFAAAEAGgAAQARAAUAQAEAAAEAEIAMAEAAAAAAAAACjkA0AA4AYAAAQAAOABMACOAAAAAAAAAAAAABAAAgEEQAMAAAAA-AAAIAgAAAEAAAQAAAAQAAAAGADAAAAQQAkAAACgQgEAABAAAAAAAgAAAAAAAAAAgEgkAAAIEQgQAADAn5lvAADgAQAAAIADAAAAAAAABAAAAAAAAAAAIAAAAAAASMQBAAAAAAAACAMLAAAABAMACARAQAAEAAAAAAAAAIgESAAABAAAAgAAAQAAAAAAAAAQABCEQgAABAAFICAAAEAA4DwAIAAAAAAAAAAAEBAAAAAAAAQAAAAgAABBAEIAAQAAAAAQAAAAoAAEAAAAQA4AAAAAAABAIAGAAATAMAAEAECiIAAIAQAEREADAAAARAAAAAAAFICQ8AOAAAgAAAAAAAARAAAAAAAQIAAAAAAJALBDQACAAQAAAJAD4PEAHCI4AAAAAAAAAAAAAAAAAAAAAAAAAAAIgAKYA0lBAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAASBGeAgAAAAAA2BoAEA/d\x3d1/ed\x3d1/dg\x3d0/br\x3d1/ujg\x3d1/ichc\x3d1/rs\x3dACT90oG3XYe2ZGczYiI4-u9sL093rylAqg/cb\x3dloaded_h_0?cb\x3d121509378',basecss:'/xjs/_/ss/k\x3dxjs.s.TGkh3Xra1hI.L.B1.O/am\x3dAAAQAAAAAAAIAAAAAAAAAAAAAAQAIAIAAAAAAAAAAAAAAAAAAAAEAAIAABAAAAAAAAAAAAAAAAoAAAAAAAAQAAAAIFAAAEAGgAAAAAAAUAAAAAAAAAEIAMAEAAAAAAAAACjkAwAA4AYAAAQAAOABMACOAAAAAAAAAAAAAAAAAAEAQAMAAAAA-AAAIAgAAAEAAAAAAAAQAAAAAADAAAAQQAEAAAAgQAEAABAAAAAAAgAAAAAAAAAAgEAkAAAIAAAQAAAAAAAAAADAAQAAAAAAAAAAAAAABAAAAAAAAAAAIAAAAAAAAMQBAAAAAAAACAMAAAAAAAAACAQAQAAAAAAAAAAAAIgESAAABAAAAAAAAQAAAAAAAAAQABCEQgAABAAFICAAAAAA4DwAIAAAAAAAAAAAEBAAAAAAAAAAAAAgAABBAEIAAQAAAAAQAAAAAAAEAAAAQA4AAAAAAABAAAGAAATAMAAEAECiIAAIAQAEBAACAAAARAAAAAAAFICAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAJALBDQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE/br\x3d1/cb\x3dloaded_h_0/rs\x3dACT90oHRTw_6ShBCotN5FixzefQnjeSigA?cb\x3d121509378',basejs:'/xjs/_/js/k\x3dxjs.s.en.KUA7QjYcYR0.2019.O/am\x3dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQARAAQAQAEAAAEAAAAAAAAAAAAAAAAADAAEAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAgAEQAMAAAAAAAAAIAgAAAAAAAQAAAAAAAAAGABAAAAQQAgAAACAAgAAAAAAAAAAAAAAAAAAAAAAAEgEAAAIEQgQAADAn5lvAACgAQAAAIADAAAAAAAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAAALAAAABAMAAARAQAAEAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAFAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAQAAAAoAAAAAAAAA4AAAAAAAAAIAAAAAAAAAAAAAAAAAAIAAAAQEADAAAAAAAAAAAAFAAQ8AOAAAgAAAAAAAABAAAAAAAQIAAAAAAAAIAAQACAAQAAAJAD4PEAHCI4AAAAAAAAAAAAAAAAAAAAAAAAAAAIgAKYA0lAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAASBGeAgAAAAAA2BoAEA/dg\x3d0/br\x3d1/ichc\x3d1/rs\x3dACT90oEGjJhi1z_LXksiNQaGf1qeb7CmHw/cb\x3dloaded_h_0?cb\x3d121509378',excm:['k0Ymsb','KbYbb','E9dJ8c','P006yf','hrROY','ZGLUZ','du3Q4e','ABxRVc','JMDgA','k3r9p','rL2AR','yChgtb','SY3e7c','CnT5wd','Ok4XMd','xVK2kc','R34Tp','UP7sif','UiPhkb','xlsLW','mhIYhf','inxYEd','Wx0Z2d','RzfV8b','KrUr5e','T2RYhe','NrBxre','h6vfUb','euvxM','FGltNd','syov','syo3','noX7qe','synj','BmQtDc','oG0qee','syx6','dt7cpb','ZcOm0d','avNtBd','bXyZdf','PlCTlc','Ut0TMc','fNMhz','syru','syqs','AD6AIb','syn8','syn7','syn6','syn5','syn2','syn0','symz','symy','symw','symv','symu','syms','symr','y25qZb','sym8','sym7','sym4','sym3','sym2','sym1','sym0','syly','sylx','sylw','sylv','sylu','syls','sylr','NsEUGe','VL58m','KYXthe','PE728b','syo5','AOTkuc','ypVg7e','Oa7Qpb','TO0csb','U3Ovcc','VZLyBe','JxE93','Xf0dDe','uenbed','A9N78e','tnnVDe','Nl9vld','jjtrWe','PoJj8d','FmnE6b','tzTB5','syq0','sypz','sypx','sypw','sypv','WxJ6g','syqi','CX5LId','sys8','kOSi0d','sys7','sU6eaf','sys0','B0xr7b','cKV22c','syri','qngJBf','syre']};})();(function(){for(var a in google.iir||{})window._setImagesSrc([a],google.iir[a]),google.stvsc||google.ml(Error("img_giir"),!1,{id:a});google.iir={};}).call(this);</script><style>.lJpQBb{height:22px;width:22px;padding:1px}svg.lJpQBb{margin:6px}.minidiv .lJpQBb{height:18px;width:18px}.kur4we{display:none}.VHFyob .CvDJxb{background:var(--cIehld)}.CvDJxb.minidiv{margin-top:0}.minidiv #gb{top:2px;}#Nojs0{display:none}.minidiv .RNNXgb{min-height:32px;border-radius:16px;margin:10px 0 0;}.emcav .RNNXgb,.BgPPrc .RNNXgb{border-bottom-left-radius:0;border-bottom-right-radius:0;box-shadow:0 4px 12px rgba(23,23,23,.9);border-color:transparent;background:#303134;box-shadow:0 4px 12px rgba(23,23,23,.9);background:#303134;width:100%;}.minidiv .emcav .RNNXgb{border-color:transparent;border-bottom-left-radius:0;border-bottom-right-radius:0;box-shadow:0 4px 12px rgba(23,23,23,0.9);border-color:transparent}.emcav.emcat .RNNXgb{border-bottom-left-radius:26px;border-bottom-right-radius:26px;}.minidiv .emcav.emcat .RNNXgb{border-bottom-left-radius:16px;border-bottom-right-radius:16px}.sbfc .RNNXgb{background:#303134;box-shadow:0 4px 12px rgba(23,23,23,.9);border-color:transparent;}.sbfc .RNNXgb:hover{background:#303134;box-shadow:0 4px 12px rgba(23,23,23,.9);border-color:transparent;}.sbfc.emcav .RNNXgb{background:#303134;box-shadow:0 4px 12px rgba(23,23,23,.9);border-color:transparent}.emcav .RNNXgb:hover,.BgPPrc .RNNXgb:hover{background:#303134;box-shadow:0 4px 12px rgba(23,23,23,.9);border-color:transparent}.emcav:not(.emcat) .RNNXgb,.emcav:not(.emcat) .RNNXgb:hover,.sbfc.emcav:not(.emcat) .RNNXgb,.BgPPrc .RNNXgb,.BgPPrc .RNNXgb:hover{}.minidiv .RNNXgb:hover,.minidiv .sbfc .RNNXgb{border-color:transparent;box-shadow:0 4px 12px rgba(23,23,23,0.9)}.minidiv .RNNXgb:hover{border-color:transparent;box-shadow:0 4px 12px rgba(23,23,23,0.9)}@media (min-width:940px){.FgNLaf{display:none}}.sbfc .iblpc span,.emcav .iblpc span,.BgPPrc .iblpc span{display:block}.sbfc .iblpc,.emcav .iblpc,.BgPPrc .iblpc{padding-right:14px;margin-left:-1px}.sbfc .logo,.emcav .logo,.BgPPrc .logo{margin-left:27px}.sbfc .IormK,.emcav .IormK,.BgPPrc .IormK{margin-left:27px}.minidiv .logo{top:5px;padding:0 32px}.emcav.A8SBwf.pD4qTd{z-index:989;padding-right:0}.minidiv .iblpc{margin-top:0;height:32px}.sbfc textarea.gLFyf{white-space:pre-line;overflow-y:auto}.minidiv .gLFyf,.minidiv .YacQv,.minidiv .jOAti{font-size:var(--Mhs7de);line-height:var(--XWv1if);min-height:22px !important}.minidiv .gLFyf{padding:0;line-height:22px;margin-bottom:0;padding-top:5px;border-bottom:0}.minidiv .YacQv,.minidiv .jOAti{padding-top:5px}.minidiv .dRYYxd{margin-top:0;height:32px}.minidiv .vOY7J{line-height:32px}.minidiv .ExCKkf{width:20px}.minidiv .fzj3ad{line-height:32px}.minidiv .ByCvB{width:20px;height:20px}.minidiv .etxtjc{line-height:32px}.minidiv .hWdRGb{width:20px;height:20px}.minidiv .Tg7LZd{height:32px;line-height:32px}.minidiv .Tg7LZd .zgAlFc{height:20px;width:20px}.minidiv .Tg7LZd svg{height:20px;width:20px}.UUbT9{position:absolute;text-align:left;z-index:989;cursor:default;-webkit-user-select:none;width:100%;margin-top:-1px;font-family:Google Sans,Arial,sans-serif;}.UUbT9 b{font-family:Google Sans,Arial,sans-serif;font-weight:700}.aajZCb{display:flex;flex-direction:column;margin:0;padding:0;overflow:hidden;background:#303134;border-radius:0 0 24px 24px;box-shadow:0 4px 6px 0 #171717;border:0;padding-bottom:4px}.minidiv .aajZCb{box-shadow:0 4px 6px 0 #171717;border-radius:0 0 16px 16px}.gDtRnb{display:flex}.pD4qTd .e1R9Ud{padding-bottom:16px}.pD4qTd .e1R9Ud{min-width:47%;width:47%;margin:8px 16px 0}.erkvQe{padding-bottom:16px;flex:auto;overflow-x:hidden}.RjPuVb{height:1px;margin:0 26px 0 0}.S3nFnd{display:flex}.S3nFnd .RjPuVb,.S3nFnd .aajZCb{flex:0 0 auto}.lh87ke:link,.lh87ke:visited{color:var(--JKqx2);cursor:pointer;font:11px Arial,sans-serif;padding:0 5px;text-decoration:none;flex:auto;align-self:flex-end;margin:0 16px 5px 0}.lh87ke:hover{text-decoration:underline}.xtSCL{border-top:1px solid #5f6368;margin:0 14px;padding-bottom:4px}.sb27{transform:scale(0.85)}.i1eWpb .GTERze{display:none}.ky4hfd{display:none}.i1eWpb .ky4hfd{display:block}.YB4h9{background-color:var(--TMYS9);color:var(--EpFNW);font-family:Google Sans,Roboto,Arial,sans-serif;padding:18px 60px 18px 12px;position:relative}.YB4h9.dNS45b{background-color:var(--xhUGwc);color:var(--bbQxAb);padding:0;}.YB4h9.dNS45b{margin-bottom:0}.YB4h9.dNS45b:not(.C7Cyn){padding-top:16px;padding-top:0;margin-top:0}.ctiYKd{background-color:var(--DEeStf);border-radius:16px;padding:16px;position:relative;text-align:left;}.YB4h9.q7XNbb.C7Cyn .ctiYKd{border-radius:0 0 16px 16px}.ctiYKd .FsAdRd{display:none}.YB4h9.q7XNbb.C7Cyn .ctiYKd .FsAdRd{display:block;background-color:var(--ZEpPmd);height:1px;margin:0 -16px 16px -16px}.C85rO{font-size:20px}.YB4h9.dNS45b .C85rO{font-size:var(--uBdgTe);font-weight:500;padding-right:56px}.Gtr0ne{margin-top:4px}.twTT9c{}.YB4h9 .Gtr0ne .twTT9c{color:var(--EpFNW);padding:10px 0 0;text-decoration:underline;background:none;border:none;font:inherit}.YB4h9.dNS45b .Gtr0ne .twTT9c{color:inherit;padding:16px 0;margin-top:calc(-1*16px);margin-bottom:calc(-1*16px)}.YB4h9 .Job8vb{top:0;padding:20px;position:absolute;right:0}.YB4h9.dNS45b .Job8vb{top:50%;transform:translateY(-50%)}.YB4h9.q7XNbb{margin-bottom:44px}.YB4h9.q7XNbb.dNS45b{margin-top:0;margin-bottom:16px}.YB4h9.q7XNbb.dNS45b.C7Cyn{margin-top:-16px}#rhs .YB4h9.q7XNbb.dNS45b.C7Cyn{margin-top:-32px}#shJ2Vb{display:none}.OBMEnb{padding:0;margin:0}.OBMEnb:not(:first-child){padding-top:8px}.G43f7e{display:flex;flex-direction:column;min-width:0;padding:0;margin:0;list-style:none}.Ye4jfc{flex-direction:row;flex-wrap:wrap}#ynRric{display:none}.ynRric{list-style-type:none;flex-direction:column;color:var(--IXoxUe);font-family:Google Sans,Arial,sans-serif;font-size:var(--ZNg88);margin:0 20px 0 16px;padding:8px 0 8px 0;line-height:16px;width:100%}.ynRric{letter-spacing:0;text-transform:none}.sbct{display:flex;flex-direction:column;min-width:0;overflow:hidden;max-height:none;padding:0}.eIPGRd{flex:auto;display:flex;align-items:center;margin:0 20px 0 14px}.pcTkSc{display:flex;flex:auto;flex-direction:column;min-width:0;max-height:none;padding:6px 0}.VHFyob .pcTkSc{padding:4.5px 0}.sbic{display:flex;align-items:center;margin-right:14px}.sbic.vYOkbe{background:center/contain no-repeat;border-radius:4px;min-height:32px;min-width:32px;margin:4px 7px 4px -5px}.sbre .wM6W7d{line-height:18px}.ClJ9Yb{display:flex;align-items:center;line-height:12px;font-size:13px;color:#9aa0a6;margin-top:2px;padding-right:8px;min-width:0}.ClJ9Yb .dKU7sc{flex:auto;min-width:0;overflow:hidden;text-overflow:ellipsis}.pqNtwf{white-space:nowrap}.bwqyKe{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2}.wM6W7d{display:flex;font-size:16px;color:#e8eaed;flex:auto;align-items:center;word-break:break-word;padding-right:8px}.minidiv .wM6W7d{font-size:var(--Mhs7de)}.WggQGd{color:#e8eaed}.wM6W7d span{flex:auto}.AQZ9Vd{display:flex;align-self:stretch}.pD4qTd .yMAEcf{border-radius:100px;box-sizing:border-box;display:flex;min-height:40px;margin:4px 0 4px 16px;width:396px}.pD4qTd .yMAEcf .gmlSVb{bottom:0;right:0}@media (forced-colors:none){.pD4qTd .yMAEcf{background:#303134}}.pD4qTd .yMAEcf{width:fit-content}.minidiv .pD4qTd .yMAEcf .wM6W7d{font-size:var(--z3BFIe)}.pD4qTd .yMAEcf{border:1px solid #5f6368}@media (forced-colors:none){.pD4qTd .yMAEcf.sbhl{background:#3c4043}}.sbhl{border-radius:4px;background:#3c4043}.UUbT9.i1eWpb .PZPZlf.sbhl{background:none}.UUbT9.i1eWpb .PZPZlf.sbhl .gmlSVb{background:rgba(255,119,105,.12)}@media (forced-colors:active){.sbhl{background-color:highlight}}.TfeWfb{display:none}.xAmryf{display:none}.DJbVFb .TfeWfb{display:flex;flex-wrap:wrap;overflow-x:hidden;width:100%;height:52px}.DJbVFb .AQZ9Vd{display:none}.DJbVFb .xAmryf{border-radius:100px;background-color:#2c2e35}.DJbVFb .TfeWfb{display:inherit}.DJbVFb{background:#3c4043;border-radius:20px}.DJbVFb:hover{background:rgba(95,99,104,0.6)}.DJbVFb .vYOkbe{height:-1px;width:-1px;flex-shrink:0;margin:20px 0 20px 8px;float:right;border-radius:16px;background-color:#fff}.DJbVFb.sbhl{background:rgba(95,99,104,0.6)}.DJbVFb .ClJ9Yb{display:none}.DJbVFb .wM6W7d{flex:initial}.DJbVFb .wM6W7d span{text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:2;overflow:hidden}.DJbVFb .eIPGRd{display:flex;flex-direction:row-reverse;align-items:stretch;margin:0 20px 0 14px}.DJbVFb .a5RLac{line-height:var(--qWZYEc);font-size:var(--GiToJf);font-family:var(--Eou8Yc);padding-top:16px;color:var(--bbQxAb);margin-bottom:auto}.DJbVFb .kzCE2{font-size:var(--gyu5L)}.DJbVFb .wM6W7d span{color:var(--YLNNHc);line-height:36px;font-weight:400;font-size:28px;font-family:Google Sans,Arial,sans-serif}.DJbVFb .pcTkSc{margin:20px 6px;padding:0}.DJbVFb .vYOkbe{margin:20px 0 20px 18px;background-color:#fff;border-radius:20px}.DJbVFb .a5RLac.kzCE2 span{-webkit-line-clamp:3}.DJbVFb .lnnVSe{margin-bottom:auto}.DJbVFb .a5RLac span{text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:2;overflow:hidden;margin-right:10px}#bgeLZd{display:none}.xAmryf{box-sizing:border-box;align-items:center;height:40px;border-radius:8px;display:flex;color:var(--bbQxAb);border:1px solid var(--mXZkqc);background-color:var(--xhUGwc);line-height:var(--XWv1if)}.xAmryf.LvqzR{background-color:#394457;cursor:pointer;color:var(--TMYS9)}.jtAOgd{white-space:nowrap;font-family:Google Sans,Arial,sans-serif;font-size:var(--Mhs7de);margin:0 14px}.TfeWfb{gap:12px 6px;overflow-x:auto;-ms-overflow-style:none;scrollbar-width:none}.TfeWfb::-webkit-scrollbar{display:none}.uhebGb{font-style:italic}.QtpRC{color:#fbbc04}.TJn1Ec{display:inline-block;font-size:16px;padding:1px;border:1px solid #e8eaed}.zjKSsb{background:var(--TMYS9);border-radius:50%;margin-right:6px;width:6px;height:6px}@media (forced-colors:active){.ClJ9Yb .zjKSsb{background-color:CanvasText}}#YMXe{display:none}.x6vvNd{width:20px;height:20px;fill:#9aa0a6}.JCHpcb:hover,.LvqzR .JCHpcb{color:#8ab4f8;text-decoration:underline}.JCHpcb{color:#aaadb2;font:13px Arial,sans-serif;cursor:pointer;align-self:center}@media (hover:hover){.sbai{visibility:hidden}.sbhl .sbai{visibility:inherit}}#d6ItKb{display:none}.AB2Fdd{display:flex}.ZDHp{position:relative;margin:20px;display:flex}.DJbVFb,.o6OF0{background:#414143;border-radius:20px}.o6OF0:hover,.o6OF0.LvqzR{background:#515254}.o6OF0 .eIPGRd{display:block}@media (forced-colors:none){.o6OF0.sbhl{background:#515254}}@media (forced-colors:active){.o6OF0.sbhl{background-color:highlight}}.o6OF0 .AQZ9Vd{display:none}.o6OF0 .sbic{display:none}.o6OF0 .pcTkSc{display:none}.o6OF0 .wM6W7d{display:none}.o6OF0 .eIPGRd{max-width:100%;margin:0}.ZDHp .SHFPkb{margin-bottom:12px}.o6OF0 .SHFPkb{line-height:48px;font-family:Google Sans,Arial,sans-serif;font-size:36px;font-weight:400;color:var(--YLNNHc);display:-webkit-box;overflow:hidden;-webkit-line-clamp:2;-webkit-box-orient:vertical}.lQoozf{font-size:28px}.o6OF0 .HrUlUc,.o6OF0 .PnfqLc{font-family:Arial,sans-serif;font-weight:400;max-height:72px;color:var(--bbQxAb)}.ZDHp .HrUlUc,.ZDHp .PnfqLc{font-size:18px;line-height:24px}.o6OF0 .bTSf5c{font-family:Google Sans,Arial,sans-serif;font-weight:var(--ofwUBc);color:var(--bbQxAb)}.ZDHp .bTSf5c{line-height:var(--XWv1if);font-size:var(--Mhs7de);margin-bottom:6px}.ZDHp .HrUlUc,.ZDHp .PnfqLc{overflow:hidden;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical}.Vlt3wb{font-style:normal;font-family:var(--LI4Bo);font-weight:var(--ofwUBc);font-size:var(--Mhs7de);line-height:var(--XWv1if);padding-top:8px;margin-top:12px;color:var(--bbQxAb);border-top:1px solid #5f6368;display:flex;width:100%}.Tnv2td{position:absolute;top:0;right:0}.z76Rnb{padding:6px;width:24px;height:24px;background-color:#2c2e35;color:var(--amnPwe);border-radius:9999px;border:1px solid var(--mXZkqc);cursor:pointer}.z76Rnb.LvqzR{color:var(--YLNNHc);background-color:#373839}.kZtr1b{display:flex;flex-direction:column;flex-grow:1;min-width:0}.XAFD5c{width:200px;height:200px;background-color:#2c2e35;border-radius:20px;margin-left:20px;flex-shrink:0;background-position:center;background-repeat:no-repeat;background-size:contain}.XAFD5c.iNF0Vd{background-size:136px}.o6OF0 .TfeWfb{display:flex;gap:6px;height:42px;flex-wrap:wrap;overflow:hidden;padding:0;margin-top:16px}.o6OF0 .xAmryf{font-family:Google Sans,Arial,sans-serif;margin:0;height:38px;background-color:#2c2e35;border-radius:100px;border:1px solid var(--mXZkqc);color:var(--bbQxAb);align-items:center;text-align:center;flex:none;cursor:pointer}.xAmryf.LvqzR{color:var(--YLNNHc);background-color:#373839}.ZDHp .lnnVSe{font-size:18px;flex-grow:1}.ZDHp .HrUlUc,.ZDHp .PnfqLc{display:flex;flex-direction:column}.DJbVFb .SHFPkb{font-size:var(--Ia70Xd);line-height:var(--hPDMFf)}.DJbVFb .bTSf5c{font-size:var(--GiToJf);line-height:var(--sds-ref-typeface--line-height-26);text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:2;overflow:hidden}.DJbVFb .PnfqLc{font-size:var(--GiToJf);line-height:var(--sds-ref-typeface--line-height-26);display:block;margin-bottom:6px}.DJbVFb .PnfqLc span{padding-right:4px;white-space:nowrap}.DJbVFb .HrUlUc{font-size:var(--GiToJf);line-height:var(--sds-ref-typeface--line-height-26);text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;-webkit-line-clamp:1;overflow:hidden}.DJbVFb .Tk8vtb{-webkit-line-clamp:2}.DJbVFb .EMd4oc{-webkit-line-clamp:1}.j0GJWd{margin-left:20px}.EOLKOc{width:calc(50% - 1px)}.iQxPRb{display:flex;gap:2px}.EOLKOc:first-child{border-bottom-left-radius:20px}.EOLKOc:last-child{border-bottom-right-radius:20px}.AZNDm{border-top-right-radius:20px;border-top-left-radius:20px}.MagqMc .ZFiwCf{background-color:#2c2e35;border:1px solid var(--gS5jXb);width:100%}.MagqMc.U48fD{padding:0;margin-top:16px}.MagqMc .Bi9oQd{display:none}.MagqMc{padding:0}.MagqMc:hover .LGwnxb{color:var(--YLNNHc)}.sOmPcf .ZFiwCf{background-color:#373839}.U48fD{-webkit-tap-highlight-color:transparent;cursor:pointer;display:block;line-height:18px;text-overflow:ellipsis;white-space:nowrap;padding:16px;padding-top:0;margin-top:16px;position:relative}.TQc1id .U48fD{margin-top:16px}.U48fD.df13ud{margin-top:16px}.U48fD.TOQyFc{margin-top:0}.U48fD.p8FEIf{padding-bottom:0}.jRKCUd.p8FEIf::before{bottom:-4px}.U48fD.ke7M4{padding-left:0;padding-right:0}.jRKCUd::before{bottom:12px;content:'';left:16px;position:absolute;right:16px;top:-4px}a.jRKCUd:hover{text-decoration:none}.ZFiwCf{display:flex;align-items:center;justify-content:center;position:relative;z-index:0;margin:0 auto;width:100%;border-radius:18px;outline:1px solid transparent;color:var(--bcxd3b);background-color:var(--MV2sG);font-size:var(--hbmnje);font-family:var(--qR8X0);line-height:var(--CbdmE);font-weight:var(--Oycjt);max-width:372px;min-height:40px;border-radius:20px}@media (forced-colors:active){.ZFiwCf{border:1px solid transparent}}.TQc1id .ZFiwCf{max-width:unset}.Zjtggb .ZFiwCf{max-width:unset}.ZFiwCf::after{position:absolute;top:0;left:0;width:100%;height:100%;border-radius:inherit;z-index:-1}.ZFiwCf:hover::after{content:'';background-color:rgb(from var(--YLNNHc) r g b/0.0824)}.ZFiwCf:active::after{content:'';background-color:rgb(from var(--YLNNHc) r g b/0.224)}.nCFUpc .ZFiwCf{width:100%}.Bi9oQd{background-color:var(--gS5jXb);margin-top:18px;position:absolute;border:0;height:1px;left:0;width:100%;margin-top:20px}.TQc1id .Bi9oQd{display:none}.kC8B4e .Bi9oQd{display:none}.w2fKdd svg{width:auto}.w2fKdd{color:var(--amnPwe)}.LGwnxb{-webkit-line-clamp:1;word-break:break-all;width:auto;padding-left:0;padding-right:8px;max-width:calc(100% - 64px)}.LGwnxb:empty{padding-right:0}.LGwnxb span,.LGwnxb div{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:auto}#TN4rFf{display:none}.IDVnvc{display:inline-block;overflow:hidden;max-width:223px;border-radius:16px;height:178px;margin:-2px -10px 2px 10px}.IDVnvc.sbhl{border-radius:16px}.OBMEnb:only-child .IDVnvc{margin-right:calc(25% - 113px)}.cRV9hb{width:90px;padding:6px}.cRV9hb .pcTkSc{font-family:Arial,sans-serif;overflow:hidden;margin-top:4px;padding:0}.cRV9hb .pcTkSc .wM6W7d{font-family:Google Sans,Arial,sans-serif;font-size:var(--Mhs7de);line-height:18px;padding:0;color:var(--YLNNHc)}.cRV9hb .pcTkSc .ClJ9Yb{line-height:16px;font-size:12px;font-family:var(--YfiKf);display:none;display:flex}.cRV9hb .pcTkSc .wM6W7d span,.cRV9hb .pcTkSc .ClJ9Yb span{overflow:hidden;text-overflow:ellipsis;-webkit-box-orient:vertical;display:-webkit-box;white-space:normal}.cRV9hb .pcTkSc .wM6W7d span{-webkit-line-clamp:2}.cRV9hb .pcTkSc .ClJ9Yb span{-webkit-line-clamp:2}.aVbWac{background:#fff;border-radius:12px;height:90px}.aVbWac .sbic.vYOkbe{height:90px;width:90px;border-radius:12px;margin:0}.WzNHm{font-size:11px;margin-top:-16px;position:absolute;right:20px;color:var(--IXoxUe)}#TWnylf{display:none}.KxWPre{display:flex;justify-content:flex-start;padding-right:12px;margin:8px 0 4px}.E2ShOd{font-family:Google Sans,Arial,sans-serif;line-height:16px;color:var(--IXoxUe);font-weight:500;font-size:var(--ZNg88);text-align:center}.VUsake{flex:1}.KxWPre{padding-right:18px;padding-left:14px;align-items:center}.E2ShOd{margin:0 20px 0 0}.wSGdUc{width:24px;height:24px;color:var(--amnPwe)}.Shjy3b{background:#fff}.GuoVP{color:var(--bbQxAb);font-family:Google Sans,Arial,sans-serif;font-size:var(--z3BFIe)}.Shjy3b{border-radius:4px}.GuoVP{padding:2px 20px}#dh215c{display:none}.zs1JGd{padding:4px 0;display:flex;align-items:center;min-width:0}.JqPLlb{font-size:var(--z3BFIe);color:var(--IXoxUe);flex:1;align-items:center;word-break:break-word}.zs1JGd{cursor:pointer;margin-left:14px}.JqPLlb{padding:6px 0;color:var(--IXoxUe)}.sBbkle.Pusuaf{border-bottom:1px solid var(--gS5jXb)}.sSeWs{display:flex;flex:1;justify-content:space-between;margin-left:-12px;width:1121px;}.sSeWs{margin-top:-8px;margin-bottom:8px}.BaegVc.hdtb-tl-sel{color:var(--YLNNHc)}.aAbqZ .xhjkHe{max-width:841px}.sKb6pb{align-items:center;display:flex;justify-content:flex-end}.PuHHbb{display:flex;align-items:flex-end}.xhjkHe.YoVbHc{flex:unset;width:calc(var(--center-width) + 20px)}.IDFSOe{background-color:var(--mXZkqc);width:1px;height:20px;margin-left:3px;margin-right:3px}.XtQzZd{height:45px;pointer-events:none;padding-bottom:12px}.Y4umW{pointer-events:initial}.JryvJ{position:relative;height:0;z-index:1;top:37px;}.JryvJ .qS9jbf{border-bottom:1px solid #2d2f31}.qogDvd .Ap1Qsc{padding-top:14px}.qogDvd .T3FoJb{padding-top:12px}.nPDzT{align-items:center;display:inline-flex}.y3NyWc{height:0;position:relative;left:0;right:0;top:0}.y3NyWc{}.c4bKff.JwvqMc{height:43px}.hdtb-ab-o .c4bKff{height:43px}.XhWQv.rNHry{font-family:Google Sans,Arial,sans-serif;padding:0 12px;min-height:30px;font-weight:normal}.btCOFd.XYRUld{background-color:var(--gS5jXb)}.d0AwQb{display:flex;position:relative}.HPvrce.mTpL7c{display:none}.vpR9sb.vH6rvf{opacity:1}.ABEuQe{overflow-y:auto}.UsmT1 .rNHry{display:flex}.UsmT1 .rNHry::after{content:'';-webkit-mask-image:url('data:image/svg+xml;utf8,\00003csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\00003cpath d="M10.6328 17L15.6328 12L10.6328 7V17Z"/>\00003c/svg>');-webkit-mask-repeat:no-repeat;background:currentColor;min-width:24px;height:24px}.UsmT1.Esm33e .rNHry::before{opacity:0.08}@media (forced-colors:active){.UsmT1 .rNHry.rNHry::after{background:CanvasText}.UsmT1.Esm33e .rNHry.rNHry{outline:1px solid;outline-offset:-1px}}.rNHry{color:var(--bbQxAb);display:flex;align-items:center;justify-content:space-between;position:relative;box-sizing:border-box;padding:12px;gap:12px;min-height:48px}.Urm71 a:focus-visible,.rNHry:focus-visible,html:not(.zAoYTe) .rNHry:focus-visible{border-radius:8px;outline:2px solid var(--Pa8Wlb);outline-offset:-2px;overflow:hidden}.rNHry::before{content:'';background:var(--YLNNHc);position:absolute;top:0;left:0;bottom:0;right:0;opacity:0}.rNHry:not([disabled]):hover::before{opacity:0.08}.rNHry{cursor:pointer}.rNHry[disabled]{cursor:default}.rNHry:active::before{opacity:0.24}.rNHry:not(.Wf7Nsf)[aria-disabled="true"]{color:var(--pEa0Bc)}.rNHry:not(.Wf7Nsf)[aria-disabled="true"]{opacity:0.61}.Wf7Nsf.Wf7Nsf,.rNHry[aria-selected="true"],.rNHry[aria-checked="true"]{color:var(--xPpiM);background:var(--KIZPne)}.Wf7Nsf::after,.rNHry[aria-selected]::after,.rNHry[aria-checked]::after{content:'';-webkit-mask-image:url('data:image/svg+xml;utf8,\00003csvg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">\00003cpath d="M9 16.2L4.8 12l-1.4 1.4L9 19 21 7l-1.4-1.4L9 16.2z"/>\00003c/svg>');-webkit-mask-repeat:no-repeat;background:var(--xPpiM);min-width:24px;height:24px}@media (forced-colors:active){.Wf7Nsf.Wf7Nsf::after,.rNHry.rNHry[aria-selected]::after,.rNHry.rNHry[aria-checked]::after{background:CanvasText}}.rNHry[aria-selected="false"]::after,.rNHry[aria-checked="false"]::after{opacity:0}.Wf7Nsf::after,.rNHry[aria-selected="true"]::after,.rNHry[aria-checked="true"]::after{opacity:1}.Urm71{position:relative;width:100%}.Urm71 a{color:currentColor;display:flex;align-items:center;box-sizing:border-box;min-height:48px;padding:12px;margin:-12px}.Urm71 a:hover{text-decoration:none}.IoIyv,.E5pkCf,.xX2ctf{color:#bdc1c6}.E5pkCf,.xX2ctf{background-color:var(--xhUGwc);border:var(--mXZkqc);border-radius:1px;font-size:13px;height:17px;left:50px;line-height:17px;margin:0 4px;padding:5px;position:absolute;width:84px}.E5pkCf:focus,.xX2ctf:focus{border:1px solid #4487f6;box-shadow:inset 0 1px 2px rgba(0,0,0,.3);outline:none}.ZLD76b .goog-date-picker{left:154px;background-color:var(--XKMDxc);border-radius:2px;border:none;font-size:var(--cMTvjf);outline:none;padding:5px 1px 10px;position:absolute;top:61px;-webkit-user-select:none}.ZLD76b .goog-date-picker table{padding:0 10px;width:175px}.ZLD76b .goog-date-picker table thead td{border-bottom:1px solid var(--gS5jXb)}.ZLD76b .goog-date-picker tbody th{width:0}.ZLD76b tr.goog-date-picker-head{height:27px}.ZLD76b tr.goog-date-picker-head td{white-space:nowrap}.ZLD76b .goog-date-picker-monthyear{font-size:13px}.ZLD76b .goog-date-picker tbody{outline:none;font-size:13px}.ZLD76b .goog-date-picker td,.ZLD76b .goog-date-picker th{text-align:center}.ZLD76b .goog-date-picker-btn{background:none;border:none;cursor:pointer;font-size:var(--cMTvjf);outline:none;padding:0;position:relative;top:-1px}.ZLD76b .goog-date-picker-btn:not(.V9fZHf){color:var(--YLNNHc)}.ZLD76b button.goog-date-picker-btn{font-size:var(--cMTvjf);vertical-align:middle}.ZLD76b .goog-date-picker-wday,.ZLD76b .goog-date-picker-date{font-weight:normal;padding:0 1px}.ZLD76b .goog-date-picker-wday{padding-top:3px;line-height:15px}.ZLD76b td.goog-date-picker-selected{background-color:#48a1ff;border-radius:2px;color:var(--EpFNW)}.ZLD76b .goog-date-picker-other-month{color:#212327}.ZLD76b .goog-date-picker-date{cursor:pointer;width:20px;line-height:15px}.ZLD76b .goog-date-picker-foot{display:none}.ZLD76b td.goog-date-picker-date:hover{background-color:#212327;border-radius:2px}.ZLD76b td.goog-date-picker-year,.ZLD76b td.goog-date-picker-month{padding:3px 0}.ZLD76b button.goog-date-picker-year,.ZLD76b button.goog-date-picker-month{color:var(--YLNNHc)}.ZLD76b button.goog-date-picker-month{width:77px}.ZLD76b button.goog-date-picker-year{width:50px}.ZLD76b .goog-date-picker-menu{background:var(--xhUGwc);border:solid 1px #4487f6;cursor:pointer;outline:none;position:absolute}.kYLlTd tr:nth-child(2) .goog-date-picker-other-month{color:var(--IXoxUe)}.IoIyv{padding:0 15px}.V9fZHf{color:#212327;pointer-events:none}.ZLD76b{background:#202124;height:241px;width:373px}.XkPfVc{right:11px;background:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABIAAAASCAYAAABWzo5XAAAAY0lEQVR4AWMYQeD///8C5KtBKOAH4ntA3I9HTT9UDS8hw9r/Q0A/VkMgoB2rZnwa8ImRalg9NleSatg0kG6KDEG4CmEQpYY0gjC6YZQEdju6GDWiv4FgiiUtQVKeRQQZRg4AACRV2JNNVw6ZAAAAAElFTkSuQmCC) center no-repeat;cursor:pointer;height:20px;position:absolute;top:10px;-webkit-user-select:none;width:20px}.PNy5Ef{left:42px;color:var(--YLNNHc);font-size:var(--gyu5L);position:absolute;top:34px}.D5UfSe{left:42px;color:var(--YLNNHc);position:absolute}.uevcKf{top:72px}.gSEEqf{top:111px}.E5pkCf{top:65px}.xX2ctf{top:104px}.sIIn2c{position:relative}.ciPYJc{left:50px;background-color:var(--XKMDxc);border-bottom-left-radius:2px;border-top-left-radius:2px;height:37px;position:absolute;top:61px;-webkit-transition:top .13s linear;width:110px}.ATdMc{top:100px}.cnRwVc{-webkit-transition:none}.WE1idd{left:54px;position:absolute;top:143px}.XYRUld{margin:8px 0;border-top:1px solid var(--JclFj);background-clip:content-box}.qd6zO{padding:4px 12px;color:var(--bbQxAb);}#result-stats{line-height:22px;font-size:14px}.kdCulb{height:12px;position:absolute;top:-6px;width:12px}.LIxbuc{bottom:-12px;height:12px;position:absolute;width:12px}.kdCulb polyline,.LIxbuc polyline{fill:var(--xhUGwc);stroke:#202124;stroke-width:1px}.p2Tgt{color:var(--IXoxUe);font-size:12px;font-style:italic;margin:0 4px 4px}.t4wgMc{background:var(--xhUGwc);border-radius:12px;filter:drop-shadow(0px 4px 12px rgba(23,23,23,0.9));position:absolute;transition:opacity 0.15s,transform 0.15s;width:fit-content;z-index:128}.lSNMte{border-radius:12px}.wxFLgf{background:var(--cIehld);position:relative}.WsWxhd{background:var(--xhUGwc);display:flex;flex-direction:column;}.WsWxhd.Z250Tc{padding:0 4px}.WsWxhd.cZUfyb{padding-top:12px}.HoA6Kb{background-color:var(--XKMDxc)}.HoA6Kb{animation:pulse-animation 2000ms cubic-bezier(0.3,0,0.8,0.15) infinite}.CoFRkb{border-radius:16px;height:16px;width:90px;margin:16px 0}.go1Xte{border-radius:8px;height:72px;width:100%;margin-bottom:16px}.qCfSe:not(:empty):not(:has(>dynamic-visibility-control:empty)){padding-top:24px}.qGXjvb{margin-top:6px}@media (max-width:799.98px){.TQc1id.vVVcqf .SjLxGf{display:none}}.M8OgIe .kbSIic{display:flex;flex-direction:row}.A3ivFe{border-radius:16px;margin:16px;box-shadow:0 0 0 1px #5f6368}.M8OgIe .kbSIic.kwbrdd{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid #b8bbbe}.M8OgIe .k7vlx{width:522px;margin-right:53px;font-size:16px;line-height:24px}.M8OgIe .k7vlx h3{font-size:28px;line-height:36px;margin-bottom:3px}.cAn2Qb.abzPbc .mnr-c{max-width:calc(100% - 162px)}.uo4vr{color:var(--IXoxUe);line-height:1.5800000429153442}.aBeYNc{right:-23px;position:absolute;top:0;width:48px;height:48px}.M8OgIe .dG2XIf .fm06If .LC20lb{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;width:100%}.c2xzTb .LC20lb{margin-bottom:0}.MMgsKf{padding-top:2px}.Z3xoIb{padding-top:4px;}.NXKJM{display:-webkit-box;overflow:hidden;-webkit-box-orient:vertical;-webkit-line-clamp:1}.saPu2b{color:#c58af9}.zL3AA{color:var(--bbQxAb);margin-right:8px;padding-bottom:3px;vertical-align:middle}.xvfwl{margin-top:4px}.tLk3Jb{font-size:12px}.TQc1id .qLRx3b{font-size:var(--Mhs7de);line-height:1.5800000429153442}.VjDLd .tjvcx,.IVvPP .tjvcx,.kno-kp .tjvcx,.VjDLd .kp-wholepage-osrp .tjvcx,.TQc1id .ss6qqb .tjvcx,.TQc1id .trNcde .tjvcx{display:inline-block;height:19px;overflow-y:hidden}.IVvPP .q0vns,.TQc1id .q0vns,.u7yw9 .q0vns,.z4oRIf .q0vns{align-items:center;display:inline-flex}.dTxz9{padding-right:38px}.ell31 img{border-radius:25%}.P1UpZb{background-color:#fff;border:1px solid #3c4043}.lWlVCe{border-radius:50%}.bJVp8c{color:var(--TMYS9)}.iG7WGe{padding:0;text-align:center;width:16px;color:var(--YLNNHc)}.qncq2c{font-size:12px;line-height:16px;margin-left:6px}.K2VDSb{display:flex;flex-direction:row}.ob9lvb.Kl1t8b{font-size:var(--Mhs7de)}.csDOgf.I5pXif{position:absolute}.csDOgf.Pyz0Gd{margin-top:2px}.M8OgIe .SwU7oc{flex:none;margin-top:23px;margin-left:36px}.CK34J td{padding-top:12px}.usJj9c .Hp3mFb:hover{color:#bdc1c6;text-decoration:none}.M8OgIe .mslg td{width:243px;border:0;padding:0}.M8OgIe .mslg h3{font-size:20px;line-height:26px}.M8OgIe .mslg.dmenKe td,.M8OgIe .mslg.c9EJob td{padding-bottom:20px}.M8OgIe .mslg td:not(.cIkxbf){padding-right:36px}.Ax9Zmf{float:right;color:var(--amnPwe)}.ZNEv0{visibility:hidden}.RJlXte{grid-column:1/-1}.pAEXpf{flex:1 1 auto;min-height:0}.KAO3Kc{display:block;height:100%}.IajJf{flex-shrink:1}.VDicHc{align-items:center}.NOErrd{align-items:start}.JYmnwd{align-items:end}.eGIBEd{align-self:stretch}.cvP2Ce{contain:layout paint;overflow:hidden}.myAtwe{margin-top:auto}.cEaSVc{margin-right:auto}.lOdyRd{margin-bottom:auto}.LnCrMe{margin-left:auto}.UnOTSe.ell31 img{border-radius:50%}.yhQgZb.ULSxyf{margin-bottom:max(0px,14px)}.FcOujd .ULSxyf:first-child{margin-top:44px}.FcOujd .yhQgZb.ULSxyf:first-child{margin-top:max(0px,14px)}.eCwjMc{margin-bottom:2px;margin-top:2px}.tCAR9e{position:relative;padding-top:16px;}.cUnQKe .p2M1Qe .f5cPye,.cUnQKe .p2M1Qe .Gur8Ad,.cUnQKe .p2M1Qe .vM0jzc{color:var(--bbQxAb)}.cUnQKe .p2M1Qe mark,.cUnQKe .p2M1Qe .QVRyCf.QVRyCf{color:var(--jINu6c)}.s6JM6d .z4oRIf .mgAbYb{font-size:var(--qpdFp)}.TQc1id .z4oRIf .mgAbYb{font-size:var(--uBdgTe)}.adDDi.PJI6ge{padding-bottom:0}.Fr8ms .adDDi{display:none}.YR2tRd.ecs0mf{height:20px}.dG2XIf.cUnQKe .related-question-pair .wDYxhc.NFQFxe .q1MG4e{margin-right:0px}.related-question-pair .kno-ftr{margin:0px;padding-top:0px}.Sbgr0{margin-bottom:10px}.ZRRvx .G0anYb{margin-right:12px;width:205px}.ZRRvx .G0anYb:last-of-type{margin-right:0}.tCAR9e{margin-bottom:16px}.J2MhIb.LJm5W.roMIYb .JCzEY{font-weight:normal}.mmb6sb{line-height:25px}.APjcId,.WltAjf{color:var(--IXoxUe)}.WltAjf::before{content:'';display:block;height:4px}.bCOlv{width:100%}.bCOlv:not(.yMbVTb){position:absolute;display:none;opacity:0}.bCOlv:not(.yMbVTb) .GKFAcc{opacity:0}.IZE3Td{position:relative}.J2MhIb.LJm5W .JCzEY{font-weight:700}.gVe2qd{-webkit-line-clamp:unset !important;word-break:unset !important}.wDYxhc{clear:both}.cUnQKe .wDYxhc,.related-question-pair .wDYxhc,.M8OgIe .fm06If .wDYxhc{clear:none}html .dG2XIf .xpdclose .LKPcQc,html .dG2XIf .xpdopen .viOShc{padding-top:0}.garHBe{color:var(--YLNNHc);font-size:20px;line-height:1.3;position:relative}.garHBe a{color:var(--YLNNHc)}.xpdopen .Hhmu2e{overflow:inherit}.xpdclose .a84NUc:not(:empty),.xpdopen .CQKTwc:not(:empty){border-top:solid 1px #444746;border-radius:0}.xpdclose .pmYXee .a84NUc:not(:empty),.xpdopen .pmYXee .CQKTwc:not(:empty){border-top:none}.cAn2Qb .a84NUc:not(:empty),.cAn2Qb .CQKTwc:not(:empty){border-top:none}.SHa8ve{display:none}.xpdclose .TOfaBb.SHa8ve,.xpdopen .LL5J7d.SHa8ve{display:block}.rKR6H{padding-top:0.1px}.xpdclose .oHglmf,.xpdopen .xzPb7d{padding-bottom:16px}.xpdclose .kp-header .oHglmf,.xpdopen .kp-header .xzPb7d{padding-bottom:0}.c2xzTb .xpdclose .oHglmf,.c2xzTb .xpdopen .xzPb7d{padding-bottom:0}.HSryR .xpdclose .oHglmf,.HSryR .xpdopen .xzPb7d{padding-bottom:0}.Wnoohf .xpdopen .yp1CPe,.OJXvsb .xpdclose .siXlze{padding-bottom:16px}.Wnoohf .xpdopen .yp1CPe .xpdbox g-more-link{top:28px}.Wnoohf .xpdopen .yp1CPe .xpdbox .iHCKXc{top:12px;margin-top:-2px;height:0}.Wnoohf .xpdclose .wDYxhc.xsZWvb,.Wnoohf .xpdopen .wDYxhc.EfDVh{padding-bottom:0}.OJXvsb .xpdclose .wDYxhc.siXlze{padding-bottom:16px}#rhs .dG2XIf .xpdclose .LKPcQc,#rhs .dG2XIf .xpdopen .viOShc{padding-top:0}#rhs .Wnoohf .xpdopen .yp1CPe,#rhs .OJXvsb .xpdclose .siXlze{padding-bottom:15px}#rhs .Wnoohf .xpdclose .wDYxhc.xsZWvb,#rhs .Wnoohf .xpdopen .wDYxhc.EfDVh{padding-bottom:0}#rhs .Wnoohf .xpdclose .wDYxhc.xsZWvb.ecRggb,#rhs .Wnoohf .xpdopen .wDYxhc.EfDVh.ecRggb,#rhs .dG2XIf .ecRggb{padding-bottom:15px}.ecRggb{background-color:var(--xhUGwc);box-shadow:none;border:1px solid #3c4043;border-radius:8px;margin:0 0 16px 0}.u9iNfb{margin-left:-20px}.ZGh7Vc{display:inline-block;margin-top:6px}.mvJV3d{margin-bottom:12px}.di3YZe{font-size:var(--gyu5L)px;margin-bottom:20px;line-height:1.375;font-family:Google Sans,Arial,sans-serif}.RqBzHd{padding:0 20px}.TrT0Xe{margin-bottom:4px}.co8aDb{margin-bottom:12px;}.i8Z77e .TrT0Xe{list-style-type:disc}.X5LH0c .TrT0Xe{list-style:inherit}.truncation-information:link,.truncation-information:visited{color:var(--JKqx2);font-size:var(--Mhs7de);line-height:1.5800000429153442;}.c2xzTb .co8aDb{font-family:Google Sans,Arial,sans-serif}.XZAt2e{font-size:var(--hbmnje);display:inline-block;padding-top:10px;margin-left:-20px}.Od5Jsd{display:inline-block;font-size:12px;line-height:1.34;color:var(--IXoxUe);margin-top:6px}.rvIhN{display:inline-block;font-size:var(--Mhs7de);color:var(--IXoxUe);margin-left:5px;margin-right:5px}.FV85tb{font-size:12px;margin-bottom:0;margin-top:4px}.TK6JBe{font-size:12px;font-color:var(--IXoxUe);padding-left:4px}.BqZivd{margin-left:4px;margin-right:4px;font-size:10px}.Q29QOb{padding-right:5px}.FObuKc{border:1px solid var(--mXZkqc);border-radius:8px;margin:0 -20px}.RbVal{text-decoration:underline}.vHWNec{color:var(--bbQxAb);display:flex;padding:8px 16px}.GvDv7e{padding-right:4px}.Jb0Zif .UiGGAb.ILfuVd,.ILfuVd{font-size:var(--gyu5L);line-height:24px;}.fm06If .ILfuVd.NA6bn,.c2xzTb .ILfuVd.duSGDe,.c2xzTb .ILfuVd.NA6bn.c3biWd{font-size:var(--Mhs7de);line-height:1.5800000429153442;}.c2xzTb .zloOqf{font-size:var(--z3BFIe);margin-bottom:16px;margin-top:-8px;}.FLWspc{margin:16px}.trNcde .ILfuVd{color:var(--bbQxAb);font-family:Google Sans,Arial,sans-serif;font-size:14px;line-height:22px;}.HSryR .ILfuVd{line-height:1.5}.ss6qqb .ILfuVd,.ss6qqb .UiGGAb.ILfuVd{font-size:var(--Mhs7de);line-height:var(--XWv1if)}.c2xzTb .qLYAZd{margin:16px 16px 16px 0;}.d9FyLd{padding:0 0 10px}.hgKElc{padding:0 8px 0 0}.kX21rb{font-size:12px;line-height:1.34;display:inline-block;font-family:Google Sans,Arial,sans-serif;padding-right:0;white-space:nowrap}.SPV4pd{display:flex;overflow-x:auto}.SPV4pd::-webkit-scrollbar{display:none}.Vjskue{margin-left:8px}.JT9o0,.ZnIJV{align-items:center;border:1px solid var(--mXZkqc);border-radius:16px;box-sizing:border-box;color:var(--Nsm0ce);cursor:pointer;display:flex;height:32px;margin-bottom:16px}.BkHX0d{font-family:Google Sans,Arial,sans-serif;font-size:var(--hbmnje);line-height:var(--CbdmE);padding-right:20px;text-align:center;white-space:nowrap}.xv1D5b{display:block;padding:0 8px 0 12px;width:18px;height:18px}.LGOjhe{overflow:hidden;padding-bottom:20px}.trNcde .LGOjhe{overflow:visible}.SALvLe .LGOjhe,.Jb0Zif .LGOjhe,.HSryR .LGOjhe,.IVvPP .LGOjhe{padding:0 0 10px;margin:10px 0 0 0}.s6JM6d .SALvLe .LGOjhe{margin-top:12px}.s6JM6d .HSryR .LGOjhe{margin-top:12px;padding-bottom:20px}#gevUs .Jb0Zif .qDOt0b h3{font-size:var(--gyu5L);line-height:1.375}.IVvPP .qDOt0b h3,.TQc1id .qDOt0b h3,.IVvPP .W0urI h3,.TQc1id .W0urI h3,.z4oRIf .qDOt0b h3,.z4oRIf .W0urI h3{font-size:var(--ZNg88);line-height:var(--HIyEKc)}.rjOVwe.ILfuVd{font-size:var(--z3BFIe);line-height:20px}.dG2XIf .rjOVwe{padding-top:22px;padding-bottom:0;margin-bottom:1px}.xWd7I{padding-top:12px;}.ILfuVd.NA6bn,.ILfuVd.duSGDe,.ILfuVd.UiGGAb,.IVvPP .ILfuVd{font-size:var(--Mhs7de);line-height:var(--XWv1if)}.ILfuVd.NA6bn,.ILfuVd.duSGDe,.ILfuVd.UiGGAb,.IVvPP .ILfuVd{line-height:20px}.fm06If .ILfuVd,.c2xzTb .ILfuVd,.Jb0Zif .c2xzTb .ILfuVd{font-family:Google Sans,Arial,sans-serif;font-size:20px;color:var(--YLNNHc);line-height:28px;}.cUnQKe .ILfuVd,.cUnQKe .UiGGAb.ILfuVd,.w5mTAe .ILfuVd{color:var(--bbQxAb);font-family:Google Sans,Arial,sans-serif;font-size:var(--z3BFIe);line-height:24px}.W0urI .ILfuVd{color:var(--bbQxAb);font-family:Google Sans,Arial,sans-serif;font-size:var(--ZNg88);line-height:var(--Ok3irf)}.KbOMje .ILfuVd{font-size:var(--GiToJf);line-height:var(--qWZYEc)}.NsMZwe .ILfuVd{font-size:16px;line-height:24px}.fm06If .ILfuVd b,.trNcde .ILfuVd b,.cUnQKe .ILfuVd b,.c2xzTb .ILfuVd b{border-radius:4px;padding:0 2px;background-color:var(--jwFC2e);color:var(--jINu6c);font-weight:500}.W0urI .ILfuVd b,.w5mTAe .ILfuVd b{border-radius:4px;padding:0 2px;background-color:var(--Lm570b);font-weight:500}.dsnoC{opacity:0;overflow:hidden;position:relative;transform-origin:top;width:100%}.px98cb{align-items:center;box-sizing:border-box;display:flex;min-height:52px;position:relative;width:100%}.nybFkb{background-color:var(--XKMDxc);border-radius:4px;height:var(--C74x2e);margin:12px 0;position:relative;width:35%}.IJSH6{border-top:1px solid var(--ONhrGd);position:relative}.XVdSCb{height:16px}.Ae8kyb{font-size:11px;height:17px;position:relative}.Qnxsic{clear:both}.uCD6gd{animation:fadeIn 100ms ease-in-out;}.TOp90b{margin-right:-8px}.Gcxb4e{display:block;position:relative;}.HTOhZ{display:block;overflow-x:auto;overflow-y:clip;position:relative;white-space:nowrap;transform:translate3d(0,0,0);transform:translate3d(0,0,0);}.HTOhZ::-webkit-scrollbar{display:none}.JpOecb{display:inline-block}.Q21nhd{display:flex}.HTOhZ.xYjUTb{transform:none;transform:none}.Gcxb4e.xhBVc{overflow-y:visible}.Gcxb4e.xhBVc .HTOhZ{position:static}.Gcxb4e .HZX55,.Gcxb4e .B2p7if{display:none}.Gcxb4e:hover .HZX55,.Gcxb4e:hover .B2p7if{display:block}.pA30Ne{mask-image:linear-gradient(to right,transparent,white 10%)}.FpCCub{mask-image:linear-gradient(to left,transparent,white 10%)}.LZCTpe{mask-image:linear-gradient(to right,transparent,white 10%,white 90%,transparent)}.spch-dlg{background:transparent;border:none}.spch{background:var(--xhUGwc);height:100%;left:0;opacity:0;overflow:hidden;position:fixed;text-align:left;top:0;visibility:hidden;width:100%;z-index:10000;transition:visibility 0s linear 0.218s,background-color 0.218s;background:transparent;min-width:684px}.rwfRXb.spch{opacity:1;transition-delay:0s;visibility:visible;background:transparent}.n12p9b{background:none;border:none;color:var(--IXoxUe);cursor:pointer;font-size:26px;right:0;line-height:15px;opacity:.6;margin:-1px -1px 0 0;padding:0 0 2px 0;height:48px;width:48px;position:absolute;top:0;z-index:10}.n12p9b:hover{opacity:.8}.n12p9b:active{opacity:1}.rs1SNc{display:block;height:42px;pointer-events:none;}.QoghVd{height:100%;opacity:.1;pointer-events:none;width:100%;transition:opacity .318s ease-in;display:flex}.UhK0G .QoghVd,.GNE7Fb .QoghVd,.zzQ1Hd .QoghVd,.wvnTp .QoghVd{opacity:1;transition:opacity 0s}.is4vC{height:32px;width:94px;top:8px;opacity:0;pointer-events:none;position:relative;transition:opacity .5s ease-in,left .5s ease-in}.rwfRXb .is4vC{opacity:0.54;transition:opacity .5s ease-out,left .5s ease-out;margin-left:60px;}.rs1SNc{background:var(--xhUGwc);box-shadow:0 2px 6px rgba(0,0,0,.2);margin:0;min-width:100%;overflow:hidden;padding:51px 0 50px 126px;position:absolute}.spch.rwfRXb.DWdeBd{background:rgba(0,0,0,0.9)}.H8FqM{flex:1;max-width:490px;min-width:300px;width:100%;pointer-events:none;position:relative}.rDeJ9b{font-weight:normal;line-height:1.2;opacity:0;pointer-events:none;position:absolute;text-align:left;-webkit-font-smoothing:antialiased;transition:opacity .1s ease-in,margin-left .5s ease-in,top 0s linear 0.218s;font-size:27px;left:7px;top:.2em;width:490px;margin-left:32px}.rwfRXb .rDeJ9b{margin-left:0;opacity:1;transition:opacity .5s ease-out,margin-left .5s ease-out}.OCLgnd{color:var(--JKqx2);cursor:pointer;font-size:var(--uBdgTe);font-weight:500;pointer-events:auto;text-decoration:underline}.oBrvKd.rDeJ9b,.Lc0EU.rDeJ9b,.mY825d.rDeJ9b{transition:top 0.218s ease-out}.oBrvKd.rDeJ9b{top:-.6em}.Lc0EU.rDeJ9b{top:-1.3em}.mY825d.rDeJ9b{top:-1.7em}.rwfRXb .c6uxwc.rDeJ9b{font-size:24px;top:-1.7em;transition:font-size 0.218s ease-out}.tvqTuf{background-color:#fff;border:1px solid #f8f9fa;border-radius:100%;bottom:0;box-shadow:0 2px 5px rgba(0,0,0,.1);cursor:pointer;display:inline-block;opacity:0;pointer-events:none;position:absolute;right:0;transition:background-color 0.218s,border 0.218s,box-shadow 0.218s;transition-delay:0;position:absolute;opacity:0;left:-83px;top:-83px;}.rwfRXb .tvqTuf{opacity:1;pointer-events:auto;transform:scale(1);left:0;top:0}.GNE7Fb .tvqTuf{background-color:#ea4335;border:0;box-shadow:none}.oygy7{background-color:#dadce0;border-radius:100%;display:inline-block;opacity:1;pointer-events:none;position:absolute;transform:scale(.01);transition:opacity 0.218s;height:151px;left:-28px;top:-28px;width:151px}.ABdHo{pointer-events:none;position:relative;transition:transform 0.218s,opacity 0.218s ease-in;transform:scale(.1);height:95px;top:-27px;width:95px;float:right;}.rwfRXb .ABdHo{transform:scale(1)}.GNE7Fb .tvqTuf:active{background-color:#c5221f}.tvqTuf:active{background-color:#f8f9fa}.e6cPC{height:87px;pointer-events:none;position:absolute;width:42px;left:17px;top:7px;transform:scale(.53)}.hfSSY{background-color:#999;border-radius:30px;height:46px;left:25px;pointer-events:none;position:absolute;width:24px}.xyzqpb{bottom:0;height:53px;left:11px;overflow:hidden;pointer-events:none;position:absolute;width:52px}.gLoQyd{background-color:#999;bottom:14px;height:14px;left:22px;pointer-events:none;position:absolute;width:9px;z-index:1}.pml90c{border:7px solid #999;border-radius:28px;bottom:27px;height:57px;pointer-events:none;position:absolute;width:38px;z-index:0;left:0px}.UhK0G .hfSSY,.UhK0G .gLoQyd{background-color:#f44}.UhK0G .pml90c{border-color:#f44}.GNE7Fb .hfSSY,.GNE7Fb .gLoQyd{background-color:#fff}.GNE7Fb .pml90c{border-color:#fff}.ClAmTc{margin-top:-100px;opacity:0;pointer-events:none;position:absolute;width:500px;transition:opacity 0.218s ease-in,margin-top .4s ease-in}.SZkiGf .ClAmTc{margin-top:-300px;opacity:1;transition:opacity .5s ease-out 0.218s,margin-top 0.218s ease-out 0.218s}.cVrt3c{box-shadow:0 1px 0 #4285f4;height:80px;left:0;margin:0;opacity:0;pointer-events:none;position:fixed;right:0;top:-80px;transition:opacity 0.218s,box-shadow 0.218s}.SZkiGf .cVrt3c{box-shadow:0 1px 80px #4285f4;opacity:1;pointer-events:none;animation:allow-alert .75s 0 infinite;animation-direction:alternate;animation-timing-function:ease-out;transition:opacity 0.218s,box-shadow 0.218s}.fbar{font-size:var(--Mhs7de);}.fbar a{text-decoration:none;white-space:nowrap;color:var(--bbQxAb)}.fbar .EyBRub{text-decoration:none;white-space:nowrap;color:var(--bbQxAb);font-size:var(--Mhs7de);}.Fx4vi{margin:0 !important;display:inline-block}.jFF8pd{display:inline-flex;flex-wrap:wrap;justify-content:center;column-gap:24px}.f6F9Be{background:#16171a;line-height:40px;padding-bottom:12px;}.f6F9Be.TrMVnc{padding-top:12px}.f6F9Be.dc8jac{padding-top:24px}.kEjm2c{overflow-x:auto}.B4GxFc{}.fbar p{color:var(--IXoxUe)}.fbar a:hover{color:var(--bbQxAb)}.b0KoTc{color:var(--IXoxUe)}.b2hzT{border-bottom:1px solid var(--gS5jXb)}.Q8LRLc{font-size:15px}.XyuzV{forced-color-adjust:none;background:#4487f6}@media (prefers-color-scheme:dark) and (forced-colors:active){.XyuzV{background:Highlight}}.unknown_loc{background:#9aa0a6}.smiUbb img{margin-right:4px}.smiUbb{margin-left:var(--center-abs-margin);line-height:15px;color:var(--IXoxUe);}#CE62Bb{display:inline-block;margin-left:13px;padding-left:16px;border-left:1px solid var(--gS5jXb)}@media (max-width:939.98px){#CE62Bb{border-left:0;margin-left:0;padding-left:0}}.KwU3F{color:var(--JKqx2)}.GNm3Qb{display:inline-block}.xSQxL{color:var(--JKqx2);cursor:pointer;display:inline-block}.HDOrGf{line-height:40px}.msLurc{margin:6px 4px 9px 0;border-radius:100%;display:inline-block;height:10px;vertical-align:middle;width:10px}.AhYzQb{color:var(--bbQxAb);font-weight:bold}.TQqAnb{width:376px}.pEWLJ{white-space:normal}.UwURDc{padding:14px 0}.VtPCGb{display:inline}</style><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){google.ldi={};google.pim={};google.sib=false;google.liba=false;(function(){var a=google.ldi||{},b;for(b in a)if(a.hasOwnProperty(b)){var c=document.getElementById(b)||document.documentElement.querySelector('img[data-iid="'+b+'"]');c&&Number(c.getAttribute("data-atf"))&1&&(c.setAttribute("data-deferred","2"),c.src=a[b])};}).call(this);})();(function(){for(var a=document.getElementsByTagName("img"),b=0,c=a.length;b<c;++b){var d=a[b],e;if(e=Number(d.getAttribute("data-atf"))&1){var f=d,g=f.getAttribute("jscontroller");e=(g==="UBXHI"||g==="R3fhkb"||g==="TSZEqd")&&f.hasAttribute("data-src")}e&&(d.src=d.getAttribute("data-src"))};}).call(this);(function(){for(var a=document.getElementsByTagName("img"),b=0,c=a.length;b<c;++b){var d=a[b];d.src.substring(0,5)!=="data:"&&d.setAttribute("data-defe","1")};}).call(this);(function(){var f="src href async nonce type charset crossorigin onload rel".split(" ");window._rtf=function(b,c){var a=document.createElement(b.tagName);f.forEach(function(e){a[e]=b[e]});a.onerror=function(){window._rtf(a,c)};var d=b.dataset.rtc===void 0?0:Number(b.dataset.rtc);d>=4?c&&c():(a.dataset.rtc=String(d+1),setTimeout(function(){document.body.appendChild(a)},50*Math.pow(2,d)+Math.random()*50))};}).call(this);</script><link href="/xjs/_/ss/k=xjs.s.TGkh3Xra1hI.L.B1.O/am=AAAQAAAAAAAIAAAAAAAAAAAAAAQAIAIAAAAAAAAAAAAAAAAAAAAEAAIAABAAAAAAAAAAAAAAAAoAAAAAAAAQAAAAIFAAAEAGgAAAAAAAUAAAAAAAAAEIAMAEAAAAAAAAACjkAwAA4AYAAAQAAOABMACOAAAAAAAAAAAAAAAAAAEAQAMAAAAA-AAAIAgAAAEAAAAAAAAQAAAAAADAAAAQQAEAAAAgQAEAABAAAAAAAgAAAAAAAAAAgEAkAAAIAAAQAAAAAAAAAADAAQAAAAAAAAAAAAAABAAAAAAAAAAAIAAAAAAAAMQBAAAAAAAACAMAAAAAAAAACAQAQAAAAAAAAAAAAIgESAAABAAAAAAAAQAAAAAAAAAQABCEQgAABAAFICAAAAAA4DwAIAAAAAAAAAAAEBAAAAAAAAAAAAAgAABBAEIAAQAAAAAQAAAAAAAEAAAAQA4AAAAAAABAAAGAAATAMAAEAECiIAAIAQAEBAACAAAARAAAAAAAFICAAAAAAAAAAAAAAAARAAAAAAAAAAAAAAAJALBDQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE/d=1/ed=1/br=1/cb=loaded_h_0/rs=ACT90oHRTw_6ShBCotN5FixzefQnjeSigA/m=X3N0Bf,attn,cdos,gwc,hsm,jsa,mb4ZUb,cEt90b,SNUn3,qddgKe,sTsDMc,dtl0hd,eHDfl,YV5bee,d,csi?cb=121509378" onerror="_rtf(this)" rel="stylesheet" nonce="fjCswvWN1ycKTMKpIvFMfg"><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){google.kEXPI='0,4413182,5786901,13250,62257024,114380,329354,72940,12204,28128,39517,89205,27666314,4866,1973896,16900700,347392,60455,1451552,25021,16637,16263,7095,26332,6694,3012,3975,15394,2096,6228,19143,8769,863,922,1925,224,3079,3886,3332,4364,5654,4003,7415,768,18592,3404,4800,1826,222,780,1979,19,1868,103,2314,2775,4840,204,8294,12,1643,799,302,3901,1071,272,2845,4729,267,1658,1291,4269,1882,3340,2724,1636,348,758,2127,717,1357,638,312,868,2598,330,14,83,493,3598,2852,1382,1526,348,895,6695,1015,2409,752,56,1716,1109,82,580,2003,7351,1632,4075';})();(function(){var f="src href async nonce type charset crossorigin onload rel".split(" ");window._rtf=function(b,c){var a=document.createElement(b.tagName);f.forEach(function(e){a[e]=b[e]});a.onerror=function(){window._rtf(a,c)};var d=b.dataset.rtc===void 0?0:Number(b.dataset.rtc);d>=4?c&&c():(a.dataset.rtc=String(d+1),setTimeout(function(){document.body.appendChild(a)},50*Math.pow(2,d)+Math.random()*50))};}).call(this);(function(){var u='/xjs/_/js/k\x3dxjs.s.en.KUA7QjYcYR0.2019.O/am\x3dAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQARAAQAQAEAAAEAAAAAAAAAAAAAAAAADAAEAA4AAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAgEEQAMAAAAAAAAAIAgAAAEAAAQAAAAAAAAAGABAAAAQQAkAAACAQgAAAAAAAAAAAAAAAAAAAAAAAEgEAAAIEQgQAADAn5lvAACgAQAAAIADAAAAAAAAAAAAAAAAAAAAAAAAAAAASAAAAAAAAAAAAAALAAAABAMAAARAQAAEAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAAAEAAAAAAAFAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAQAAAAoAAAAAAAAA4AAAAAAAAAIAAAAAAAAAAAAAAAAAAIAAAAREADAAAAAAAAAAAAFAAQ8AOAAAgAAAAAAAABAAAAAAAQIAAAAAAAAIADQACAAQAAAJAD4PEAHCI4AAAAAAAAAAAAAAAAAAAAAAAAAAAIgAKYA0lBAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAASBGeAgAAAAAA2BoAEA/d\x3d1/ed\x3d1/dg\x3d4/br\x3d1/ichc\x3d1/rs\x3dACT90oHEQMAoiKp0RTCNum7_f7TmoJKrhg/ee\x3dALeJib:B8gLwd;AfeaP:TkrAjf;BMxAGc:E5bFse;BgS6mb:fidj5d;BjwMce:cXX2Wb;CIZTGb:Kqhykb;CxXAWb:YyRLvc;DM55c:imLrKe;DQEued:Fevhcf;DULqB:RKfG5c;Dkk6ge:JZmW9e;DpcR3d:zL72xf;EABSZ:MXZt9d;ESrPQc:mNTJvc;EVNhjf:pw70Gc;EjXHpb:pSHqh;EmZ2Bf:zr1jrb;EnlcNd:WeHg4;F54IAe:ZgsFh;F9mqte:UoRcbe;FSxmUe:fiZR8b;Fkukfc:i8H2c;Fmv9Nc:O1Tzwc;FqHJkd:yQamIb;G0KhTb:LIaoZ;GleZL:J1A7Od;HMDDWe:G8QUdb;HtPxrd:Gx8jAb;IBADCc:RYquRb;IoGlCf:b5lhvb;IsdWVc:qzxzOb;JXJSm:ii1RGf;JXS8fb:Qj0suc;JqSq7d:y9ePhe;JsbNhc:Xd8iUd;K08hxe:zmbGlf;K5nYTd:ZDZcre;KA3P2:C3JnCe;KDb6nb:fE9n2;KOxcK:OZqGte;KQzWid:ZMKkN;KdIHef:BWtNj;KpRAue:Tia57b;LBgRLc:SdcwHb,XVMNvd;LBn8Cf:bJ9L0c;LEikZe:byfTOb,lsjVmc;LXA8b:q7OdKd;LsNahb:ucGLNb;MNkAde:KMCd1d;NJ1rfe:qTnoBf;NPKaK:SdcwHb;NSEoX:lazG7b;NjIwef:YVgi7d;Np8Qkd:Dpx6qc;Nyt6ic:jn2sGd;OIfWUb:qfOYcd;OgagBe:cNTe0;OiqE2c:TFpEK;OoK5v:Sp69O;OohIYe:mpEAQb;Pjplud:PoEs9b;PpTLXd:pJYjx;PqHfGe:im2cZe;Q1Ow7b:x5CSu;Q7iJ9c:bVLZ3d;QE20Be:yxCHBd;QFOGlf:PQ2Aoe;QGR0gd:Mlhmy;QYLF2b:pAQYUd;Qw8Feb:jpavUe;R4IIIb:QWfeKf;R9Ulx:CR7Ufe;RCF5Sd:X1kBmd;RZtOEd:DvKcFe;Raf5me:mgvFMc;SLtqO:Kh1xYe;SMDL4c:fTfGO;SNUn3:ZwDk9d,xD8Kp;SNk4Je:wWMhg;ScI3Yc:e7Hzgb,e7Hzgb;ShpF6e:N0pvGc;Snahre:mGCtob;SwCqAd:fXbCZc;SzQQ3e:dNhofb;TIUVQd:lWTJwd;TroZ1d:vVVzjb;U96pRd:FsR04;UBKJZ:LGDJGb;UDrY1c:N0F29d,W50NVd,eps46d,wciyUe;UVmjEd:EesRsb;UVzb9c:IvPZ6d;UYRIEb:HzTAQc;UyG7Kb:wQd0G;V2HTTe:RolTY;VGRfx:VFqbr;VMuEm:pL7sBc;VN6jIc:ddQyuf;VOcgDe:YquhTb;VhA7bd:vAmQFf;VsAqSb:PGf2Re;W9QSQe:ynCWwc;WDGyFe:jcVOxd;WXtNeb:QU9BMd;Wfmdue:g3MJlb;Wl55ib:NcYlP;Y3c5sd:FGbfLe;YIZmRd:A1yn5d;YV5bee:IvPZ6d;YnHUBf:sNsSob;ZMvdv:PHFPjb;ZSH6tc:QAvyLe;ZWEUA:afR4Cf;Zen4yb:jMF88c;ZlFEdf:fQTtic;ZlOOMb:P0I0Ec;ZnPvub:Acmyhd;a56pNe:JEfCwb;aAJE9c:WHW6Ef;aCJ9tf:qKftvc;aVZq3e:EMeVIb;aZ61od:arTwJ;aci7y:Z5Tr6c;bUIkwb:WMwEHe;bcPXSc:gSZLJb;cEt90b:ws9Tlc;cFTWae:gT8qnd;coJ8e:KvoW8;dIoSBb:ZgGg9b;dLlj2:Qqt3Gf;dXdZV:a7QTqd;dowIGb:ebZ3mb,ebZ3mb;dtl0hd:lLQWFe;eBAeSb:Ck63tb;eBZ5Nd:audvde;eHDfl:ofjVkb;eJKchc:ATg1be;eO3lse:UefOmb;euOXY:OZjbQ;g8nkx:U4MzKc;gaub4:TN6bMe;gbfHR:qZtzib;gtVSi:ekUOYd;h3MYod:ws9Tlc;hK67qb:QWEO5b;hVic1b:Kqhykb;heHB1:EtZ8Cd;hjRo6e:F62sG;hlqGX:FWz1ic;hsLsYc:Vl118;hwoVHd:zw4U8c;iFQyKf:QIhFr;jJj2G:kF2o2b;k1O0rf:pnOULd;k2Qxcb:XY51pe;kbAm9d:MkHyGd;lOO0Vd:OTA3Ae;lbfkyf:MqGdUd;liAz7d:kF2o2b;lkq0A:JyBE3e;mMVOGb:qDM7K;mWzs9c:fz5ukf;nBZnZe:CvErjb;nE6OJf:Fi4rsc;nEBWNb:MxKX9d;nJw4Gd:dPFZH;nrDcw:SuEoDe;oGtAuc:sOXFj;oSUNyd:fTfGO,fTfGO;oUlnpc:RagDlc;oiBhre:OuMkRd;okUaUd:wItadb;pKJiXd:VCenhc;pNsl2d:j9Yuyc;pXdRYb:JKoKVe;pj82le:ww04Df;qGV2uc:HHi04c;qQEoOc:KUM7Z,d7YSfd;qZx2Fc:j0xrE;qaS3gd:yiLg6e;qafBPd:sgY6Zb;qavrXe:I0C9u;qddgKe:d7YSfd,x4FYXe;rdexKf:FEkKD;rmWaj:PMS6Sd;ropkZ:hjoqoe;sTsDMc:JksfDf;sZmdvc:rdGEfc;tH4IIe:Ymry6;teSRSb:BMLai;tosKvd:ZCqP3;trZL0b:qY8PFe;twgzJd:Ix7YEd;uknmt:GkPrzb;uuQkY:u2V3ud;vEYCNb:FaqsVd;vRlMvf:Iw9Xo;vfVwPd:lcrkwe;w3bZCb:ZPGaIb;w9w86d:XwhUEb,dt4g2b,gKD90c,lWVZVe;wQlYve:aLUfP;wR5FRb:O1Gjze,TtcOte;wV5Pjc:L8KGxe;x9N9ie:KH4Qof;xBbsrc:NEW1Qc;xbe2wc:wbTLEd;xpaRob:AVqZ9b;yiL5Ab:MT0ZBd;ysNiMc:CpIBjd;yxTchf:KUM7Z;z97YGf:oug9te;zaIgPb:Sl0pxd/cb\x3dloaded_h_0/m\x3dX3N0Bf,attn,cdos,gwc,hsm,jsa,mb4ZUb,cEt90b,SNUn3,qddgKe,sTsDMc,dtl0hd,eHDfl,YV5bee,d,csi?cb\x3d121509378';var amd=1000;var povp=false;var ecb=true;var crop=true;var cst=false;var pxp=false;
-var f=this||self;function g(a){var b=document.createElement("link");b.as="script";b.href=a;b.rel="preload";document.body.appendChild(b)}function h(){var a=[k];google.dp||(a.forEach(g),google.dp=!0)};google.ps=google.ps||[];function l(a){return a?(a=a.match(/\/ccb=([^/?]+)/))?a[1]:null:null}function m(){var a=k,b=function(){};google.lx=google.stvsc?b:function(){p(a);google.lx=b};google.bx||google.lx()}function q(a,b){b&&(a.src=b);if(l(b))google.ps.push(a.src);else{var d=a.onload;a.onload=function(e){d&&d(e);google.ps=google.ps.filter(function(c){return a.src!==c})}}document.body.appendChild(a)}google.as=q;function p(a){google.tick&&google.tick("load","xjsls");var b=document.createElement("script");b.onerror=function(){_rtf(b,function(){google.ple=1})};google.ps.push(a);var d=function(){google.ple=0};l(a)?b.done=function(){d();google.mum&&google.mum(a);google.aple=google.aple||0;google.arm&&google.arm[a]&&google.arm[a].resolve()}:b.onload=d;google.xjsus=void 0;google.aple=-1;q(b,a);google.dp=!0};function r(){for(var a=document.getElementsByTagName("img"),b=0,d=a.length;b<d;b++){var e=a[b],c;if(c=e.hasAttribute("data-lzy_")&&Number(e.getAttribute("data-atf"))&1)c=e.getAttribute("jscontroller"),c=!((c==="UBXHI"||c==="R3fhkb"||c==="TSZEqd")&&e.hasAttribute("data-src"));if(c)return!0}return!1};var k,t,w,x,y,z,A,B,C;function D(){k=pxp&&google.xjsup||u;var a=k.match(/\/cb=(loaded_h_\d+)/);C=a&&a[1]||"";google.xjsu=k;f._F_jsUrl=k;x=function(){m()};t=!1;w=!!google.caft&&!r();C&&(f[C]=function(b){var d=function(){cst?setTimeout(function(){return void b.call(window,window._)},0):b.call(window,window._)};if(B){var e=function(){requestAnimationFrame(function(){d()})};if(document.hidden){var c=function(){document.hidden||(document.removeEventListener("visibilitychange",c),e())};document.addEventListener("visibilitychange",c,{passive:!0})}else e()}else d()});y=povp;z=document.prerendering||y&&document.hidden;B=crop&&z;A=y?"visibilitychange":"prerenderingchange"}function E(){t||w||z||(x(),t=!0)}setTimeout(function(){google.tick&&google.tick("load","xjspls");D();if(w||z){if(w){var a=function(){w=!1;E()};google.caft(a);setTimeout(a,amd)}if(z){var b=function(){(y?document.hidden:document.prerendering)||(z=!1,E(),document.removeEventListener(A,b))};document.addEventListener(A,b,{passive:!0})}t||h()}else x()},0);})();window._ = window._ || {};window._DumpException = _._DumpException = function(e){throw e;};window._s = window._s || {};_s._DumpException = _._DumpException;window._qs = window._qs || {};_qs._DumpException = _._DumpException;window.loaded_h_0 = function(cb){cb.call(window,window._);};(function(){var t=[1007731425,360,148,0,0,142606352,0,0,0,0,10485824,786432,1572864,0,10485760,0,605093888,8388609,618269207,738209793,268442143,826277909,741935199,163404818,0,538575872,335658946,536984320,298617,351107056,268966399,33686400,20975632,68944452,271843520,68419584,537395450,67940512,272695810,335546384,403440640,797134109,15991138,671155194,370,2097472,379723777,646723423,84148311,308319598,9040098,872417348,7314911,50827008,947560489,65536,620758528,137367233,8409,1021340909,134217729,132486929,553649152,46319104,67633223,355406012,587576864,272533,587528760,154219306,1986560,327155936,282884611,4,16777484,258281,537214980,1004535937,63832100,398985248,328384,541204608,537317899,26951680,2490369,155255808,8394372,335544332,671350888,1065103362,754258966,158007315,624959504,268570501,199680,680525829,17498148,252719104,550535220,4368,348913664,1071366816,75638912,235929600,1245315,78807576,33739008,37749308,4452352,4063233,989855744,3963392,3940892,0,0,0,0,0,2621568,273826022,1024,0,0,0,0,0,554991616,679,402653184,4456559];window._F_toggles = window._xjs_toggles = t;})();window._F_installCss = window._F_installCss || function(css){};(function(){var pmc='{\x22X3N0Bf\x22:{},\x22abd\x22:{\x22abd\x22:false,\x22deb\x22:false,\x22det\x22:false},\x22attn\x22:{},\x22bgd\x22:{\x22ac\x22:true,\x22as\x22:true,\x22at\x22:0,\x22ea\x22:true,\x22ed\x22:0,\x22ei\x22:true,\x22el\x22:true,\x22ep\x22:true,\x22er\x22:true,\x22et\x22:0,\x22eu\x22:false,\x22lr\x22:false,\x22wl\x22:false},\x22cdos\x22:{\x22bih\x22:670,\x22biw\x22:1424,\x22dpr\x22:\x221.35\x22},\x22csi\x22:{},\x22d\x22:{},\x22foot\x22:{\x22dv\x22:\x22w00CxVbSqhJhECBuCtWvdH132W27-VktWN6v3q37ewAAAFBgUOKbGI6UUQAAAOhvYGe9FtKiGAAAAGnw0XD9ZnENDAAAABomwfjlk8qDAwAAAA\x22},\x22gwc\x22:{},\x22hsm\x22:{},\x22jsa\x22:{\x22csi\x22:true,\x22csir\x22:100},\x22mb4ZUb\x22:{},\x22sb_wiz\x22:{\x22onf\x22:\x22EAEybgoiCiBIb3cgdG8gaW5zdGFsbCBQSFBNYWlsZXIgaW4gUEhQPwobChlJcyBQSFBNYWlsZXIgb3BlbiBzb3VyY2U_CigKJkhvdyB0byBpbnN0YWxsIFBIUE1haWxlciBpbiBob3N0aW5nZXI_EOQC\x22,\x22scq\x22:\x22\x22,\x22stok\x22:\x22wOCUMQ4iy-AbKMCASgr2Cpoh5UI\x22,\x22ueh\x22:\x223b6983e8_f82bb57a_6f337fc2_0250aa35_21a16a42\x22},\x22sg\x22:{\x22ac\x22:true,\x22iw\x22:0,\x22sc\x22:1,\x22squ\x22:false,\x22sw\x22:1},\x22spch\x22:{\x22ae\x22:\x22Please check your microphone.  \\u003Ca href\x3d\\\x22https://support.google.com/chrome/?p\x3dui_voice_search\\\x22 target\x3d\\\x22_blank\\\x22\\u003ELearn more\\u003C/a\\u003E\x22,\x22ak\x22:\x22\x22,\x22cd\x22:0,\x22fp\x22:false,\x22hl\x22:\x22en-PH\x22,\x22im\x22:\x22Click \\u003Cb\\u003EAllow\\u003C/b\\u003E to start voice search\x22,\x22iw\x22:\x22Waiting...\x22,\x22lm\x22:\x22Listening...\x22,\x22lu\x22:\x22%1$s voice search not available\x22,\x22mb\x22:false,\x22ne\x22:\x22No Internet connection\x22,\x22nt\x22:\x22Didn\x27t get that. \\u003Cspan\\u003ETry again\\u003C/span\\u003E\x22,\x22nv\x22:\x22Please check your microphone and audio levels.  \\u003Ca href\x3d\\\x22https://support.google.com/chrome/?p\x3dui_voice_search\\\x22 target\x3d\\\x22_blank\\\x22\\u003ELearn more\\u003C/a\\u003E\x22,\x22pe\x22:\x22Voice search has been turned off.  \\u003Ca href\x3d\\\x22https://support.google.com/chrome/?p\x3dui_voice_search\\\x22 target\x3d\\\x22_blank\\\x22\\u003EDetails\\u003C/a\\u003E\x22,\x22rm\x22:\x22Speak now\x22}}';google.pmc=JSON.parse(pmc);})();(function(){var cids=['sg'];window._L_CIDS = cids;})();(function(){var m={"iE1laqfPEI2IosUP4tOE-Qs1":["gws-wiz-serp","","https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php","",1,0,0,13,"en","3b6983e8f82bb57a6f337fc20250aa3521a16a42","iE1laqfPEI2IosUP4tOE-Qs",0,"en-PH","",null,null,3,15,8,null,"89978449",1,1,1800000,1,-1,0,0,1,1,1,null,null,0,0,null,null,null,0,null,0,null,1,null,1,1,1,null,["gws-wiz-modeless-local","",""],null,["gws-wiz-modeless-products","","sh"],["gws-wiz-modeless-lodging","",""],["gws-wiz-modeless-flights","",""],1,null,null,["gws-wiz-modeless-vss-products","",""],["gws-wiz-modeless-vss-jobs","",""],["gws-wiz-modeless-vss-local-travel","",""],["gws-wiz-modeless-video","","v"],["gws-wiz-modeless-jobs","",""],["gws-wiz-modeless-vss-flights","",""],["gws-wiz-modeless","",""],["gws-wiz-modeless-shopping","","sh"],null,null,null,["multimodal-lens-web","",""],null,1,0,["gws-wiz-modeless-forums","",""],["gws-wiz-modeless-short-videos","",""],null,["gws-wiz-modeless-web-only","",""],0,""],"iE1laqfPEI2IosUP4tOE-Qs2":[null,null,null,"autocomplete_user_feedback_kp_id",null,11,null,null,null,null,null,5010715,"searchbox",null,"AutocompletePrediction",null,null,null,null,11],"iE1laqfPEI2IosUP4tOE-Qs3":[3,0,0,0,0,0,10,0,0,0],"iE1laqfPEI2IosUP4tOE-Qs4":[6,3,null,null,1,1,0,1,0,0,0,0,0,0,0,0],"iE1laqfPEI2IosUP4tOE-Qs5":["spyw",1,0],"iE1laqfPEI2IosUP4tOE-Qs6":[["https://www.google.com/search?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026shem\u003depsd1,rimspwouoe\u0026source\u003dsh/x/page/hdr/m1/1",null,null,"https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php",null,null,null,null,1],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,0]],"iE1laqfPEI2IosUP4tOE-Qs7":[null,null,null,[null,null,[[[3,null,null,[null,[["qdr_",1,6],["qdr_h",0,6],["qdr_d",0,6],["qdr_w",0,6],["qdr_m",0,6],["qdr_y",0,6],["cdr_opt",0,1,[1,"Custom range...",null,"cdr:1,cd_min:x,cd_max:x","","text","","",6,null,[[["q","https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php"],["sca_esv","46714cf388915209"],["sxsrf","APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280"]]],"cdr_opt","5/23/2004",0]]],0]],[3,null,null,[null,[["li_",1,6],["li_1",0,6]],1]]],null,["tbs"],"https://www.google.com/advanced_search?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php"]],null,null,[null,[["/search?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026sca_esv\u003d46714cf388915209\u0026sxsrf\u003dAPpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280\u0026source\u003dlnms",null,null,"All",1,0,1,null,null,"WEB",[0,1]]],[["/search?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026sca_esv\u003d46714cf388915209\u0026udm\u003d2\u0026sxsrf\u003dAPpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280\u0026source\u003dlnms",null,null,"Images",0,0,1,null,null,"IMAGES",[6,1]],["https://maps.google.com/maps?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026um\u003d1\u0026ie\u003dUTF-8",null,null,"Maps",0,0,1,null,null,"MAPS",[8,1],null,null,null,1],["/search?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026sca_esv\u003d46714cf388915209\u0026udm\u003d7\u0026sxsrf\u003dAPpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280\u0026source\u003dlnms",null,null,"Videos",0,0,1,null,null,"VIDEOS",[13,1]],["/search?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026sca_esv\u003d46714cf388915209\u0026tbm\u003dnws\u0026sxsrf\u003dAPpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280\u0026source\u003dlnms",null,null,"News",0,0,1,null,null,"NEWS",[10,1]],["/search?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026sca_esv\u003d46714cf388915209\u0026udm\u003d28\u0026sxsrf\u003dAPpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280\u0026source\u003dlnms",null,null,"Shopping",0,0,1,null,null,"SHOPPING",[12,1],null,null,null,1],["/search?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026sca_esv\u003d46714cf388915209\u0026udm\u003d36\u0026sxsrf\u003dAPpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280\u0026source\u003dlnms",null,null,"Books",0,0,1,null,null,"BOOKS",[2,1]],["https://www.google.com/travel/flights?q\u003dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026sca_esv\u003d46714cf388915209\u0026tbm\u003dflm\u0026sxsrf\u003dAPpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280\u0026source\u003dlnms",null,null,"Flights",0,0,1,null,null,"FLIGHTS",[20,1],null,null,null,1],["//www.google.com/finance",null,null,"Finance",0,0,1,null,null,"FINANCE",[22,1]]]]],"iE1laqfPEI2IosUP4tOE-Qs9":[1,null,null,1,0,0,0,null,0,0,0],"iE1laqfPEI2IosUP4tOE-Qs15":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"https://github.com/phpmailer/phpmailer",null,null,null,null,[null,null,null,null,null,null,[null,null,null,"/search/about-this-result?origin\u003dwww.google.com\u0026cs\u003d1\u0026req\u003dCiZodHRwczovL2dpdGh1Yi5jb20vcGhwbWFpbGVyL3BocG1haWxlchIICgASABoCCAAargUSAggBGgAiACoAMgYIAhICcGg6AEIECAEQAEoAWgByAHoAgkCIBQgAEAAYACAAKgwKBWh0dHBzFWC9Oj8qHAoDcmF3FQAAAAAaBmdpdGh1YhoIdW5jb29rZWQqYgoRZ2l0aHVidXNlcmNvbnRlbnQVAAAAABoTZ2l0IGh1YiB1c2VyY29udGVudBoTZ2l0aHViIHVzZXIgY29udGVudBoGZ2l0aHViGhZpdjtwO2dpdGh1YnVzZXJjb250ZW50KgoKA2NvbRUUh_g_KiwKCXBocG1haWxlchWHd5JAGgpwaHAgbWFpbGVyGg5pdjtwO3BocG1haWxlciosCglwaHBtYWlsZXIVh3eSQBoKcGhwIG1haWxlchoOaXY7cDtwaHBtYWlsZXIqIAoGbWFzdGVyFexzPj0aCG1hc3RlcidzGgdtYXN0ZXJzKhQKA3NyYxXsyU0_GghpdjtwO3NyYyosCglwaHBtYWlsZXIVh3eSQBoKcGhwIG1haWxlchoOaXY7cDtwaHBtYWlsZXIqCgoDcGhwFYdSQEAyJmh0dHBzOi8vZ2l0aHViLmNvbS9waHBtYWlsZXIvcGhwbWFpbGVyOlM8Yj5QSFBNYWlsZXI8L2I-LzxiPlBIUE1haWxlcjwvYj46IFRoZSBjbGFzc2ljIGVtYWlsIHNlbmRpbmcgbGlicmFyeSBmb3IgPGI-UEhQPC9iPkKWAVRoZSBjbGFzc2ljIGVtYWlsIHNlbmRpbmcgbGlicmFyeSBmb3IgPGI-UEhQPC9iPi4gQ29udHJpYnV0ZSB0byA8Yj5QSFBNYWlsZXI8L2I-LzxiPlBIUE1haWxlcjwvYj4gZGV2ZWxvcG1lbnQgYnkgY3JlYXRpbmcgYW4gYWNjb3VudCBvbiA8Yj5HaXRIdWI8L2I-LiICEAFIAVgAaAA\u0026hl\u003den-PH\u0026gl\u003dPH"],"https://www.google.com"],null,null,null,null,null,null,null,null,["PHPMailer/PHPMailer: The classic email sending library for PHP","The classic email sending library for PHP. Contribute to PHPMailer/PHPMailer development by creating an account on GitHub.","GitHub","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX////4+Pi3ubtvcnZNUVU+Q0cpLjLr6+x3en0sMTYkKS59gIORk5aUl5n8/Pzw8PFTV1tbX2Pc3d5DSEzn5+g3PECLjpFKTlKFh4qxs7XCxMUuMze/wcLh4uPV1tZzd3o/Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA+KkidVAa/WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV/eC2H3e0C7lk1aBEzd+7SpigJOZVoXx+J5UxzADil+8+KZYoRaK5y2WZxSdgm0j+dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y+EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII\u003d"],[null,1,[null,null,5,null,"PHPMailer/PHPMailer: The classic email sending library for PHP",null,"https://github.com/phpmailer/phpmailer"],["https://github.com/phpmailer/phpmailer","PHPMailer/PHPMailer: The classic email sending library ...","The classic email sending library for PHP. Contribute to PHPMailer/PHPMailer development by creating an account on GitHub.",1,"en","PH",[null,null,null,null,"renoweebeloy536@gmail.com"],"/s?tbm\u003dmap\u0026gs_ri\u003dmaps\u0026suggest\u003dp","AF5tSO6y0uwODtuSrkq7jshPboWchJNPKA:1785023880527","GitHub"],null,null,null,["https://github.com/phpmailer/phpmailer",null,null,null,35,"Source: GitHub"],3,[null,null,"PHPMailer/PHPMailer: The classic email sending library for PHP","webresult_53XKHlwuV3EJ",null,1,null,null,null,null,null,100334,"MSAF - SRP",[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"NAVIGATIONAL_RESULT_INNER",["https://github.com/phpmailer/phpmailer","BLUR",0,1],null,null,null,null,null,["The classic email sending library for \u003cb\u003ePHP\u003c/b\u003e. Contribute to \u003cb\u003ePHPMailer\u003c/b\u003e/\u003cb\u003ePHPMailer\u003c/b\u003e development by creating an account on \u003cb\u003eGitHub\u003c/b\u003e.","\u003cb\u003ePHPMailer\u003c/b\u003e/\u003cb\u003ePHPMailer\u003c/b\u003e: The classic email sending library for \u003cb\u003ePHP\u003c/b\u003e",0,15]],null,null,null,null,null,98,null,null,null,1,null,null,null,1,1]]],"iE1laqfPEI2IosUP4tOE-Qs14":[null,3,null,null,"PHPMailer/src/SMTP.php at ...","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX////4+Pi3ubtvcnZNUVU+Q0cpLjLr6+x3en0sMTYkKS59gIORk5aUl5n8/Pzw8PFTV1tbX2Pc3d5DSEzn5+g3PECLjpFKTlKFh4qxs7XCxMUuMze/wcLh4uPV1tZzd3o/Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA+KkidVAa/WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV/eC2H3e0C7lk1aBEzd+7SpigJOZVoXx+J5UxzADil+8+KZYoRaK5y2WZxSdgm0j+dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y+EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII\u003d","/async/on_srp_privacy_delete?authuser\u003d0\u0026data\u003dGjBBRjV0U080ZS10WTI5bVdISXJTQTgtSV91azBVYlYzQkR3OjE3ODUwMjM4ODA1MjgiSwo_aHR0cHM6Ly9naXRodWIuY29tL1BIUE1haWxlci9QSFBNYWlsZXIvYmxvYi9tYXN0ZXIvc3JjL1NNVFAucGhwENv-xd3Mr4CDIg%3D%3D"],"iE1laqfPEI2IosUP4tOE-Qs13":[null,1,null,null,"Exception.php","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX////4+Pi3ubtvcnZNUVU+Q0cpLjLr6+x3en0sMTYkKS59gIORk5aUl5n8/Pzw8PFTV1tbX2Pc3d5DSEzn5+g3PECLjpFKTlKFh4qxs7XCxMUuMze/wcLh4uPV1tZzd3o/Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA+KkidVAa/WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV/eC2H3e0C7lk1aBEzd+7SpigJOZVoXx+J5UxzADil+8+KZYoRaK5y2WZxSdgm0j+dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y+EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII\u003d","/async/on_srp_privacy_delete?authuser\u003d0\u0026data\u003dGjBBRjV0U080ZS10WTI5bVdISXJTQTgtSV91azBVYlYzQkR3OjE3ODUwMjM4ODA1MjgiUApEaHR0cHM6Ly9naXRodWIuY29tL1BIUE1haWxlci9QSFBNYWlsZXIvYmxvYi9tYXN0ZXIvc3JjL0V4Y2VwdGlvbi5waHAQue_fhpS13dg-"],"iE1laqfPEI2IosUP4tOE-Qs19":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.10.0/src/PHPMailer.php",null,null,null,null,[null,null,null,null,null,null,[null,null,null,"/search/about-this-result?origin\u003dwww.google.com\u0026cs\u003d1\u0026req\u003dCk9odHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vUEhQTWFpbGVyL1BIUE1haWxlci92Ni4xMC4wL3NyYy9QSFBNYWlsZXIucGhwEgQaAggAGuUFEgAaACIAKgAyBggCEgJwaDoAQgQIARAASgBaHQgBEhlyYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tcgB6AIJApAUIABAAGAAgACoMCgVodHRwcxXOMq0_KhwKA3JhdxUAAIBAGgZnaXRodWIaCHVuY29va2VkKmIKEWdpdGh1YnVzZXJjb250ZW50FQAA8EAaE2dpdCBodWIgdXNlcmNvbnRlbnQaE2dpdGh1YiB1c2VyIGNvbnRlbnQaBmdpdGh1YhoWaXY7cDtnaXRodWJ1c2VyY29udGVudCoKCgNjb20Vc3O1QCosCglwaHBtYWlsZXIVPvMCQBoKcGhwIG1haWxlchoOaXY7cDtwaHBtYWlsZXIqLAoJcGhwbWFpbGVyFT7zAkAaCnBocCBtYWlsZXIaDml2O3A7cGhwbWFpbGVyKiAKBm1hc3RlchUAAAAAGghtYXN0ZXIncxoHbWFzdGVycyoUCgNzcmMVXCsCPxoIaXY7cDtzcmMqLAoJcGhwbWFpbGVyFT7zAkAaCnBocCBtYWlsZXIaDml2O3A7cGhwbWFpbGVyKgoKA3BocBXREc0_Mk9odHRwczovL3Jhdy5naXRodWJ1c2VyY29udGVudC5jb20vUEhQTWFpbGVyL1BIUE1haWxlci92Ni4xMC4wL3NyYy9QSFBNYWlsZXIucGhwOgBC3AEmbHQ7PzxiPnBocDwvYj4gLyoqICogPGI-UEhQTWFpbGVyPC9iPiAtIDxiPlBIUDwvYj4gZW1haWwgY3JlYXRpb24gYW5kIHRyYW5zcG9ydCBjbGFzcy4gKiA8Yj5QSFA8L2I-IFZlcnNpb24gNS41LiAqICogQHNlZSA8Yj5odHRwczwvYj46Ly88Yj5naXRodWIuY29tL1BIUE1haWxlcjwvYj4vPGI-UEhQTWFpbGVyPC9iPi8gVGhlIDxiPlBIUE1haWxlciBHaXRIdWI8L2I-Jm5ic3A7Li4uIgIQAUgBWABoAA\u0026hl\u003den-PH\u0026gl\u003dPH"],"https://www.google.com"],null,null,null,null,null,null,null,null,["","\u003c?php /** * PHPMailer - PHP email creation and transport class. * PHP Version 5.5. * * @see https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub ...","GitHub","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX////4+Pi3ubtvcnZNUVU+Q0cpLjLr6+x3en0sMTYkKS59gIORk5aUl5n8/Pzw8PFTV1tbX2Pc3d5DSEzn5+g3PECLjpFKTlKFh4qxs7XCxMUuMze/wcLh4uPV1tZzd3o/Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA+KkidVAa/WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV/eC2H3e0C7lk1aBEzd+7SpigJOZVoXx+J5UxzADil+8+KZYoRaK5y2WZxSdgm0j+dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y+EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII\u003d"],[null,1,null,["https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.10.0/src/PHPMailer.php","https://raw.githubusercontent.com/PHPMailer/PHPMai...","\u003c?php /** * PHPMailer - PHP email creation and transport class. * PHP Version 5.5. * * @see https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub ...",1,"en","PH",[null,null,null,null,"renoweebeloy536@gmail.com"],"/s?tbm\u003dmap\u0026gs_ri\u003dmaps\u0026suggest\u003dp","AF5tSO73zo_7fLdyVqmrHqjBmM5ZxvbMDw:1785023880547","GitHub"],null,null,null,["https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.10.0/src/PHPMailer.php",null,null,null,35,"Source: GitHub"],3,[null,null,"","webresult_iqmEzW8N9mcJ",null,1,null,null,null,null,null,100334,"MSAF - SRP",[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"WEB_RESULT_INNER",["https://raw.githubusercontent.com/PHPMailer/PHPMailer/v6.10.0/src/PHPMailer.php","BLUR",0,1],null,null,null,null,null,["\u0026lt;?\u003cb\u003ephp\u003c/b\u003e /** * \u003cb\u003ePHPMailer\u003c/b\u003e - \u003cb\u003ePHP\u003c/b\u003e email creation and transport class. * \u003cb\u003ePHP\u003c/b\u003e Version 5.5. * * @see \u003cb\u003ehttps\u003c/b\u003e://\u003cb\u003egithub.com/PHPMailer\u003c/b\u003e/\u003cb\u003ePHPMailer\u003c/b\u003e/ The \u003cb\u003ePHPMailer GitHub\u003c/b\u003e\u0026nbsp;...","",0,17]],null,null,null,null,null,98,null,null,null,1,null,null,null,1,1]]],"iE1laqfPEI2IosUP4tOE-Qs18":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"https://sourceforge.net/projects/phpmailer.mirror/",null,null,null,null,[null,null,null,null,null,null,[null,null,null,"/search/about-this-result?origin\u003dwww.google.com\u0026cs\u003d1\u0026req\u003dCjJodHRwczovL3NvdXJjZWZvcmdlLm5ldC9wcm9qZWN0cy9waHBtYWlsZXIubWlycm9yLxIEGgIIABqtBRICCAAaACIAKgAyBggCEgJwaDoAQgQIARAASgBaAHIAegCCQIcFCAAQABgAIAAqDAoFaHR0cHMVN7-WPyocCgNyYXcVAAAAABoGZ2l0aHViGgh1bmNvb2tlZCpiChFnaXRodWJ1c2VyY29udGVudBUAAAAAGhNnaXQgaHViIHVzZXJjb250ZW50GhNnaXRodWIgdXNlciBjb250ZW50GgZnaXRodWIaFml2O3A7Z2l0aHVidXNlcmNvbnRlbnQqCgoDY29tFfGDoz8qLAoJcGhwbWFpbGVyFaIusEAaCnBocCBtYWlsZXIaDml2O3A7cGhwbWFpbGVyKiwKCXBocG1haWxlchWiLrBAGgpwaHAgbWFpbGVyGg5pdjtwO3BocG1haWxlciogCgZtYXN0ZXIVAAAAABoIbWFzdGVyJ3MaB21hc3RlcnMqFAoDc3JjFQAAAAAaCGl2O3A7c3JjKiwKCXBocG1haWxlchXvea9AGgpwaHAgbWFpbGVyGg5pdjtwO3BocG1haWxlcioKCgNwaHAVBSseQDIyaHR0cHM6Ly9zb3VyY2Vmb3JnZS5uZXQvcHJvamVjdHMvcGhwbWFpbGVyLm1pcnJvci86KzxiPlBIUE1haWxlcjwvYj4gZG93bmxvYWQgfCBTb3VyY2VGb3JnZS5uZXRCsQFUaGUgY2xhc3NpYyBlbWFpbCBzZW5kaW5nIGxpYnJhcnkgZm9yIDxiPlBIUDwvYj4uIFRoaXMgaXMgYW4gZXhhY3QgbWlycm9yIG9mIHRoZSA8Yj5QSFBNYWlsZXI8L2I-IHByb2plY3QsIGhvc3RlZCBhdCA8Yj5odHRwczwvYj46Ly88Yj5naXRodWIuY29tL1BIUE1haWxlcjwvYj4vPGI-UEhQTWFpbGVyPC9iPi4iAhABSAFYAGgA\u0026hl\u003den-PH\u0026gl\u003dPH"],"https://www.google.com"],null,null,null,null,null,null,null,null,["PHPMailer download | SourceForge.net","The classic email sending library for PHP. This is an exact mirror of the PHPMailer project, hosted at https://github.com/PHPMailer/PHPMailer.","SourceForge","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcBAMAAACAI8KnAAAAIVBMVEVHcEzzfCDzfCD0fCDzfCD0fCDzfCDzfCDzfCDzfCDzfCCeSZfOAAAAC3RSTlMAJ0AO/xdMknO97rFAgpQAAACgSURBVHgBYsAGGJWUkbkqgLblAANhMIDi+OtrtQYMdY+QEBj9qxoodoBRAhB2gB2iI+yg2Z7lix4ez8/jEK0A19UPTljHmLCPUHPMxlQPszFpzUY1hdkYOPttTLjMzD2qoUzNHa3UQZYPvOEoAVmtBaWmUAuoau166fkNGIZewsm3gQO8jOZwl9EsGUce0VyMaM4jlG5fdKoYpe0z1598AJ+cLzftXmnHAAAAAElFTkSuQmCC"],[null,1,[null,null,5,null,"PHPMailer download | SourceForge.net",null,"https://sourceforge.net/projects/phpmailer.mirror/"],["https://sourceforge.net/projects/phpmailer.mirror/","PHPMailer download","The classic email sending library for PHP. This is an exact mirror of the PHPMailer project, hosted at https://github.com/PHPMailer/PHPMailer.",1,"en","PH",[null,null,null,null,"renoweebeloy536@gmail.com"],"/s?tbm\u003dmap\u0026gs_ri\u003dmaps\u0026suggest\u003dp","AF5tSO73zo_7fLdyVqmrHqjBmM5ZxvbMDw:1785023880547","SourceForge"],null,null,null,["https://sourceforge.net/projects/phpmailer.mirror/",null,null,null,35,"Source: SourceForge"],3,[null,null,"PHPMailer download | SourceForge.net","webresult_2_RaMvwHcvIJ",null,1,null,null,null,null,null,100334,"MSAF - SRP",[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"WEB_RESULT_INNER",["https://sourceforge.net/projects/phpmailer.mirror/","BLUR",0,0],null,null,null,null,null,["The classic email sending library for \u003cb\u003ePHP\u003c/b\u003e. This is an exact mirror of the \u003cb\u003ePHPMailer\u003c/b\u003e project, hosted at \u003cb\u003ehttps\u003c/b\u003e://\u003cb\u003egithub.com/PHPMailer\u003c/b\u003e/\u003cb\u003ePHPMailer\u003c/b\u003e.","\u003cb\u003ePHPMailer\u003c/b\u003e download | SourceForge.net",0,17]],null,null,null,null,null,98,null,null,null,1,null,null,null,1,1]]],"iE1laqfPEI2IosUP4tOE-Qs20":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found",null,null,null,null,[null,null,null,null,null,null,[null,null,null,"/search/about-this-result?origin\u003dwww.google.com\u0026cs\u003d1\u0026req\u003dClJodHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8yODkwNjQ4Ny9mYXRhbC1lcnJvci1jbGFzcy1waHBtYWlsZXItbm90LWZvdW5kEgQaAggAGsYFEgIIABoAIgAqADIGCAISAnBoOgBCBAgBEABKAFoAcgB6AIJAoAUIABAAGAAgACoMCgVodHRwcxVLl4Y_KhwKA3JhdxUAAAAAGgZnaXRodWIaCHVuY29va2VkKmIKEWdpdGh1YnVzZXJjb250ZW50FQAAAAAaE2dpdCBodWIgdXNlcmNvbnRlbnQaE2dpdGh1YiB1c2VyIGNvbnRlbnQaBmdpdGh1YhoWaXY7cDtnaXRodWJ1c2VyY29udGVudCoKCgNjb20VAlEmQCosCglwaHBtYWlsZXIVLk1rQBoKcGhwIG1haWxlchoOaXY7cDtwaHBtYWlsZXIqLAoJcGhwbWFpbGVyFS5Na0AaCnBocCBtYWlsZXIaDml2O3A7cGhwbWFpbGVyKiAKBm1hc3RlchVS2FY_GghtYXN0ZXIncxoHbWFzdGVycyoUCgNzcmMVlDhHPxoIaXY7cDtzcmMqLAoJcGhwbWFpbGVyFS5Na0AaCnBocCBtYWlsZXIaDml2O3A7cGhwbWFpbGVyKgoKA3BocBXuSFRAMlJodHRwczovL3N0YWNrb3ZlcmZsb3cuY29tL3F1ZXN0aW9ucy8yODkwNjQ4Ny9mYXRhbC1lcnJvci1jbGFzcy1waHBtYWlsZXItbm90LWZvdW5kOkhGYXRhbCBlcnJvcjogQ2xhc3MgJiMzOTs8Yj5QSFBNYWlsZXI8L2I-JiMzOTsgbm90IGZvdW5kIC0gU3RhY2sgT3ZlcmZsb3dCjQFJdCBzb3VuZHMgbGlrZSB0aGUgUEhQTWFpbGVyQXV0b2xvYWQuPGI-cGhwPC9iPiBmaWxlIGlzIHRyeWluZyB0byBsb2NhdGUgdGhlIGFjdHVhbCBjbGFzcyBmaWxlIGZvciA8Yj5QSFBNYWlsZXI8L2I-IGFuZCBpcyBub3QgYWJsZSB0byBkbyBzby4iAhABSAFYAGgA\u0026hl\u003den-PH\u0026gl\u003dPH"],"https://www.google.com"],null,null,null,null,null,null,null,null,["Fatal error: Class 'PHPMailer' not found - Stack Overflow","It sounds like the PHPMailerAutoload.php file is trying to locate the actual class file for PHPMailer and is not able to do so.","Stack Overflow","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAMAAABF0y+mAAAAclBMVEX/XgD/XwDHTA3/YABQKBoAER/QTwz/YQCZPhMAFB4fHB14NBcAFx4eHB3ZUgruWQZoLxg2IRtEJRvhVAkAGB2wRREYGh2BNhZfLBkLGR4aGx3nVggzIBymQhISGh32WwS8SQ9AJBuTPBSLORVWKhkADh+4PaZeAAAAuUlEQVR4AbzQRQLDMAwAQaturCqRw8z4/yeWMXTsXsco8Zdgjw5yG4+Gwg2TJzJJyY1D0WJN9pqCIwFd1rym6PkBohtqDhYqI4opEZhmeVjMFVTJOgujm3IAMwSsuNbsB25WOr8I1/uwsSjPOa2b+UYjs9oGg45NY/5cUKRrJv9kR6GFYo4pc5bnGWsKQMwVQfUdcZ13y+niPTgk9SAXlo73UjeLlmjW8SNuYYEhPZuWO0XzSVw2eAEARO8NFMONSEkAAAAASUVORK5CYII\u003d"],[null,1,[null,null,5,null,"Fatal error: Class 'PHPMailer' not found - Stack Overflow",null,"https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found"],["https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found","Fatal error: Class 'PHPMailer' not found","It sounds like the PHPMailerAutoload.php file is trying to locate the actual class file for PHPMailer and is not able to do so.",1,"en","PH",[null,null,null,null,"renoweebeloy536@gmail.com"],"/s?tbm\u003dmap\u0026gs_ri\u003dmaps\u0026suggest\u003dp","AF5tSO73zo_7fLdyVqmrHqjBmM5ZxvbMDw:1785023880547","Stack Overflow"],null,null,null,["https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found",null,null,null,35,"Source: Stack Overflow"],3,[null,null,"Fatal error: Class 'PHPMailer' not found - Stack Overflow","webresult_CFxVFjOG3BEJ",null,1,null,null,null,null,null,100334,"MSAF - SRP",[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"WEB_RESULT_INNER",["https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found","BLUR",0,0],null,null,null,null,null,["It sounds like the PHPMailerAutoload.\u003cb\u003ephp\u003c/b\u003e file is trying to locate the actual class file for \u003cb\u003ePHPMailer\u003c/b\u003e and is not able to do so.","Fatal error: Class \u0026#39;\u003cb\u003ePHPMailer\u003c/b\u003e\u0026#39; not found - Stack Overflow",0,26]],null,null,null,null,null,98,null,null,null,1,null,null,null,1,1]]],"iE1laqfPEI2IosUP4tOE-Qs23":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server",null,null,null,null,[null,null,null,null,null,null,[null,null,null,"/search/about-this-result?origin\u003dwww.google.com\u0026cs\u003d1\u0026req\u003dCmFodHRwczovL2hlbHAuZHJlYW1ob3N0LmNvbS9oYy9lbi11cy9hcnRpY2xlcy8zNjAwMzExNzQ0MTEtUEhQTWFpbGVyLUluc3RhbGxpbmctb24tYS1zaGFyZWQtc2VydmVyEgQaAggAGrgFEgIIABoAIgAqADIGCAISAnBoOgBCBAgBEABKAFoAcgB6AIJAkgUIABAAGAAgACoMCgVodHRwcxX7-pc_KhwKA3JhdxUAAAAAGgZnaXRodWIaCHVuY29va2VkKmIKEWdpdGh1YnVzZXJjb250ZW50FQAAAAAaE2dpdCBodWIgdXNlcmNvbnRlbnQaE2dpdGh1YiB1c2VyIGNvbnRlbnQaBmdpdGh1YhoWaXY7cDtnaXRodWJ1c2VyY29udGVudCoKCgNjb20VIvLeQCosCglwaHBtYWlsZXIVunO2QBoKcGhwIG1haWxlchoOaXY7cDtwaHBtYWlsZXIqLAoJcGhwbWFpbGVyFbpztkAaCnBocCBtYWlsZXIaDml2O3A7cGhwbWFpbGVyKiAKBm1hc3RlchUgPfE_GghtYXN0ZXIncxoHbWFzdGVycyoUCgNzcmMV9ijJPxoIaXY7cDtzcmMqLAoJcGhwbWFpbGVyFbpztkAaCnBocCBtYWlsZXIaDml2O3A7cGhwbWFpbGVyKgoKA3BocBU1LB5AMmFodHRwczovL2hlbHAuZHJlYW1ob3N0LmNvbS9oYy9lbi11cy9hcnRpY2xlcy8zNjAwMzExNzQ0MTEtUEhQTWFpbGVyLUluc3RhbGxpbmctb24tYS1zaGFyZWQtc2VydmVyOjI8Yj5QSFBNYWlsZXI8L2I-IOKAlCBJbnN0YWxsaW5nIG9uIGEgc2hhcmVkIHNlcnZlckKGAVRoaXMgYXJ0aWNsZSBkZXNjcmliZXMgPGI-aG93IHRvIGluc3RhbGwgUEhQTWFpbGVyIG9uIGEgU2hhcmVkIHdlYiBzZXJ2ZXI8L2I-LCB3aGljaCBhbGxvd3MgeW91IHRvIHNlbmQgZW1haWwgZnJvbSB5b3VyIHNpdGUgdmlhIFNNVFAuIgIQAUgBWABoAA\u0026hl\u003den-PH\u0026gl\u003dPH"],"https://www.google.com"],null,null,null,null,null,null,null,null,["PHPMailer — Installing on a shared server","This article describes how to install PHPMailer on a Shared web server, which allows you to send email from your site via SMTP.","DreamHost",""],[null,1,[null,null,5,null,"PHPMailer — Installing on a shared server",null,"https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server"],["https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server","PHPMailer — Installing on a shared server","This article describes how to install PHPMailer on a Shared web server, which allows you to send email from your site via SMTP.",1,"en","PH",[null,null,null,null,"renoweebeloy536@gmail.com"],"/s?tbm\u003dmap\u0026gs_ri\u003dmaps\u0026suggest\u003dp","AF5tSO7uS-fuSNTtWTntw3rdss2xseILmQ:1785023880551","DreamHost"],null,null,null,["https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server",null,null,null,35,"Source: DreamHost"],3,[null,null,"PHPMailer — Installing on a shared server","webresult_UKblxgC0SOcJ",null,1,null,null,null,null,null,100334,"MSAF - SRP",[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"WEB_RESULT_INNER",["https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server","BLUR",0,0],null,null,null,null,null,["This article describes \u003cb\u003ehow to install PHPMailer on a Shared web server\u003c/b\u003e, which allows you to send email from your site via SMTP.","\u003cb\u003ePHPMailer\u003c/b\u003e — Installing on a shared server",0,26]],null,null,null,null,null,98,null,null,null,1,null,null,null,1,1]]],"iE1laqfPEI2IosUP4tOE-Qs24":[],"iE1laqfPEI2IosUP4tOE-Qs22":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"https://grokipedia.com/page/PHPMailer",null,null,null,null,[null,null,null,null,null,null,[null,null,null,"/search/about-this-result?origin\u003dwww.google.com\u0026cs\u003d1\u0026req\u003dCiVodHRwczovL2dyb2tpcGVkaWEuY29tL3BhZ2UvUEhQTWFpbGVyEgQaAggAGogFEgAaACIAKgAyBggDEgJwaDoAQgQIARAASgBaAHIAegCCQOQECAAQABgAIAAqDAoFaHR0cHMV1GMPQCocCgNyYXcVAAAAABoGZ2l0aHViGgh1bmNvb2tlZCpiChFnaXRodWJ1c2VyY29udGVudBUAAAAAGhNnaXQgaHViIHVzZXJjb250ZW50GhNnaXRodWIgdXNlciBjb250ZW50GgZnaXRodWIaFml2O3A7Z2l0aHVidXNlcmNvbnRlbnQqCgoDY29tFcJiLEAqLAoJcGhwbWFpbGVyFesl-UAaCnBocCBtYWlsZXIaDml2O3A7cGhwbWFpbGVyKiwKCXBocG1haWxlchXrJflAGgpwaHAgbWFpbGVyGg5pdjtwO3BocG1haWxlciogCgZtYXN0ZXIVY4q9PxoIbWFzdGVyJ3MaB21hc3RlcnMqFAoDc3JjFf6GxD8aCGl2O3A7c3JjKiwKCXBocG1haWxlchXrJflAGgpwaHAgbWFpbGVyGg5pdjtwO3BocG1haWxlcioKCgNwaHAV-3SQQDIlaHR0cHM6Ly9ncm9raXBlZGlhLmNvbS9wYWdlL1BIUE1haWxlcjodPGI-UEhQTWFpbGVyPC9iPiAtIEdyb2tpcGVkaWFCqQE8Yj5QSFBNYWlsZXI8L2I-IGlzIGEgZnVsbC1mZWF0dXJlZCwgb3Blbi1zb3VyY2UgZW1haWwgY3JlYXRpb24gYW5kIHRyYW5zZmVyIGxpYnJhcnkgZm9yIFBIUCwgZGVzaWduZWQgdG8gc2ltcGxpZnkgc2VuZGluZyBlbWFpbHMgZnJvbSB3ZWIgc2VydmVycyB2aWEgcHJvdG9jb2xzJm5ic3A7Li4uIgIQAUgBWABoAA\u0026hl\u003den-PH\u0026gl\u003dPH"],"https://www.google.com"],null,null,null,null,null,null,null,null,["PHPMailer - Grokipedia","PHPMailer is a full-featured, open-source email creation and transfer library for PHP, designed to simplify sending emails from web servers via protocols ...","Grokipedia","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAAAAABXZoBIAAABJUlEQVR4AWLgxQOIlgSUSocwDgJBFEC/HDG2qqoSjcKuqVq1wZBU4wWpwSd1pyorq1ejkGfwKCwOnzVzkKW7e+HcjX2ZTP7PELYhTjFSpvS1OAPg38i4NLbvrO36d1OdKEVG+b30baVN/ZyWJUOKqBf3yvzN2yxFijAi7/0UoZFrgriMMqnPeaLpFpHROrGgkOBhIhL14toYik8nDoh8EmeQtJHkhJ5lKfB3fahWzD0S9glYhk3OS6O1NmVBH1TrzQqbUWWHxbnJ1mCPdB7EPfwmkPUiDcAh51OkJ9qPvp1cwbEhNcu8t8IeY32MVqTLEFCnxRNeIvbiQ7yclAG91mv3X6VS5j46V+HwCd04DuvYe0Ec0StwzlWR8fGHtmE6ft9x/o8/uFOK9/V3dV4AAAAASUVORK5CYII\u003d"],[null,1,[null,null,5,null,"PHPMailer - Grokipedia",null,"https://grokipedia.com/page/PHPMailer"],["https://grokipedia.com/page/PHPMailer","PHPMailer","PHPMailer is a full-featured, open-source email creation and transfer library for PHP, designed to simplify sending emails from web servers via protocols ...",1,"en","PH",[null,null,null,null,"renoweebeloy536@gmail.com"],"/s?tbm\u003dmap\u0026gs_ri\u003dmaps\u0026suggest\u003dp","AF5tSO7uS-fuSNTtWTntw3rdss2xseILmQ:1785023880551","Grokipedia"],null,null,null,["https://grokipedia.com/page/PHPMailer",null,null,null,35,"Source: Grokipedia"],3,[null,null,"PHPMailer - Grokipedia","webresult_sCNTTNkaJ3cJ",null,1,null,null,null,null,null,100334,"MSAF - SRP",[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"WEB_RESULT_INNER",["https://grokipedia.com/page/PHPMailer","BLUR",0,0],null,null,null,null,null,["\u003cb\u003ePHPMailer\u003c/b\u003e is a full-featured, open-source email creation and transfer library for PHP, designed to simplify sending emails from web servers via protocols\u0026nbsp;...","\u003cb\u003ePHPMailer\u003c/b\u003e - Grokipedia",0,2]],null,null,null,null,null,98,null,null,null,1,null,null,null,1,1]]],"iE1laqfPEI2IosUP4tOE-Qs21":[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"https://mailtrap.io/blog/phpmailer/",null,null,null,null,[null,null,null,null,null,null,[null,null,null,"/search/about-this-result?origin\u003dwww.google.com\u0026cs\u003d1\u0026req\u003dCiNodHRwczovL21haWx0cmFwLmlvL2Jsb2cvcGhwbWFpbGVyLxIEGgIIABqrBRICCAEaACIAKgAyBggDEgJwaDoAQgQIARAASgBaAHIAegCCQIUFCAAQABgAIAAqDAoFaHR0cHMVztwvPyocCgNyYXcVAAAAABoGZ2l0aHViGgh1bmNvb2tlZCpiChFnaXRodWJ1c2VyY29udGVudBUAAAAAGhNnaXQgaHViIHVzZXJjb250ZW50GhNnaXRodWIgdXNlciBjb250ZW50GgZnaXRodWIaFml2O3A7Z2l0aHVidXNlcmNvbnRlbnQqCgoDY29tFRccjT8qLAoJcGhwbWFpbGVyFUaWikAaCnBocCBtYWlsZXIaDml2O3A7cGhwbWFpbGVyKiwKCXBocG1haWxlchVGlopAGgpwaHAgbWFpbGVyGg5pdjtwO3BocG1haWxlciogCgZtYXN0ZXIVAAAAABoIbWFzdGVyJ3MaB21hc3RlcnMqFAoDc3JjFe56Jj8aCGl2O3A7c3JjKiwKCXBocG1haWxlchVGlopAGgpwaHAgbWFpbGVyGg5pdjtwO3BocG1haWxlcioKCgNwaHAV4wvPPzIjaHR0cHM6Ly9tYWlsdHJhcC5pby9ibG9nL3BocG1haWxlci86PzxiPlBIUE1haWxlcjwvYj46IFR1dG9yaWFsIHdpdGggQ29kZSBTbmlwcGV0cyBbMjAyNl0gLSBNYWlsdHJhcEKqAUluIHRoaXMgYXJ0aWNsZSwgSSYjMzk7bGwgZGVzY3JpYmUgdGhlIHByb2Nlc3Mgb2YgPGI-aW5zdGFsbGluZyBQSFBNYWlsZXI8L2I-LCBjb25maWd1cmluZyBTTVRQIHNldHRpbmdzLCBhbmQgYWRkaW5nIGVtYWlsLXNlbmRpbmcgZnVuY3Rpb25hbGl0eSB0byB5b3VyIGFwcCBzdGVwLWJ5LXN0ZXAuIgIQAUgBWABoAA\u0026hl\u003den-PH\u0026gl\u003dPH"],"https://www.google.com"],null,null,null,null,null,null,null,null,["PHPMailer: Tutorial with Code Snippets [2026] - Mailtrap","In this article, I'll describe the process of installing PHPMailer, configuring SMTP settings, and adding email-sending functionality to your app step-by-step.","Mailtrap","data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABwAAAAcCAYAAAByDd+UAAABWUlEQVR4AWJwL/ABtFu+oA1DQRg3c/OqpgziVjFPZCHMzMVDvMgmaqK3iHgXb0q9n4fGU2+iChFTb9/BE8eRC+8bYVRU/Ezeu/vl/T+K7fO+AmOkYuMZURElwTCCghf6ogwMWuJwBtmfhdvd/hEJjk7yUXDajhJLCRFUO8kmUJhpnpy+s+vLjK5emPbaGaUvfBree3ACuVm/lthYrV5HyQW+Qa+F0vAFgkI6bWInGomNOYLiUwv7+NHSU2f09e1hOZcV+jQJo2r8eF4o/IByRlTGtsAKdeINuDiB+P6xExb7IEfyCM3fX0FI5KpngRaqwEOC7GDjeKFB+jE7mRf6Z+wk6LO6tpDnLlTbOl9RmIPLnLAEjb4Tcet3IKMk6oWRHEpcClFIvW1chWDEgpW9gODQLr+DblyRUmJ0CwkqUzIGh27NImoSiCKKLhPPTnLNALKbK4T/vdT/BWo6QP6lrlrXAAAAAElFTkSuQmCC"],[null,1,[null,null,5,null,"PHPMailer: Tutorial with Code Snippets [2026] - Mailtrap",null,"https://mailtrap.io/blog/phpmailer/"],["https://mailtrap.io/blog/phpmailer/","PHPMailer: Tutorial with Code Snippets [2026]","In this article, I'll describe the process of installing PHPMailer, configuring SMTP settings, and adding email-sending functionality to your app step-by-step.",1,"en","PH",[null,null,null,null,"renoweebeloy536@gmail.com"],"/s?tbm\u003dmap\u0026gs_ri\u003dmaps\u0026suggest\u003dp","AF5tSO7uS-fuSNTtWTntw3rdss2xseILmQ:1785023880551","Mailtrap"],null,null,null,["https://mailtrap.io/blog/phpmailer/",null,null,null,35,"Source: Mailtrap"],3,[null,null,"PHPMailer: Tutorial with Code Snippets [2026] - Mailtrap","webresult_KVQ8znHQXfUJ",null,1,null,null,null,null,null,100334,"MSAF - SRP",[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,"WEB_RESULT_INNER",["https://mailtrap.io/blog/phpmailer/","BLUR",0,0],null,null,null,null,null,["In this article, I\u0026#39;ll describe the process of \u003cb\u003einstalling PHPMailer\u003c/b\u003e, configuring SMTP settings, and adding email-sending functionality to your app step-by-step.","\u003cb\u003ePHPMailer\u003c/b\u003e: Tutorial with Code Snippets [2026] - Mailtrap",0,26]],null,null,null,null,null,98,null,null,null,1,null,null,null,1,1]]],"iE1laqfPEI2IosUP4tOE-Qs17":[1,0,null,0,0,0,0,1],"iE1laqfPEI2IosUP4tOE-Qs16":[null,null,null,null,null,null,null,null,null,null,3,null,null,null,null,null,null,null,null,null,0,{"44":1,"47":["86400000","604800000",2],"61":1,"62":1,"72":"DESKTOP_CHROME"}],"iE1laqfPEI2IosUP4tOE-Qs11":[null,null,null,"glbl"],"iE1laqfPEI2IosUP4tOE-Qs12":[1],"iE1laqfPEI2IosUP4tOE-Qs8":[11,"ATRKtRptHL8_PT9Ihl0GwD8TbvpHhIYBQLyFv28VjgFA"],"iE1laqfPEI2IosUP4tOE-Qs10":[null,null,1,null,null,null,null,null,"",null,0],"tq7Pxb":[[["kovq8b",null,"stateful_controls"],["ptnYGd",null,"[[[\"box-sizing\",\"box-sizing\"],[\"flex-direction\",\"flex-direction\"],[\"flex-grow\",\"flex-grow\"],[\"flex-shrink\",\"flex-shrink\"],[\"justify-content\",\"justify-content\"],[\"flex\",\"flex\"]]]"]]]};var a=m;if(window.W_jd)for(var b in a)window.W_jd[b]=a[b];else window.W_jd=a;})();(function(){window.WIZ_global_data={"Im6cmf":"/wizrpcui/_/WizRpcUi","Yllh3e":"%.@.1785023880272295,44598285,3206621666]","MUE6Ne":"search_web","w2btAe":"%.@.\"110392247809768854709\",\"110392247809768854709\",\"0\",null,null,null,1]","ToeIMb":"false","xnI9P":"false","u4g7r":"%.@.null,1,3]","SNlM0e":"AKlEn5h-0ZL1JgXkv0-5-KnDipDV:1785023880608","GWsdKe":"en-PH","d2zrDf":"%.@.{\"131\":1,\"136\":[[\"asdpe\",[108]],[\"agpl\",[108]],[\"dlvs1\",[83,15]],[\"pvflt\",[60,84,85]],[\"csie\",[40]],[\"csie\",[107]],[\"epsd1\",[62]],[\"rimspwouoe\",[62]],[\"nisbtsal\",[43,105]],[\"nisbtsa2\",[43,105]],[\"ivsple\",[93]],[\"iatrspe\",[86,30,36,37,26,35,38]],[\"ltae\",[45,70,46,47,83]],[\"aiolsbe\",[108]]]}]","ocxFnb":"%.@.]","zChJod":"%.@.]","STfaRd":"{}","yFnxrf":"2848","LVIXXb":"1","S06Grb":"110392247809768854709","QrtxK":"0","S6lZl":"89978449","oxN3nb":{"1":false},"eptZe":"/wizrpcui/_/WizRpcUi/","Ylvpqb":"%.@.\"multimodal-image-viewer\",null,null,null,1,null,null,null,null,null,null,null,\"en-PH\",\"https://www.google.com\",null,1,{\"22\":1,\"44\":1,\"55\":0}]"};window.IJ_values={"A5tF3b":false,"zhkRO":"%.@.null,null,null,null,null,null,null,null,null,null,null,null,null,null,0,1,0,\"/setprefs?sig\\u003d0_ELD2JkZJtln_iFn4OEfj0-tg1K4%3D\\u0026szl\\u003d0\",0,1,0]","w2btAe":"%.@.\"110392247809768854709\",\"110392247809768854709\",\"0\",null,null,null,1]","ea2VK":"%.@.1,1]","pxO4Zd":"0","mXOY5d":"%.@.5,1,1.35,null,[null,670,1424],null,null,1784981639557603]","SsQ4x":"fjCswvWN1ycKTMKpIvFMfg","MuJWjd":false,"GWsdKe":"en-PH","N1ycab":"en_PH","MgUcDb":"PH","SIsrTd":false,"fyLpDc":"","JPnTp":"%.@.\"#3c4043\",\"36px\"]","ZxtPCd":"%.@.{\"100\":\"12px\",\"101\":\"8px\",\"102\":\"8px\",\"103\":\"10px\",\"104\":\"9px\"}]","NyzCwe":"%.@.null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,\"18px\",\"20px\",\"18px\",\"#dadce0\",\"16px\",\"var(--IXoxUe)\",\"var(--YLNNHc)\",\"var(--YLNNHc)\",\"var(--IXoxUe)\"]","spz2q":"%.@.\"var(--xhUGwc)\",null,null,null,null,\"0px\"]","geiQxc":"%.@.\"234px\",\"176px\",\"204px\",\"172px\",\"128px\",\"148px\",\"111px\",\"83px\",\"92px\"]","xFmcof":"%.@.null,null,null,\"20px\",null,\"12px\"]","lDqiof":"%.@.\"var(--YLNNHc)\",\"var(--bbQxAb)\",\"var(--rrJJUc)\",null,\"var(--IXoxUe)\",\"var(--JKqx2)\",\"#c58af9\",null,null,\"var(--xhUGwc)\",\"var(--Nsm0ce)\",\"var(--EpFNW)\",\"#394457\",\"#eef0ff\",\"#2c2e35\",\"var(--YLNNHc)\",\"#fff\",\"#1f1f1f\",\"#1f1f1f\",\"#fff\",\"var(--ZXiaGf)\",\"var(--EoKObe)\",\"#81c995\",\"#f28b82\",\"#fdd663\",\"var(--mXZkqc)\",\"var(--cIehld)\",\"var(--gVUKcd)\",null,\"var(--gS5jXb)\",\"#8ab4f8\",null,\"var(--TMYS9)\",\"var(--amnPwe)\",null,\"transparent\",\"var(--ONhrGd)\",\"rgba(0,0,0,0.03)\",null,null,null,null,null,null,null,null,null,\"#ea4335\",\"#34a853\",\"#4285f4\",\"#fbbc04\",\"var(--ywz01c)\",\"#80868b\",\"#16171a\",null,null,null,null,\"#2c303d\",\"var(--XKMDxc)\",\"var(--aYn2S)\",null,\"var(--Aqn7xd)\",null,\"#f2b8b5\",\"#8c1d18\",\"#f4bf00\",\"#ffdf92\",\"#601410\",\"#f9dedc\",\"#241a00\",\"#241a00\",\"#0a3818\",\"var(--yTtsEf)\",\"#f2b8b5\",\"#6dd58c\",\"#6dd58c\",\"#0f5223\",\"var(--nwXobb)\",\"var(--vZe0jb)\",\"var(--QWaaaf)\",\"var(--ZEpPmd)\",\"var(--JclFj)\",\"var(--Lm570b)\",\"#303134\",\"var(--jINu6c)\",\"var(--BRLwE)\",\"var(--DEeStf)\",\"var(--TSWZIb)\",\"var(--uLz37c)\",null,\"#c3c6d6\",\"var(--TyVYld)\",null,null,null,null,\"var(--VuZXBd)\",\"rgba(23,23,23,0.75)\",{\"100\":\"rgba(48,49,52,0.94)\",\"101\":\"rgba(255,255,255,0.8)\",\"102\":\"rgba(23,23,23,0.6)\",\"103\":\"#d2e3fc\",\"104\":\"#bdc1c6\",\"105\":\"#303134\",\"106\":\"#2c2e35\",\"107\":\"var(--jwFC2e)\",\"108\":\"var(--jINu6c)\",\"109\":\"var(--Xqboce)\",\"110\":\"var(--vdwxpe)\",\"111\":\"#fff\",\"112\":\"#000\",\"113\":\"#fff\",\"114\":\"var(--COEmY)\",\"115\":\"#ababab\",\"116\":\"#272930\"}]","kXVUzd":"%.@.\"40px\",\"48px\"]","sCU50d":"%.@.null,\"none\",null,\"0px 1px 3px rgba(23,23,23,0.24)\",null,\"0px 2px 6px rgba(23,23,23,0.32)\",null,\"0px 4px 12px rgba(23,23,23,0.9)\",null,null,\"1px solid #5f6368\",\"0\",\"0\",\"0\",null,\"0px 1px 3px rgba(95,99,104,0.64)\",\"0\",\"0px\",\"1px\",\"2px\",\"3px\"]","w9Zicc":"%.@.\"#fff\",\"26px\",\"#fff\",\"#697988\",\"#fff\",\"1px\",\"#9aa0a6\",\"1px\",\"#fff\",\"#9aa0a6\",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,\"28px\",\"10px\",\"8px\",\"20px\",\"10px\",\"#fff\",\"var(--JclFj)\",\"#fff\",\"#fff\",\"#5e5e5e\",\"var(--TSWZIb)\",\"var(--TMYS9)\"]","IkSsrf":"%.@.\"Google Sans,Arial,sans-serif\",\"Google Sans,Arial,sans-serif\",\"Arial,sans-serif\",\"Arial,sans-serif\",\"Arial,sans-serif\",\"Arial,sans-serif\",\"Arial,sans-serif\",\"Google Sans,Arial,sans-serif\",\"Arial,sans-serif\",\"Arial,sans-serif\"]","MR0w4":"%.@.\"var(--google-fs,1)\",\"var(--google-screen-scale-ratio,1)\"]","OItNqf":"%.@.null,\"24px\"]","j2FoS":"%.@.null,null,null,null,null,null,null,null,\"20px\"]","e2zoW":"%.@.\"16px\",\"12px\",\"0px\",\"8px\",\"4px\",\"2px\",\"20px\",\"24px\",\"48px\",\"20px\",null,null,\"0px\",\"20px\",\"36px\",\"20px\",null,\"83px\",\"52px\",\"6px\",\"20px\",\"18px\",\"16px\",\"24px\",\"12px\",\"6px\",\"75px\",\"52px\",\"799.98px\",\"684px\",\"683.98px\",\"1163.98px\",\"940px\",\"1560px\",\"1164px\",\"939.98px\",\"800px\",\"82px\",\"75px\",\"52px\",\"83px\",\"48px\"]","W1Bte":"%.@.\"cubic-bezier(0.1,1,0.2,1)\",\"cubic-bezier(0.8,0,1,0.8)\",\"cubic-bezier(0.2,0.6,0.2,1)\",\"cubic-bezier(0.4,0,1,0.8)\",\"300ms\",\"100ms\",\"200ms\",\"250ms\",\"cubic-bezier(0.4,0,0.2,1)\",\"cubic-bezier(0.4,0,0.6,1)\",\"cubic-bezier(0.6,0,0,1)\",\"cubic-bezier(0,0,1,1)\",\"cubic-bezier(0.2,0,0,1)\",\"800ms\",\"1000ms\",\"400ms\",\"500ms\",\"600ms\",\"50ms\",\"400ms\",\"300ms\",\"250ms\",\"150ms\",\"250ms\",\"200ms\",\"150ms\",\"150ms\",\"300ms\",\"250ms\",\"200ms\",\"150ms\",\"450ms\",\"450ms\",\"300ms\",\"150ms\",\"300ms\",\"250ms\",\"200ms\",\"100ms\",\"250ms\",\"200ms\",\"150ms\",\"100ms\",\"250ms\",\"200ms\",\"150ms\",\"100ms\",\"300ms\",\"250ms\",\"200ms\",\"100ms\",\"null\",\"cubic-bezier(0.3,0,0.8,0.15)\",\"cubic-bezier(0.05,0.7,0.1,1)\",\"cubic-bezier(0,0,1,1)\",\"cubic-bezier(0.2,0,0,1)\",\"cubic-bezier(0.3,0,1,1)\",\"cubic-bezier(0,0,0,1)\",\"250ms\",\"200ms\",\"150ms\",\"50ms\",null,\"50ms\",\"400ms\",\"350ms\",\"250ms\",\"50ms\",\"50ms\",\"50ms\",\"200ms\",\"150ms\",\"100ms\",\"50ms\",\"200ms\",\"150ms\",\"100ms\",\"50ms\",\"50ms\",\"50ms\",\"250ms\",\"200ms\",\"150ms\",\"50ms\",\"50ms\",\"50ms\",\"cubic-bezier(0.05,0.7,0.1,1)\",\"cubic-bezier(0.3,0,0.8,0.15)\",\"850ms\",\"900ms\",\"950ms\",\"1000ms\",\"650ms\",\"700ms\",\"750ms\",\"800ms\",\"0ms\",\"450ms\",\"500ms\",{\"100\":\"550ms\",\"101\":\"600ms\",\"102\":\"250ms\",\"103\":\"300ms\",\"104\":\"350ms\",\"105\":\"400ms\",\"106\":\"50ms\",\"107\":\"100ms\",\"108\":\"150ms\",\"109\":\"200ms\",\"110\":\"cubic-bezier(0.63,-0.95,0,1)\",\"111\":\"cubic-bezier(0.63,-0.5,0,1)\",\"112\":\"null\",\"113\":\"cubic-bezier(0.3,0,0.8,0.15)\",\"114\":\"cubic-bezier(0.05,0.7,0.1,1)\",\"115\":\"cubic-bezier(0.4,0,0.2,1)\",\"116\":\"cubic-bezier(0.4,0,1,1)\",\"117\":\"cubic-bezier(0,0,0.2,1)\",\"118\":\"cubic-bezier(0,0,1,1)\",\"119\":\"cubic-bezier(0.2,0,0,1)\",\"120\":\"cubic-bezier(0.3,0,1,1)\",\"121\":\"cubic-bezier(0,0,0,1)\",\"122\":\"null\",\"123\":\"0ms\",\"124\":\"100ms\",\"125\":\"1000ms\",\"126\":\"150ms\",\"127\":\"1500ms\",\"128\":\"200ms\",\"129\":\"2000ms\",\"130\":\"250ms\",\"131\":\"300ms\",\"132\":\"3000ms\",\"133\":\"350ms\",\"134\":\"400ms\",\"135\":\"450ms\",\"136\":\"50ms\",\"137\":\"500ms\",\"138\":\"600ms\",\"139\":\"800ms\",\"140\":\"50ms\",\"141\":\"null\",\"142\":\"1\",\"143\":\"1600\",\"144\":\"null\",\"145\":\"0.8\",\"146\":\"380\",\"147\":\"null\",\"148\":\"1\",\"149\":\"3800\",\"150\":\"null\",\"151\":\"0.6\",\"152\":\"800\",\"153\":\"null\",\"154\":\"1\",\"155\":\"800\",\"156\":\"null\",\"157\":\"0.8\",\"158\":\"200\",\"159\":\"cubic-bezier(0.34,0.8,0.34,1)\",\"160\":\"cubic-bezier(0.38,1.21,0.22,1)\",\"161\":\"cubic-bezier(0.31,0.94,0.34,1)\",\"162\":\"cubic-bezier(0.42,1.67,0.21,0.9)\",\"163\":\"cubic-bezier(0.34,0.88,0.34,1)\",\"164\":\"cubic-bezier(0.39,1.29,0.35,0.98)\",\"166\":\"cubic-bezier(0.34,0.8,0.34,1)\",\"167\":\"cubic-bezier(0.27,1.06,0.18,1)\",\"168\":\"cubic-bezier(0.31,0.94,0.34,1)\",\"169\":\"cubic-bezier(0.27,1.06,0.18,1)\",\"170\":\"cubic-bezier(0.34,0.88,0.34,1)\",\"171\":\"cubic-bezier(0.27,1.06,0.18,1)\",\"172\":\"null\",\"173\":\"null\",\"174\":\"null\",\"175\":\"null\",\"176\":\"null\",\"177\":\"null\",\"179\":\"null\",\"180\":\"null\",\"181\":\"null\",\"182\":\"null\",\"183\":\"null\",\"184\":\"null\",\"186\":\"320\",\"187\":\"null\",\"188\":\"1\",\"189\":\"1600\",\"190\":\"null\",\"191\":\"0.9\",\"192\":\"700\",\"193\":\"null\",\"194\":\"1\",\"195\":\"3800\",\"196\":\"null\",\"197\":\"0.9\",\"198\":\"1400\",\"199\":\"null\",\"200\":\"1\",\"201\":\"800\",\"202\":\"null\",\"203\":\"0.9\",\"204\":\"300\",\"205\":\"null\",\"206\":\"null\",\"207\":\"null\",\"208\":\"null\",\"209\":\"null\",\"210\":\"null\",\"211\":\"null\",\"212\":\"null\",\"213\":\"null\",\"214\":\"null\",\"215\":\"null\",\"216\":\"null\",\"217\":\"null\",\"218\":\"cubic-bezier(0.4,1.38,0.22,0.96)\",\"219\":\"null\",\"220\":\"null\"}]","pbvshf":"%.@.\"48px\"]","u9mep":"%.@.\"#8ab4f8\",null,\"#e8e8e8\",\"var(--JKqx2)\"]","mrqaQb":"%.@.null,null,null,null,\"2px\",\"12px\"]","Umq10e":"%.@.\"#303134\"]","k7Tqye":"%.@.null,null,null,null,null,null,null,\"16px\",\"12px\",\"8px\",\"20px\",\"4px\",\"9999px\",\"0px\",\"2px\",\"24px\"]","y50LC":"%.@.null,null,\"#bdc1c6\",null,\"#bcc0c3\"]","jfSEkd":"%.@.\"var(--Pa8Wlb)\",\"var(--KIZPne)\",\"var(--xPpiM)\",null,\"rgba(255,255,255,0.08)\",\"rgba(255,255,255,0.08)\",\"rgba(255,255,255,0.24)\",\"var(--pEa0Bc)\",\"var(--Yi4Nb)\",\"var(--kloG3)\",\"var(--YaIeMb)\",\"var(--izGsqb)\",\"var(--todMNc)\",\"rgba(255,255,255,0.16)\",null,\"rgba(255,255,255,0.4)\",\"var(--Ijc2tf)\",\"var(--VeLyLc)\",\"rgba(189,193,198,0.08)\",\"rgba(189,193,198,0.08)\",\"rgba(189,193,198,0.24)\",\"transparent\",\"var(--ngPXTb)\",null,\"rgba(138,180,248,0.08)\",\"rgba(138,180,248,0.08)\",\"rgba(138,180,248,0.24)\",null,null,null,\"rgba(189,193,198,0.08)\",\"rgba(189,193,198,0.08)\",\"rgba(189,193,198,0.24)\",\"2px\",\"2px\",\"0.38\",\"var(--bbQxAb)\",\"var(--Zia6nf)\",null,\"var(--gJjJk)\",\"var(--MV2sG)\",\"var(--bcxd3b)\",\"var(--amnPwe)\",\"var(--YLNNHc)\",\"var(--YLNNHc)\",\"0.0824\",\"0\",\"0.224\",\"var(--CRMNZd)\",\"rgba(255,255,255,0.16)\",\"0.2\",\"0.224\",\"var(--EpFNW)\",\"0.4\",\"var(--NoaQW)\",\"var(--amnPwe)\",\"0.08\",\"var(--bbQxAb)\",\"0.08\",\"var(--amnPwe)\",\"var(--bbQxAb)\",\"0.24\",\"var(--IXoxUe)\",\"transparent\",\"0.08\",\"0.08\",\"#9aa0a6\",\"0.24\",\"var(--IXoxUe)\",\"transparent\",\"0.08\",\"0.08\",\"var(--uLz37c)\",\"0.24\",\"var(--uLz37c)\",\"var(--vWq1if)\",\"var(--hwEqod)\",\"0.0824\",\"#8ab4f8\",\"0.0824\",\"var(--Wmwad)\",\"0.224\",\"var(--lv6yU)\",\"0.0824\",\"0.0824\",\"var(--MoaHse)\",\"var(--y01ou)\",\"0.224\",\"var(--p9J9c)\",\"var(--LMFHUd)\",\"0.0824\",\"0.0824\",\"0.224\",\"var(--fuvksc)\",\"var(--qdHZF)\",\"0.2\",\"0.2\",\"var(--V9ysqf)\",\"0.4\",{\"100\":\"#fff\",\"101\":\"0.08\",\"102\":\"0.08\",\"103\":\"#1f1f1f\",\"104\":\"0.24\",\"105\":\"var(--PBxOKe)\",\"106\":\"rgba(255,255,255,0.1)\",\"107\":\"0.08\",\"108\":\"#d2e3fc\",\"109\":\"0.08\",\"110\":\"0.24\",\"111\":\"var(--Nsm0ce)\",\"112\":\"0\",\"113\":\"transparent\",\"114\":\"0.08\",\"115\":\"0.08\",\"116\":\"var(--YLNNHc)\",\"117\":\"0.24\",\"118\":\"var(--YLNNHc)\",\"119\":\"0.75\",\"120\":\"0.6\",\"121\":\"rgba(232,232,232,0.08)\",\"122\":\"var(--D9aNi)\",\"123\":\"rgba(232,232,232,0.24)\",\"124\":\"rgba(11,87,208,0.078431375)\",\"125\":\"rgba(11,87,208,0.078431375)\",\"126\":\"rgba(11,87,208,0.23921569)\",\"127\":\"rgba(32,33,36,0.2)\",\"128\":\"rgba(32,33,36,0.2)\",\"129\":\"rgba(32,33,36,0.4)\",\"130\":\"rgba(32,33,36,0.078431375)\",\"131\":\"rgba(32,33,36,0.078431375)\",\"132\":\"rgba(32,33,36,0.23921569)\",\"133\":\"var(--Ehh4mf)\",\"134\":\"var(--Nsm0ce)\",\"135\":\"#f2b8b5\",\"136\":\"rgba(167,37,30,0.380392)\",\"137\":\"0.2\",\"138\":\"#e1aca9\",\"139\":\"0.2\",\"140\":\"#601410\",\"141\":\"#601410\",\"142\":\"0.4\",\"143\":\"#f9dedc\",\"144\":\"#b6cffb\",\"145\":\"rgba(42,44,49,0.08)\",\"146\":\"#434a5e\",\"147\":\"#363c4c\",\"148\":\"#3d5a87\"}]","GVtPm":"%.@.null,null,null,null,null,\"0 0 0 1px var(--mXZkqc)\",\"1px solid var(--mXZkqc)\",null,null,null,null,null,null,null,null,\"transparent\",\"rgba(23,23,23,0.3)\",null,null,\"16px\"]","MexNte":"%.@.\"700\",\"400\",\"underline\",\"none\",\"capitalize\",\"none\",\"uppercase\",\"none\",\"500\",\"lowercase\",\"italic\",null,null,\"-1px\",\"0.3px\",\"20px\",\"12px\",null,\"12px\",\"14px\",\"16px\",\"18px\",\"22px\",\"24px\",\"26px\",\"28px\",\"32px\",\"36px\",\"40px\",\"48px\",\"52px\",\"56px\",\"60px\",\"14px\",\"16px\",\"18px\",\"20px\",\"22px\",\"24px\",\"28px\",\"36px\",\"40px\",\"45px\",\"48px\",\"56px\",\"0\",\"0.1px\"]","Aahcnf":"%.@.\"var(--Ia70Xd)\",\"var(--hPDMFf)\",\"var(--Vyi8yc)\",\"var(--IT7y3c)\",null,\"var(--LI4Bo)\",\"var(--Mhs7de)\",\"var(--ofwUBc)\",\"var(--XWv1if)\",null,\"var(--uBdgTe)\",\"var(--Ok3irf)\",\"var(--Zf9Xnd)\",\"var(--rTk0E)\",null,\"Google Sans,Arial,sans-serif\",\"56px\",\"48px\",\"0\",null,\"400\",\"Google Sans,Arial,sans-serif\",\"36px\",\"400\",\"48px\",null,\"Google Sans,Arial,sans-serif\",\"36px\",\"28px\",null,\"400\",null,\"Arial,sans-serif\",\"24px\",\"18px\",null,\"400\",\"var(--YfiKf)\",\"var(--punZlc)\",\"var(--gOs6Bf)\",null,\"var(--MzKBpd)\",\"var(--nkmQOe)\",\"var(--a9X0Jc)\",\"var(--z3BFIe)\",null,\"var(--XWliwc)\",\"var(--Eou8Yc)\",\"var(--qWZYEc)\",\"var(--GiToJf)\",null,\"var(--p2Lqxe)\",\"var(--ztTqPe)\",\"var(--C74x2e)\",\"var(--gyu5L)\",null,\"var(--Yoa6qd)\",\"var(--lI1Trc)\",\"var(--HIyEKc)\",\"var(--ZNg88)\",null,\"var(--qjVU3d)\",null,null,null,null,null,\"var(--hbmnje)\",\"var(--qR8X0)\",\"var(--CbdmE)\",\"var(--Oycjt)\",\"var(--Aoh9Xe)\",\"var(--qYGXw)\",\"var(--qpdFp)\",\"var(--JT4IPc)\",\"Google Sans,Arial,sans-serif\",\"24px\",\"16px\",\"400\",\"var(--qBwyqb)\",\"var(--nUOqEc)\",\"var(--cMTvjf)\",\"var(--Aoh9Xe)\",\"var(--qYGXw)\",\"var(--qpdFp)\",\"var(--JT4IPc)\",null,null,null,null,\"var(--CUS15e)\",\"0px\",\"0px\",\"0\"]","PFhmed":"%.@.null,null,null,null,\"var(--XKMDxc)\"]","B4pZbd":"PH","rkD25":"%.@.[[\"hl\",\"en-PH\"]]]","rNyuJc":"renoweebeloy536@gmail.com","LU5fGb":true,"gXkHoe":"110392247809768854709"};})();(function(){var deia=true;var es=true;window.jsl=window.jsl||{};window.jsl.dh=function(d,n,e){try{var b=document.getElementById(d),f;!b&&((f=google.stvsc)==null?0:f.dds)&&google.stvsc.dds.forEach(function(l){b||(b=l.getElementById(d))});if(!b){var p=document.querySelectorAll("template");for(f=0;f<p.length&&!(b=p[f].content.getElementById(d));f++);}if(b){b.innerHTML=n;if(typeof es!=="undefined"&&es){var q=b.getElementsByTagName("script");if(q.length>0)for(var g=Array.prototype.slice.call(q),a=0;a<g.length;a++){for(var h=g[a],m=document.createElement("script"),r=
-h.attributes,c=0;c<r.length;c++){var t=r[c];m.setAttribute(t.name,t.value)}h.textContent&&(m.textContent=h.textContent);h.replaceWith(m)}}e&&e();typeof deia!=="undefined"&&deia&&(google.delt=google.delt||{},google.delt[b.id]=Date.now())}else if(!(google.ia&&google.ia.rids&&google.ia.rids.has(d))){a={id:d,script:String(!!e),milestone:String(google.jslm||0)};google.jsla&&(a.async=google.jsla);var u=d.indexOf("_");c=u>0?d.substring(0,u):"";var v=document.createElement("div");v.innerHTML=n;var k=v.children[0];if(k&&(a.tag=k.tagName,a["class"]=String(k.className||null),a.name=String(k.getAttribute("jsname")),c)){e=[];var w=document.querySelectorAll('[id^="'+c+'_"]');for(g=0;g<w.length;++g)e.push(w[g].id);a.ids=e.join(",")}google.ml(Error(c?"Missing ID with prefix "+c:"Missing ID"),!1,a)}}catch(l){google.ml(l,!0,{"jsl.dh":!0})}};})();(function(){var x=true;google.jslm=x?2:1;})();[[null,function(){(function(){google.csct={};google.csct.ps='AOvVaw28VA7dLMLf6N9-kJipC_5V\x26ust\x3d1785110280310514';})();}],[null,function(){(function(){google.csct.pi=true;})();}],[null,function(){(function(){function f(){for(var c="&cshid="+window._cshid,d=document.querySelectorAll('[href^="/"]'),e=0,b;b=d[e++];){var a=b.getAttribute("href");a.match(/[\?|&](ei|ved)=/)&&a.indexOf("cshid=")===-1&&(a.search("#")===-1?b.setAttribute("href",a+c):(a=a.split("#"),b.setAttribute("href",a[0]+c+"#"+a[1])))}d=document.querySelectorAll("[ping]");for(e=0;b=d[e++];)a=b.getAttribute("ping"),a.indexOf("cshid=")===-1&&b.setAttribute("ping",a+c)};window._cshid&&google.dclc(f);}).call(this);}],[null,function(){window.jsl=window.jsl||{};window.jsl.dh=window.jsl.dh||function(i,c,d){try{var e=document.getElementById(i);if(e){e.innerHTML=c;if(d){d();}}else{if(window.jsl.el){window.jsl.el(new Error('Missing ID.'),{'id':i});}}}catch(e){if(window.jsl.el){window.jsl.el(new Error('jsl.dh'));}}};}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_1'},function(){jsl.dh(this.id,"\x3csvg class=\"lJpQBb\" aria-label=\"Go to Google home\" role=\"img\" height=\"24\" width=\"24\" focusable=\"false\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cclipPath id=\"_iE1laqfPEI2IosUP4tOE-Qs_3\">\x3cpath d=\"M12 10v4.5h6.47c-.5 2.7-3 4.74-6.47 4.74-3.9 0-7.1-3.3-7.1-7.25S8.1 4.75 12 4.75c1.8 0 3.35.6 4.6 1.8l3.4-3.4C18 1.2 15.24 0 12 0 5.4 0 0 5.4 0 12s5.4 12 12 12c7 0 11.5-4.9 11.5-11.7 0-.8-.1-1.54-.2-2.3H12z\">\x3c/path>\x3c/clipPath>\x3cfilter id=\"_iE1laqfPEI2IosUP4tOE-Qs_4\">\x3cfeGaussianBlur stddeviation=\"1\">\x3c/feGaussianBlur>\x3c/filter>\x3cg style=\"clip-path:url(#_iE1laqfPEI2IosUP4tOE-Qs_3)\">\x3cforeignObject style=\"filter:url(#_iE1laqfPEI2IosUP4tOE-Qs_4)\" height=\"28\" transform=\"translate(-2,-2)\" width=\"28\">\x3cdiv style=\"width:100%;height:100%;background:conic-gradient(#FF4641,#FD5061 40deg,#FD5061 60deg,#3186FF 85deg,#3186FF 117deg,#00A5B7 142deg,#0EBC5F 167deg,#0EBC5F 200deg,#6CC500 226deg,#FFCC00 253deg,#FFD314 268deg,#FFCC00 292deg,#FF4641 327deg)\">\x3c/div>\x3c/foreignObject>\x3crect fill=\"#3186FF\" height=\"8\" width=\"16\" x=\"11\" y=\"8\">\x3c/rect>\x3c/g>\x3c/svg>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_5'},function(){jsl.dh(this.id,"\x3cdiv jscontroller=\"Dvn7fe\" jsname=\"UUbT9\" class=\"UUbT9 EyBRub\" style=\"display:none\" jsaction=\"mouseout:ItzDCd;mouseleave:MWfikb;hBEIVb:nUZ9le;ldyIye:CmVOgc\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q4tUDCBI\">\x3cdiv jscontroller=\"Wo3n8\" jsname=\"aadvhe\" jsmodel=\" d5EhJe\" data-bkt=\"searchbox\" data-fhs=\"\" data-maindata='[null,null,null,\"autocomplete_user_feedback_kp_id\",null,11,null,null,null,null,null,5010715,\"searchbox\",null,\"AutocompletePrediction\",null,null,null,null,11]' data-ofbl=\"114,120,134\" data-pid=\"5010715\" jsaction=\"kPzEO: MlP2je;qjLxRc: FbhRG;w8f1fc: hRwSgb;kq2wxf: s5CUif;aIJAdf: UhDUnd;rwuG3b: KGQHJd;BqbTbe: naa5ve;kYAKrf: CqUGrf;hwhRRe: KyxjCd;rcuQ6b: npT2md\" jsdata=\"vST7rb;_;iE1laqfPEI2IosUP4tOE-Qs2 zEIyGd;_;\">\x3cdiv id=\"_iE1laqfPEI2IosUP4tOE-Qs_7\">\x3cdiv jsname=\"GkjeIf\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_9\" data-jiis=\"up\" data-async-type=\"kp_feedback\" class=\"yp\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q68cECBM\">\x3c/div>\x3c/div>\x3c/div>\x3cdiv jscontroller=\"P10Owf\" class=\"YB4h9 ky4hfd\" aria-label=\"Choose what you’re giving feedback on\" jsdata=\"vST7rb;_;iE1laqfPEI2IosUP4tOE-Qs2\" role=\"dialog\" tabindex=\"-1\" jsaction=\"kPzEO:MlP2je;qjLxRc:MlP2je;w8f1fc:hRwSgb;kq2wxf:s5CUif\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QlokGCBQ\">\x3cdiv class=\"ctiYKd\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_11\">\x3c/div>\x3c/div>\x3cdiv jsname=\"RjPuVb\" class=\"RjPuVb\">\x3c/div>\x3cdiv jsname=\"aajZCb\" class=\"aajZCb\">\x3cdiv class=\"xtSCL\">\x3c/div>\x3cdiv class=\"gDtRnb\" id=\"Alh6id\" role=\"presentation\">\x3cdiv jsname=\"erkvQe\" class=\"erkvQe\">\x3c/div>\x3cdiv jsname=\"tovEib\" class=\"e1R9Ud\" role=\"presentation\">\x3c/div>\x3c/div>\x3cdiv jsname=\"E80e9e\" class=\"OBMEnb\" id=\"shJ2Vb\" role=\"presentation\">\x3cul jsname=\"bw4e9b\" class=\"G43f7e\" role=\"listbox\">\x3c/ul>\x3c/div>\x3cdiv jsname=\"XiTF2e\" class=\"OBMEnb\" role=\"presentation\">\x3cdiv jsname=\"Q7Erhd\" class=\"G43f7e\" role=\"presentation\">\x3c/div>\x3c/div>\x3cdiv class=\"ynRric\" id=\"ynRric\" role=\"presentation\">\x3c/div>\x3cli data-view-type=\"1\" class=\"sbct PZPZlf\" id=\"YMXe\" role=\"presentation\" data-attrid=\"AutocompletePrediction\" data-entityid=\"autocomplete_user_feedback_kp_id\">\x3cdiv class=\"eIPGRd\">\x3cdiv class=\"sbic\">\x3csvg class=\"x6vvNd\" aria-hidden=\"true\" viewBox=\"0 -960 960 960\">\x3c/svg>\x3c/div>\x3cdiv class=\"pcTkSc\">\x3cdiv class=\"lnnVSe\" aria-atomic=\"true\" role=\"option\">\x3cdiv class=\"wM6W7d\">\x3cspan>\x3c/span>\x3c/div>\x3cdiv class=\"ClJ9Yb\">\x3cdiv class=\"zjKSsb\">\x3c/div>\x3cspan class=\"dKU7sc\">\x3c/span>\x3c/div>\x3cdiv class=\"a5RLac\">\x3cspan>\x3c/span>\x3c/div>\x3c/div>\x3cdiv class=\"TfeWfb\">\x3c/div>\x3c/div>\x3cdiv class=\"AQZ9Vd\" aria-atomic=\"true\" role=\"button\">\x3cdiv class=\"sbai\" role=\"presentation\">Delete\x3c/div>\x3c/div>\x3c/div>\x3c/li>\x3cdiv class=\"xAmryf\" id=\"bgeLZd\">\x3cspan class=\"jtAOgd\">\x3c/span>\x3c/div>\x3cli class=\"AB2Fdd\" data-view-type=\"9\" id=\"d6ItKb\" role=\"presentation\">\x3cdiv class=\"eIPGRd\">\x3cdiv class=\"ZDHp\" style=\"display:none\" id=\"fU0xAb\" role=\"presentation\">\x3cdiv class=\"kZtr1b\">\x3cdiv class=\"lnnVSe\" aria-atomic=\"true\" role=\"option\">\x3cdiv class=\"SHFPkb\">\x3c/div>\x3cdiv class=\"bTSf5c\">\x3c/div>\x3cdiv class=\"PnfqLc\">\x3c/div>\x3cdiv class=\"HrUlUc\">\x3c/div>\x3c/div>\x3cdiv class=\"Tnv2td\" style=\"display:none\" aria-label=\"Word pronunciation\" aria-atomic=\"true\" role=\"button\">\x3cspan class=\"z76Rnb z1asCe JKu1je\">\x3csvg focusable=\"false\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cpath d=\"M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z\">\x3c/path>\x3c/svg>\x3c/span>\x3c/div>\x3cdiv class=\"xAmryf\" id=\"bgeLZd\">\x3cspan class=\"jtAOgd\">\x3c/span>\x3c/div>\x3cdiv class=\"TfeWfb\" role=\"presentation\" style=\"display:none\">\x3c/div>\x3cdiv class=\"kSFCof MagqMc U48fD\" style=\"display:none\" aria-label=\"See more\" role=\"button\" tabindex=\"0\">\x3chr class=\"Bi9oQd\" aria-hidden=\"true\">\x3cdiv class=\"ZFiwCf\">\x3cspan class=\"LGwnxb JGD2rd\">See more\x3c/span>\x3cspan class=\"w2fKdd z1asCe\" style=\"height:20px;line-height:20px;width:20px\">\x3csvg focusable=\"false\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cpath d=\"M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z\">\x3c/path>\x3c/svg>\x3c/span>\x3c/div>\x3c/div>\x3cdiv class=\"Vlt3wb\" style=\"display:none\">\x3c/div>\x3c/div>\x3cspan class=\"XAFD5c\" style=\"display:none\">\x3c/span>\x3cdiv class=\"j0GJWd\" style=\"display:none\">\x3cdiv>\x3cimg class=\"uHGFVd AZNDm\" alt=\"\" style=\"display:none\">\x3c/div>\x3cdiv class=\"iQxPRb\">\x3cimg class=\"uHGFVd EOLKOc\" alt=\"\" style=\"display:none\">\x3cimg class=\"uHGFVd EOLKOc\" alt=\"\" style=\"display:none\">\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/li>\x3cli class=\"IDVnvc PZPZlf\" data-view-type=\"6\" id=\"TN4rFf\" role=\"presentation\" data-attrid=\"AutocompletePrediction\" data-entityid=\"autocomplete_user_feedback_kp_id\">\x3cdiv class=\"cRV9hb\">\x3cdiv class=\"aVbWac\">\x3cdiv class=\"sbic\">\x3c/div>\x3c/div>\x3cdiv class=\"pcTkSc\" role=\"presentation\">\x3cdiv class=\"lnnVSe\" aria-atomic=\"true\" role=\"option\">\x3cdiv class=\"wM6W7d\">\x3cspan>\x3c/span>\x3c/div>\x3cdiv class=\"ClJ9Yb\">\x3cspan class=\"dKU7sc\">\x3c/span>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/li>\x3c/div>\x3cdiv jsname=\"JUypV\">\x3cdiv class=\"WzNHm mWcf0e\" jscontroller=\"gSZvdb\" data-dccl=\"false\" role=\"button\" tabindex=\"0\" jsdata=\"vST7rb;_;iE1laqfPEI2IosUP4tOE-Qs2\" jsaction=\"i5KCU;kVBCVd:yM1YJe\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q6scECBc\">\x3cdiv class=\"VfL2Y LRZwuc\">Report inappropriate predictions\x3c/div>\x3c/div>\x3c/div>\x3cdiv class=\"KxWPre\" id=\"TWnylf\">\x3cdiv class=\"E2ShOd\">\x3c/div>\x3cspan class=\"VUsake\">\x3c/span>\x3cg-dropdown-menu jscontroller=\"pFsdhd\" class=\"adGN6\" jsdata=\"xJGXK;_;iE1laqfPEI2IosUP4tOE-Qs3\" jsshadow=\"\" jsaction=\"rcuQ6b:npT2md;mMf61e:GKlhgf;YraOve:cCpuJc;kNOP9c:bzkPEc;hmb6Ye:oyYkKb;KyPa0e:G8Ofmd;wjOG7e:rWoVB;ZvRO4b:L76sMb;LyWNEf:L76sMb\">\x3cg-popup jsname=\"zpo2ue\" jscontroller=\"DPreE\" jsaction=\"A05xBd:IYtByb;EOZ57e:WFrRFb;\" jsdata=\"mVjAjf;_;iE1laqfPEI2IosUP4tOE-Qs4\">\x3cdiv jsname=\"oYxtQd\" class=\"CcNe6e\" aria-expanded=\"false\" aria-haspopup=\"true\" jsslot=\"\" role=\"button\" tabindex=\"0\" aria-label=\"See more\" jsaction=\"WFrRFb;keydown:uYT2Vb\">\x3cdiv class=\"wSGdUc\">\x3cspan class=\"IjabWd z1asCe SaPW2b\">\x3csvg focusable=\"false\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cpath d=\"M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z\">\x3c/path>\x3c/svg>\x3c/span>\x3c/div>\x3c/div>\x3cdiv jsname=\"V68bde\" class=\"UjBGL pkWBse iRQHZe\" style=\"display:none;z-index:1000\">\x3cg-menu jsname=\"iXXGtd\" class=\"WNN1b Shjy3b yTik0 PBn44e iQXTJe wplJBd\" jscontroller=\"WlNQGd\" role=\"menu\" tabindex=\"-1\" jsaction=\"PSl28c;focus:h06R8;keydown:uYT2Vb;mouseenter:WOQqYb;mouseleave:Tx5Rb;mouseover:IgJl9c\">\x3cg-menu-item jsname=\"NNJLud\" class=\"GuoVP EpPYLd GZnQqe\" jscontroller=\"CnSW2d\" role=\"menuitem\" tabindex=\"-1\" data-short-label=\"\" jsdata=\"zPXzie;_;iE1laqfPEI2IosUP4tOE-Qs5\">\x3cdiv jsname=\"ibnC6b\" class=\"YpcDnf OSrXXb\">Dismiss\x3c/div>\x3c/g-menu-item>\x3c/g-menu>\x3c/div>\x3c/g-popup>\x3c/g-dropdown-menu>\x3c/div>\x3cdiv class=\"zs1JGd\" data-view-type=\"7\" jsname=\"RqJ7oe\" id=\"dh215c\" role=\"presentation\">\x3cdiv class=\"JqPLlb\" role=\"option\" tabindex=\"0\">\x3c/div>\x3c/div>\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_11'},function(){jsl.dh(this.id,"\x3cdiv class=\"FsAdRd\">\x3c/div>\x3cspan jsname=\"tqp7ud\" class=\"Job8vb z1asCe wuXmqc\" aria-label=\"Close Choose what you’re giving feedback on\" role=\"button\" tabindex=\"0\" jsaction=\"kEOk4d\" style=\"height:20px;line-height:20px;width:20px\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QmIkGCBU\">\x3csvg focusable=\"false\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cpath d=\"M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z\">\x3c/path>\x3c/svg>\x3c/span>\x3cdiv class=\"C85rO\" aria-level=\"1\" role=\"heading\">Choose what you’re giving feedback on\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_13'},function(){jsl.dh(this.id,"\x3cdiv jsname=\"PHQQPc\" style=\"display:none\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QqfkDCB0\">\x3ca jsname=\"NlZIeb\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QrPkDCB4\">\x3c/a>\x3ca jsname=\"Cr3q7c\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qr_kDCB8\">\x3c/a>\x3ca jsname=\"Qoiwbb\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QrvkDCCA\">\x3c/a>\x3ca jsname=\"IyZ18e\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qq_kDCCE\">\x3c/a>\x3ca jsname=\"k3Pg4\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QqvkDCCI\">\x3c/a>\x3c/div>\x3cdiv jsname=\"qMPrxc\" style=\"display:none\" data-csrsve=\"177463\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qt-oKCCM\">\x3cdiv style=\"display:none\" data-csrsve=\"155781\" jsname=\"vOr6ad\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QhcEJCCQ\">\x3c/div>\x3cdiv style=\"display:none\" data-csrsve=\"155747\" jsname=\"LVWe7b\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q48AJCCU\">\x3c/div>\x3cdiv style=\"display:none\" data-csrsve=\"155748\" jsname=\"WZfLqc\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q5MAJCCY\">\x3c/div>\x3cdiv style=\"display:none\" data-csrsve=\"158666\" jsname=\"Igko6d\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QytcJCCc\">\x3c/div>\x3cdiv style=\"display:none\" data-csrsve=\"155781\" jsname=\"xc0WGd\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QhcEJCCg\">\x3c/div>\x3cdiv style=\"display:none\" data-csrsve=\"155747\" jsname=\"YvFDOe\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q48AJCCk\">\x3c/div>\x3cdiv style=\"display:none\" data-csrsve=\"155748\" jsname=\"TNQ5if\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q5MAJCCo\">\x3c/div>\x3cdiv style=\"display:none\" data-csrsve=\"158666\" jsname=\"XfdVte\" data-ved=\"0ahUKEwins7KShO-VAxUNhKgCHeIpIb8QytcJCCs\">\x3c/div>\x3c/div>");}],[{id:'tn_iE1laqfPEI2IosUP4tOE-Qs_1'},function(){jsl.dh(this.id,"\x3cdiv jsname=\"hhTnde\" jscontroller=\"eBYPP\" jsaction=\"keydown:uYT2Vb;UBsZj:gk6SMd;JkcjMe:AOJsKd;UszG1b:Seb4Qb;r4FAn:TvD9Pc;rcuQ6b:npT2md\" jsshadow=\"\">\x3cdiv class=\"mTpL7c HPvrce\" aria-controls=\"_iE1laqfPEI2IosUP4tOE-Qs_15\" jsname=\"oYxtQd\" jsaction=\"gq6u4d;\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q3B96BAgIEAE\">\x3c/div>\x3cdiv jsname=\"H9P06b\" class=\"R0DW9c\">\x3cdiv class=\"vH6rvf FJCJfd\" data-mw=\"240\" jsname=\"xl07Ob\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_15\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q750OegQICBAC\">\x3cdiv>\x3cdiv jscontroller=\"eBYPP\" data-sm=\"\" jsaction=\"keydown:uYT2Vb;UBsZj:gk6SMd;JkcjMe:AOJsKd;UszG1b:Seb4Qb;r4FAn:TvD9Pc;rcuQ6b:npT2md\" jsshadow=\"\">\x3cdiv jsname=\"oYxtQd\" class=\"UsmT1\" jsslot=\"\" jsaction=\"UszG1b:FNFY6c;L8zncc:fRYjtf;M9oBfd:veZYT\">\x3cdiv class=\"mTpL7c XhWQv sjVJQd rNHry\" aria-controls=\"_iE1laqfPEI2IosUP4tOE-Qs_16\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpQV6BAgIEAM\">\x3cdiv jsname=\"ibnC6b\" jsslot=\"\">Any time\x3c/div>\x3c/div>\x3c/div>\x3cdiv jsname=\"H9P06b\" class=\"R0DW9c\">\x3cdiv class=\"vH6rvf FJCJfd\" data-mw=\"240\" jsname=\"xl07Ob\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_16\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QG3oECAgQBA\">\x3cdiv class=\"XhWQv sjVJQd Wf7Nsf rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3ca aria-current=\"page\" href=\"#\">Any time\x3c/a>\x3c/div>\x3c/div>\x3cdiv class=\"XhWQv sjVJQd rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3ca href=\"/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;source=lnt&amp;tbs=qdr:h&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpwV6BAgIEAY\">Past hour\x3c/a>\x3c/div>\x3c/div>\x3cdiv class=\"XhWQv sjVJQd rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3ca href=\"/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;source=lnt&amp;tbs=qdr:d&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpwV6BAgIEAc\">Past 24 hours\x3c/a>\x3c/div>\x3c/div>\x3cdiv class=\"XhWQv sjVJQd rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3ca href=\"/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;source=lnt&amp;tbs=qdr:w&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpwV6BAgIEAg\">Past week\x3c/a>\x3c/div>\x3c/div>\x3cdiv class=\"XhWQv sjVJQd rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3ca href=\"/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;source=lnt&amp;tbs=qdr:m&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpwV6BAgIEAk\">Past month\x3c/a>\x3c/div>\x3c/div>\x3cdiv class=\"XhWQv sjVJQd rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3ca href=\"/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;source=lnt&amp;tbs=qdr:y&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpwV6BAgIEAo\">Past year\x3c/a>\x3c/div>\x3c/div>\x3cdiv class=\"XhWQv sjVJQd rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-v=\"\" role=\"button\" tabindex=\"0\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" jsslot=\"\">\x3cdiv jscontroller=\"VD4Qme\">\x3cspan jsaction=\"EEGHee;aZcdhc:EEGHee;\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpwV6BAgIEAs\">Custom range...\x3c/span>\x3cg-dialog jsname=\"Fg3TAc\" jscontroller=\"VEbNoe\" data-vpload=\"\" jsaction=\"jxvro:Imgh9b;dBhwS:TvD9Pc;mLt3mc;KyPa0e:cRhSI;wjOG7e:cRhSI\" jsdata=\"gctHtc;_;iE1laqfPEI2IosUP4tOE-Qs9\" jsshadow=\"\">\x3cdiv jsname=\"XKSfm\">\x3cdiv jsname=\"bF1uUb\" class=\"kJFf0c KUf18\">\x3c/div>\x3cdiv class=\"mcPPZ nP0TDe xg7rAe\" jsaction=\"trigger.dBhwS\">\x3cdiv class=\"LjfRsf\" aria-hidden=\"true\" role=\"button\" tabindex=\"0\" jsaction=\"focus:sT2f3e\">\x3c/div>\x3cspan jsslot=\"\" jsaction=\"mLt3mc\">\x3cdiv class=\"qk7LXc TUOsUe Fb1AKc ZLD76b\" role=\"dialog\" jsname=\"b6oohe\">\x3cdiv class=\"PNy5Ef\" role=\"heading\">Custom date range\x3c/div>\x3clabel jsname=\"kJX8be\" class=\"D5UfSe uevcKf\" for=\"E5pkCf\">From\x3c/label>\x3clabel jsname=\"RltH6b\" class=\"D5UfSe gSEEqf\" for=\"xX2ctf\">To\x3c/label>\x3cdiv class=\"XkPfVc\" aria-label=\"Close\" role=\"button\" tabindex=\"0\" jsaction=\"trigger.dBhwS\">\x3c/div>\x3cdiv class=\"sIIn2c\">\x3cdiv class=\"ciPYJc\">\x3c/div>\x3cform action=\"/search\" class=\"IoIyv\" id=\"IoIyv\" method=\"get\">\x3cinput name=\"q\" value=\"https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\" type=\"hidden\">\x3cinput name=\"sca_esv\" value=\"46714cf388915209\" type=\"hidden\">\x3cinput name=\"sxsrf\" value=\"APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280\" type=\"hidden\">\x3cinput name=\"source\" type=\"hidden\" value=\"lnt\">\x3cinput value=\"cdr:1,cd_min:x,cd_max:x\" id=\"Nprac\" name=\"tbs\" type=\"hidden\">\x3cinput value=\"\" name=\"tbm\" type=\"hidden\">\x3cinput class=\"E5pkCf\" type=\"text\" value=\"\" autocomplete=\"off\" id=\"E5pkCf\" jsaction=\"focus:daRB0b\">\x3cinput class=\"xX2ctf\" type=\"text\" value=\"\" autocomplete=\"off\" id=\"xX2ctf\" jsaction=\"focus:daRB0b\">\x3cdiv class=\"WE1idd btku5b zqrO0 sjVJQd\" jsaction=\"hNEEAb\" role=\"button\" tabindex=\"0\">\x3cdiv class=\"niO4u VDgVie SlP8xc\">Go\x3c/div>\x3c/div>\x3cinput type=\"submit\" jsaction=\"zbvklb\" style=\"display:none\">\x3c/form>\x3c/div>\x3c/div>\x3c/span>\x3cdiv class=\"LjfRsf\" aria-hidden=\"true\" role=\"button\" tabindex=\"0\" jsaction=\"focus:tuePCd\">\x3c/div>\x3c/div>\x3c/div>\x3c/g-dialog>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3cdiv>\x3cdiv jscontroller=\"eBYPP\" data-sm=\"\" jsaction=\"keydown:uYT2Vb;UBsZj:gk6SMd;JkcjMe:AOJsKd;UszG1b:Seb4Qb;r4FAn:TvD9Pc;rcuQ6b:npT2md\" jsshadow=\"\">\x3cdiv jsname=\"oYxtQd\" class=\"UsmT1\" jsslot=\"\" jsaction=\"UszG1b:FNFY6c;L8zncc:fRYjtf;M9oBfd:veZYT\">\x3cdiv class=\"mTpL7c XhWQv sjVJQd rNHry\" aria-controls=\"_iE1laqfPEI2IosUP4tOE-Qs_32\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpQV6BAgIEA4\">\x3cdiv jsname=\"ibnC6b\" jsslot=\"\">All results\x3c/div>\x3c/div>\x3c/div>\x3cdiv jsname=\"H9P06b\" class=\"R0DW9c\">\x3cdiv class=\"vH6rvf FJCJfd\" data-mw=\"240\" jsname=\"xl07Ob\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_32\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QG3oECAgQDw\">\x3cdiv class=\"XhWQv sjVJQd Wf7Nsf rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3ca aria-current=\"page\" href=\"#\">All results\x3c/a>\x3c/div>\x3c/div>\x3cdiv class=\"XhWQv sjVJQd rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3ca href=\"/search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;source=lnt&amp;tbs=li:1&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpwV6BAgIEBE\">Verbatim\x3c/a>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3cdiv>\x3cdiv class=\"XhWQv sjVJQd rNHry\" jscontroller=\"pzkXnb\" jsname=\"qRxief\" data-v=\"\" role=\"link\" tabindex=\"0\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" jsslot=\"\">\x3cspan jscontroller=\"TmFfhf\" data-href=\"https://www.google.com/advanced_search?q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\" jsaction=\"aZcdhc:x8vc1\">Advanced Search\x3c/span>\x3c/div>\x3c/div>\x3cdiv class=\"btCOFd XYRUld\">\x3c/div>\x3cdiv class=\"XhWQv qd6zO ApHyTb\">\x3cdiv id=\"result-stats\">About 6,970 results\x3cnobr> (0.25s)&nbsp;\x3c/nobr>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_17'},function(){jsl.dh(this.id,"\x3cdiv>\x3cdiv jscontroller=\"KSk4yc\" data-dl=\"0\" data-mwl=\"-1\" jsaction=\"fFzSRc:v9xSwd;lgFTO:Geh74d;kPzEO:MlP2je;qo5q4d:VvZoSb;LImAlc:VvZoSb;rcuQ6b:npT2md\" class=\"EyBRub\">\x3cdiv jsname=\"suEOdc\" class=\"t4wgMc\" style=\"display:none;opacity:0;transform:scale(0.1)\" aria-hidden=\"true\" data-hveid=\"CAsQAQ\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QrOkHegQICxAB\">\x3cdiv jsname=\"V4zgDf\" data-jiis=\"up\" data-async-type=\"ctxm\" id=\"nFiyle\" class=\"yp\" data-hveid=\"CAsQAg\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QqukHegQICxAC\">\x3c/div>\x3csvg jsname=\"ojBOCb\" class=\"kdCulb\" aria-hidden=\"true\">\x3cpolyline points=\"0,6 6,0 12,6\">\x3c/polyline>\x3c/svg>\x3csvg jsname=\"GV5nwf\" class=\"LIxbuc\" aria-hidden=\"true\">\x3cpolyline points=\"0,0 6,6 12,0\">\x3c/polyline>\x3c/svg>\x3cdiv jsname=\"Uo0pef\" class=\"p2Tgt\" style=\"display:none\">Ctrl+Shift+X to select\x3c/div>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_28'},function(){jsl.dh(this.id,"   \x3cdiv jsname=\"rSAM5d\"> \x3cdiv style=\"opacity:0\" id=\"arc-stev\" data-jiis=\"up\" data-async-type=\"arc\" data-async-context-required=\"arc_id,q\" class=\"yp\" data-async-rclass=\"search\">\x3c/div> \x3c/div>    \x3cdiv jsname=\"UefMMd\" style=\"display:none\"> \x3cdiv class=\"YNk70c\"> \x3cdiv class=\"SLPe5b\"> \x3cdiv aria-valuetext=\"Loading...\" role=\"progressbar\" class=\"wxFLgf\">\x3cdiv class=\"WsWxhd vt6azd\">\x3cdiv class=\"CoFRkb HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3cdiv class=\"go1Xte HoA6Kb\">\x3c/div>\x3c/div>\x3c/div> \x3c/div> \x3c/div> \x3c/div>      ");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_72'},function(){jsl.dh(this.id,"\x3cdiv class=\"IZE3Td\" jsslot=\"\">\x3cdiv jscontroller=\"JnUebe\" jsname=\"oQYOj\" class=\"r2fjmd t0bRye Sbgr0\" jsshadow=\"\" jsaction=\"rcuQ6b:npT2md;YqyI4b:pwJR3b\" data-hveid=\"CEgQBQ\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qu04oAHoECEgQBQ\">\x3cdiv id=\"iE1laqfPEI2IosUP4tOE-Qs__55\">\x3c/div>\x3cdiv id=\"iE1laqfPEI2IosUP4tOE-Qs__59\">\x3c/div>\x3cdiv style=\"clear:both\">\x3c/div>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__55'},function(){jsl.dh(this.id,"\x3cdiv class=\"wDYxhc\" data-md=\"83\">\x3cdiv class=\"di3YZe\">\x3cdiv class=\"co8aDb\" aria-level=\"3\" role=\"heading\">\x3cb>Installing PHPMailer\x3c/b>\x3c/div>\x3cdiv class=\"RqBzHd mvJV3d\">\x3col class=\"X5LH0c\">\x3cli class=\"TrT0Xe\">Log into your server via SSH.\x3c/li>\x3cli class=\"TrT0Xe\">Make sure you&#39;re in your user&#39;s home directory. [server]$ cd ~\x3c/li>\x3cli class=\"TrT0Xe\">Unzip the file. [server]$ unzip master.zip. This creates a directory named PHPMailer-master.\x3c/li>\x3cli class=\"TrT0Xe\">Rename this directory. [server]$ mv PHPMailer-master PHPMailer.\x3c/li>\x3c/ol>\x3cdiv class=\"u9iNfb\">\x3cdiv class=\"Od5Jsd\">Oct 14, 2025\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__59'},function(){jsl.dh(this.id,"\x3cdiv class=\"Y6JuXb\">\x3cdiv lang=\"en\" data-hveid=\"CD0QAA\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIPRAA\">\x3cdiv style=\"position:relative\" class=\"tF2Cxc\">\x3cdiv class=\"yuRUbf\">\x3cdiv class=\"b8lM7\">\x3cspan class=\"V9tjod\" jsaction=\"trigger.mLt3mc\">\x3ca jsname=\"UWckNb\" class=\"zReHs\" href=\"https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECD0QAw\" ping=\"/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECD0QAw\">\x3ch3 class=\"LC20lb MBeuO DKV0Md\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_63\">PHPMailer — Installing on a shared server\x3c/h3>\x3cbr>\x3cdiv class=\"notranslate ESMNde HGLrXd ojE3Fb\">\x3cdiv class=\"q0vns\">\x3cspan aria-hidden=\"true\">\x3cspan class=\"H9lube fJOpI\">\x3cdiv class=\"eqA2re NjwKYd Vwoesf\" aria-hidden=\"true\">\x3cspan class=\"Jj3Uob XNo5Ab z1asCe\" style=\"height:18px;line-height:18px;width:18px\">\x3csvg focusable=\"false\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cpath d=\"M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z\">\x3c/path>\x3c/svg>\x3c/span>\x3c/div>\x3c/span>\x3c/span>\x3cdiv class=\"CA5RN\">\x3cdiv>\x3cspan class=\"VuuXrf\">DreamHost\x3c/span>\x3c/div>\x3cdiv class=\"byrV5b\">\x3ccite class=\"qLRx3b tjvcx GvPZzd cHaqb\" role=\"text\">https://help.dreamhost.com\x3cspan class=\"ylgVCe ob9lvb\" role=\"text\"> › ... › Email › Contact Forms\x3c/span>\x3c/cite>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/a>\x3c/span>\x3cdiv class=\"B6fmyf byrV5b Mg1HEd\">\x3cdiv class=\"HGLrXd ojE3Fb\">\x3cdiv class=\"q0vns\">\x3cspan aria-hidden=\"true\">\x3cspan class=\"H9lube fJOpI\">\x3cdiv class=\"eqA2re XXS2Kd NjwKYd\" style=\"height:18px;width:18px\">\x3c/div>\x3c/span>\x3c/span>\x3cdiv class=\"CA5RN\">\x3cdiv>\x3cspan class=\"VuuXrf\">DreamHost\x3c/span>\x3c/div>\x3cdiv class=\"byrV5b\">\x3ccite class=\"qLRx3b tjvcx GvPZzd cHaqb\" role=\"text\">https://help.dreamhost.com\x3cspan class=\"ylgVCe ob9lvb\" role=\"text\"> › ... › Email › Contact Forms\x3c/span>\x3c/cite>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_70'},function(){jsl.dh(this.id,"\x3cdiv class=\"IZE3Td\" jsslot=\"\">\x3cdiv jscontroller=\"JnUebe\" jsname=\"oQYOj\" class=\"r2fjmd t0bRye Sbgr0\" jsshadow=\"\" jsaction=\"rcuQ6b:npT2md;YqyI4b:pwJR3b\" data-hveid=\"CEUQBQ\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qu04oAHoECEUQBQ\">\x3cdiv id=\"iE1laqfPEI2IosUP4tOE-Qs__64\">\x3c/div>\x3cdiv id=\"iE1laqfPEI2IosUP4tOE-Qs__65\">\x3c/div>\x3cdiv style=\"clear:both\">\x3c/div>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__64'},function(){jsl.dh(this.id,"\x3cdiv class=\"wDYxhc\" data-md=\"61\" style=\"clear:none\">\x3cdiv class=\"LGOjhe\" data-attrid=\"wa:/description\" data-hveid=\"CEIQAA\">\x3cspan class=\"BxUVEf ILfuVd\" lang=\"en\">\x3cspan class=\"hgKElc pOOWX\">PHPMailer For Enterprise\x3cbr>\x3cbr> The maintainers of PHPMailer and thousands of other packages are working with Tidelift to deliver commercial support and maintenance for the open-source packages you use to build your applications.\x3c/span>\x3c/span>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__65'},function(){jsl.dh(this.id,"\x3cdiv class=\"Y6JuXb\">\x3cdiv lang=\"en\" data-hveid=\"CDwQAA\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIPBAA\">\x3cdiv style=\"position:relative\" class=\"tF2Cxc\">\x3cdiv class=\"yuRUbf\">\x3cdiv class=\"b8lM7\">\x3cspan class=\"V9tjod\" jsaction=\"trigger.mLt3mc\">\x3ca jsname=\"UWckNb\" class=\"zReHs\" href=\"https://github.com/phpmailer/phpmailer#:~:text=PHPMailer%20For%20Enterprise&amp;text=The%20maintainers%20of%20PHPMailer%20and,use%20to%20build%20your%20applications.\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECDwQAw\" ping=\"/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://github.com/phpmailer/phpmailer%23:~:text%3DPHPMailer%2520For%2520Enterprise%26text%3DThe%2520maintainers%2520of%2520PHPMailer%2520and,use%2520to%2520build%2520your%2520applications.&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECDwQAw\">\x3ch3 class=\"LC20lb MBeuO DKV0Md\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_64\">PHPMailer/PHPMailer: The classic email sending library for PHP\x3c/h3>\x3cbr>\x3cdiv class=\"notranslate ESMNde HGLrXd ojE3Fb\">\x3cdiv class=\"q0vns\">\x3cspan aria-hidden=\"true\">\x3cspan class=\"H9lube\">\x3cdiv class=\"eqA2re NjwKYd Vwoesf\" aria-hidden=\"true\">\x3cimg class=\"XNo5Ab\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAMAAABEpIrGAAAAb1BMVEX////4+Pi3ubtvcnZNUVU+Q0cpLjLr6+x3en0sMTYkKS59gIORk5aUl5n8/Pzw8PFTV1tbX2Pc3d5DSEzn5+g3PECLjpFKTlKFh4qxs7XCxMUuMze/wcLh4uPV1tZzd3o/Q0jOz9CmqKpjZ2qfoaTxAyfNAAABPUlEQVR4AW3TBYKDMBQE0AltAgzuzur9z7ibH5oKfWjc4UEFl6s2Rl8vgcJZGMX04iTEM5UaPomzHA+KkidVAa/WfKNpffMd32oKCHUlWfb27Q19ZSMVrNHGTMDckMtQLqSegdXGpvi3Sf93W9UudRby2WzsEgL4oMvwoqY1AsrQNfFipbXkCGh1BV6oT1pfRwvfOJlo9ZA5NAonStbmB1pawBuDTAgkX4MzV/eC2H3e0C7lk1aBEzd+7SpigJOZVoXx+J5UxzADil+8+KZYoRaK5y2WZxSdgm0j+dakzkIc2kzT6W3IcFnDTzdt4sKbWMqkpNl229IMsfMmg6UaMsJXmv4qCMXDoI4mO5oADwyFDnGoO3KI0jSHQ6E3eJum5TP4Y+EVyUOGXHZjgWd7ZEwOJzZRjbPQt7mF8P4AzsYZpmkFLF4AAAAASUVORK5CYII=\" style=\"height:18px;width:18px\" alt=\"\">\x3c/div>\x3c/span>\x3c/span>\x3cdiv class=\"CA5RN\">\x3cdiv>\x3cspan class=\"VuuXrf\">GitHub\x3c/span>\x3c/div>\x3cdiv class=\"byrV5b\">\x3ccite class=\"qLRx3b tjvcx GvPZzd cHaqb\" role=\"text\">https://github.com\x3cspan class=\"ylgVCe ob9lvb\" role=\"text\"> › phpmailer › phpmailer\x3c/span>\x3c/cite>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/a>\x3c/span>\x3cdiv class=\"B6fmyf byrV5b Mg1HEd\">\x3cdiv class=\"HGLrXd ojE3Fb\">\x3cdiv class=\"q0vns\">\x3cspan aria-hidden=\"true\">\x3cspan class=\"H9lube\">\x3cdiv class=\"eqA2re XXS2Kd NjwKYd\" style=\"height:18px;width:18px\">\x3c/div>\x3c/span>\x3c/span>\x3cdiv class=\"CA5RN\">\x3cdiv>\x3cspan class=\"VuuXrf\">GitHub\x3c/span>\x3c/div>\x3cdiv class=\"byrV5b\">\x3ccite class=\"qLRx3b tjvcx GvPZzd cHaqb\" role=\"text\">https://github.com\x3cspan class=\"ylgVCe ob9lvb\" role=\"text\"> › phpmailer › phpmailer\x3c/span>\x3c/cite>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_71'},function(){jsl.dh(this.id,"\x3cdiv class=\"IZE3Td\" jsslot=\"\">\x3cdiv jscontroller=\"JnUebe\" jsname=\"oQYOj\" class=\"r2fjmd t0bRye Sbgr0\" jsshadow=\"\" jsaction=\"rcuQ6b:npT2md;YqyI4b:pwJR3b\" data-hveid=\"CEcQBQ\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qu04oAHoECEcQBQ\">\x3cdiv id=\"iE1laqfPEI2IosUP4tOE-Qs__67\">\x3c/div>\x3cdiv id=\"iE1laqfPEI2IosUP4tOE-Qs__68\">\x3c/div>\x3cdiv style=\"clear:both\">\x3c/div>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__67'},function(){jsl.dh(this.id,"\x3cdiv class=\"wDYxhc\" data-md=\"83\">\x3cdiv class=\"di3YZe\">\x3cdiv class=\"co8aDb\" aria-level=\"3\" role=\"heading\">\x3cb>To get the most out of PHPMailer, you should know how to:\x3c/b>\x3c/div>\x3cdiv class=\"RqBzHd\">\x3col class=\"X5LH0c\">\x3cli class=\"TrT0Xe\">Install the library with Composer or manually.\x3c/li>\x3cli class=\"TrT0Xe\">Configure SMTP settings for reliable delivery.\x3c/li>\x3cli class=\"TrT0Xe\">Use core PHPMailer components like setFrom(), addAddress(), and Body.\x3c/li>\x3cli class=\"TrT0Xe\">Create a working contact form with validation.\x3c/li>\x3cli class=\"TrT0Xe\">Connect PHPMailer to Gmail and other providers.\x3c/li>\x3c/ol>\x3cdiv class=\"u9iNfb\">\x3cdiv class=\"ZGh7Vc\">\x3ca class=\"truncation-information\" href=\"https://www.hostinger.com/tutorials/how-to-send-emails-using-phpmailer\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QnLoEegQIPhAB\" ping=\"/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.hostinger.com/tutorials/how-to-send-emails-using-phpmailer&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QnLoEegQIPhAB\">More items...\x3c/a>\x3c/div>\x3cdiv class=\"rvIhN\">&bull;\x3c/div>\x3cdiv class=\"Od5Jsd\">Jan 21, 2026\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__68'},function(){jsl.dh(this.id,"\x3cdiv class=\"Y6JuXb\">\x3cdiv data-hveid=\"CEAQAA\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIQBAA\">\x3cdiv style=\"position:relative\" class=\"tF2Cxc\">\x3cdiv class=\"yuRUbf\">\x3cdiv class=\"b8lM7\">\x3cspan class=\"V9tjod\" jsaction=\"trigger.mLt3mc\">\x3ca jsname=\"UWckNb\" class=\"zReHs\" href=\"https://www.hostinger.com/tutorials/how-to-send-emails-using-phpmailer\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECEAQAw\" ping=\"/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://www.hostinger.com/tutorials/how-to-send-emails-using-phpmailer&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECEAQAw\">\x3ch3 class=\"LC20lb MBeuO DKV0Md\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_66\">How to send emails from your web server with PHPMailer - Hostinger\x3c/h3>\x3cbr>\x3cdiv class=\"notranslate ESMNde HGLrXd ojE3Fb\">\x3cdiv class=\"q0vns\">\x3cspan aria-hidden=\"true\">\x3cspan class=\"H9lube\">\x3cdiv class=\"eqA2re NjwKYd Vwoesf\" aria-hidden=\"true\">\x3cimg class=\"XNo5Ab\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABKklEQVR4AaTSM1hFYQCA4WwbW+1TthuztrCGPdu2tWbt2Zzahxqz3TfUte95nvf4fEe/TkHMiW1+zMkYsmGhI2fimCemkQwzwQECNuzYxysWEJkfe6InJ3CJB8wgnGv1/gN7+PlzSsBBTuBC5LxNWMsKnBNwUiGwBxt1Au44UyVwjQn0/xlALzIQhFE8YV9OQK5XrCD+L9b8/w1MWMlBBUpQLKHoTzHKkAcPGIK/EHuqCwM2vP8CDahBFSpRgXKUofRPBXJgosPM+u/EBKRjDR/4kU/6I+7jFh3wQxa6RHRiEo8q/AWeIJYD2o8D1QNWrPxuLxEGyAPxbQwD8t3OMQIZhkA8C5SI8BgAiikXaIb7AUtIiFwJiVc3UIABDRDFk615QFkfWgQIAgCRNavRuEW4DwAAAABJRU5ErkJggg==\" style=\"height:18px;width:18px\" alt=\"\">\x3c/div>\x3c/span>\x3c/span>\x3cdiv class=\"CA5RN\">\x3cdiv>\x3cspan class=\"VuuXrf\">Hostinger\x3c/span>\x3c/div>\x3cdiv class=\"byrV5b\">\x3ccite class=\"qLRx3b tjvcx GvPZzd cHaqb\" role=\"text\">https://www.hostinger.com\x3cspan class=\"ylgVCe ob9lvb\" role=\"text\"> › tutorials › how-to-send-ema...\x3c/span>\x3c/cite>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/a>\x3c/span>\x3cdiv class=\"B6fmyf byrV5b Mg1HEd\">\x3cdiv class=\"HGLrXd ojE3Fb\">\x3cdiv class=\"q0vns\">\x3cspan aria-hidden=\"true\">\x3cspan class=\"H9lube\">\x3cdiv class=\"eqA2re XXS2Kd NjwKYd\" style=\"height:18px;width:18px\">\x3c/div>\x3c/span>\x3c/span>\x3cdiv class=\"CA5RN\">\x3cdiv>\x3cspan class=\"VuuXrf\">Hostinger\x3c/span>\x3c/div>\x3cdiv class=\"byrV5b\">\x3ccite class=\"qLRx3b tjvcx GvPZzd cHaqb\" role=\"text\">https://www.hostinger.com\x3cspan class=\"ylgVCe ob9lvb\" role=\"text\"> › tutorials › how-to-send-ema...\x3c/span>\x3c/cite>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_69'},function(){jsl.dh(this.id,"\x3cdiv class=\"IZE3Td\" jsslot=\"\">\x3cdiv jscontroller=\"JnUebe\" jsname=\"oQYOj\" class=\"r2fjmd t0bRye Sbgr0\" jsshadow=\"\" jsaction=\"rcuQ6b:npT2md;YqyI4b:pwJR3b\" data-hveid=\"CEYQBQ\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qu04oAHoECEYQBQ\">\x3cdiv id=\"iE1laqfPEI2IosUP4tOE-Qs__70\">\x3c/div>\x3cdiv id=\"iE1laqfPEI2IosUP4tOE-Qs__71\">\x3c/div>\x3cdiv style=\"clear:both\">\x3c/div>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__70'},function(){jsl.dh(this.id,"\x3cdiv class=\"wDYxhc\" data-md=\"61\" style=\"clear:none\">\x3cdiv class=\"LGOjhe\" data-attrid=\"wa:/description\" data-hveid=\"CEMQAA\">\x3cspan class=\"ILfuVd\" lang=\"en\">\x3cspan class=\"hgKElc pOOWX\">Alternatively, if you&#39;re not using Composer, you can download PHPMailer as a zip file, (note that docs and examples are not included in the zip file), then copy the contents of the PHPMailer folder into one of the include_path directories specified in your PHP configuration and load each class file manually: &lt;?\x3c/span>\x3c/span>\x3cspan class=\"kX21rb ZYHQ7e\">May 18, 2026\x3c/span>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__71'},function(){jsl.dh(this.id,"\x3cdiv class=\"Y6JuXb\">\x3cdiv data-hveid=\"CEEQAA\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFSgAegQIQRAA\">\x3cdiv style=\"position:relative\" class=\"tF2Cxc\">\x3cdiv class=\"yuRUbf\">\x3cdiv class=\"b8lM7\">\x3cspan class=\"V9tjod\" jsaction=\"trigger.mLt3mc\">\x3ca jsname=\"UWckNb\" class=\"zReHs\" href=\"https://packagist.org/packages/phpmailer/phpmailer#:~:text=Alternatively%2C%20if%20you're%20not,%3C%3F\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECEEQAw\" ping=\"/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://packagist.org/packages/phpmailer/phpmailer%23:~:text%3DAlternatively%252C%2520if%2520you%27re%2520not,%253C%253F&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QFnoECEEQAw\">\x3ch3 class=\"LC20lb MBeuO DKV0Md\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_65\">phpmailer/phpmailer - Packagist.org\x3c/h3>\x3cbr>\x3cdiv class=\"notranslate ESMNde HGLrXd ojE3Fb\">\x3cdiv class=\"q0vns\">\x3cspan aria-hidden=\"true\">\x3cspan class=\"H9lube\">\x3cdiv class=\"eqA2re NjwKYd Vwoesf\" aria-hidden=\"true\">\x3cimg class=\"XNo5Ab\" src=\"data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAADAUlEQVR4AX1TA2BkMRRM3bNt27Zt27Zt1rZt23Z3a9u23bnk7PcRTeaZhIeHEx4eHvK7jBs/5bK6tkXjOxGFfH5+gd2/n0+dOpV0dnYSwuFwvu0Nmjh5+vMVqzZqzZq7UMzZg9taVgcUVAJG5q5tu/YetRgyZMS2kaPHHaHYIYwAACGhoaFEUFB4zeVrD4tUNM2hbWAPTmQmrGy9kVnYgqTMaji6hiEhtQSyivoQl9HEkmVr3MeOHcMHRuDv60OWrlgrlpJdC25cASQklWDuFQRVUwekZNWguAowd/CDoYMHFJW0ERadBzUtS0qyfHl7ezshPj7eZOOWnbJVjYC9SwievhYDWbYfPecsh6a2BfSN7DFm9hK6dwDnbz9GfEo5Yum3acu2Pa2tLV8Itu7Yp59X2g5bpyC4+8Vh975jkJbRQHxaBeJSy/Hg0RvsPXgKNi5h0DNxQmpOA/YfOHKmubnpM0H/j+LK+ZkFzTCycMOjpx+gqGqEEG4m9b8G+RVAaTWga+QABxoLSzs/5JUDUnLqlvW1NYQEBgZMZptNnYCOgS1EP36EkzsHxdWgmuoRzMlAXmkn1DUNce36bbh5R6OiAbB28I6vq6nmISEhwYLzFi57fPnafTdZRa0yKysrMFBRJZBFs2Bk4Y57D9/g7oNn1IIgehYFJ08uHj97q97QUE8Il8sl34QW1NiLV26W6VBzI2lGcks6wNywcQxCEHUpkJOOi1fuWQoICh+YOHGiEIAvhfRzJS5ctPIVc4n5W1gFZFMSZk1AeDrOXbqT/A03bdo08lcCyr7IzjkEds7BCAxLR2JGNVh6QyKzsWX7Xk2G5eXlJbNnz/47AZMBg4beouls8QqMh7G1J1w8I2Bi411OL47/uRf+SUBFePXixTmxKSWQVtCDoZkLpo4cksDC9F8X2MjPz89Q89YMIrg4rzvOzu+Dc3OEMU6QRNP9rn9YwNqZ+cQujxs3jsjLy7N5/678PE/2jCLFpyaRsn1jSKUAL89mhvn2TZ8+/XM7fwKzkQMa266MdAAAAABJRU5ErkJggg==\" style=\"height:18px;width:18px\" alt=\"\">\x3c/div>\x3c/span>\x3c/span>\x3cdiv class=\"CA5RN\">\x3cdiv>\x3cspan class=\"VuuXrf\">Packagist\x3c/span>\x3c/div>\x3cdiv class=\"byrV5b\">\x3ccite class=\"qLRx3b tjvcx GvPZzd cHaqb\" role=\"text\">https://packagist.org\x3cspan class=\"ylgVCe ob9lvb\" role=\"text\"> › packages › phpmailer › phpmailer\x3c/span>\x3c/cite>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/a>\x3c/span>\x3cdiv class=\"B6fmyf byrV5b Mg1HEd\">\x3cdiv class=\"HGLrXd ojE3Fb\">\x3cdiv class=\"q0vns\">\x3cspan aria-hidden=\"true\">\x3cspan class=\"H9lube\">\x3cdiv class=\"eqA2re XXS2Kd NjwKYd\" style=\"height:18px;width:18px\">\x3c/div>\x3c/span>\x3c/span>\x3cdiv class=\"CA5RN\">\x3cdiv>\x3cspan class=\"VuuXrf\">Packagist\x3c/span>\x3c/div>\x3cdiv class=\"byrV5b\">\x3ccite class=\"qLRx3b tjvcx GvPZzd cHaqb\" role=\"text\">https://packagist.org\x3cspan class=\"ylgVCe ob9lvb\" role=\"text\"> › packages › phpmailer › phpmailer\x3c/span>\x3c/cite>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_73'},function(){jsl.dh(this.id,"\x3cdiv>\x3cdiv class=\"iRPzcb\">\x3c/div>\x3cdiv class=\"px98cb\">\x3cdiv class=\"nybFkb\">\x3c/div>\x3c/div>\x3c/div>\x3cdiv>\x3cdiv class=\"iRPzcb\">\x3c/div>\x3cdiv class=\"px98cb\">\x3cdiv class=\"nybFkb\">\x3c/div>\x3c/div>\x3c/div>\x3cdiv style=\"display:none\">\x3cdiv class=\"iRPzcb\">\x3c/div>\x3cdiv class=\"px98cb\">\x3cdiv class=\"nybFkb\">\x3c/div>\x3c/div>\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_55'},function(){jsl.dh(this.id,"\x3cdiv id=\"result-stats\">About 6,970 results\x3cnobr> (0.28s)&nbsp;\x3c/nobr>\x3c/div>",function(){(function(){var btc='uCD6gd';var titd=true;(function(){a:{var a=document.getElementsByClassName(btc)[0];if(a){if(titd){var b=document.getElementById("hdtbMenus");if(!b)break a;var c=b.querySelector("[data-utc]");c&&(b=c);b.appendChild(a)}else{var d=document.getElementById("slim_appbar");if(!d)break a;d.appendChild(a)}a.style.display=""}};}).call(this);})();});}],[null,function(){(function(){
-var f=/^\s*(?!javascript:)(?:[\w+.-]+:|[^:/?#]*(?:[/?#]|$))/i;
-function h(a){var b=a.indexOf("#");b<0&&(b=a.length);var d=a.indexOf("?");if(d<0||d>b){d=b;var c=""}else c=a.substring(d+1,b);return[a.slice(0,d),c,a.slice(b)]}function k(a,b){return b?a?a+"&"+b:b:a}function l(a,b,d){if(Array.isArray(b))for(var c=0;c<b.length;c++)l(a,String(b[c]),d);else b!=null&&d.push(a+(b===""?"":"="+encodeURIComponent(String(b))))}function m(a){var b=[],d;for(d in a)l(d,a[d],b);return b.join("&")}
-function n(a,b){a=h(a);var d=a[1],c=[];d&&d.split("&").forEach(function(e){var g=e.indexOf("=");b.hasOwnProperty(g>=0?e.slice(0,g):e)||c.push(e)});a[1]=k(c.join("&"),m(b));return a[0]+(a[1]?"?"+a[1]:"")+a[2]};function p(){var a=new URLSearchParams(window.location.search),b=a.get("q"),d=null,c=null;try{d=window.sessionStorage.getItem("aim-trsm-q"),c=window.sessionStorage.getItem("aim-trsm-ttl")}catch(e){}c=c&&Date.now()>Number(c);if(b!==d||c)try{window.sessionStorage.removeItem("aim-trsm-q"),window.sessionStorage.removeItem("aim-trsm-mstk"),window.sessionStorage.removeItem("aim-trsm-ttl")}catch(e){}else{c=null;try{c=window.sessionStorage.getItem("aim-trsm-mstk")}catch(e){}c&&(b=document.querySelector("[data-mstk-u]"))&&
-(d=b.getAttribute("href"))&&(c={mstk:c,csuir:"1"},a.has("udm")||a.get("nem")==="143"||(c.udm="50"),a=n(d,c),a=f.test(a)?a:void 0,a!==void 0&&(b.href=a))}}window.addEventListener("pageshow",function(a){a.persisted&&p()});p();}).call(this);}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_43'},function(){jsl.dh(this.id,"\x3cdiv class=\"mOKdDc\" id=\"hdtb-tls\" aria-controls=\"hdtbMenus\" aria-expanded=\"false\" role=\"button\" tabindex=\"0\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q2x96BAgbEAc\">\x3cdiv class=\"mXwfNd\">\x3cdiv class=\"mVH5Fc\">\x3cspan class=\"R1QWuf\">Tools\x3c/span>\x3cspan class=\"FXBAof M5dSnd z1asCe K1bG5d\" style=\"height:16px;line-height:16px;width:16px\">\x3csvg focusable=\"false\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cpath d=\"M7 10l5 5 5-5z\">\x3c/path>\x3c/svg>\x3c/span>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_45'},function(){jsl.dh(this.id,"\x3cdiv jscontroller=\"eZ9XOd\" class=\"Gcxb4e\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_47\" jsdata=\"dQhNrd;_;iE1laqfPEI2IosUP4tOE-Qs17\" jsshadow=\"\" jsaction=\"OaAmdd:EDKYjb;JnGzAc:aJ8u7;OW9R3e:Xj7hvb;qVN0Rc:nnsrCf;rcuQ6b:npT2md\">\x3cdiv jsname=\"haAclf\" class=\"HTOhZ rAdPSe\" data-hveid=\"CBsQCA\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtYAJegQIGxAI\">\x3cdiv jsname=\"s2gQvd\" class=\"EDblX JpOecb\" jsslot=\"\">\x3cdiv class=\"PwiNU\">\x3c/div>\x3c/div>\x3c/div>\x3cdiv jsname=\"Y5ANHe\" class=\"HZX55\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QmbMJegQIGxAJ\">\x3cg-left-button jsname=\"sIJmDf\" class=\"pQXcHc wgbRNb bCwlI tHT0l OZ5bRd btpNFe\" style=\"left:8px\" aria-hidden=\"true\" jsaction=\"PfjCMb\" tabindex=\"-1\" aria-label=\"Previous\" role=\"button\">\x3cg-fab class=\"sr9hec OvQkSb s3IB3\" style=\"background-color:#303134;color:#9aa0a6\">\x3cspan class=\"U8v51e S3PB2d z1asCe\">\x3csvg focusable=\"false\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cpath d=\"M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z\">\x3c/path>\x3c/svg>\x3c/span>\x3c/g-fab>\x3c/g-left-button>\x3c/div>\x3cdiv jsname=\"AK6yne\" class=\"B2p7if\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QmrMJegQIGxAL\">\x3cg-right-button jsname=\"IHFM4\" style=\"right:8px\" aria-hidden=\"true\" jsaction=\"sYPGdb\" class=\"wgbRNb VdehBf tHT0l OZ5bRd btpNFe\" tabindex=\"-1\" aria-label=\"Next\" role=\"button\">\x3cg-fab class=\"sr9hec OvQkSb s3IB3\" style=\"background-color:#303134;color:#9aa0a6\">\x3cspan class=\"U8v51e S3PB2d z1asCe\">\x3csvg focusable=\"false\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cpath d=\"M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z\">\x3c/path>\x3c/svg>\x3c/span>\x3c/g-fab>\x3c/g-right-button>\x3c/div>\x3c/div>",function(){var a=document.getElementsByClassName("h5JSWd"),b=document.getElementsByClassName("PwiNU");a.length>0&&b.length>0?b[0].parentNode.insertBefore(a[0],b[0]):google.ml(Error("a`"+(a.length===0?"No target element found.":"No placeholder element found.")),!1);});}],[null,function(){(function(){
-(this||self).Wufxzb=function(c,e,f,l,k){var d=document.getElementById(c);if(d&&(d.offsetWidth!==0||d.offsetHeight!==0)){c=d.querySelector("div");var g=c.scrollWidth-c.offsetWidth,h=Math.min(e?g:0,g);c.scrollLeft=e&&(l||f)?0:h;var a=d.getElementsByTagName("g-left-button")[0],b=d.getElementsByTagName("g-right-button")[0];a&&b&&(e=RegExp("\\btHT0l\\b"),f=RegExp("\\bpQXcHc\\b"),a.className=a.className.replace(e,""),b.className=b.className.replace(e,""),h===0?a.className="pQXcHc "+a.className:(a.className=
-a.className.replace(f,""),k&&c.classList.add("pA30Ne")),h===g?b.className="pQXcHc "+b.className:(b.className=b.className.replace(f,""),k&&c.classList.add("FpCCub")),setTimeout(function(){a.className+=" tHT0l";b.className+=" tHT0l"},50))}};}).call(this);}],[null,function(){(function(){var id='_iE1laqfPEI2IosUP4tOE-Qs_47';var rtl=false;var gecko=false;var edge=false;var soh=true;
-(this||self).Wufxzb(id,rtl,gecko,edge,soh);})();}],[{id:'spch'},function(){jsl.dh(this.id,"\x3cbutton class=\"n12p9b\" id=\"spchx\" aria-label=\"close\">\x3cspan style=\"height:16px;line-height:16px;width:16px\" class=\"z1asCe wuXmqc\">\x3csvg focusable=\"false\" aria-hidden=\"true\" xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\">\x3cpath d=\"M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z\">\x3c/path>\x3c/svg>\x3c/span>\x3c/button>\x3cdiv class=\"rs1SNc\" id=\"rs1SNc\">\x3cdiv class=\"QoghVd\">\x3cdiv class=\"H8FqM\">\x3cspan class=\"rDeJ9b\" style=\"color:var(--IXoxUe)\" id=\"CSJO2b\">\x3c/span>\x3cspan class=\"rDeJ9b\" style=\"color:var(--YLNNHc)\" id=\"zTa9Jd\">\x3c/span>\x3c/div>\x3cdiv class=\"ABdHo\">\x3cspan class=\"oygy7\" id=\"ANAzyb\">\x3c/span>\x3cspan class=\"tvqTuf\" id=\"DfEdTb\">\x3cdiv class=\"e6cPC\">\x3cspan class=\"hfSSY\">\x3c/span>\x3cdiv class=\"xyzqpb\">\x3cspan class=\"gLoQyd\">\x3c/span>\x3cspan class=\"pml90c\">\x3c/span>\x3c/div>\x3c/div>\x3c/span>\x3c/div>\x3cdiv class=\"is4vC\">\x3csvg aria-hidden=\"true\" height=\"100%\" viewBox=\"0 0 188 64\" width=\"100%\" xmlns=\"http://www.w3.org/2000/svg\">\x3cpath fill=\"#FFF\" d=\"M78.84 32.11c0 8.51-6.66 14.78-14.84 14.78s-14.84-6.27-14.84-14.78c0-8.57 6.66-14.78 14.84-14.78s14.84 6.21 14.84 14.78zm-6.5 0c0-5.32-3.86-8.96-8.34-8.96s-8.34 3.64-8.34 8.96c0 5.26 3.86 8.96 8.34 8.96s8.34-3.69 8.34-8.96zm38.41 0c0 8.51-6.62 14.78-14.75 14.78-8.13 0-14.75-6.27-14.75-14.78 0-8.57 6.62-14.78 14.75-14.78 8.13 0 14.75 6.21 14.75 14.78zm-6.46 0c0-5.32-3.84-8.96-8.29-8.96s-8.29 3.64-8.29 8.96c0 5.26 3.84 8.96 8.29 8.96s8.29-3.69 8.29-8.96zm37.21-13.89v26.54c0 10.92-6.44 15.4-14.06 15.4-7.17 0-11.48-4.82-13.1-8.74l5.66-2.35c1.01 2.41 3.47 5.26 7.45 5.26 4.87 0 7.9-3.02 7.9-8.68v-2.13h-.22c-1.46 1.79-4.26 3.36-7.78 3.36-7.39 0-14.17-6.44-14.17-14.73 0-8.34 6.78-14.84 14.17-14.84 3.53 0 6.33 1.57 7.78 3.3h.22V18.2h6.15zm-5.71 13.95c0-5.21-3.47-9.02-7.9-9.02-4.48 0-8.23 3.81-8.23 9.02 0 5.15 3.75 8.9 8.23 8.9 4.43 0 7.9-3.75 7.9-8.9zM152.68 3v43h-6.5V3h6.5zm25.37 33.98l5.04 3.36c-1.62 2.41-5.54 6.55-12.32 6.55-8.4 0-14.67-6.5-14.67-14.78 0-8.79 6.33-14.78 13.94-14.78 7.67 0 11.42 6.1 12.66 9.41l.67 1.68-19.77 8.18c1.51 2.97 3.86 4.48 7.17 4.48 3.31-.01 5.6-1.63 7.28-4.1zm-15.51-5.32l13.22-5.49c-.73-1.85-2.91-3.14-5.49-3.14-3.31.01-7.9 2.92-7.73 8.63zM45.96 22c.19 1.3.28 2.58.28 3.78 0 4.7-1.29 10.53-5.43 14.67-4.03 4.2-9.18 6.44-16.02 6.44-12.66 0-23.3-10.3-23.3-22.96C1.5 11.28 12.14 1 24.8 1c7 0 11.98 2.74 15.74 6.33l-4.42 4.42c-2.69-2.52-6.33-4.48-11.31-4.48-9.24 0-16.46 7.42-16.46 16.66s7.22 16.69 16.46 16.69c5.99 0 9.41-2.41 11.59-4.59 1.77-1.77 2.94-4.3 3.4-7.76H25.01V22h20.95z\">\x3c/path>\x3c/svg>\x3c/div>\x3c/div>\x3cdiv class=\"ClAmTc\">\x3cdiv class=\"cVrt3c\">\x3c/div>\x3c/div>\x3c/div>");}],[{id:'fbar'},function(){jsl.dh(this.id,"\x3cdiv class=\"SLPe5b\">\x3cdiv class=\"B4GxFc\">\x3cdiv jscontroller=\"jDJnG\" jsaction=\"rcuQ6b:npT2md\">\x3c/div>\x3c/div>\x3cdiv class=\"fbar b2hzT\">\x3cdiv class=\"b0KoTc B4GxFc\">\x3cspan class=\"Q8LRLc\">Philippines\x3c/span>\x3cdiv class=\"fbar smiUbb\" id=\"CE62Bb\">\x3cdiv jscontroller=\"qcH9Lc\">\x3cdiv class=\"rwA8ec HDOrGf GNm3Qb\" style=\"white-space:normal\">\x3ca jsname=\"gXWYVe\" href=\"#\" style=\"white-space:normal\" data-biw=\"1424\" jsaction=\"click:HTIlC\" role=\"button\" tabindex=\"0\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QuZ0HegQIBxAC\">\x3cdiv class=\"GNm3Qb\">\x3cspan class=\"msLurc unknown_loc\">\x3c/span>\x3cspan class=\"AhYzQb\">Talomo, Davao City, Davao del Sur\x3c/span>\x3c/div>\x3cdiv class=\"GNm3Qb\">\x3cspan>&nbsp;-&nbsp;\x3c/span>\x3cspan class=\"KwU3F\">\x3cspan>Based on your past activity\x3c/span>\x3c/span>\x3c/div>\x3c/a>\x3cdiv jscontroller=\"TQYZRb\" jsname=\"pTojpb\" jsdata=\"z6bOeb;_;iE1laqfPEI2IosUP4tOE-Qs8\" jsaction=\"V6jTkf:lrvg9b;oEnJg:CEnhyd;Yaup7b:b6DXXd;gJk92:b6DXXd;JCifrc:TvD9Pc;IAeX8d:pw0dbb\">\x3cspan id=\"tsuid_iE1laqfPEI2IosUP4tOE-Qs_19\">\x3c/span>\x3c/div>\x3c/div>\x3cspan>&nbsp;-&nbsp;\x3c/span>\x3cupdate-location class=\"xSQxL HDOrGf\">\x3cdiv class=\"VtPCGb\" jscontroller=\"sA1ssc\" role=\"button\" tabindex=\"0\" jsaction=\"click:T1dibd;gfszqc:b4F0De;\" jsdata=\"ITZAN;_;iE1laqfPEI2IosUP4tOE-Qs10\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QpLkCegQIBxAF\">Update location\x3cspan jsname=\"Fz56Ue\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Ql6ENegQIBxAG\">\x3c/span>\x3cspan id=\"tsuid_iE1laqfPEI2IosUP4tOE-Qs_22\">\x3c/span>\x3cspan id=\"tsuid_iE1laqfPEI2IosUP4tOE-Qs_24\">\x3c/span>\x3cspan id=\"tsuid_iE1laqfPEI2IosUP4tOE-Qs_30\">\x3c/span>\x3c/div>\x3c/update-location>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3cdiv class=\"kEjm2c fbar\">\x3cspan class=\"B4GxFc\">\x3cspan class=\"jFF8pd\" id=\"fsl\">\x3ca class=\"Fx4vi wHYlTd ZYHQ7e\" href=\"https://support.google.com/websearch/?p=ws_results_help&amp;hl=en-PH&amp;fg=1\" ping=\"/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://support.google.com/websearch/%3Fp%3Dws_results_help%26hl%3Den-PH%26fg%3D1&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8KwCegQIBxAM\">Help\x3c/a>\x3ca jscontroller=\"nRwWne\" href=\"#\" class=\"Fx4vi wHYlTd\" data-bucket=\"websearch\" data-psd-ssc=\"0\" target=\"_blank\" jsaction=\"IevYAd\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QLnoECAcQDQ\">Send feedback\x3c/a>\x3ca class=\"Fx4vi wHYlTd ZYHQ7e\" href=\"https://policies.google.com/privacy?hl=en-PH&amp;fg=1\" ping=\"/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://policies.google.com/privacy%3Fhl%3Den-PH%26fg%3D1&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8awCegQIBxAO\">Privacy\x3c/a>\x3ca class=\"Fx4vi wHYlTd ZYHQ7e\" href=\"https://policies.google.com/terms?hl=en-PH&amp;fg=1\" ping=\"/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://policies.google.com/terms%3Fhl%3Den-PH%26fg%3D1&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q8qwCegQIBxAP\">Terms\x3c/a>\x3c/span>\x3c/span>\x3c/div>\x3c/div>");}],[{id:'tsuid_iE1laqfPEI2IosUP4tOE-Qs_19'},function(){jsl.dh(this.id,"\x3cg-dialog jsname=\"BDbGbf\" jscontroller=\"VEbNoe\" data-id=\"_iE1laqfPEI2IosUP4tOE-Qs_21\" data-os=\"1\" data-vpload=\"\" jsaction=\"jxvro:Imgh9b;dBhwS:TvD9Pc;mLt3mc;KyPa0e:cRhSI;wjOG7e:cRhSI\" jsdata=\"gctHtc;_;iE1laqfPEI2IosUP4tOE-Qs9\" jsshadow=\"\">\x3cdiv jsname=\"XKSfm\" id=\"_iE1laqfPEI2IosUP4tOE-Qs_21\">\x3c/div>\x3c/g-dialog>");}],[{id:'tsuid_iE1laqfPEI2IosUP4tOE-Qs_22'},function(){jsl.dh(this.id,"\x3cspan jscontroller=\"O9SqHb\" jsaction=\"rcuQ6b:npT2md;D7JhZd:RySO6d\">\x3c/span>");}],[{id:'tsuid_iE1laqfPEI2IosUP4tOE-Qs_24'},function(){jsl.dh(this.id,"\x3clocation-snackbar-with-learn-more jsname=\"Nf9Im\" jscontroller=\"khkNpe\" jsaction=\"sFrcje:No7Jhf\">\x3cspan id=\"tsuid_iE1laqfPEI2IosUP4tOE-Qs_26\">\x3c/span>\x3c/location-snackbar-with-learn-more>");}],[{id:'tsuid_iE1laqfPEI2IosUP4tOE-Qs_30'},function(){jsl.dh(this.id,"\x3cg-snackbar jsname=\"M8d6me\" jscontroller=\"OZLguc\" style=\"display:none\" jsshadow=\"\">\x3cdiv jsname=\"sM5MNb\" aria-live=\"polite\" class=\"LH3wG\" style=\"z-index:2000\">\x3cdiv jsname=\"Ng57nc\" class=\"yK6jqe\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q4G96BAgHEAs\">\x3cdiv class=\"b77HKf\">\x3cdiv jsname=\"bN97Pc\" class=\"rIxsve\" jsslot=\"\" style=\"display:none\">\x3cspan class=\"Txngnb wHYlTd yUTMj\">Updating location...\x3c/span>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/g-snackbar>");}],[{id:'_iE1laqfPEI2IosUP4tOE-Qs_21'},function(){jsl.dh(this.id,"\x3cdiv jsname=\"bF1uUb\" class=\"kJFf0c KUf18\">\x3c/div>\x3cdiv class=\"mcPPZ yMNJR nP0TDe xg7rAe\" jsaction=\"\">\x3cdiv class=\"qk7LXc TUOsUe By9mMc W6Z5of yMNJR TQqAnb\" aria-labelledby=\"lQ3q8c\" jsslot=\"\" role=\"dialog\">\x3cdiv jsname=\"C8RmQc\" id=\"C8RmQc\" data-jiis=\"up\" data-async-type=\"lbsc\" class=\"yp\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QvtoPegQIBxAE\">\x3c/div>\x3c/div>\x3c/div>");}],[{id:'tsuid_iE1laqfPEI2IosUP4tOE-Qs_26'},function(){jsl.dh(this.id,"\x3cg-snackbar jsname=\"Ng57nc\" jscontroller=\"OZLguc\" style=\"display:none\" data-dismiss=\"\" jsshadow=\"\">\x3cdiv jsname=\"sM5MNb\" aria-live=\"polite\" class=\"LH3wG\" style=\"z-index:2000\">\x3cdiv jsname=\"Ng57nc\" class=\"yK6jqe\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q4G96BAgHEAc\">\x3cdiv class=\"b77HKf\">\x3cdiv jsname=\"bN97Pc\" class=\"rIxsve\" jsslot=\"\" style=\"display:none\">\x3cspan class=\"Txngnb wHYlTd yUTMj\">Can't update your location\x3c/span>\x3cg-snackbar-action class=\"sHFNYd AB4Wff AT29bb UwURDc\" jsname=\"zrfavf\" jscontroller=\"xRxDld\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QhbkIegQIBxAJ\">\x3cdiv jsaction=\"GtUzrb\" role=\"button\" tabindex=\"0\" class=\"btku5b FR7ZSc dmKIje sjVJQd\">\x3cdiv class=\"niO4u VDgVie SlP8xc\">\x3cspan class=\"pEWLJ\">Learn more\x3c/span>\x3c/div>\x3c/div>\x3c/g-snackbar-action>\x3c/div>\x3c/div>\x3c/div>\x3c/div>\x3c/g-snackbar>");}],[null,function(){google.drty&&google.drty(void 0,!0);}]].forEach(function(a){google.x(a[0],a[1]);});</script><div></div><div><script type="speculationrules" nonce="fjCswvWN1ycKTMKpIvFMfg">{"prefetch":[{"urls":["https://github.com/phpmailer/phpmailer","https://sourceforge.net/projects/phpmailer.mirror/"],"requires":["anonymous-client-ip-when-cross-origin"],"referrer_policy":"strict-origin"},{"urls":["https://stackoverflow.com/questions/28906487/fatal-error-class-phpmailer-not-found","https://help.dreamhost.com/hc/en-us/articles/360031174411-PHPMailer-Installing-on-a-shared-server","https://grokipedia.com/page/PHPMailer","https://mailtrap.io/blog/phpmailer/"],"requires":["anonymous-client-ip-when-cross-origin"],"referrer_policy":"strict-origin","eagerness":"moderate"}]}</script></div><script nonce="fjCswvWN1ycKTMKpIvFMfg">;this.gbar_={CONFIG:[[[0,"www.gstatic.com","og.asy.en_US.M_7ghikQAkA.2019.O","com.ph","en","1",null,null,null,null,null,null,"og.asy.kDNUSkL2BhY.L.W.O","AA2YrTtJT2GPlx0nJ84RzsS-D9uX1TzAyQ","AA2YrTtex7puGoauetYjvpmcy8ijqj0ihQ","",null,null,null,null,null,null,"1","1",null,null,null,89978449,null,0,null,0,0],[[null,null,null,"https://www.gstatic.com/og/_/js/k=og.asy.en_US.M_7ghikQAkA.2019.O/rt=j/m=_ac,_awd,adrc,ada,lldp,qads/exm=/d=1/ed=1/rs=AA2YrTtJT2GPlx0nJ84RzsS-D9uX1TzAyQ"],[null,null,null,"https://www.gstatic.com/og/_/ss/k=og.asy.kDNUSkL2BhY.L.W.O/m=ll_bdm,ll_tdm,adcgm3,ll_fw/excm=/d=1/ed=1/ct=zgms/rs=AA2YrTtex7puGoauetYjvpmcy8ijqj0ihQ"]],[1,null,null,40400,1,"PHL","en","951350417.0",19,null,1,0,null,null,null,null,"3700949,105109531,105109534,105140909,105140912,115517798,115517801,116249040,116249043,119418244",null,null,null,"iE1larjnEdSi9tMP8LuXyQY",0,1,0,null,2,5,"tp",79,0,0,null,null,1,89978449,0,0],[1,0,0,null,"0","renoweebeloy536@gmail.com","","AJeA7im4bvVmEPflcxXsVTd_2U6aY7DlVEier1s86UywF67QyRE9ZH_9rstziPzvRRdpySTkOd_LzScg9w9KrbDblG_HX8yTiA",0,0,null,"",1],[[[null,null,[null,null,null,"https://ogs.google.com/u/0/widget/app?eom=1\u0026awwd=1\u0026gpa=3\u0026em=2\u0026dpi=89978449"],0,570,370,40,27,1,0,0,63,64,8000,"https://www.google.com.ph/intl/en/about/products?tab=wh",67,1,69,null,1,70,"Can't seem to load the app launcher right now. Try again or go to the %1$sGoogle Products%2$s page.",3,0,0,74,4000,null,null,null,null,null,null,null,"/widget/app",null,null,null,null,null,null,null,0,null,null,null,null,null,null,null,null,null,null,1,null,144,null,null,3,1,0,1,2,"(opens a new tab)",null,0],[null,null,[null,null,null,"https://ogs.google.com/u/0/widget/account?baea=1\u0026cc=1\u0026pppea=1\u0026dpi=89978449\u0026eom=1"],0,414,436,40,27,1,0,0,65,66,8000,"https://accounts.google.com/SignOutOptions?hl=en\u0026continue=https://www.google.com/search%3Fq%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026ec=futura_srp_og_si_72236_p",68,2,null,null,1,113,"Something went wrong.%1$s Refresh to try again or %2$schoose another account%3$s.",3,null,null,75,0,null,null,null,null,null,null,null,"/widget/account",["https","myaccount.google.com",0,32,83,0],0,0,1,["Critical security alert","Important account alert","Storage usage alert",null,1,1,0,0,"Account alert",0],null,1,null,1,null,null,null,null,null,0,0,0,null,1,0,null,null,null,null,null,null,null,null,null,0],[null,null,[null,null,null,"https://ogs.google.com/u/0/widget/callout/sid?eom=1\u0026dc=1"],null,280,420,70,25,0,null,0,null,null,8000,null,71,4,null,null,null,null,null,null,null,null,76,null,null,null,107,108,109,"",null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,1,null,null,null,null,null,null,null,null,null,null,null,null,null,0]],null,null,"1","1",0,0,null,"en",1,["https://www.google.com/webhp?authuser=$authuser","https://accounts.google.com/AddSession?hl=en\u0026continue=https://www.google.com/search%3Fq%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026ec=futura_srp_og_si_72236_p","https://accounts.google.com/Logout?hl=en\u0026continue=https://www.google.com/search%3Fq%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026timeStmp=1785023880\u0026secTok=.AG5fkS-JnKgxdiaojgkv5SF9uJWDtJ8atA\u0026ec=futura_srp_og_si_72236_p","https://accounts.google.com/ListAccounts?listPages=0\u0026authuser=0\u0026pid=1\u0026gpsia=1\u0026source=ogb\u0026atic=1\u0026mo=1\u0026mn=1\u0026hl=en\u0026ts=157",0,0,"",0,0,["Google Search",[[null,["og-am-qdc",1,"https://myactivity.google.com/product/search?utm_medium=mavatar\u0026utm_source=web_search\u0026hl=en","https://support.google.com/accounts/answer/465#other-places\u0026zippy=a%2Cdelete-browser-activity"]],[[[["og-am-ps","Search personalization",["personalized_recommendations",0,0],1,"https://www.google.com/search-personalization?utm_source=web_search\u0026utm_medium=web\u0026utm_campaign=mavatar\u0026hl=en",1,"","",null,0,0]],[["og-am-cca","Connected Content Apps",["chrome_extension",0,0],1,"https://myactivity.google.com/search-services/apps?utm_source=web_search\u0026utm_medium=web\u0026utm_campaign=mavatar\u0026hl=en",1,"","",null,0,0]]]],[[[["og-am-cp-int","Saves \u0026 Collections",["bookmarks",0,0],1,"https://google.com/interests/saved?hl=en",1,"","",null,0,0]],[["og-am-cp","Your Search profile",["account_circle",0,0],1,"https://profile.google.com",1,"","",null,0,0]]]],[[[["og-am-ss","SafeSearch",["safesearch_logo",0,0],1,"/safesearch?prev=https://www.google.com/search%3Fq%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php",1,"","Blurring on",null,0,0]],[["og-am-lg","Language",["language",0,0],1,"/preferences?lang=1\u0026hl=en\u0026prev=https://www.google.com/search%3Fq%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php#languages",1,"","English",null,0,0]],[null,[["og-am-ms","More settings",["settings",0,0],1,"/preferences?hl=en\u0026prev=https://www.google.com/search%3Fq%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php",1,"","",null,0,0],["og-am-hf","Help",["help_outline",0,0],1,"https://support.google.com/websearch/?p=dsrp_search_hc\u0026hl=en",1,"","",null,0,0]]]]]],null,null,"","",1],0,null,"https://accounts.google.com/ServiceLogin?hl=en\u0026passive=true\u0026continue=https://www.google.com/search%3Fq%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php\u0026ec=futura_srp_og_si_72236_p",null,null,0,null,null,null,0,null,null,null,0],null,0,0,[null,"",null,null,null,1,null,0,0,"","","","https://ogads-pa.clients6.google.com",null,0,0,"","",null,0,null,86400,null,null,null,null,0,null,0,0,"1184720131",3,1,1,0,0],1,null,null,null,null,0,"renoweebeloy536@gmail.com",0,0,0,0,"Google membership",0,"CAMS-A0V8gqqtQv4hli-vir1m_wP_qC7BbID3KxJ3ZIFp1i9VTKWE7kR6h6kEtUG-gKcAaEU9gLWAA2eBcIF0gIhJC3BBp0F3peCAvgXgwSDBAKpCPjnlAayBMQEpwS46wWVlwyHBrUGIdyMBLcDhf58sfUg1gGdBLED2QL3A7XvW7WIpQat8T2j1YQG4-EXTKMGBtTh1A6M0AzRsw6Xig7OAfASqDTsMORZ5Db2Hi7KKp8LpB77OvQImpYT7cYb5n27lwPzvwK2I7XoBqvU6QPElukDrBGU0g3aArwnhgPdANrNBdSuHJEu7FyIa5eyBNS-Aq65vAa6_AHG2yOkhAWDgQTR5AqxjBqG0gLeKpkXj7QGxxP9J9EIsUdztD2yBQD-GsUfOdNArhmQDpUd0Ab0P6MDyBbvCFvzAskBCOoX8x-ZA48V1gC9BpcEdIkFmgWSCHKLGPACpQLZBagB3AjRF6UGgQ_OEdoFuQP-JeOMOo8GaQKPBJIAiQX9BZIFXoEFNaADSytOHAvwebwOswPIBUDlBDT8BKUAgQYM9wLhAfsGzAaSDX-yBJQG4QWIBpAF8QZYR2cOnogBuAXvBRqIBgABIS19HvD7BowArwuoAoEEzeURfkDnBeMP3wbfOT6DBgO3BjOcBiGkBXoSBR5PS7sCOI0GOpYFODM1Q1ovAQusBQkF6gQTGHNGAdYE5wb6BsgGowJc48AGQYo2mRvKAMzJLafpBNdTtKIN7DHZ_RXIuhmuzwWsyQH-iwTnBMuSBgfp51iQAZIFzAWfBocDsQb3A58FFa8B4AzoAaAL8A90AL0GrALsE8URFAvNBrQEZ9AAKZMGtA2gDrkGjgmZDpUGqQKoAP8EpQtD-AL7CKMEthXvAtcJBQ_oD9UJxATVBZYG1A2vA9cOyQaCA-UCrAaUBtIA2AaIFlKdBiGND0jjCKQDwQ-bA88EigZFmATAGOcAwA_kBtsBCZUF9wy-BgaFBZAG0AFxowPVD50DggPMBOECgQQFlAbkBpsFqgOZDUuNBpAFiAPNBjisBRyXBPoOjwT3BsACwQ-NBc4FZbUAzAa7BLEN2AagA3Z7BfoP5AzLBt0C4QMF_wZnnBWECfcEugDFC8gG7ARM6AbVDJYDiQYO3AWwBpEDpwEF7QWFpgbriQWobqGVDIK-DvjvBYOfBfOSA5JtloYGoG7fPriSDbTdBdiUBYidAbGRCuKtAt-pAZ8tBK2kBNgFs5wF8AChswO0tQbC7AWJ5QS1NfWUBu5du8gFu4oCu3zndpX8A6WpBanwoAOSugaYiQNPRqsYvewCq4IGBaT8Ba6XBtQEhuEMApmCBdKgAuiABdxdkmGtFv2FBN84mgS5DgX3MoFV8u4F8fAFppgEzy_X9AaF1Qa9L5qfBdXOBQSdZOQB3l-BLpq0AvDtBsAcpc0GmcYGBI8F_VT1WbPJBa62BuTlBtJBhd4BqAmjxgXPxwLzigTvrwTCswXvsASmCO9711y3lAacmwULrB3KX6nxBd-yBOziBry4Bp_-BN2JBr2fBqcEiqoG2J4Dz8gG4Qy5K7_iBgWT_wbhgwWLmwW4hAWRiwWqhAaDXJuXAfAR7KcEoDXANdqqBAXaqQbtGLrRA_ITg8cGvkWlAaXeBuLzBk-0xwXkkAbNE-pHA6SmBtErjTe44wbUV6gFoOgF1k6XDKFt91yUBvt61pMG-QySN7jxBiG5hAOpPIBN6giMIcxAuukDjBnj5gbiFqQjrf4FzBsEnFG68QaOULxAyTf66AT2jQX9Kop-5yjSSZMN2oAFrBnoW7FLPMYUtaEEvg6Meq4V76oGhO8F1QP9W7YKqhaJAJjRBdl88xqvK_8PtrIGymDNGMdW8RHbHLMTkR-BiwbfAvFRlz3Wa8rBBu4h4O4GgRW6TAPUkgbsigUD8l_3QPFM3AXvEJYl_0OoBsIAr4wG8h7uqgbDMwW4V8MY7qAGqzXngAaeLM-eBaK_BucahAUDreIE0-YEm_0Gz65T7_QGggjyvAWFTJYh8yGbWAP1Gt8-kk39Ffd10zPOUYP3Bq9zsE7LPM8KjgWeAIMI2ALdC9o4ygbnFtsJkivgFOdDswbOBPJlsF_IEKYJ0QqUHtwQowTANcwGjUDtC9Uo9THEBQj0DbsGjQ3yQuED-wzmKewPjgWaEZEEyQ-NDpYB7x65FOwUtgj-JKYf7xWFGsQD1QiaC58qgYcixgHwAJYBrA5WVP8F2QSgA88GqgZ2C8gEH3B0BVPCAtUEBWp0uwbSBvcBUo0GvQCjArAFlgQn5wEu8wGwBeMBrQCiCvAP9Qa9BYgDb7oamAO6Ba8GBlcTI7kSiA_WAPQEnwYbigOkBfwGhAL3A84FBvwFjAKYBqwN3QaUBRv1DA==",""],null,[[null,null,null,"https://accounts.google.com/RotateCookiesPage"],3,null,null,null,0,0],[0.009999999776482582,"com.ph","1",[null,"","0",null,1,5184000,null,null,"",null,null,null,null,null,0,null,0,null,1,0,0,0,null,null,0,0,null,0,0,0,0,0],null,null,null,0]]]};</script><div><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var zbu='/verify/ALSKRH37KjLX7RxCzMxE12OAFO4yhOhu9GIWj2QNKR3C0hSLf-yYuRkJc5wcMCXwv27mZEaY_hiwKFw9El7WqyFxyly6KocNC3nDH5lTCCsMcvaSBwg--cJnMogs2UtkLOFjX0eGObuXzJC_JnHqFT26Aw';try{var a=new Image;google.ogzb=a;a.onload=a.onerror=function(){delete google.ogzb};a.src=zbu}catch(b){};})();</script><div class="gb_Q">Google apps</div><div class="gb_Z"><div class="gb_0c"><div>Google Account</div><div class="gb_g">Renowee Beloy</div><div>renoweebeloy536@gmail.com</div><div class="gb_Zc"></div></div></div><script async="" nonce="fjCswvWN1ycKTMKpIvFMfg" src="https://www.gstatic.com/og/_/js/k=og.asy.en_US.M_7ghikQAkA.2019.O/rt=j/m=_ac,_awd,adrc,ada,lldp,qads/exm=/d=1/ed=1/rs=AA2YrTtJT2GPlx0nJ84RzsS-D9uX1TzAyQ"></script><link href="https://www.gstatic.com/og/_/ss/k=og.asy.kDNUSkL2BhY.L.W.O/m=ll_bdm,ll_tdm,adcgm3,ll_fw/excm=/d=1/ed=1/ct=zgms/rs=AA2YrTtex7puGoauetYjvpmcy8ijqj0ihQ" nonce="fjCswvWN1ycKTMKpIvFMfg" id="ogb_ss" media="print" rel="stylesheet"><script nonce="fjCswvWN1ycKTMKpIvFMfg">const linkEl = document.getElementById('ogb_ss');linkEl.onload = ()=> {linkEl.media = 'all'};linkEl.removeAttribute('id');</script></div><div jscontroller="qCgt4c" jsaction="rcuQ6b:npT2md" style="display:none"></div><div class="iGkMSe" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q1qwPCDw"></div><script nonce="fjCswvWN1ycKTMKpIvFMfg">(function(){var isrpeEnabled=true;var hasCaptchaSupport=true;(function(){window.sglc={isrpe:isrpeEnabled,hcs:hasCaptchaSupport};}).call(this);})();(function(){function q(e,c){c=c===void 0?!1:c;var d,f,h={j:navigator.userAgent,i:r(),v:((d=window.sglc)==null?0:d.isrpe)?"Yes":"No",l:((f=window.sglc)==null?0:f.hcs)?"Yes":"No"};e=e+" Context: "+JSON.stringify(h);typeof window.google!=="undefined"&&window.google.log&&window.google.log("sglite",e,c?Error(e):void 0)}var r=function(){return window.location.href};function t(e,c,d,f){var h;c=(h=c)!=null?h:"";if(c!==""||d){var n;h=!((n=window.sglc)==null||!n.hcs);if(!f||c.indexOf("sfl")===0||d&&!h)if(c.charAt(0)==="s"){var k;e=!((k=window.sglc)==null||!k.isrpe);k=r().indexOf("sei")>-1;e&&!k?window.location.reload():k?q("SearchGuard Sync Challenge forced reload of a post sync challenge page.",!0):e||q("SearchGuard Sync Challenge forced reload of a non-interruptible SRP.",!0)}else if(c.charAt(0)==="a")k=new Event("sglacte",{cancelable:!0}),document.dispatchEvent(k),!k.defaultPrevented&&Math.random()<.01&&q("SGLite: Async challenge received but searchguard module is missing.",!1);else if(d){var b=document.createElement("div");b.style.position="fixed";b.style.top="0";b.style.left="0";b.style.width="100%";b.style.height="100%";b.style.backgroundColor="rgba(255, 255, 255, 0.95)";b.style.zIndex="9999999";var a=document.createElement("iframe");a.style.width="100%";a.style.height="100%";a.style.border="none";a.src=e;b.appendChild(a);document.body.appendChild(b);a.onload=
-function(){try{var g,m,l=(g=a.contentWindow)==null?void 0:(m=g.location)==null?void 0:m.href;l&&l.indexOf("/sorry/index")===-1&&(document.body.removeChild(b),window.location.reload())}catch(p){}}}}}
-function u(e){if(window.__sg_lite_queue)for(;window.__sg_lite_queue.length>0;){var c=window.__sg_lite_queue.shift();if(c){var d=c.input,f=c.init;c=c.response;if(!e(d instanceof Request?d.url:d)){var h=!1,n=f&&f.method||(d instanceof Request?d.method:"");f&&f.headers?(new Headers(f.headers)).has("x-sg-e")&&(h=!0):d instanceof Request&&d.headers.has("x-sg-e")&&(h=!0);d=c.headers.get("X-Sg-Cs");f=c.url&&c.url.indexOf("/sorry/index")>-1||c.headers.has("X-Sorry-Redirect");var k=void 0;((k=n)==null?void 0:k.toUpperCase())==="POST"&&f&&(h=!1);t(c.url,d,f,h)}}}}
-function w(){function e(b){try{return(new URL(b.toString(),d)).origin!==d}catch(a){return!1}}var c=XMLHttpRequest.prototype;if(!c.g)if(c.g=!0,typeof XMLHttpRequest==="undefined"||typeof URL!=="function"||typeof Event!=="function")q("SearchGuardLite deferred not installed due to browser incompatibility.",!0);else{var d=(new URL(r())).origin;document.addEventListener("sg_lite_queue_ready",function(){u(e)});u(e);if(!window.sgLiteEarlyInstalled&&window.fetch){var f=window.fetch;window.fetch=function(b,a){return e(b instanceof Request?b.url:b)?f.apply(this,[b,a]):f.apply(this,[b,a]).then(function(g){var m=g.headers.get("X-Sg-Cs");if(m!==null&&m!==""||g.url&&g.url.indexOf("/sorry/index")>-1||g.headers.has("X-Sorry-Redirect")){var l=!1,p=a&&a.method||(b instanceof Request?b.method:"");a&&a.headers?(new Headers(a.headers)).has("x-sg-e")&&(l=!0):b instanceof Request&&b.headers.has("x-sg-e")&&(l=!0);var v=g.url&&g.url.indexOf("/sorry/index")>-1||g.headers.has("X-Sorry-Redirect");(p==null?void 0:p.toUpperCase())===
-"POST"&&v&&(l=!1);t(g.url,m,v,l)}return g})}}var h=XMLHttpRequest.prototype.setRequestHeader,n=XMLHttpRequest.prototype.send,k=XMLHttpRequest.prototype.open;XMLHttpRequest.prototype.open=function(b,a){this.sgMethod=b;this.sgIsCrossDomain=e(a);k.apply(this,arguments)};XMLHttpRequest.prototype.setRequestHeader=function(b,a){b.toLowerCase()==="x-sg-e"&&(this.sgEnabled=!0);h.apply(this,arguments)};XMLHttpRequest.prototype.send=function(b){var a=this;this.addEventListener("load",function(){if(!a.sgIsCrossDomain&&
-a.readyState===XMLHttpRequest.DONE){var g=a.getResponseHeader("X-Sg-Cs"),m=a.responseURL&&a.responseURL.indexOf("/sorry/index")>-1||!!a.getResponseHeader("X-Sorry-Redirect"),l=!!a.sgEnabled,p;((p=a.sgMethod)==null?void 0:p.toUpperCase())==="POST"&&m&&(l=!1);t(a.responseURL,g,m,l)}},{once:!0});n.apply(this,arguments)}}}typeof window==="undefined"||window.__karma__||w();}).call(this);</script><link href="/shared_dict/srp/cf55947814ca07a25625b9d362e0df7167edd2e3a7496ce994f9cb8fbbf44fa1.dict" rel="compression-dictionary"><link href="/shared_dict/xjs/a168f69a4d8a9071ace688e5dd5d7c07ada8d418e50b826db5ab907504e7bf0d.dict" rel="compression-dictionary"><style>.zUdppc{padding-bottom:4px}.OdBhM{padding-top:8px}.mXZJrb{display:flex;justify-content:space-between;align-items:center;gap:24px;padding:8px;border-radius:50px;border:1px solid var(--gS5jXb);height:40px;min-width:362px}.F6Q4e{display:flex;align-items:center;width:290px;height:40px;font-size:14px;font-weight:400;white-space:nowrap;-webkit-margin-start:8px;margin-inline-start:8px;color:var(--bbQxAb);cursor:auto;overflow-x:auto;-webkit-mask-image:linear-gradient(to right,#000 90%,transparent 100%);mask-image:linear-gradient(to right,#000 90%,transparent 100%);scrollbar-width:none;-ms-overflow-style:none}.F6Q4e::-webkit-scrollbar{display:none}.p7eiqf{position:relative;display:flex;align-items:center;justify-content:center;height:40px;width:fit-content;border-radius:20px;padding:4px 12px;color:var(--bbQxAb);background-color:var(--Lm570b);border:0;white-space:nowrap;cursor:pointer}.p7eiqf:after{content:"";position:absolute;inset:0;background:#f0f2f5;border-radius:inherit;opacity:0;transition:opacity .2s;pointer-events:none}.p7eiqf:hover:after{opacity:.1}.sWx2zb{display:flex;align-items:center;justify-content:center;width:fit-content;height:24px;gap:4px;font-family:Google Sans;color:var(--bbQxAb);fill:currentColor;font-size:14px;font-weight:400;user-select:none}.KZMqi{opacity:0;position:absolute;left:-9999px}.eU87wf{display:flex;flex-direction:column;gap:16px}.km0gyc{display:flex;justify-content:center;gap:24px;font-size:12px}.EfSXq{display:flex;flex-direction:column;align-items:center;width:70px;height:fit-content;gap:8px}.oIdq8b{position:relative;display:flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:50px;background-color:var(--Lm570b);color:var(--bbQxAb);border:0;cursor:pointer}.oIdq8b:after{content:"";position:absolute;inset:0;background:#f0f2f5;border-radius:inherit;opacity:0;transition:opacity .2s;pointer-events:none}.oIdq8b:hover:after{opacity:.1}.aelXHb{color:var(--bbQxAb);font-size:12px;font-weight:500}.GUHazd{padding-bottom:12px}.bvSTKc{padding:8px}.cB4NFc{padding-top:16px}.wok5vf{padding:24px}.iMlap{display:flex;font-family:Google Sans,Arial,sans-serif;position:fixed;background:var(--XKMDxc)}@media (forced-colors:active){.iMlap{border:2px solid transparent;box-sizing:border-box}}.iMlap{border-radius:24px;flex-direction:column;padding:24px;gap:24px;width:min(68vw,450px);overflow:auto;inset:unset;border:none;box-shadow:0px 4px 12px rgba(23,23,23,0.9)}.Rm2Avb{display:flex;justify-content:space-between;align-items:center}.LBgq6{font-family:Google Sans,Arial,sans-serif;color:var(--bbQxAb);font-size:22px;font-weight:400}.xjR8dd{background:none;border:none;cursor:pointer;border-radius:50%;display:flex;align-items:center;justify-content:center}.Xe9GQc{color:var(--bbQxAb)}.lOZ7m{font-family:Google Sans,Arial,sans-serif;color:var(--bbQxAb);font-size:14px;font-weight:400;line-height:20px;padding:0;border-radius:12px}.vZdNrc{display:flex;justify-content:center;gap:24px;flex-direction:column}.ZtAX8b{display:flex}</style><div id="lfootercc"><script nonce="fjCswvWN1ycKTMKpIvFMfg">google.jslm=3;[[{id:'iE1laqfPEI2IosUP4tOE-Qs__24'},function(){window.jsl.dh("iE1laqfPEI2IosUP4tOE-Qs__24","\x3cdiv jscontroller=\"pzkXnb\" jsname=\"qRxief\" class=\"sjVJQd rNHry\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3cdiv role=\"listitem\" data-hveid=\"CEsQAA\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAhLEAA\">\x3ca jsname=\"pxBnId\" class=\"C6AK7c\" href=\"/search?sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;tbm=nws&amp;source=lnms&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q0pQJegQISxAB\" jsaction=\"\" data-hveid=\"CEsQAQ\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q0pQJegQISxAB\">\x3cdiv jsname=\"xBNgKe\" class=\"mXwfNd\">\x3cspan class=\"R1QWuf\">News\x3c/span>\x3c/div>\x3c/a>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__25'},function(){window.jsl.dh("iE1laqfPEI2IosUP4tOE-Qs__25","\x3cdiv jscontroller=\"pzkXnb\" jsname=\"qRxief\" class=\"sjVJQd rNHry\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3cdiv role=\"listitem\" data-hveid=\"CEkQAA\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAhJEAA\">\x3ca jsname=\"pxBnId\" class=\"C6AK7c\" href=\"/search?sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;udm=web&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qs6gLegQISRAB\" jsaction=\"\" data-hveid=\"CEkQAQ\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qs6gLegQISRAB\">\x3cdiv jsname=\"xBNgKe\" class=\"mXwfNd\">\x3cspan class=\"R1QWuf\">Web\x3c/span>\x3c/div>\x3c/a>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__26'},function(){window.jsl.dh("iE1laqfPEI2IosUP4tOE-Qs__26","\x3cdiv jscontroller=\"pzkXnb\" jsname=\"qRxief\" class=\"sjVJQd rNHry\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3cdiv role=\"listitem\" data-hveid=\"CEoQAA\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAhKEAA\">\x3ca jsname=\"pxBnId\" class=\"C6AK7c\" href=\"/search?sca_esv=46714cf388915209&amp;sxsrf=APpeQnsX9MXplplWN6NerVWEI3Yhx0OaWA:1785023880280&amp;q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;udm=36&amp;source=lnms&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;sa=X&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q0pQJegQIShAB\" jsaction=\"\" data-hveid=\"CEoQAQ\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Q0pQJegQIShAB\">\x3cdiv jsname=\"xBNgKe\" class=\"mXwfNd\">\x3cspan class=\"R1QWuf\">Books\x3c/span>\x3c/div>\x3c/a>\x3c/div>\x3c/div>\x3c/div>");}],[{id:'iE1laqfPEI2IosUP4tOE-Qs__27'},function(){window.jsl.dh("iE1laqfPEI2IosUP4tOE-Qs__27","\x3cdiv jscontroller=\"pzkXnb\" jsname=\"qRxief\" class=\"sjVJQd rNHry\" data-l=\"\" data-v=\"\" jsaction=\"click:h5M12e;rcuQ6b:npT2md;mouseover:rESl3;mouseout:MDJmo\">\x3cdiv jsname=\"ibnC6b\" class=\"Urm71\" jsslot=\"\">\x3cdiv role=\"listitem\" data-hveid=\"CEwQAA\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8QtoAJKAB6BAhMEAA\">\x3ca jsname=\"pxBnId\" class=\"C6AK7c\" href=\"https://maps.google.com/maps?sca_esv=46714cf388915209&amp;output=search&amp;q=https://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php&amp;source=lnms&amp;fbs=ABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg&amp;entry=mc&amp;ved=1t:200715&amp;ictx=111\" jsaction=\"\" data-hveid=\"CEwQAQ\" data-ved=\"2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qi6AMegQITBAB\" ping=\"/url?sa=t&amp;source=web&amp;rct=j&amp;opi=89978449&amp;url=https://maps.google.com/maps%3Fsca_esv%3D46714cf388915209%26output%3Dsearch%26q%3Dhttps://raw.githubusercontent.com/PHPMailer/PHPMailer/master/src/PHPMailer.php%26source%3Dlnms%26fbs%3DABfTbFVyMZGZf1hfvX9uKjN_-G8cxpBkeIeqYwoCbfNVc4vKE4f6ZJqUzPbNrAmWktdS6nG82-1N4OXO01WJkKgjHAhRM_dMav_8Br6WMThXVL1XzUk_7SECJV4Sz2tJuEKugnIdFG8aJ4q2zXeeAqs44FvZOTFPhaEP9AFbXLdKBA2SJvk9zhN89Elt7_82QLbdKUU9lWImPPrNRqQSyGJCk426O6m0Rg%26entry%3Dmc%26ved%3D1t:200715%26ictx%3D111&amp;ved=2ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qi6AMegQITBAB\">\x3cdiv jsname=\"xBNgKe\" class=\"mXwfNd\">\x3cspan class=\"R1QWuf\">Maps\x3c/span>\x3c/div>\x3c/a>\x3c/div>\x3c/div>\x3c/div>");}],[null,function(){google.drty&&google.drty(void 0,!0);}]].forEach(function(a){google.sx(a[0],a[1]);});(function(){'use strict';for(var a;(a=google.adl)==null?0:a.length;)google.adl.pop()();google.adl={push:b=>{b()}};}).call(this);(function(){var m={};var a=m;if(window.W_jd)for(var b in a)window.W_jd[b]=a[b];else window.W_jd=a;})();</script><div id="dbg_"></div></div><div jscontroller="j1wVHf" jsaction="rcuQ6b:npT2md"></div><div jscontroller="I9y8sd" jsaction="rcuQ6b:npT2md"> </div><span jscontroller="DLOxie" data-cte="" jsaction="rcuQ6b:npT2md" style="display:none"></span><div jsname="VTXK3c" data-ved="0ahUKEwins7KShO-VAxUNhKgCHeIpIb8Qi7EMCIgD"></div></body></html>
+<?php
+
+/**
+ * PHPMailer - PHP email creation and transport class.
+ * PHP Version 5.5.
+ *
+ * @see https://github.com/PHPMailer/PHPMailer/ The PHPMailer GitHub project
+ *
+ * @author    Marcus Bointon (Synchro/coolbru) <phpmailer@synchromedia.co.uk>
+ * @author    Jim Jagielski (jimjag) <jimjag@gmail.com>
+ * @author    Andy Prevost (codeworxtech) <codeworxtech@users.sourceforge.net>
+ * @author    Brent R. Matzelle (original founder)
+ * @copyright 2012 - 2020 Marcus Bointon
+ * @copyright 2010 - 2012 Jim Jagielski
+ * @copyright 2004 - 2009 Andy Prevost
+ * @license   https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html GNU Lesser General Public License
+ * @note      This program is distributed in the hope that it will be useful - WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.
+ */
+
+namespace PHPMailer\PHPMailer;
+
+/**
+ * PHPMailer - PHP email creation and transport class.
+ *
+ * @author Marcus Bointon (Synchro/coolbru) <phpmailer@synchromedia.co.uk>
+ * @author Jim Jagielski (jimjag) <jimjag@gmail.com>
+ * @author Andy Prevost (codeworxtech) <codeworxtech@users.sourceforge.net>
+ * @author Brent R. Matzelle (original founder)
+ */
+class PHPMailer
+{
+    const CHARSET_ASCII = 'us-ascii';
+    const CHARSET_ISO88591 = 'iso-8859-1';
+    const CHARSET_UTF8 = 'utf-8';
+
+    const CONTENT_TYPE_PLAINTEXT = 'text/plain';
+    const CONTENT_TYPE_TEXT_CALENDAR = 'text/calendar';
+    const CONTENT_TYPE_TEXT_HTML = 'text/html';
+    const CONTENT_TYPE_MULTIPART_ALTERNATIVE = 'multipart/alternative';
+    const CONTENT_TYPE_MULTIPART_MIXED = 'multipart/mixed';
+    const CONTENT_TYPE_MULTIPART_RELATED = 'multipart/related';
+
+    const ENCODING_7BIT = '7bit';
+    const ENCODING_8BIT = '8bit';
+    const ENCODING_BASE64 = 'base64';
+    const ENCODING_BINARY = 'binary';
+    const ENCODING_QUOTED_PRINTABLE = 'quoted-printable';
+
+    const ENCRYPTION_STARTTLS = 'tls';
+    const ENCRYPTION_SMTPS = 'ssl';
+
+    const ICAL_METHOD_REQUEST = 'REQUEST';
+    const ICAL_METHOD_PUBLISH = 'PUBLISH';
+    const ICAL_METHOD_REPLY = 'REPLY';
+    const ICAL_METHOD_ADD = 'ADD';
+    const ICAL_METHOD_CANCEL = 'CANCEL';
+    const ICAL_METHOD_REFRESH = 'REFRESH';
+    const ICAL_METHOD_COUNTER = 'COUNTER';
+    const ICAL_METHOD_DECLINECOUNTER = 'DECLINECOUNTER';
+    const RFC822_DATE_FORMAT = 'D, j M Y H:i:s O';
+
+    /**
+     * Email priority.
+     * Options: null (default), 1 = High, 3 = Normal, 5 = low.
+     * When null, the header is not set at all.
+     *
+     * @var int|null
+     */
+    public $Priority;
+
+    /**
+     * The character set of the message.
+     *
+     * @var string
+     */
+    public $CharSet = self::CHARSET_ISO88591;
+
+    /**
+     * The MIME Content-Type of the message.
+     *
+     * @var string
+     */
+    public $ContentType = self::CONTENT_TYPE_PLAINTEXT;
+
+    /**
+     * The message encoding.
+     * Options: "8bit", "7bit", "binary", "base64", and "quoted-printable".
+     *
+     * @var string
+     */
+    public $Encoding = self::ENCODING_8BIT;
+
+    /**
+     * Holds the most recent mailer error message.
+     *
+     * @var string
+     */
+    public $ErrorInfo = '';
+
+    /**
+     * The From email address for the message.
+     *
+     * @var string
+     */
+    public $From = '';
+
+    /**
+     * The From name of the message.
+     *
+     * @var string
+     */
+    public $FromName = '';
+
+    /**
+     * The envelope sender of the message.
+     * This will usually be turned into a Return-Path header by the receiver,
+     * and is the address that bounces will be sent to.
+     * If not empty, will be passed via `-f` to sendmail or as the 'MAIL FROM' value over SMTP.
+     *
+     * @var string
+     */
+    public $Sender = '';
+
+    /**
+     * The Subject of the message.
+     *
+     * @var string
+     */
+    public $Subject = '';
+
+    /**
+     * An HTML or plain text message body.
+     * If HTML then call isHTML(true).
+     *
+     * @var string
+     */
+    public $Body = '';
+
+    /**
+     * The plain-text message body.
+     * This body can be read by mail clients that do not have HTML email
+     * capability such as mutt & Eudora.
+     * Clients that can read HTML will view the normal Body.
+     *
+     * @var string
+     */
+    public $AltBody = '';
+
+    /**
+     * An iCal message part body.
+     * Only supported in simple alt or alt_inline message types
+     * To generate iCal event structures, use classes like EasyPeasyICS or iCalcreator.
+     *
+     * @see https://kigkonsult.se/iCalcreator/
+     *
+     * @var string
+     */
+    public $Ical = '';
+
+    /**
+     * Value-array of "method" in Content-Type header "text/calendar"
+     *
+     * @var string[]
+     */
+    protected static $IcalMethods = [
+        self::ICAL_METHOD_REQUEST,
+        self::ICAL_METHOD_PUBLISH,
+        self::ICAL_METHOD_REPLY,
+        self::ICAL_METHOD_ADD,
+        self::ICAL_METHOD_CANCEL,
+        self::ICAL_METHOD_REFRESH,
+        self::ICAL_METHOD_COUNTER,
+        self::ICAL_METHOD_DECLINECOUNTER,
+    ];
+
+    /**
+     * The complete compiled MIME message body.
+     *
+     * @var string
+     */
+    protected $MIMEBody = '';
+
+    /**
+     * The complete compiled MIME message headers.
+     *
+     * @var string
+     */
+    protected $MIMEHeader = '';
+
+    /**
+     * Extra headers that createHeader() doesn't fold in.
+     *
+     * @var string
+     */
+    protected $mailHeader = '';
+
+    /**
+     * Word-wrap the message body to this number of chars.
+     * Set to 0 to not wrap. A useful value here is 78, for RFC2822 section 2.1.1 compliance.
+     *
+     * @see static::STD_LINE_LENGTH
+     *
+     * @var int
+     */
+    public $WordWrap = 0;
+
+    /**
+     * Which method to use to send mail.
+     * Options: "mail", "sendmail", or "smtp".
+     *
+     * @var string
+     */
+    public $Mailer = 'mail';
+
+    /**
+     * The path to the sendmail program.
+     *
+     * @var string
+     */
+    public $Sendmail = '/usr/sbin/sendmail';
+
+    /**
+     * Whether mail() uses a fully sendmail-compatible MTA.
+     * One which supports sendmail's "-oi -f" options.
+     *
+     * @var bool
+     */
+    public $UseSendmailOptions = true;
+
+    /**
+     * The email address that a reading confirmation should be sent to, also known as read receipt.
+     *
+     * @var string
+     */
+    public $ConfirmReadingTo = '';
+
+    /**
+     * The hostname to use in the Message-ID header and as default HELO string.
+     * If empty, PHPMailer attempts to find one with, in order,
+     * $_SERVER['SERVER_NAME'], gethostname(), php_uname('n'), or the value
+     * 'localhost.localdomain'.
+     *
+     * @see PHPMailer::$Helo
+     *
+     * @var string
+     */
+    public $Hostname = '';
+
+    /**
+     * An ID to be used in the Message-ID header.
+     * If empty, a unique id will be generated.
+     * You can set your own, but it must be in the format "<id@domain>",
+     * as defined in RFC5322 section 3.6.4 or it will be ignored.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc5322#section-3.6.4
+     *
+     * @var string
+     */
+    public $MessageID = '';
+
+    /**
+     * The message Date to be used in the Date header.
+     * If empty, the current date will be added.
+     *
+     * @var string
+     */
+    public $MessageDate = '';
+
+    /**
+     * SMTP hosts.
+     * Either a single hostname or multiple semicolon-delimited hostnames.
+     * You can also specify a different port
+     * for each host by using this format: [hostname:port]
+     * (e.g. "smtp1.example.com:25;smtp2.example.com").
+     * You can also specify encryption type, for example:
+     * (e.g. "tls://smtp1.example.com:587;ssl://smtp2.example.com:465").
+     * Hosts will be tried in order.
+     *
+     * @var string
+     */
+    public $Host = 'localhost';
+
+    /**
+     * The default SMTP server port.
+     *
+     * @var int
+     */
+    public $Port = 25;
+
+    /**
+     * The SMTP HELO/EHLO name used for the SMTP connection.
+     * Default is $Hostname. If $Hostname is empty, PHPMailer attempts to find
+     * one with the same method described above for $Hostname.
+     *
+     * @see PHPMailer::$Hostname
+     *
+     * @var string
+     */
+    public $Helo = '';
+
+    /**
+     * What kind of encryption to use on the SMTP connection.
+     * Options: '', static::ENCRYPTION_STARTTLS, or static::ENCRYPTION_SMTPS.
+     *
+     * @var string
+     */
+    public $SMTPSecure = '';
+
+    /**
+     * Whether to enable TLS encryption automatically if a server supports it,
+     * even if `SMTPSecure` is not set to 'tls'.
+     * Be aware that in PHP >= 5.6 this requires that the server's certificates are valid.
+     *
+     * @var bool
+     */
+    public $SMTPAutoTLS = true;
+
+    /**
+     * Whether to use SMTP authentication.
+     * Uses the Username and Password properties.
+     *
+     * @see PHPMailer::$Username
+     * @see PHPMailer::$Password
+     *
+     * @var bool
+     */
+    public $SMTPAuth = false;
+
+    /**
+     * Options array passed to stream_context_create when connecting via SMTP.
+     *
+     * @var array
+     */
+    public $SMTPOptions = [];
+
+    /**
+     * SMTP username.
+     *
+     * @var string
+     */
+    public $Username = '';
+
+    /**
+     * SMTP password.
+     *
+     * @var string
+     */
+    public $Password = '';
+
+    /**
+     * SMTP authentication type. Options are CRAM-MD5, LOGIN, PLAIN, XOAUTH2.
+     * If not specified, the first one from that list that the server supports will be selected.
+     *
+     * @var string
+     */
+    public $AuthType = '';
+
+    /**
+     * SMTP SMTPXClient command attributes
+     *
+     * @var array
+     */
+    protected $SMTPXClient = [];
+
+    /**
+     * An implementation of the PHPMailer OAuthTokenProvider interface.
+     *
+     * @var OAuthTokenProvider
+     */
+    protected $oauth;
+
+    /**
+     * The SMTP server timeout in seconds.
+     * Default of 5 minutes (300sec) is from RFC2821 section 4.5.3.2.
+     *
+     * @var int
+     */
+    public $Timeout = 300;
+
+    /**
+     * Comma separated list of DSN notifications
+     * 'NEVER' under no circumstances a DSN must be returned to the sender.
+     *         If you use NEVER all other notifications will be ignored.
+     * 'SUCCESS' will notify you when your mail has arrived at its destination.
+     * 'FAILURE' will arrive if an error occurred during delivery.
+     * 'DELAY'   will notify you if there is an unusual delay in delivery, but the actual
+     *           delivery's outcome (success or failure) is not yet decided.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc3461.html#section-4.1 for more information about NOTIFY
+     */
+    public $dsn = '';
+
+    /**
+     * SMTP class debug output mode.
+     * Debug output level.
+     * Options:
+     * @see SMTP::DEBUG_OFF: No output
+     * @see SMTP::DEBUG_CLIENT: Client messages
+     * @see SMTP::DEBUG_SERVER: Client and server messages
+     * @see SMTP::DEBUG_CONNECTION: As SERVER plus connection status
+     * @see SMTP::DEBUG_LOWLEVEL: Noisy, low-level data output, rarely needed
+     *
+     * @see SMTP::$do_debug
+     *
+     * @var int
+     */
+    public $SMTPDebug = 0;
+
+    /**
+     * How to handle debug output.
+     * Options:
+     * * `echo` Output plain-text as-is, appropriate for CLI
+     * * `html` Output escaped, line breaks converted to `<br>`, appropriate for browser output
+     * * `error_log` Output to error log as configured in php.ini
+     * By default PHPMailer will use `echo` if run from a `cli` or `cli-server` SAPI, `html` otherwise.
+     * Alternatively, you can provide a callable expecting two params: a message string and the debug level:
+     *
+     * ```php
+     * $mail->Debugoutput = function($str, $level) {echo "debug level $level; message: $str";};
+     * ```
+     *
+     * Alternatively, you can pass in an instance of a PSR-3 compatible logger, though only `debug`
+     * level output is used:
+     *
+     * ```php
+     * $mail->Debugoutput = new myPsr3Logger;
+     * ```
+     *
+     * @see SMTP::$Debugoutput
+     *
+     * @var string|callable|\Psr\Log\LoggerInterface
+     */
+    public $Debugoutput = 'echo';
+
+    /**
+     * Whether to keep the SMTP connection open after each message.
+     * If this is set to true then the connection will remain open after a send,
+     * and closing the connection will require an explicit call to smtpClose().
+     * It's a good idea to use this if you are sending multiple messages as it reduces overhead.
+     * See the mailing list example for how to use it.
+     *
+     * @var bool
+     */
+    public $SMTPKeepAlive = false;
+
+    /**
+     * Whether to split multiple to addresses into multiple messages
+     * or send them all in one message.
+     * Only supported in `mail` and `sendmail` transports, not in SMTP.
+     *
+     * @var bool
+     *
+     * @deprecated 6.0.0 PHPMailer isn't a mailing list manager!
+     */
+    public $SingleTo = false;
+
+    /**
+     * Storage for addresses when SingleTo is enabled.
+     *
+     * @var array
+     */
+    protected $SingleToArray = [];
+
+    /**
+     * Whether to generate VERP addresses on send.
+     * Only applicable when sending via SMTP.
+     *
+     * @see https://en.wikipedia.org/wiki/Variable_envelope_return_path
+     * @see https://www.postfix.org/VERP_README.html Postfix VERP info
+     *
+     * @var bool
+     */
+    public $do_verp = false;
+
+    /**
+     * Whether to allow sending messages with an empty body.
+     *
+     * @var bool
+     */
+    public $AllowEmpty = false;
+
+    /**
+     * DKIM selector.
+     *
+     * @var string
+     */
+    public $DKIM_selector = '';
+
+    /**
+     * DKIM Identity.
+     * Usually the email address used as the source of the email.
+     *
+     * @var string
+     */
+    public $DKIM_identity = '';
+
+    /**
+     * DKIM passphrase.
+     * Used if your key is encrypted.
+     *
+     * @var string
+     */
+    public $DKIM_passphrase = '';
+
+    /**
+     * DKIM signing domain name.
+     *
+     * @example 'example.com'
+     *
+     * @var string
+     */
+    public $DKIM_domain = '';
+
+    /**
+     * DKIM Copy header field values for diagnostic use.
+     *
+     * @var bool
+     */
+    public $DKIM_copyHeaderFields = true;
+
+    /**
+     * DKIM Extra signing headers.
+     *
+     * @example ['List-Unsubscribe', 'List-Help']
+     *
+     * @var array
+     */
+    public $DKIM_extraHeaders = [];
+
+    /**
+     * DKIM private key file path.
+     *
+     * @var string
+     */
+    public $DKIM_private = '';
+
+    /**
+     * DKIM private key string.
+     *
+     * If set, takes precedence over `$DKIM_private`.
+     *
+     * @var string
+     */
+    public $DKIM_private_string = '';
+
+    /**
+     * Callback Action function name.
+     *
+     * The function that handles the result of the send email action.
+     * It is called out by send() for each email sent.
+     *
+     * Value can be any php callable: https://www.php.net/is_callable
+     *
+     * Parameters:
+     *   bool $result           result of the send action
+     *   array   $to            email addresses of the recipients
+     *   array   $cc            cc email addresses
+     *   array   $bcc           bcc email addresses
+     *   string  $subject       the subject
+     *   string  $body          the email body
+     *   string  $from          email address of sender
+     *   string  $extra         extra information of possible use
+     *                          'smtp_transaction_id' => last smtp transaction id
+     *
+     * @var callable|callable-string
+     */
+    public $action_function = '';
+
+    /**
+     * What to put in the X-Mailer header.
+     * Options: An empty string for PHPMailer default, whitespace/null for none, or a string to use.
+     *
+     * @var string|null
+     */
+    public $XMailer = '';
+
+    /**
+     * Which validator to use by default when validating email addresses.
+     * May be a callable to inject your own validator, but there are several built-in validators.
+     * The default validator uses PHP's FILTER_VALIDATE_EMAIL filter_var option.
+     *
+     * If CharSet is UTF8, the validator is left at the default value,
+     * and you send to addresses that use non-ASCII local parts, then
+     * PHPMailer automatically changes to the 'eai' validator.
+     *
+     * @see PHPMailer::validateAddress()
+     *
+     * @var string|callable
+     */
+    public static $validator = 'php';
+
+    /**
+     * An instance of the SMTP sender class.
+     *
+     * @var SMTP
+     */
+    protected $smtp;
+
+    /**
+     * The array of 'to' names and addresses.
+     *
+     * @var array
+     */
+    protected $to = [];
+
+    /**
+     * The array of 'cc' names and addresses.
+     *
+     * @var array
+     */
+    protected $cc = [];
+
+    /**
+     * The array of 'bcc' names and addresses.
+     *
+     * @var array
+     */
+    protected $bcc = [];
+
+    /**
+     * The array of reply-to names and addresses.
+     *
+     * @var array
+     */
+    protected $ReplyTo = [];
+
+    /**
+     * An array of all kinds of addresses.
+     * Includes all of $to, $cc, $bcc.
+     *
+     * @see PHPMailer::$to
+     * @see PHPMailer::$cc
+     * @see PHPMailer::$bcc
+     *
+     * @var array
+     */
+    protected $all_recipients = [];
+
+    /**
+     * An array of names and addresses queued for validation.
+     * In send(), valid and non duplicate entries are moved to $all_recipients
+     * and one of $to, $cc, or $bcc.
+     * This array is used only for addresses with IDN.
+     *
+     * @see PHPMailer::$to
+     * @see PHPMailer::$cc
+     * @see PHPMailer::$bcc
+     * @see PHPMailer::$all_recipients
+     *
+     * @var array
+     */
+    protected $RecipientsQueue = [];
+
+    /**
+     * An array of reply-to names and addresses queued for validation.
+     * In send(), valid and non duplicate entries are moved to $ReplyTo.
+     * This array is used only for addresses with IDN.
+     *
+     * @see PHPMailer::$ReplyTo
+     *
+     * @var array
+     */
+    protected $ReplyToQueue = [];
+
+    /**
+     * Whether the need for SMTPUTF8 has been detected. Set by
+     * preSend() if necessary.
+     *
+     * @var bool
+     */
+    public $UseSMTPUTF8 = false;
+
+    /**
+     * The array of attachments.
+     *
+     * @var array
+     */
+    protected $attachment = [];
+
+    /**
+     * The array of custom headers.
+     *
+     * @var array
+     */
+    protected $CustomHeader = [];
+
+    /**
+     * The most recent Message-ID (including angular brackets).
+     *
+     * @var string
+     */
+    protected $lastMessageID = '';
+
+    /**
+     * The message's MIME type.
+     *
+     * @var string
+     */
+    protected $message_type = '';
+
+    /**
+     * The array of MIME boundary strings.
+     *
+     * @var array
+     */
+    protected $boundary = [];
+
+    /**
+     * The array of available text strings for the current language.
+     *
+     * @var array
+     */
+    protected static $language = [];
+
+    /**
+     * The number of errors encountered.
+     *
+     * @var int
+     */
+    protected $error_count = 0;
+
+    /**
+     * The S/MIME certificate file path.
+     *
+     * @var string
+     */
+    protected $sign_cert_file = '';
+
+    /**
+     * The S/MIME key file path.
+     *
+     * @var string
+     */
+    protected $sign_key_file = '';
+
+    /**
+     * The optional S/MIME extra certificates ("CA Chain") file path.
+     *
+     * @var string
+     */
+    protected $sign_extracerts_file = '';
+
+    /**
+     * The S/MIME password for the key.
+     * Used only if the key is encrypted.
+     *
+     * @var string
+     */
+    protected $sign_key_pass = '';
+
+    /**
+     * Whether to throw exceptions for errors.
+     *
+     * @var bool
+     */
+    protected $exceptions = false;
+
+    /**
+     * Unique ID used for message ID and boundaries.
+     *
+     * @var string
+     */
+    protected $uniqueid = '';
+
+    /**
+     * The PHPMailer Version number.
+     *
+     * @var string
+     */
+    const VERSION = '7.1.1';
+
+    /**
+     * Error severity: message only, continue processing.
+     *
+     * @var int
+     */
+    const STOP_MESSAGE = 0;
+
+    /**
+     * Error severity: message, likely ok to continue processing.
+     *
+     * @var int
+     */
+    const STOP_CONTINUE = 1;
+
+    /**
+     * Error severity: message, plus full stop, critical error reached.
+     *
+     * @var int
+     */
+    const STOP_CRITICAL = 2;
+
+    /**
+     * The SMTP standard CRLF line break.
+     * If you want to change line break format, change static::$LE, not this.
+     */
+    const CRLF = "\r\n";
+
+    /**
+     * "Folding White Space" a white space string used for line folding.
+     */
+    const FWS = ' ';
+
+    /**
+     * SMTP RFC standard line ending; Carriage Return, Line Feed.
+     *
+     * @var string
+     */
+    protected static $LE = self::CRLF;
+
+    /**
+     * The maximum line length supported by mail().
+     *
+     * Background: mail() will sometimes corrupt messages
+     * with headers longer than 65 chars, see #818.
+     *
+     * @var int
+     */
+    const MAIL_MAX_LINE_LENGTH = 63;
+
+    /**
+     * The maximum line length allowed by RFC 2822 section 2.1.1.
+     *
+     * @var int
+     */
+    const MAX_LINE_LENGTH = 998;
+
+    /**
+     * The lower maximum line length allowed by RFC 2822 section 2.1.1.
+     * This length does NOT include the line break
+     * 76 means that lines will be 77 or 78 chars depending on whether
+     * the line break format is LF or CRLF; both are valid.
+     *
+     * @var int
+     */
+    const STD_LINE_LENGTH = 76;
+
+    /**
+     * Constructor.
+     *
+     * @param bool $exceptions Should we throw external exceptions?
+     */
+    public function __construct($exceptions = null)
+    {
+        if (null !== $exceptions) {
+            $this->exceptions = (bool) $exceptions;
+        }
+        //Pick an appropriate debug output format automatically
+        $this->Debugoutput = (strpos(PHP_SAPI, 'cli') !== false ? 'echo' : 'html');
+    }
+
+    /**
+     * Destructor.
+     */
+    public function __destruct()
+    {
+        //Close any open SMTP connection nicely
+        $this->smtpClose();
+    }
+
+    /**
+     * Call mail() in a safe_mode-aware fashion.
+     * Also, unless sendmail_path points to sendmail (or something that
+     * claims to be sendmail), don't pass params (not a perfect fix,
+     * but it will do).
+     *
+     * @param string      $to      To
+     * @param string      $subject Subject
+     * @param string      $body    Message Body
+     * @param string      $header  Additional Header(s)
+     * @param string|null $params  Params
+     *
+     * @return bool
+     */
+    private function mailPassthru($to, $subject, $body, $header, $params)
+    {
+        //Check overloading of mail function to avoid double-encoding
+        // phpcs:ignore PHPCompatibility.IniDirectives.RemovedIniDirectives.mbstring_func_overloadDeprecatedRemoved
+        if ((int)ini_get('mbstring.func_overload') & 1) {
+            $subject = $this->secureHeader($subject);
+        } else {
+            $subject = $this->encodeHeader($this->secureHeader($subject));
+        }
+        //Calling mail() with null params breaks
+        $this->edebug('Sending with mail()');
+        $this->edebug('Sendmail path: ' . ini_get('sendmail_path'));
+        $this->edebug("Envelope sender: {$this->Sender}");
+        $this->edebug("To: {$to}");
+        $this->edebug("Subject: {$subject}");
+        $this->edebug("Headers: {$header}");
+        if (!$this->UseSendmailOptions || null === $params) {
+            $result = @mail($to, $subject, $body, $header);
+        } else {
+            $this->edebug("Additional params: {$params}");
+            $result = @mail($to, $subject, $body, $header, $params);
+        }
+        $this->edebug('Result: ' . ($result ? 'true' : 'false'));
+        return $result;
+    }
+
+    /**
+     * Output debugging info via a user-defined method.
+     * Only generates output if debug output is enabled.
+     *
+     * @see PHPMailer::$Debugoutput
+     * @see PHPMailer::$SMTPDebug
+     *
+     * @param string $str
+     */
+    protected function edebug($str)
+    {
+        if ($this->SMTPDebug <= 0) {
+            return;
+        }
+        //Is this a PSR-3 logger?
+        if ($this->Debugoutput instanceof \Psr\Log\LoggerInterface) {
+            $this->Debugoutput->debug(rtrim($str, "\r\n"));
+
+            return;
+        }
+        //Avoid clash with built-in function names
+        if (is_callable($this->Debugoutput) && !in_array($this->Debugoutput, ['error_log', 'html', 'echo'])) {
+            call_user_func($this->Debugoutput, $str, $this->SMTPDebug);
+
+            return;
+        }
+        switch ($this->Debugoutput) {
+            case 'error_log':
+                //Don't output, just log
+                /** @noinspection ForgottenDebugOutputInspection */
+                error_log($str);
+                break;
+            case 'html':
+                //Cleans up output a bit for a better looking, HTML-safe output
+                echo htmlentities(
+                    preg_replace('/[\r\n]+/', '', $str),
+                    ENT_QUOTES,
+                    'UTF-8'
+                ), "<br>\n";
+                break;
+            case 'echo':
+            default:
+                //Normalize line breaks
+                $str = preg_replace('/\r\n|\r/m', "\n", $str);
+                echo gmdate('Y-m-d H:i:s'),
+                "\t",
+                    //Trim trailing space
+                trim(
+                    //Indent for readability, except for trailing break
+                    str_replace(
+                        "\n",
+                        "\n                   \t                  ",
+                        trim($str)
+                    )
+                ),
+                "\n";
+        }
+    }
+
+    /**
+     * Sets message type to HTML or plain.
+     *
+     * @param bool $isHtml True for HTML mode
+     */
+    public function isHTML($isHtml = true)
+    {
+        if ($isHtml) {
+            $this->ContentType = static::CONTENT_TYPE_TEXT_HTML;
+        } else {
+            $this->ContentType = static::CONTENT_TYPE_PLAINTEXT;
+        }
+    }
+
+    /**
+     * Send messages using SMTP.
+     */
+    public function isSMTP()
+    {
+        $this->Mailer = 'smtp';
+    }
+
+    /**
+     * Send messages using PHP's mail() function.
+     */
+    public function isMail()
+    {
+        $this->Mailer = 'mail';
+    }
+
+    /**
+     * Extract sendmail path and parse to deal with known parameters.
+     *
+     * @param string $sendmailPath The sendmail path as set in php.ini
+     *
+     * @return string The sendmail path without the known parameters
+     */
+    private function parseSendmailPath($sendmailPath)
+    {
+        $sendmailPath = trim((string)$sendmailPath);
+        if ($sendmailPath === '') {
+            return $sendmailPath;
+        }
+
+        $parts = preg_split('/\s+/', $sendmailPath);
+        if (empty($parts)) {
+            return $sendmailPath;
+        }
+
+        $command = array_shift($parts);
+        $remainder = [];
+
+        // Parse only -t, -i, -oi and -f parameters.
+        for ($i = 0; $i < count($parts); ++$i) {
+            $part = $parts[$i];
+            if (preg_match('/^-(i|oi|t)$/', $part, $matches)) {
+                continue;
+            }
+            if (preg_match('/^-f(.*)$/', $part, $matches)) {
+                $address = $matches[1];
+                if ($address === '' && isset($parts[$i + 1]) && strpos($parts[$i + 1], '-') !== 0) {
+                    $address = $parts[++$i];
+                }
+                $this->Sender = $address;
+                continue;
+            }
+
+            $remainder[] = $part;
+        }
+
+        // The params that are not parsed are added back to the command.
+        if (!empty($remainder)) {
+            $command .= ' ' . implode(' ', $remainder);
+        }
+
+        return $command;
+    }
+
+    /**
+     * Send messages using $Sendmail.
+     */
+    public function isSendmail()
+    {
+        $ini_sendmail_path = ini_get('sendmail_path');
+
+        if (false === stripos($ini_sendmail_path, 'sendmail')) {
+            $ini_sendmail_path = '/usr/sbin/sendmail';
+        }
+        $this->Sendmail = $this->parseSendmailPath($ini_sendmail_path);
+        $this->Mailer = 'sendmail';
+    }
+
+    /**
+     * Send messages using qmail.
+     */
+    public function isQmail()
+    {
+        $ini_sendmail_path = ini_get('sendmail_path');
+
+        if (false === stripos($ini_sendmail_path, 'qmail')) {
+            $ini_sendmail_path = '/var/qmail/bin/qmail-inject';
+        }
+        $this->Sendmail = $this->parseSendmailPath($ini_sendmail_path);
+        $this->Mailer = 'qmail';
+    }
+
+    /**
+     * Add a "To" address.
+     *
+     * @param string $address The email address to send to
+     * @param string $name
+     *
+     * @throws Exception
+     *
+     * @return bool true on success, false if address already used or invalid in some way
+     */
+    public function addAddress($address, $name = '')
+    {
+        return $this->addOrEnqueueAnAddress('to', $address, $name);
+    }
+
+    /**
+     * Add a "CC" address.
+     *
+     * @param string $address The email address to send to
+     * @param string $name
+     *
+     * @throws Exception
+     *
+     * @return bool true on success, false if address already used or invalid in some way
+     */
+    public function addCC($address, $name = '')
+    {
+        return $this->addOrEnqueueAnAddress('cc', $address, $name);
+    }
+
+    /**
+     * Add a "BCC" address.
+     *
+     * @param string $address The email address to send to
+     * @param string $name
+     *
+     * @throws Exception
+     *
+     * @return bool true on success, false if address already used or invalid in some way
+     */
+    public function addBCC($address, $name = '')
+    {
+        return $this->addOrEnqueueAnAddress('bcc', $address, $name);
+    }
+
+    /**
+     * Add a "Reply-To" address.
+     *
+     * @param string $address The email address to reply to
+     * @param string $name
+     *
+     * @throws Exception
+     *
+     * @return bool true on success, false if address already used or invalid in some way
+     */
+    public function addReplyTo($address, $name = '')
+    {
+        return $this->addOrEnqueueAnAddress('Reply-To', $address, $name);
+    }
+
+    /**
+     * Add an address to one of the recipient arrays or to the ReplyTo array. Because PHPMailer
+     * can't validate addresses with an IDN without knowing the PHPMailer::$CharSet (that can still
+     * be modified after calling this function), addition of such addresses is delayed until send().
+     * Addresses that have been added already return false, but do not throw exceptions.
+     *
+     * @param string $kind    One of 'to', 'cc', 'bcc', or 'Reply-To'
+     * @param string $address The email address
+     * @param string $name    An optional username associated with the address
+     *
+     * @throws Exception
+     *
+     * @return bool true on success, false if address already used or invalid in some way
+     */
+    protected function addOrEnqueueAnAddress($kind, $address, $name)
+    {
+        $pos = false;
+        if ($address !== null) {
+            $address = trim($address);
+            $pos = strrpos($address, '@');
+        }
+        if (false === $pos) {
+            //At-sign is missing.
+            $error_message = sprintf(
+                '%s (%s): %s',
+                self::lang('invalid_address'),
+                $kind,
+                $address
+            );
+            $this->setError($error_message);
+            $this->edebug($error_message);
+            if ($this->exceptions) {
+                throw new Exception($error_message);
+            }
+
+            return false;
+        }
+        if ($name !== null && is_string($name)) {
+            $name = trim(preg_replace('/[\r\n]+/', '', $name)); //Strip breaks and trim
+        } else {
+            $name = '';
+        }
+        $params = [$kind, $address, $name];
+        //Enqueue addresses with IDN until we know the PHPMailer::$CharSet.
+        //Domain is assumed to be whatever is after the last @ symbol in the address
+        if ($this->has8bitChars(substr($address, ++$pos))) {
+            if (static::idnSupported()) {
+                if ('Reply-To' !== $kind) {
+                    if (!array_key_exists($address, $this->RecipientsQueue)) {
+                        $this->RecipientsQueue[$address] = $params;
+
+                        return true;
+                    }
+                } elseif (!array_key_exists($address, $this->ReplyToQueue)) {
+                    $this->ReplyToQueue[$address] = $params;
+
+                    return true;
+                }
+            }
+            //We have an 8-bit domain, but we are missing the necessary extensions to support it
+            //Or we are already sending to this address
+            return false;
+        }
+
+        //Immediately add standard addresses without IDN.
+        return call_user_func_array([$this, 'addAnAddress'], $params);
+    }
+
+    /**
+     * Set the boundaries to use for delimiting MIME parts.
+     * If you override this, ensure you set all 3 boundaries to unique values.
+     * The default boundaries include a "=_" sequence which cannot occur in quoted-printable bodies,
+     * as suggested by https://www.rfc-editor.org/rfc/rfc2045#section-6.7
+     *
+     * @return void
+     */
+    public function setBoundaries()
+    {
+        $this->uniqueid = $this->generateId();
+        $this->boundary[1] = 'b1=_' . $this->uniqueid;
+        $this->boundary[2] = 'b2=_' . $this->uniqueid;
+        $this->boundary[3] = 'b3=_' . $this->uniqueid;
+    }
+
+    /**
+     * Add an address to one of the recipient arrays or to the ReplyTo array.
+     * Addresses that have been added already return false, but do not throw exceptions.
+     *
+     * @param string $kind    One of 'to', 'cc', 'bcc', or 'ReplyTo'
+     * @param string $address The email address to send, resp. to reply to
+     * @param string $name
+     *
+     * @throws Exception
+     *
+     * @return bool true on success, false if address already used or invalid in some way
+     */
+    protected function addAnAddress($kind, $address, $name = '')
+    {
+        if (
+            self::$validator === 'php' &&
+            ((bool) preg_match('/[\x80-\xFF]/', $address))
+        ) {
+            //The caller has not altered the validator and is sending to an address
+            //with UTF-8, so assume that they want UTF-8 support instead of failing
+            $this->CharSet = self::CHARSET_UTF8;
+            self::$validator = 'eai';
+        }
+        if (!in_array($kind, ['to', 'cc', 'bcc', 'Reply-To'])) {
+            $error_message = sprintf(
+                '%s: %s',
+                self::lang('Invalid recipient kind'),
+                $kind
+            );
+            $this->setError($error_message);
+            $this->edebug($error_message);
+            if ($this->exceptions) {
+                throw new Exception($error_message);
+            }
+
+            return false;
+        }
+        if (!static::validateAddress($address)) {
+            $error_message = sprintf(
+                '%s (%s): %s',
+                self::lang('invalid_address'),
+                $kind,
+                $address
+            );
+            $this->setError($error_message);
+            $this->edebug($error_message);
+            if ($this->exceptions) {
+                throw new Exception($error_message);
+            }
+
+            return false;
+        }
+        if ('Reply-To' !== $kind) {
+            if (!array_key_exists(strtolower($address), $this->all_recipients)) {
+                $this->{$kind}[] = [$address, $name];
+                $this->all_recipients[strtolower($address)] = true;
+
+                return true;
+            }
+        } else {
+            foreach ($this->ReplyTo as $replyTo) {
+                if (0 === strcasecmp($replyTo[0], $address)) {
+                    return false;
+                }
+            }
+            $this->ReplyTo[] = [$address, $name];
+
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * Parse and validate a string containing one or more RFC822-style comma-separated email addresses
+     * of the form "display name <address>" into an array of name/address pairs.
+     * Uses the imap_rfc822_parse_adrlist function if the IMAP extension is available and
+     * the deprecated $useimap argument is truthy.
+     * Note that quotes in the name part are removed.
+     *
+     * @deprecated This method will be removed in the next major release of PHPMailer.
+     * @see https://www.andrew.cmu.edu/user/agreen1/testing/mrbs/web/Mail/RFC822.php A more careful implementation
+     *
+     * @param string $addrstr The address list string
+     * @param bool|null $useimap Deprecated in PHPMailer 6.11.0.
+     *                           Truthy values request the deprecated IMAP parser
+     *                           and trigger a deprecation warning.
+     * @param string $charset The charset to use when decoding the address list string.
+     *
+     * @return array
+     */
+    public static function parseAddresses($addrstr, $useimap = null, $charset = self::CHARSET_ISO88591)
+    {
+        if ($useimap) {
+            trigger_error(self::lang('deprecated_argument') . '$useimap', E_USER_DEPRECATED);
+        }
+        $addresses = [];
+        if ($useimap !== false && function_exists('imap_rfc822_parse_adrlist')) {
+            //Use this built-in parser if it's available
+            // phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.imap_rfc822_parse_adrlistRemoved -- wrapped in function_exists()
+            $list = imap_rfc822_parse_adrlist($addrstr, '');
+            // Clear any potential IMAP errors to get rid of notices being thrown at end of script.
+            // phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.imap_errorsRemoved -- wrapped in function_exists()
+            imap_errors();
+            foreach ($list as $address) {
+                if (
+                    '.SYNTAX-ERROR.' !== $address->host &&
+                    static::validateAddress($address->mailbox . '@' . $address->host)
+                ) {
+                    //Decode the name part if it's present and maybe encoded
+                    if (
+                        property_exists($address, 'personal')
+                        && is_string($address->personal)
+                        && $address->personal !== ''
+                    ) {
+                        $address->personal = static::decodeHeader($address->personal, $charset);
+                    }
+
+                    $addresses[] = [
+                        'name' => (property_exists($address, 'personal') ? $address->personal : ''),
+                        'address' => $address->mailbox . '@' . $address->host,
+                    ];
+                }
+            }
+        } else {
+            //Use this simpler parser
+            $addresses = static::parseSimplerAddresses($addrstr, $charset);
+        }
+
+        return $addresses;
+    }
+
+    /**
+     * Parse a string containing one or more RFC822-style comma-separated email addresses
+     * with the form "display name <address>" into an array of name/address pairs.
+     * Uses a simpler parser that does not require the IMAP extension but doesnt support
+     * the full RFC822 spec. For full RFC822 support, use the PHP IMAP extension.
+     *
+     * @param string $addrstr The address list string
+     * @param string $charset The charset to use when decoding the address list string.
+     *
+     * @return array
+     */
+    protected static function parseSimplerAddresses($addrstr, $charset)
+    {
+        // Emit a runtime notice to recommend using the IMAP extension for full RFC822 parsing
+        trigger_error(self::lang('imap_recommended'), E_USER_NOTICE);
+
+        $addresses = [];
+        $list = explode(',', $addrstr);
+        foreach ($list as $address) {
+            $address = trim($address);
+            //Is there a separate name part?
+            if (strpos($address, '<') === false) {
+                //No separate name, just use the whole thing
+                if (static::validateAddress($address)) {
+                    $addresses[] = [
+                        'name' => '',
+                        'address' => $address,
+                    ];
+                }
+            } else {
+                $parsed = static::parseEmailString($address);
+                $email = $parsed['email'];
+                if (static::validateAddress($email)) {
+                    $name = static::decodeHeader($parsed['name'], $charset);
+                    $addresses[] = [
+                        //Remove any surrounding quotes and spaces from the name
+                        'name' => trim($name, '\'" '),
+                        'address' => $email,
+                    ];
+                }
+            }
+        }
+
+        return $addresses;
+    }
+
+    /**
+     * Parse a string containing an email address with an optional name
+     * and divide it into a name and email address.
+     *
+     * @param string $input The email with name.
+     *
+     * @return array{name: string, email: string}
+     */
+    private static function parseEmailString($input)
+    {
+        $input = trim((string)$input);
+
+        if ($input === '') {
+            return ['name' => '', 'email' => ''];
+        }
+
+        $pattern = '/^\s*(?:(?:"([^"]*)"|\'([^\']*)\'|([^<]*?))\s*)?<\s*([^>]+)\s*>\s*$/';
+        if (preg_match($pattern, $input, $matches)) {
+            $name = '';
+            // Double quotes including special scenarios.
+            if (isset($matches[1]) && $matches[1] !== '') {
+                $name = $matches[1];
+            // Single quotes including special scenarios.
+            } elseif (isset($matches[2]) && $matches[2] !== '') {
+                $name = $matches[2];
+            // Simplest scenario, name and email are in the format "Name <email>".
+            } elseif (isset($matches[3])) {
+                $name = trim($matches[3]);
+            }
+
+            return ['name' => $name, 'email' => trim($matches[4])];
+        }
+
+        return ['name' => '', 'email' => $input];
+    }
+
+    /**
+     * Set the From and FromName properties.
+     *
+     * @param string $address
+     * @param string $name
+     * @param bool   $auto    Whether to also set the Sender address, defaults to true
+     *
+     * @throws Exception
+     *
+     * @return bool
+     */
+    public function setFrom($address, $name = '', $auto = true)
+    {
+        if (is_null($name)) {
+            //Helps avoid a deprecation warning in the preg_replace() below
+            $name = '';
+        }
+        $address = trim((string)$address);
+        $name = trim(preg_replace('/[\r\n]+/', '', $name)); //Strip breaks and trim
+        //Don't validate now addresses with IDN. Will be done in send().
+        $pos = strrpos($address, '@');
+        if (
+            (false === $pos)
+            || ((!$this->has8bitChars(substr($address, ++$pos)) || !static::idnSupported())
+            && !static::validateAddress($address))
+        ) {
+            $error_message = sprintf(
+                '%s (From): %s',
+                self::lang('invalid_address'),
+                $address
+            );
+            $this->setError($error_message);
+            $this->edebug($error_message);
+            if ($this->exceptions) {
+                throw new Exception($error_message);
+            }
+
+            return false;
+        }
+        $this->From = $address;
+        $this->FromName = $name;
+        if ($auto && empty($this->Sender)) {
+            $this->Sender = $address;
+        }
+
+        return true;
+    }
+
+    /**
+     * Return the Message-ID header of the last email.
+     * Technically this is the value from the last time the headers were created,
+     * but it's also the message ID of the last sent message except in
+     * pathological cases.
+     *
+     * @return string
+     */
+    public function getLastMessageID()
+    {
+        return $this->lastMessageID;
+    }
+
+    /**
+     * Check that a string looks like an email address.
+     * Validation patterns supported:
+     * * `auto` Pick best pattern automatically;
+     * * `pcre8` Use the squiloople.com pattern, requires PCRE > 8.0;
+     * * `pcre` Use old PCRE implementation;
+     * * `php` Use PHP built-in FILTER_VALIDATE_EMAIL;
+     * * `html5` Use the pattern given by the HTML5 spec for 'email' type form input elements.
+     * * `eai` Use a pattern similar to the HTML5 spec for 'email' and to firefox, extended to support EAI (RFC6530).
+     * * `noregex` Don't use a regex: super fast, really dumb.
+     * Alternatively you may pass in a callable to inject your own validator, for example:
+     *
+     * ```php
+     * PHPMailer::validateAddress('user@example.com', function($address) {
+     *     return (strpos($address, '@') !== false);
+     * });
+     * ```
+     *
+     * You can also set the PHPMailer::$validator static to a callable, allowing built-in methods to use your validator.
+     *
+     * @param string          $address       The email address to check
+     * @param string|callable $patternselect Which pattern to use
+     *
+     * @return bool
+     */
+    public static function validateAddress($address, $patternselect = null)
+    {
+        if (null === $patternselect) {
+            $patternselect = static::$validator;
+        }
+        //Don't allow strings as callables, see SECURITY.md and CVE-2021-3603
+        if (is_callable($patternselect) && !is_string($patternselect)) {
+            return call_user_func($patternselect, $address);
+        }
+        //Reject line breaks in addresses; it's valid RFC5322, but not RFC5321
+        if (strpos($address, "\n") !== false || strpos($address, "\r") !== false) {
+            return false;
+        }
+        switch ($patternselect) {
+            case 'pcre': //Kept for BC
+            case 'pcre8':
+                /*
+                 * A more complex and more permissive version of the RFC5322 regex on which FILTER_VALIDATE_EMAIL
+                 * is based.
+                 * In addition to the addresses allowed by filter_var, also permits:
+                 *  * dotless domains: `a@b`
+                 *  * comments: `1234 @ local(blah) .machine .example`
+                 *  * quoted elements: `'"test blah"@example.org'`
+                 *  * numeric TLDs: `a@b.123`
+                 *  * unbracketed IPv4 literals: `a@192.168.0.1`
+                 *  * IPv6 literals: 'first.last@[IPv6:a1::]'
+                 * Not all of these will necessarily work for sending!
+                 *
+                 * @copyright 2009-2010 Michael Rushton
+                 * Feel free to use and redistribute this code. But please keep this copyright notice.
+                 */
+                return (bool) preg_match(
+                    '/^(?!(?>(?1)"?(?>\\\[ -~]|[^"])"?(?1)){255,})(?!(?>(?1)"?(?>\\\[ -~]|[^"])"?(?1)){65,}@)' .
+                    '((?>(?>(?>((?>(?>(?>\x0D\x0A)?[\t ])+|(?>[\t ]*\x0D\x0A)?[\t ]+)?)(\((?>(?2)' .
+                    '(?>[\x01-\x08\x0B\x0C\x0E-\'*-\[\]-\x7F]|\\\[\x00-\x7F]|(?3)))*(?2)\)))+(?2))|(?2))?)' .
+                    '([!#-\'*+\/-9=?^-~-]+|"(?>(?2)(?>[\x01-\x08\x0B\x0C\x0E-!#-\[\]-\x7F]|\\\[\x00-\x7F]))*' .
+                    '(?2)")(?>(?1)\.(?1)(?4))*(?1)@(?!(?1)[a-z0-9-]{64,})(?1)(?>([a-z0-9](?>[a-z0-9-]*[a-z0-9])?)' .
+                    '(?>(?1)\.(?!(?1)[a-z0-9-]{64,})(?1)(?5)){0,126}|\[(?:(?>IPv6:(?>([a-f0-9]{1,4})(?>:(?6)){7}' .
+                    '|(?!(?:.*[a-f0-9][:\]]){8,})((?6)(?>:(?6)){0,6})?::(?7)?))|(?>(?>IPv6:(?>(?6)(?>:(?6)){5}:' .
+                    '|(?!(?:.*[a-f0-9]:){6,})(?8)?::(?>((?6)(?>:(?6)){0,4}):)?))?(25[0-5]|2[0-4][0-9]|1[0-9]{2}' .
+                    '|[1-9]?[0-9])(?>\.(?9)){3}))\])(?1)$/isD',
+                    $address
+                );
+            case 'html5':
+                /*
+                 * This is the pattern used in the HTML5 spec for validation of 'email' type form input elements.
+                 *
+                 * @see https://html.spec.whatwg.org/#e-mail-state-(type=email)
+                 */
+                return (bool) preg_match(
+                    '/^[a-zA-Z0-9.!#$%&\'*+\/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}' .
+                    '[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/sD',
+                    $address
+                );
+            case 'eai':
+                /*
+                 * This is the pattern used in the HTML5 spec for validation of 'email' type
+                 * form input elements (as above), modified to accept Unicode email addresses.
+                 * This is also more lenient than Firefox' html5 spec, in order to make the regex faster.
+                 * 'eai' is an acronym for Email Address Internationalization.
+                 * This validator is selected automatically if you attempt to use recipient addresses
+                 * that contain Unicode characters in the local part.
+                 *
+                 * @see https://html.spec.whatwg.org/#e-mail-state-(type=email)
+                 * @see https://en.wikipedia.org/wiki/International_email
+                 */
+                return (bool) preg_match(
+                    '/^[-\p{L}\p{N}\p{M}.!#$%&\'*+\/=?^_`{|}~]+@[\p{L}\p{N}\p{M}](?:[\p{L}\p{N}\p{M}-]{0,61}' .
+                    '[\p{L}\p{N}\p{M}])?(?:\.[\p{L}\p{N}\p{M}]' .
+                    '(?:[-\p{L}\p{N}\p{M}]{0,61}[\p{L}\p{N}\p{M}])?)*$/usD',
+                    $address
+                );
+            case 'php':
+            default:
+                return filter_var($address, FILTER_VALIDATE_EMAIL) !== false;
+        }
+    }
+
+    /**
+     * Tells whether IDNs (Internationalized Domain Names) are supported or not. This requires the
+     * `intl` and `mbstring` PHP extensions.
+     *
+     * @return bool `true` if required functions for IDN support are present
+     */
+    public static function idnSupported()
+    {
+        return function_exists('idn_to_ascii') && function_exists('mb_convert_encoding');
+    }
+
+    /**
+     * Converts IDN in given email address to its ASCII form, also known as punycode, if possible.
+     * Important: Address must be passed in same encoding as currently set in PHPMailer::$CharSet.
+     * This function silently returns unmodified address if:
+     * - No conversion is necessary (i.e. domain name is not an IDN, or is already in ASCII form)
+     * - Conversion to punycode is impossible (e.g. required PHP functions are not available)
+     *   or fails for any reason (e.g. domain contains characters not allowed in an IDN).
+     *
+     * @see PHPMailer::$CharSet
+     *
+     * @param string $address The email address to convert
+     *
+     * @return string The encoded address in ASCII form
+     */
+    public function punyencodeAddress($address)
+    {
+        //Verify we have required functions, CharSet, and at-sign.
+        $pos = strrpos($address, '@');
+        if (
+            !empty($this->CharSet) &&
+            false !== $pos &&
+            static::idnSupported()
+        ) {
+            $domain = substr($address, ++$pos);
+            //Verify CharSet string is a valid one, and domain properly encoded in this CharSet.
+            if ($this->has8bitChars($domain) && @mb_check_encoding($domain, $this->CharSet)) {
+                //Convert the domain from whatever charset it's in to UTF-8
+                $domain = mb_convert_encoding($domain, self::CHARSET_UTF8, $this->CharSet);
+                //Ignore IDE complaints about this line - method signature changed in PHP 5.4
+                $errorcode = 0;
+                if (defined('INTL_IDNA_VARIANT_UTS46')) {
+                    //Use the current punycode standard (appeared in PHP 7.2)
+                    $punycode = idn_to_ascii(
+                        $domain,
+                        \IDNA_DEFAULT | \IDNA_USE_STD3_RULES | \IDNA_CHECK_BIDI |
+                            \IDNA_CHECK_CONTEXTJ | \IDNA_NONTRANSITIONAL_TO_ASCII,
+                        \INTL_IDNA_VARIANT_UTS46
+                    );
+                } elseif (defined('INTL_IDNA_VARIANT_2003')) {
+                    //Fall back to this old, deprecated/removed encoding
+                    // phpcs:ignore PHPCompatibility.Constants.RemovedConstants.intl_idna_variant_2003DeprecatedRemoved
+                    $punycode = idn_to_ascii($domain, $errorcode, \INTL_IDNA_VARIANT_2003);
+                } else {
+                    //Fall back to a default we don't know about
+                    // phpcs:ignore PHPCompatibility.ParameterValues.NewIDNVariantDefault.NotSet
+                    $punycode = idn_to_ascii($domain, $errorcode);
+                }
+                if (false !== $punycode) {
+                    return substr($address, 0, $pos) . $punycode;
+                }
+            }
+        }
+
+        return $address;
+    }
+
+    /**
+     * Create a message and send it.
+     * Uses the sending method specified by $Mailer.
+     *
+     * @throws Exception
+     *
+     * @return bool false on error - See the ErrorInfo property for details of the error
+     */
+    public function send()
+    {
+        try {
+            if (!$this->preSend()) {
+                return false;
+            }
+
+            return $this->postSend();
+        } catch (Exception $exc) {
+            $this->mailHeader = '';
+            $this->setError($exc->getMessage());
+            if ($this->exceptions) {
+                throw $exc;
+            }
+
+            return false;
+        }
+    }
+
+    /**
+     * Prepare a message for sending.
+     *
+     * @throws Exception
+     *
+     * @return bool
+     */
+    public function preSend()
+    {
+        if (
+            'smtp' === $this->Mailer
+            || ('mail' === $this->Mailer && (\PHP_VERSION_ID >= 80000 || stripos(PHP_OS, 'WIN') === 0))
+        ) {
+            //SMTP mandates RFC-compliant line endings
+            //and it's also used with mail() on Windows
+            static::setLE(self::CRLF);
+        } else {
+            //Maintain backward compatibility with legacy Linux command line mailers
+            static::setLE(PHP_EOL);
+        }
+        //Check for buggy PHP versions that add a header with an incorrect line break
+        if (
+            'mail' === $this->Mailer
+            && ((\PHP_VERSION_ID >= 70000 && \PHP_VERSION_ID < 70017)
+                || (\PHP_VERSION_ID >= 70100 && \PHP_VERSION_ID < 70103))
+            && ini_get('mail.add_x_header') === '1'
+            && stripos(PHP_OS, 'WIN') === 0
+        ) {
+            trigger_error(self::lang('buggy_php'), E_USER_WARNING);
+        }
+
+        try {
+            $this->error_count = 0; //Reset errors
+            $this->mailHeader = '';
+
+            //The code below tries to support full use of Unicode,
+            //while remaining compatible with legacy SMTP servers to
+            //the greatest degree possible: If the message uses
+            //Unicode in the local parts of any addresses, it is sent
+            //using SMTPUTF8. If not, it it sent using
+            //punycode-encoded domains and plain SMTP.
+            if (
+                static::CHARSET_UTF8 === strtolower($this->CharSet) &&
+                ($this->anyAddressHasUnicodeLocalPart($this->RecipientsQueue) ||
+                 $this->anyAddressHasUnicodeLocalPart(array_keys($this->all_recipients)) ||
+                 $this->anyAddressHasUnicodeLocalPart($this->ReplyToQueue) ||
+                 $this->addressHasUnicodeLocalPart($this->From))
+            ) {
+                $this->UseSMTPUTF8 = true;
+            }
+            //Dequeue recipient and Reply-To addresses with IDN
+            foreach (array_merge($this->RecipientsQueue, $this->ReplyToQueue) as $params) {
+                if (!$this->UseSMTPUTF8) {
+                    $params[1] = $this->punyencodeAddress($params[1]);
+                }
+                call_user_func_array([$this, 'addAnAddress'], $params);
+            }
+            if (count($this->to) + count($this->cc) + count($this->bcc) < 1) {
+                throw new Exception(self::lang('provide_address'), self::STOP_CRITICAL);
+            }
+
+            //Validate From, Sender, and ConfirmReadingTo addresses
+            foreach (['From', 'Sender', 'ConfirmReadingTo'] as $address_kind) {
+                if ($this->{$address_kind} === null) {
+                    $this->{$address_kind} = '';
+                    continue;
+                }
+                $this->{$address_kind} = trim($this->{$address_kind});
+                if (empty($this->{$address_kind})) {
+                    continue;
+                }
+                $this->{$address_kind} = $this->punyencodeAddress($this->{$address_kind});
+                if (!static::validateAddress($this->{$address_kind})) {
+                    $error_message = sprintf(
+                        '%s (%s): %s',
+                        self::lang('invalid_address'),
+                        $address_kind,
+                        $this->{$address_kind}
+                    );
+                    $this->setError($error_message);
+                    $this->edebug($error_message);
+                    if ($this->exceptions) {
+                        throw new Exception($error_message);
+                    }
+
+                    return false;
+                }
+            }
+
+            //Set whether the message is multipart/alternative
+            if ($this->alternativeExists()) {
+                $this->ContentType = static::CONTENT_TYPE_MULTIPART_ALTERNATIVE;
+            }
+
+            $this->setMessageType();
+            //Refuse to send an empty message unless we are specifically allowing it
+            if (!$this->AllowEmpty && empty($this->Body)) {
+                throw new Exception(self::lang('empty_message'), self::STOP_CRITICAL);
+            }
+
+            //Trim subject consistently
+            $this->Subject = trim($this->Subject);
+
+
+            //Create body before headers in case body makes changes to headers (e.g. altering transfer encoding)
+            $this->MIMEHeader = '';
+            $this->MIMEBody = $this->createBody();
+            //createBody may have added some headers, so retain them
+            $tempheaders = $this->MIMEHeader;
+            $this->MIMEHeader = $this->createHeader();
+            $this->MIMEHeader .= $tempheaders;
+
+            //To capture the complete message when using mail(), create
+            //an extra header list which createHeader() doesn't fold in
+            if ('mail' === $this->Mailer) {
+                if (count($this->to) > 0) {
+                    $this->mailHeader .= $this->addrAppend('To', $this->to);
+                } else {
+                    $this->mailHeader .= $this->headerLine('To', 'undisclosed-recipients:;');
+                }
+                $this->mailHeader .= $this->headerLine(
+                    'Subject',
+                    $this->encodeHeader($this->secureHeader($this->Subject))
+                );
+            }
+
+            //Sign with DKIM if enabled
+            if (
+                !empty($this->DKIM_domain)
+                && !empty($this->DKIM_selector)
+                && (!empty($this->DKIM_private_string)
+                    || (!empty($this->DKIM_private)
+                        && static::isPermittedPath($this->DKIM_private)
+                        && file_exists($this->DKIM_private)
+                    )
+                )
+            ) {
+                $header_dkim = $this->DKIM_Add(
+                    $this->MIMEHeader . $this->mailHeader,
+                    $this->encodeHeader($this->secureHeader($this->Subject)),
+                    $this->MIMEBody
+                );
+                $this->MIMEHeader = static::stripTrailingWSP($this->MIMEHeader) . static::$LE .
+                    static::normalizeBreaks($header_dkim) . static::$LE;
+            }
+
+            return true;
+        } catch (Exception $exc) {
+            $this->setError($exc->getMessage());
+            if ($this->exceptions) {
+                throw $exc;
+            }
+
+            return false;
+        }
+    }
+
+    /**
+     * Actually send a message via the selected mechanism.
+     *
+     * @throws Exception
+     *
+     * @return bool
+     */
+    public function postSend()
+    {
+        try {
+            //Choose the mailer and send through it
+            switch ($this->Mailer) {
+                case 'sendmail':
+                case 'qmail':
+                    return $this->sendmailSend($this->MIMEHeader, $this->MIMEBody);
+                case 'smtp':
+                    return $this->smtpSend($this->MIMEHeader, $this->MIMEBody);
+                case 'mail':
+                    return $this->mailSend($this->MIMEHeader, $this->MIMEBody);
+                default:
+                    $sendMethod = $this->Mailer . 'Send';
+                    if (!empty($this->Mailer) && method_exists($this, $sendMethod)) {
+                        return $this->{$sendMethod}($this->MIMEHeader, $this->MIMEBody);
+                    }
+
+                    return $this->mailSend($this->MIMEHeader, $this->MIMEBody);
+            }
+        } catch (Exception $exc) {
+            $this->setError($exc->getMessage());
+            $this->edebug($exc->getMessage());
+            if ($this->Mailer === 'smtp' && $this->SMTPKeepAlive == true && $this->smtp->connected()) {
+                $this->smtp->reset();
+            }
+            if ($this->exceptions) {
+                throw $exc;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Send mail using the $Sendmail program.
+     *
+     * @see PHPMailer::$Sendmail
+     *
+     * @param string $header The message headers
+     * @param string $body   The message body
+     *
+     * @throws Exception
+     *
+     * @return bool
+     */
+    protected function sendmailSend($header, $body)
+    {
+        if ($this->Mailer === 'qmail') {
+            $this->edebug('Sending with qmail');
+        } else {
+            $this->edebug('Sending with sendmail');
+        }
+        $header = static::stripTrailingWSP($header) . static::$LE . static::$LE;
+        //This sets the SMTP envelope sender which gets turned into a return-path header by the receiver
+        //A space after `-f` is optional, but there is a long history of its presence
+        //causing problems, so we don't use one
+        //Exim docs: https://www.exim.org/exim-html-current/doc/html/spec_html/ch-the_exim_command_line.html
+        //Sendmail docs: https://www.sendmail.org/~ca/email/man/sendmail.html
+        //Example problem: https://www.drupal.org/node/1057954
+
+        //PHP 5.6 workaround
+        $sendmail_from_value = ini_get('sendmail_from');
+        if (empty($this->Sender) && !empty($sendmail_from_value)) {
+            //PHP config has a sender address we can use
+            $this->Sender = ini_get('sendmail_from');
+        }
+
+        $sendmailArgs = [];
+
+        // CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
+        // Also don't add the -f automatically unless it has been set either via Sender
+        // or sendmail_path. Otherwise, it can introduce new problems.
+        // @see http://github.com/PHPMailer/PHPMailer/issues/2298
+        if (!empty($this->Sender) && static::validateAddress($this->Sender) && self::isShellSafe($this->Sender)) {
+            $sendmailArgs[] = '-f' . $this->Sender;
+        }
+
+        // Qmail doesn't accept all the sendmail parameters
+        // @see https://github.com/PHPMailer/PHPMailer/issues/3189
+        if ($this->Mailer !== 'qmail') {
+            $sendmailArgs[] = '-i';
+            $sendmailArgs[] = '-t';
+        }
+
+        $resultArgs = (empty($sendmailArgs) ? '' : ' ' . implode(' ', $sendmailArgs));
+
+        $sendmail = trim(escapeshellcmd($this->Sendmail) . $resultArgs);
+        $this->edebug('Sendmail path: ' . $this->Sendmail);
+        $this->edebug('Sendmail command: ' . $sendmail);
+        $this->edebug('Envelope sender: ' . $this->Sender);
+        $this->edebug("Headers: {$header}");
+
+        if ($this->SingleTo) {
+            foreach ($this->SingleToArray as $toAddr) {
+                $mail = @popen($sendmail, 'w');
+                if (!$mail) {
+                    throw new Exception(self::lang('execute') . $this->Sendmail, self::STOP_CRITICAL);
+                }
+                $this->edebug("To: {$toAddr}");
+                fwrite($mail, 'To: ' . $toAddr . "\n");
+                fwrite($mail, $header);
+                fwrite($mail, $body);
+                $result = pclose($mail);
+                $addrinfo = static::parseAddresses($toAddr, null, $this->CharSet);
+                foreach ($addrinfo as $addr) {
+                    $this->doCallback(
+                        ($result === 0),
+                        [[$addr['address'], $addr['name']]],
+                        $this->cc,
+                        $this->bcc,
+                        $this->Subject,
+                        $body,
+                        $this->From,
+                        []
+                    );
+                }
+                $this->edebug("Result: " . ($result === 0 ? 'true' : 'false'));
+                if (0 !== $result) {
+                    throw new Exception(self::lang('execute') . $this->Sendmail, self::STOP_CRITICAL);
+                }
+            }
+        } else {
+            $mail = @popen($sendmail, 'w');
+            if (!$mail) {
+                throw new Exception(self::lang('execute') . $this->Sendmail, self::STOP_CRITICAL);
+            }
+            fwrite($mail, $header);
+            fwrite($mail, $body);
+            $result = pclose($mail);
+            $this->doCallback(
+                ($result === 0),
+                $this->to,
+                $this->cc,
+                $this->bcc,
+                $this->Subject,
+                $body,
+                $this->From,
+                []
+            );
+            $this->edebug("Result: " . ($result === 0 ? 'true' : 'false'));
+            if (0 !== $result) {
+                throw new Exception(self::lang('execute') . $this->Sendmail, self::STOP_CRITICAL);
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Fix CVE-2016-10033 and CVE-2016-10045 by disallowing potentially unsafe shell characters.
+     * Note that escapeshellarg and escapeshellcmd are inadequate for our purposes, especially on Windows.
+     *
+     * @see https://github.com/PHPMailer/PHPMailer/issues/924 CVE-2016-10045 bug report
+     *
+     * @param string $string The string to be validated
+     *
+     * @return bool
+     */
+    protected static function isShellSafe($string)
+    {
+        //It's not possible to use shell commands safely (which includes the mail() function) without escapeshellarg,
+        //but some hosting providers disable it, creating a security problem that we don't want to have to deal with,
+        //so we don't.
+        if (!function_exists('escapeshellarg') || !function_exists('escapeshellcmd')) {
+            return false;
+        }
+
+        if (
+            escapeshellcmd($string) !== $string
+            || !in_array(escapeshellarg($string), ["'$string'", "\"$string\""])
+        ) {
+            return false;
+        }
+
+        $length = strlen($string);
+
+        for ($i = 0; $i < $length; ++$i) {
+            $c = $string[$i];
+
+            //All other characters have a special meaning in at least one common shell, including = and +.
+            //Full stop (.) has a special meaning in cmd.exe, but its impact should be negligible here.
+            //Note that this does permit non-Latin alphanumeric characters based on the current locale.
+            if (!ctype_alnum($c) && strpos('@_-.', $c) === false) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Check whether a file path is of a permitted type.
+     * Used to reject URLs and phar files from functions that access local file paths,
+     * such as addAttachment.
+     *
+     * @param string $path A relative or absolute path to a file
+     *
+     * @return bool
+     */
+    protected static function isPermittedPath($path)
+    {
+        //Matches scheme definition from https://www.rfc-editor.org/rfc/rfc3986#section-3.1
+        return !preg_match('#^[a-z][a-z\d+.-]*://#i', $path);
+    }
+
+    /**
+     * Check whether a file path is safe, accessible, and readable.
+     *
+     * @param string $path A relative or absolute path to a file
+     *
+     * @return bool
+     */
+    protected static function fileIsAccessible($path)
+    {
+        if (!static::isPermittedPath($path)) {
+            return false;
+        }
+        $readable = is_file($path);
+        //If not a UNC path (expected to start with \\), check read permission, see #2069
+        if (strpos($path, '\\\\') !== 0) {
+            $readable = $readable && is_readable($path);
+        }
+        return  $readable;
+    }
+
+    /**
+     * Send mail using the PHP mail() function.
+     *
+     * @see https://www.php.net/manual/en/book.mail.php
+     *
+     * @param string $header The message headers
+     * @param string $body   The message body
+     *
+     * @throws Exception
+     *
+     * @return bool
+     */
+    protected function mailSend($header, $body)
+    {
+        $header = static::stripTrailingWSP($header) . static::$LE . static::$LE;
+
+        $toArr = [];
+        foreach ($this->to as $toaddr) {
+            $toArr[] = $this->addrFormat($toaddr);
+        }
+        $to = trim(implode(', ', $toArr));
+
+        //If there are no To-addresses (e.g. when sending only to BCC-addresses)
+        //the following should be added to get a correct DKIM-signature.
+        //Compare with $this->preSend()
+        if ($to === '') {
+            $to = 'undisclosed-recipients:;';
+        }
+
+        $params = null;
+        //This sets the SMTP envelope sender which gets turned into a return-path header by the receiver
+        //A space after `-f` is optional, but there is a long history of its presence
+        //causing problems, so we don't use one
+        //Exim docs: https://www.exim.org/exim-html-current/doc/html/spec_html/ch-the_exim_command_line.html
+        //Sendmail docs: https://www.sendmail.org/~ca/email/man/sendmail.html
+        //Example problem: https://www.drupal.org/node/1057954
+        //CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
+
+        //PHP 5.6 workaround
+        $sendmail_from_value = ini_get('sendmail_from');
+        if (empty($this->Sender) && !empty($sendmail_from_value)) {
+            //PHP config has a sender address we can use
+            $this->Sender = ini_get('sendmail_from');
+        }
+        if (!empty($this->Sender) && static::validateAddress($this->Sender)) {
+            $phpmailer_path = ini_get('sendmail_path');
+            if (self::isShellSafe($this->Sender) && strpos($phpmailer_path, ' -f') === false) {
+                $params = sprintf('-f%s', $this->Sender);
+            }
+            $old_from = ini_get('sendmail_from');
+            ini_set('sendmail_from', $this->Sender);
+        }
+        $result = false;
+        if ($this->SingleTo && count($toArr) > 1) {
+            foreach ($toArr as $toAddr) {
+                $result = $this->mailPassthru($toAddr, $this->Subject, $body, $header, $params);
+                $addrinfo = static::parseAddresses($toAddr, null, $this->CharSet);
+                foreach ($addrinfo as $addr) {
+                    $this->doCallback(
+                        $result,
+                        [[$addr['address'], $addr['name']]],
+                        $this->cc,
+                        $this->bcc,
+                        $this->Subject,
+                        $body,
+                        $this->From,
+                        []
+                    );
+                }
+            }
+        } else {
+            $result = $this->mailPassthru($to, $this->Subject, $body, $header, $params);
+            $this->doCallback($result, $this->to, $this->cc, $this->bcc, $this->Subject, $body, $this->From, []);
+        }
+        if (isset($old_from)) {
+            ini_set('sendmail_from', $old_from);
+        }
+        if (!$result) {
+            throw new Exception(self::lang('instantiate'), self::STOP_CRITICAL);
+        }
+
+        return true;
+    }
+
+    /**
+     * Get an instance to use for SMTP operations.
+     * Override this function to load your own SMTP implementation,
+     * or set one with setSMTPInstance.
+     *
+     * @return SMTP
+     */
+    public function getSMTPInstance()
+    {
+        if (!is_object($this->smtp)) {
+            $this->smtp = new SMTP();
+        }
+
+        return $this->smtp;
+    }
+
+    /**
+     * Provide an instance to use for SMTP operations.
+     *
+     * @return SMTP
+     */
+    public function setSMTPInstance(SMTP $smtp)
+    {
+        $this->smtp = $smtp;
+
+        return $this->smtp;
+    }
+
+    /**
+     * Provide SMTP XCLIENT attributes
+     *
+     * @param string $name  Attribute name
+     * @param ?string $value Attribute value
+     *
+     * @return bool
+     */
+    public function setSMTPXclientAttribute($name, $value)
+    {
+        if (!in_array($name, SMTP::$xclient_allowed_attributes)) {
+            return false;
+        }
+        if (isset($this->SMTPXClient[$name]) && $value === null) {
+            unset($this->SMTPXClient[$name]);
+        } elseif ($value !== null) {
+            $this->SMTPXClient[$name] = $value;
+        }
+
+        return true;
+    }
+
+    /**
+     * Get SMTP XCLIENT attributes
+     *
+     * @return array
+     */
+    public function getSMTPXclientAttributes()
+    {
+        return $this->SMTPXClient;
+    }
+
+    /**
+     * Send mail via SMTP.
+     * Returns false if there is a bad MAIL FROM, RCPT, or DATA input.
+     *
+     * @see PHPMailer::setSMTPInstance() to use a different class.
+     *
+     * @uses \PHPMailer\PHPMailer\SMTP
+     *
+     * @param string $header The message headers
+     * @param string $body   The message body
+     *
+     * @throws Exception
+     *
+     * @return bool
+     */
+    protected function smtpSend($header, $body)
+    {
+        $header = static::stripTrailingWSP($header) . static::$LE . static::$LE;
+        $bad_rcpt = [];
+        if (!$this->smtpConnect($this->SMTPOptions)) {
+            throw new Exception(self::lang('smtp_connect_failed'), self::STOP_CRITICAL);
+        }
+        //If we have recipient addresses that need Unicode support,
+        //but the server doesn't support it, stop here
+        if ($this->UseSMTPUTF8 && !$this->smtp->getServerExt('SMTPUTF8')) {
+            throw new Exception(self::lang('no_smtputf8'), self::STOP_CRITICAL);
+        }
+        //Sender already validated in preSend()
+        if ('' === $this->Sender) {
+            $smtp_from = $this->From;
+        } else {
+            $smtp_from = $this->Sender;
+        }
+        if (count($this->SMTPXClient)) {
+            $this->smtp->xclient($this->SMTPXClient);
+        }
+        if (!$this->smtp->mail($smtp_from)) {
+            $this->setError(self::lang('from_failed') . $smtp_from . ' : ' . implode(',', $this->smtp->getError()));
+            throw new Exception($this->ErrorInfo, self::STOP_CRITICAL);
+        }
+
+        $callbacks = [];
+        //Attempt to send to all recipients
+        foreach ([$this->to, $this->cc, $this->bcc] as $togroup) {
+            foreach ($togroup as $to) {
+                if (!$this->smtp->recipient($to[0], $this->dsn)) {
+                    $error = $this->smtp->getError();
+                    $bad_rcpt[] = ['to' => $to[0], 'error' => $error['detail']];
+                    $isSent = false;
+                } else {
+                    $isSent = true;
+                }
+
+                $callbacks[] = ['issent' => $isSent, 'to' => $to[0], 'name' => $to[1]];
+            }
+        }
+
+        //Only send the DATA command if we have viable recipients
+        if ((count($this->all_recipients) > count($bad_rcpt)) && !$this->smtp->data($header . $body)) {
+            throw new Exception(self::lang('data_not_accepted'), self::STOP_CRITICAL);
+        }
+
+        $smtp_transaction_id = $this->smtp->getLastTransactionID();
+
+        if ($this->SMTPKeepAlive) {
+            $this->smtp->reset();
+        } else {
+            $this->smtp->quit();
+            $this->smtp->close();
+        }
+
+        foreach ($callbacks as $cb) {
+            $this->doCallback(
+                $cb['issent'],
+                [[$cb['to'], $cb['name']]],
+                [],
+                [],
+                $this->Subject,
+                $body,
+                $this->From,
+                ['smtp_transaction_id' => $smtp_transaction_id]
+            );
+        }
+
+        //Create error message for any bad addresses
+        if (count($bad_rcpt) > 0) {
+            $errstr = '';
+            foreach ($bad_rcpt as $bad) {
+                $errstr .= $bad['to'] . ': ' . $bad['error'];
+            }
+            throw new Exception(self::lang('recipients_failed') . $errstr, self::STOP_CONTINUE);
+        }
+
+        return true;
+    }
+
+    /**
+     * Initiate a connection to an SMTP server.
+     * Returns false if the operation failed.
+     *
+     * @param array $options An array of options compatible with stream_context_create()
+     *
+     * @throws Exception
+     *
+     * @uses \PHPMailer\PHPMailer\SMTP
+     *
+     * @return bool
+     */
+    public function smtpConnect($options = null)
+    {
+        if (null === $this->smtp) {
+            $this->smtp = $this->getSMTPInstance();
+        }
+
+        //If no options are provided, use whatever is set in the instance
+        if (null === $options) {
+            $options = $this->SMTPOptions;
+        }
+
+        //Already connected?
+        if ($this->smtp->connected()) {
+            return true;
+        }
+
+        $this->smtp->setTimeout($this->Timeout);
+        $this->smtp->setDebugLevel($this->SMTPDebug);
+        $this->smtp->setDebugOutput($this->Debugoutput);
+        $this->smtp->setVerp($this->do_verp);
+        $this->smtp->setSMTPUTF8($this->UseSMTPUTF8);
+        if ($this->Host === null) {
+            $this->Host = 'localhost';
+        }
+        $hosts = explode(';', $this->Host);
+        $lastexception = null;
+
+        foreach ($hosts as $hostentry) {
+            $hostinfo = [];
+            if (
+                !preg_match(
+                    '/^(?:(ssl|tls):\/\/)?(.+?)(?::(\d+))?$/',
+                    trim($hostentry),
+                    $hostinfo
+                )
+            ) {
+                $this->edebug(self::lang('invalid_hostentry') . ' ' . trim($hostentry));
+                //Not a valid host entry
+                continue;
+            }
+            //$hostinfo[1]: optional ssl or tls prefix
+            //$hostinfo[2]: the hostname
+            //$hostinfo[3]: optional port number
+            //The host string prefix can temporarily override the current setting for SMTPSecure
+            //If it's not specified, the default value is used
+
+            //Check the host name is a valid name or IP address before trying to use it
+            if (!static::isValidHost($hostinfo[2])) {
+                $this->edebug(self::lang('invalid_host') . ' ' . $hostinfo[2]);
+                continue;
+            }
+            $prefix = '';
+            $secure = $this->SMTPSecure;
+            $tls = (static::ENCRYPTION_STARTTLS === $this->SMTPSecure);
+            if ('ssl' === $hostinfo[1] || ('' === $hostinfo[1] && static::ENCRYPTION_SMTPS === $this->SMTPSecure)) {
+                $prefix = 'ssl://';
+                $tls = false; //Can't have SSL and TLS at the same time
+                $secure = static::ENCRYPTION_SMTPS;
+            } elseif ('tls' === $hostinfo[1]) {
+                $tls = true;
+                //TLS doesn't use a prefix
+                $secure = static::ENCRYPTION_STARTTLS;
+            }
+            //Do we need the OpenSSL extension?
+            $sslext = defined('OPENSSL_ALGO_SHA256');
+            if (static::ENCRYPTION_STARTTLS === $secure || static::ENCRYPTION_SMTPS === $secure) {
+                //Check for an OpenSSL constant rather than using extension_loaded, which is sometimes disabled
+                if (!$sslext) {
+                    throw new Exception(self::lang('extension_missing') . 'openssl', self::STOP_CRITICAL);
+                }
+            }
+            $host = $hostinfo[2];
+            $port = $this->Port;
+            if (
+                array_key_exists(3, $hostinfo) &&
+                is_numeric($hostinfo[3]) &&
+                $hostinfo[3] > 0 &&
+                $hostinfo[3] < 65536
+            ) {
+                $port = (int) $hostinfo[3];
+            }
+            if ($this->smtp->connect($prefix . $host, $port, $this->Timeout, $options)) {
+                try {
+                    if ($this->Helo) {
+                        $hello = $this->Helo;
+                    } else {
+                        $hello = $this->serverHostname();
+                    }
+                    $this->smtp->hello($hello);
+                    //Automatically enable TLS encryption if:
+                    //* it's not disabled
+                    //* we are not connecting to localhost
+                    //* we have openssl extension
+                    //* we are not already using SSL
+                    //* the server offers STARTTLS
+                    if (
+                        $this->SMTPAutoTLS &&
+                        $this->Host !== 'localhost' &&
+                        $sslext &&
+                        $secure !== 'ssl' &&
+                        $this->smtp->getServerExt('STARTTLS')
+                    ) {
+                        $tls = true;
+                    }
+                    if ($tls) {
+                        if (!$this->smtp->startTLS()) {
+                            $message = $this->getSmtpErrorMessage('connect_host');
+                            throw new Exception($message);
+                        }
+                        //We must resend EHLO after TLS negotiation
+                        $this->smtp->hello($hello);
+                    }
+                    if (
+                        $this->SMTPAuth && !$this->smtp->authenticate(
+                            $this->Username,
+                            $this->Password,
+                            $this->AuthType,
+                            $this->oauth
+                        )
+                    ) {
+                        throw new Exception(self::lang('authenticate'));
+                    }
+
+                    return true;
+                } catch (Exception $exc) {
+                    $lastexception = $exc;
+                    $this->edebug($exc->getMessage());
+                    //We must have connected, but then failed TLS or Auth, so close connection nicely
+                    $this->smtp->quit();
+                }
+            }
+        }
+        //If we get here, all connection attempts have failed, so close connection hard
+        $this->smtp->close();
+        //As we've caught all exceptions, just report whatever the last one was
+        if ($this->exceptions && null !== $lastexception) {
+            throw $lastexception;
+        }
+        if ($this->exceptions) {
+            // no exception was thrown, likely $this->smtp->connect() failed
+            $message = $this->getSmtpErrorMessage('connect_host');
+            throw new Exception($message);
+        }
+
+        return false;
+    }
+
+    /**
+     * Close the active SMTP session if one exists.
+     */
+    public function smtpClose()
+    {
+        if ((null !== $this->smtp) && $this->smtp->connected()) {
+            $this->smtp->quit();
+            $this->smtp->close();
+        }
+    }
+
+    /**
+     * Set the language for error messages.
+     * The default language is English.
+     *
+     * @param string $langcode  ISO 639-1 2-character language code (e.g. French is "fr")
+     *                          Optionally, the language code can be enhanced with a 4-character
+     *                          script annotation and/or a 2-character country annotation.
+     * @param string $lang_path Path to the language file directory, with trailing separator (slash)
+     *                          Do not set this from user input!
+     *
+     * @return bool Returns true if the requested language was loaded, false otherwise.
+     */
+    public static function setLanguage($langcode = 'en', $lang_path = '')
+    {
+        //Backwards compatibility for renamed language codes
+        $renamed_langcodes = [
+            'br' => 'pt_br',
+            'cz' => 'cs',
+            'dk' => 'da',
+            'no' => 'nb',
+            'se' => 'sv',
+            'rs' => 'sr',
+            'tg' => 'tl',
+            'am' => 'hy',
+        ];
+
+        if (array_key_exists($langcode, $renamed_langcodes)) {
+            $langcode = $renamed_langcodes[$langcode];
+        }
+
+        //Define full set of translatable strings in English
+        $PHPMAILER_LANG = [
+            'authenticate' => 'SMTP Error: Could not authenticate.',
+            'buggy_php' => 'Your version of PHP is affected by a bug that may result in corrupted messages.' .
+                ' To fix it, switch to sending using SMTP, disable the mail.add_x_header option in' .
+                ' your php.ini, switch to macOS or Linux, or upgrade your PHP to version 7.0.17+ or 7.1.3+.',
+            'connect_host' => 'SMTP Error: Could not connect to SMTP host.',
+            'data_not_accepted' => 'SMTP Error: data not accepted.',
+            'empty_message' => 'Message body empty',
+            'encoding' => 'Unknown encoding: ',
+            'execute' => 'Could not execute: ',
+            'extension_missing' => 'Extension missing: ',
+            'file_access' => 'Could not access file: ',
+            'file_open' => 'File Error: Could not open file: ',
+            'from_failed' => 'The following From address failed: ',
+            'instantiate' => 'Could not instantiate mail function.',
+            'invalid_address' => 'Invalid address: ',
+            'invalid_header' => 'Invalid header name or value',
+            'invalid_hostentry' => 'Invalid hostentry: ',
+            'invalid_host' => 'Invalid host: ',
+            'mailer_not_supported' => ' mailer is not supported.',
+            'provide_address' => 'You must provide at least one recipient email address.',
+            'recipients_failed' => 'SMTP Error: The following recipients failed: ',
+            'signing' => 'Signing Error: ',
+            'smtp_code' => 'SMTP code: ',
+            'smtp_code_ex' => 'Additional SMTP info: ',
+            'smtp_connect_failed' => 'SMTP connect() failed.',
+            'smtp_detail' => 'Detail: ',
+            'smtp_error' => 'SMTP server error: ',
+            'variable_set' => 'Cannot set or reset variable: ',
+            'no_smtputf8' => 'Server does not support SMTPUTF8 needed to send to Unicode addresses',
+            'imap_recommended' => 'Using simplified address parser is not recommended. ' .
+                'Install the PHP IMAP extension for full RFC822 parsing.',
+            'deprecated_argument' => 'Deprecated Argument: ',
+        ];
+        if (empty($lang_path)) {
+            //Calculate an absolute path so it can work if CWD is not here
+            $lang_path = dirname(__DIR__) . DIRECTORY_SEPARATOR . 'language' . DIRECTORY_SEPARATOR;
+        }
+
+        //Validate $langcode
+        $foundlang = true;
+        $langcode  = strtolower($langcode);
+        if (
+            !preg_match('/^(?P<lang>[a-z]{2})(?P<script>_[a-z]{4})?(?P<country>_[a-z]{2})?$/', $langcode, $matches)
+            && $langcode !== 'en'
+        ) {
+            $foundlang = false;
+            $langcode = 'en';
+        }
+
+        //There is no English translation file
+        if ('en' !== $langcode) {
+            $langcodes = [];
+            if (!empty($matches['script']) && !empty($matches['country'])) {
+                $langcodes[] = $matches['lang'] . $matches['script'] . $matches['country'];
+            }
+            if (!empty($matches['country'])) {
+                $langcodes[] = $matches['lang'] . $matches['country'];
+            }
+            if (!empty($matches['script'])) {
+                $langcodes[] = $matches['lang'] . $matches['script'];
+            }
+            $langcodes[] = $matches['lang'];
+
+            //Try and find a readable language file for the requested language.
+            $foundFile = false;
+            foreach ($langcodes as $code) {
+                $lang_file = $lang_path . 'phpmailer.lang-' . $code . '.php';
+                if (static::fileIsAccessible($lang_file)) {
+                    $foundFile = true;
+                    break;
+                }
+            }
+
+            if ($foundFile === false) {
+                $foundlang = false;
+            } else {
+                $lines = file($lang_file);
+                foreach ($lines as $line) {
+                    //Translation file lines look like this:
+                    //$PHPMAILER_LANG['authenticate'] = 'SMTP-Fehler: Authentifizierung fehlgeschlagen.';
+                    //These files are parsed as text and not PHP so as to avoid the possibility of code injection
+                    //See https://blog.stevenlevithan.com/archives/match-quoted-string
+                    $matches = [];
+                    if (
+                        preg_match(
+                            '/^\$PHPMAILER_LANG\[\'([a-z\d_]+)\'\]\s*=\s*(["\'])(.+)*?\2;/',
+                            $line,
+                            $matches
+                        ) &&
+                        //Ignore unknown translation keys
+                        array_key_exists($matches[1], $PHPMAILER_LANG)
+                    ) {
+                        //Overwrite language-specific strings so we'll never have missing translation keys.
+                        $PHPMAILER_LANG[$matches[1]] = (string)$matches[3];
+                    }
+                }
+            }
+        }
+        self::$language = $PHPMAILER_LANG;
+
+        return $foundlang; //Returns false if language not found
+    }
+
+    /**
+     * Get the array of strings for the current language.
+     *
+     * @return array
+     */
+    public function getTranslations()
+    {
+        if (empty(self::$language)) {
+            self::setLanguage(); // Set the default language.
+        }
+
+        return self::$language;
+    }
+
+    /**
+     * Create recipient headers.
+     *
+     * @param string $type
+     * @param array  $addr An array of recipients,
+     *                     where each recipient is a 2-element indexed array with element 0 containing an address
+     *                     and element 1 containing a name, like:
+     *                     [['joe@example.com', 'Joe User'], ['zoe@example.com', 'Zoe User']]
+     *
+     * @return string
+     */
+    public function addrAppend($type, $addr)
+    {
+        $addresses = [];
+        foreach ($addr as $address) {
+            $addresses[] = $this->addrFormat($address);
+        }
+
+        return $type . ': ' . implode(', ', $addresses) . static::$LE;
+    }
+
+    /**
+     * Format an address for use in a message header.
+     *
+     * @param array $addr A 2-element indexed array, element 0 containing an address, element 1 containing a name like
+     *                    ['joe@example.com', 'Joe User']
+     *
+     * @return string
+     */
+    public function addrFormat($addr)
+    {
+        if (!isset($addr[1]) || ($addr[1] === '')) { //No name provided
+            return $this->secureHeader($addr[0]);
+        }
+
+        return $this->encodeHeader($this->secureHeader($addr[1]), 'phrase') .
+            ' <' . $this->secureHeader($addr[0]) . '>';
+    }
+
+    /**
+     * Word-wrap message.
+     * For use with mailers that do not automatically perform wrapping
+     * and for quoted-printable encoded messages.
+     * Original written by philippe.
+     *
+     * @param string $message The message to wrap
+     * @param int    $length  The line length to wrap to
+     * @param bool   $qp_mode Whether to run in Quoted-Printable mode
+     *
+     * @return string
+     */
+    public function wrapText($message, $length, $qp_mode = false)
+    {
+        if ($qp_mode) {
+            $soft_break = sprintf(' =%s', static::$LE);
+        } else {
+            $soft_break = static::$LE;
+        }
+        //If utf-8 encoding is used, we will need to make sure we don't
+        //split multibyte characters when we wrap
+        $is_utf8 = static::CHARSET_UTF8 === strtolower($this->CharSet);
+        $lelen = strlen(static::$LE);
+        $crlflen = strlen(static::$LE);
+
+        $message = static::normalizeBreaks($message);
+        //Remove a trailing line break
+        if (substr($message, -$lelen) === static::$LE) {
+            $message = substr($message, 0, -$lelen);
+        }
+
+        //Split message into lines
+        $lines = explode(static::$LE, $message);
+        //Message will be rebuilt in here
+        $message = '';
+        foreach ($lines as $line) {
+            $words = explode(' ', $line);
+            $buf = '';
+            $firstword = true;
+            foreach ($words as $word) {
+                if ($qp_mode && (strlen($word) > $length)) {
+                    $space_left = $length - strlen($buf) - $crlflen;
+                    if (!$firstword) {
+                        if ($space_left > 20) {
+                            $len = $space_left;
+                            if ($is_utf8) {
+                                $len = $this->utf8CharBoundary($word, $len);
+                            } elseif ('=' === substr($word, $len - 1, 1)) {
+                                --$len;
+                            } elseif ('=' === substr($word, $len - 2, 1)) {
+                                $len -= 2;
+                            }
+                            $part = substr($word, 0, $len);
+                            $word = substr($word, $len);
+                            $buf .= ' ' . $part;
+                            $message .= $buf . sprintf('=%s', static::$LE);
+                        } else {
+                            $message .= $buf . $soft_break;
+                        }
+                        $buf = '';
+                    }
+                    while ($word !== '') {
+                        if ($length <= 0) {
+                            break;
+                        }
+                        $len = $length;
+                        if ($is_utf8) {
+                            $len = $this->utf8CharBoundary($word, $len);
+                        } elseif ('=' === substr($word, $len - 1, 1)) {
+                            --$len;
+                        } elseif ('=' === substr($word, $len - 2, 1)) {
+                            $len -= 2;
+                        }
+                        $part = substr($word, 0, $len);
+                        $word = (string) substr($word, $len);
+
+                        if ($word !== '') {
+                            $message .= $part . sprintf('=%s', static::$LE);
+                        } else {
+                            $buf = $part;
+                        }
+                    }
+                } else {
+                    $buf_o = $buf;
+                    if (!$firstword) {
+                        $buf .= ' ';
+                    }
+                    $buf .= $word;
+
+                    if ('' !== $buf_o && strlen($buf) > $length) {
+                        $message .= $buf_o . $soft_break;
+                        $buf = $word;
+                    }
+                }
+                $firstword = false;
+            }
+            $message .= $buf . static::$LE;
+        }
+
+        return $message;
+    }
+
+    /**
+     * Find the last character boundary prior to $maxLength in a utf-8
+     * quoted-printable encoded string.
+     * Original written by Colin Brown.
+     *
+     * @param string $encodedText utf-8 QP text
+     * @param int    $maxLength   Find the last character boundary prior to this length
+     *
+     * @return int
+     */
+    public function utf8CharBoundary($encodedText, $maxLength)
+    {
+        $foundSplitPos = false;
+        $lookBack = 3;
+        while (!$foundSplitPos) {
+            $lastChunk = substr($encodedText, $maxLength - $lookBack, $lookBack);
+            $encodedCharPos = strpos($lastChunk, '=');
+            if (false !== $encodedCharPos) {
+                //Found start of encoded character byte within $lookBack block.
+                //Check the encoded byte value (the 2 chars after the '=')
+                $hex = substr($encodedText, $maxLength - $lookBack + $encodedCharPos + 1, 2);
+                $dec = hexdec($hex);
+                if ($dec < 128) {
+                    //Single byte character.
+                    //If the encoded char was found at pos 0, it will fit
+                    //otherwise reduce maxLength to start of the encoded char
+                    if ($encodedCharPos > 0) {
+                        $maxLength -= $lookBack - $encodedCharPos;
+                    }
+                    $foundSplitPos = true;
+                } elseif ($dec >= 192) {
+                    //First byte of a multi byte character
+                    //Reduce maxLength to split at start of character
+                    $maxLength -= $lookBack - $encodedCharPos;
+                    $foundSplitPos = true;
+                } elseif ($dec < 192) {
+                    //Middle byte of a multi byte character, look further back
+                    $lookBack += 3;
+                }
+            } else {
+                //No encoded character found
+                $foundSplitPos = true;
+            }
+        }
+
+        return $maxLength;
+    }
+
+    /**
+     * Apply word wrapping to the message body.
+     * Wraps the message body to the number of chars set in the WordWrap property.
+     * You should only do this to plain-text bodies as wrapping HTML tags may break them.
+     * This is called automatically by createBody(), so you don't need to call it yourself.
+     */
+    public function setWordWrap()
+    {
+        if ($this->WordWrap < 1) {
+            return;
+        }
+
+        switch ($this->message_type) {
+            case 'alt':
+            case 'alt_inline':
+            case 'alt_attach':
+            case 'alt_inline_attach':
+                $this->AltBody = $this->wrapText($this->AltBody, $this->WordWrap);
+                break;
+            default:
+                $this->Body = $this->wrapText($this->Body, $this->WordWrap);
+                break;
+        }
+    }
+
+    /**
+     * Assemble message headers.
+     *
+     * @return string The assembled headers
+     */
+    public function createHeader()
+    {
+        $result = '';
+
+        $result .= $this->headerLine(
+            'Date',
+            self::sanitiseDate($this->MessageDate)
+        );
+
+        //The To header is created automatically by mail(), so needs to be omitted here
+        if ('mail' !== $this->Mailer) {
+            if ($this->SingleTo) {
+                foreach ($this->to as $toaddr) {
+                    $this->SingleToArray[] = $this->addrFormat($toaddr);
+                }
+            } elseif (count($this->to) > 0) {
+                $result .= $this->addrAppend('To', $this->to);
+            } elseif (count($this->cc) === 0) {
+                $result .= $this->headerLine('To', 'undisclosed-recipients:;');
+            }
+        }
+        $result .= $this->addrAppend('From', [[trim($this->From), $this->FromName]]);
+
+        //sendmail and mail() extract Cc from the header before sending
+        if (count($this->cc) > 0) {
+            $result .= $this->addrAppend('Cc', $this->cc);
+        }
+
+        //sendmail and mail() extract Bcc from the header before sending
+        if (
+            (
+                'sendmail' === $this->Mailer || 'qmail' === $this->Mailer || 'mail' === $this->Mailer
+            )
+            && count($this->bcc) > 0
+        ) {
+            $result .= $this->addrAppend('Bcc', $this->bcc);
+        }
+
+        if (count($this->ReplyTo) > 0) {
+            $result .= $this->addrAppend('Reply-To', $this->ReplyTo);
+        }
+
+        //mail() sets the subject itself
+        if ('mail' !== $this->Mailer) {
+            $result .= $this->headerLine('Subject', $this->encodeHeader($this->secureHeader($this->Subject)));
+        }
+
+        //Only allow a custom message ID if it conforms to RFC 5322 section 3.6.4
+        //https://www.rfc-editor.org/rfc/rfc5322#section-3.6.4
+        if (
+            '' !== $this->MessageID &&
+            preg_match(
+                '/^<((([a-z\d!#$%&\'*+\/=?^_`{|}~-]+(\.[a-z\d!#$%&\'*+\/=?^_`{|}~-]+)*)' .
+                '|("(([\x01-\x08\x0B\x0C\x0E-\x1F\x7F]|[\x21\x23-\x5B\x5D-\x7E])' .
+                '|(\\[\x01-\x09\x0B\x0C\x0E-\x7F]))*"))@(([a-z\d!#$%&\'*+\/=?^_`{|}~-]+' .
+                '(\.[a-z\d!#$%&\'*+\/=?^_`{|}~-]+)*)|(\[(([\x01-\x08\x0B\x0C\x0E-\x1F\x7F]' .
+                '|[\x21-\x5A\x5E-\x7E])|(\\[\x01-\x09\x0B\x0C\x0E-\x7F]))*\])))>$/Di',
+                $this->MessageID
+            )
+        ) {
+            $this->lastMessageID = $this->MessageID;
+        } else {
+            $this->lastMessageID = sprintf('<%s@%s>', $this->uniqueid, $this->serverHostname());
+        }
+        $result .= $this->headerLine('Message-ID', $this->lastMessageID);
+        if (null !== $this->Priority) {
+            $result .= $this->headerLine('X-Priority', $this->Priority);
+        }
+        if ('' === $this->XMailer) {
+            //Empty string for default X-Mailer header
+            $result .= $this->headerLine(
+                'X-Mailer',
+                'PHPMailer ' . self::VERSION . ' (https://github.com/PHPMailer/PHPMailer)'
+            );
+        } elseif (is_string($this->XMailer) && trim($this->XMailer) !== '') {
+            //Some string
+            $result .= $this->headerLine('X-Mailer', $this->secureHeader(trim($this->XMailer)));
+        } //Other values result in no X-Mailer header
+
+        if ('' !== $this->ConfirmReadingTo) {
+            $result .= $this->headerLine('Disposition-Notification-To', '<' . $this->ConfirmReadingTo . '>');
+        }
+
+        //Add custom headers
+        foreach ($this->CustomHeader as $header) {
+            $result .= $this->headerLine(
+                trim($header[0]),
+                $this->encodeHeader(trim($header[1]))
+            );
+        }
+        if (!$this->sign_key_file) {
+            $result .= $this->headerLine('MIME-Version', '1.0');
+            $result .= $this->getMailMIME();
+        }
+
+        return $result;
+    }
+
+    /**
+     * Get the message MIME type headers.
+     *
+     * @return string
+     */
+    public function getMailMIME()
+    {
+        $result = '';
+        $ismultipart = true;
+        switch ($this->message_type) {
+            case 'inline':
+                $result .= $this->headerLine('Content-Type', static::CONTENT_TYPE_MULTIPART_RELATED . ';');
+                $result .= $this->textLine(' boundary="' . $this->boundary[1] . '"');
+                break;
+            case 'attach':
+            case 'inline_attach':
+            case 'alt_attach':
+            case 'alt_inline_attach':
+                $result .= $this->headerLine('Content-Type', static::CONTENT_TYPE_MULTIPART_MIXED . ';');
+                $result .= $this->textLine(' boundary="' . $this->boundary[1] . '"');
+                break;
+            case 'alt':
+            case 'alt_inline':
+                $result .= $this->headerLine('Content-Type', static::CONTENT_TYPE_MULTIPART_ALTERNATIVE . ';');
+                $result .= $this->textLine(' boundary="' . $this->boundary[1] . '"');
+                break;
+            default:
+                //Catches case 'plain': and case '':
+                $result .= $this->textLine(
+                    'Content-Type: ' .
+                    $this->secureHeader($this->ContentType) .
+                    '; charset=' . $this->secureHeader($this->CharSet)
+                );
+                $ismultipart = false;
+                break;
+        }
+        if (!$this->validateEncoding($this->Encoding)) {
+            throw new Exception(self::lang('encoding') . $this->Encoding);
+        }
+        //RFC1341 part 5 says 7bit is assumed if not specified
+        if (static::ENCODING_7BIT !== $this->Encoding) {
+            //RFC 2045 section 6.4 says multipart MIME parts may only use 7bit, 8bit, or binary CTE
+            if ($ismultipart) {
+                if (static::ENCODING_8BIT === $this->Encoding) {
+                    $result .= $this->headerLine('Content-Transfer-Encoding', static::ENCODING_8BIT);
+                }
+                //The only remaining alternatives are quoted-printable and base64, which are both 7bit compatible
+            } else {
+                $result .= $this->headerLine('Content-Transfer-Encoding', $this->Encoding);
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Returns the whole MIME message.
+     * Includes complete headers and body.
+     * Only valid post preSend().
+     *
+     * @see PHPMailer::preSend()
+     *
+     * @return string
+     */
+    public function getSentMIMEMessage()
+    {
+        return static::stripTrailingWSP($this->MIMEHeader . $this->mailHeader) .
+            static::$LE . static::$LE . $this->MIMEBody;
+    }
+
+    /**
+     * Create a unique ID to use for boundaries.
+     *
+     * @return string
+     */
+    protected function generateId()
+    {
+        $len = 32; //32 bytes = 256 bits
+        $bytes = '';
+        if (function_exists('random_bytes')) {
+            try {
+                // phpcs:ignore PHPCompatibility.FunctionUse.NewFunctions.random_bytesFound -- Wrapped in function_exists.
+                $bytes = random_bytes($len);
+            } catch (\Exception $e) {
+                //Do nothing
+            }
+        } elseif (function_exists('openssl_random_pseudo_bytes')) {
+            /** @noinspection CryptographicallySecureRandomnessInspection */
+            $bytes = openssl_random_pseudo_bytes($len);
+        }
+        if ($bytes === '') {
+            //We failed to produce a proper random string, so make do.
+            //Use a hash to force the length to the same as the other methods
+            $bytes = hash('sha256', uniqid((string) mt_rand(), true), true);
+        }
+
+        //We don't care about messing up base64 format here, just want a random string
+        return str_replace(['=', '+', '/'], '', base64_encode(hash('sha256', $bytes, true)));
+    }
+
+    /**
+     * Assemble the message body.
+     * Returns an empty string on failure.
+     *
+     * @throws Exception
+     *
+     * @return string The assembled message body
+     */
+    public function createBody()
+    {
+        $body = '';
+        //Create unique IDs and preset boundaries
+        $this->setBoundaries();
+
+        $this->setWordWrap();
+
+        if (!$this->validateEncoding($this->Encoding)) {
+            throw new Exception(self::lang('encoding') . $this->Encoding);
+        }
+        $bodyEncoding = $this->Encoding;
+        $bodyCharSet = $this->CharSet;
+        //Can we do a 7-bit downgrade?
+        if ($this->UseSMTPUTF8) {
+            $bodyEncoding = static::ENCODING_8BIT;
+        } elseif (static::ENCODING_8BIT === $bodyEncoding && !$this->has8bitChars($this->Body)) {
+            $bodyEncoding = static::ENCODING_7BIT;
+            //All ISO 8859, Windows codepage and UTF-8 charsets are ascii compatible up to 7-bit
+            $bodyCharSet = static::CHARSET_ASCII;
+        }
+        //If lines are too long, and we're not already using an encoding that will shorten them,
+        //change to quoted-printable transfer encoding for the body part only
+        if (static::ENCODING_BASE64 !== $this->Encoding && static::hasLineLongerThanMax($this->Body)) {
+            $bodyEncoding = static::ENCODING_QUOTED_PRINTABLE;
+        }
+
+        $altBodyEncoding = $this->Encoding;
+        $altBodyCharSet = $this->CharSet;
+        //Can we do a 7-bit downgrade?
+        if (static::ENCODING_8BIT === $altBodyEncoding && !$this->has8bitChars($this->AltBody)) {
+            $altBodyEncoding = static::ENCODING_7BIT;
+            //All ISO 8859, Windows codepage and UTF-8 charsets are ascii compatible up to 7-bit
+            $altBodyCharSet = static::CHARSET_ASCII;
+        }
+        //If lines are too long, and we're not already using an encoding that will shorten them,
+        //change to quoted-printable transfer encoding for the alt body part only
+        if (static::ENCODING_BASE64 !== $altBodyEncoding && static::hasLineLongerThanMax($this->AltBody)) {
+            $altBodyEncoding = static::ENCODING_QUOTED_PRINTABLE;
+        }
+
+        if ($this->sign_key_file) {
+            $this->Encoding = $bodyEncoding;
+            $body .= $this->getMailMIME() . static::$LE;
+        }
+
+        //Use this as a preamble in all multipart message types
+        $mimepre = '';
+        switch ($this->message_type) {
+            case 'inline':
+                $body .= $mimepre;
+                $body .= $this->getBoundary($this->boundary[1], $bodyCharSet, '', $bodyEncoding);
+                $body .= $this->encodeString($this->Body, $bodyEncoding);
+                $body .= static::$LE;
+                $body .= $this->attachAll('inline', $this->boundary[1]);
+                break;
+            case 'attach':
+                $body .= $mimepre;
+                $body .= $this->getBoundary($this->boundary[1], $bodyCharSet, '', $bodyEncoding);
+                $body .= $this->encodeString($this->Body, $bodyEncoding);
+                $body .= static::$LE;
+                $body .= $this->attachAll('attachment', $this->boundary[1]);
+                break;
+            case 'inline_attach':
+                $body .= $mimepre;
+                $body .= $this->textLine('--' . $this->boundary[1]);
+                $body .= $this->headerLine('Content-Type', static::CONTENT_TYPE_MULTIPART_RELATED . ';');
+                $body .= $this->textLine(' boundary="' . $this->boundary[2] . '";');
+                $body .= $this->textLine(' type="' . static::CONTENT_TYPE_TEXT_HTML . '"');
+                $body .= static::$LE;
+                $body .= $this->getBoundary($this->boundary[2], $bodyCharSet, '', $bodyEncoding);
+                $body .= $this->encodeString($this->Body, $bodyEncoding);
+                $body .= static::$LE;
+                $body .= $this->attachAll('inline', $this->boundary[2]);
+                $body .= static::$LE;
+                $body .= $this->attachAll('attachment', $this->boundary[1]);
+                break;
+            case 'alt':
+                $body .= $mimepre;
+                $body .= $this->getBoundary(
+                    $this->boundary[1],
+                    $altBodyCharSet,
+                    static::CONTENT_TYPE_PLAINTEXT,
+                    $altBodyEncoding
+                );
+                $body .= $this->encodeString($this->AltBody, $altBodyEncoding);
+                $body .= static::$LE;
+                $body .= $this->getBoundary(
+                    $this->boundary[1],
+                    $bodyCharSet,
+                    static::CONTENT_TYPE_TEXT_HTML,
+                    $bodyEncoding
+                );
+                $body .= $this->encodeString($this->Body, $bodyEncoding);
+                $body .= static::$LE;
+                if (!empty($this->Ical)) {
+                    $method = static::ICAL_METHOD_REQUEST;
+                    foreach (static::$IcalMethods as $imethod) {
+                        if (stripos($this->Ical, 'METHOD:' . $imethod) !== false) {
+                            $method = $imethod;
+                            break;
+                        }
+                    }
+                    $body .= $this->getBoundary(
+                        $this->boundary[1],
+                        '',
+                        static::CONTENT_TYPE_TEXT_CALENDAR . '; method=' . $method,
+                        ''
+                    );
+                    $body .= $this->encodeString($this->Ical, $this->Encoding);
+                    $body .= static::$LE;
+                }
+                $body .= $this->endBoundary($this->boundary[1]);
+                break;
+            case 'alt_inline':
+                $body .= $mimepre;
+                $body .= $this->getBoundary(
+                    $this->boundary[1],
+                    $altBodyCharSet,
+                    static::CONTENT_TYPE_PLAINTEXT,
+                    $altBodyEncoding
+                );
+                $body .= $this->encodeString($this->AltBody, $altBodyEncoding);
+                $body .= static::$LE;
+                $body .= $this->textLine('--' . $this->boundary[1]);
+                $body .= $this->headerLine('Content-Type', static::CONTENT_TYPE_MULTIPART_RELATED . ';');
+                $body .= $this->textLine(' boundary="' . $this->boundary[2] . '";');
+                $body .= $this->textLine(' type="' . static::CONTENT_TYPE_TEXT_HTML . '"');
+                $body .= static::$LE;
+                $body .= $this->getBoundary(
+                    $this->boundary[2],
+                    $bodyCharSet,
+                    static::CONTENT_TYPE_TEXT_HTML,
+                    $bodyEncoding
+                );
+                $body .= $this->encodeString($this->Body, $bodyEncoding);
+                $body .= static::$LE;
+                $body .= $this->attachAll('inline', $this->boundary[2]);
+                $body .= static::$LE;
+                $body .= $this->endBoundary($this->boundary[1]);
+                break;
+            case 'alt_attach':
+                $body .= $mimepre;
+                $body .= $this->textLine('--' . $this->boundary[1]);
+                $body .= $this->headerLine('Content-Type', static::CONTENT_TYPE_MULTIPART_ALTERNATIVE . ';');
+                $body .= $this->textLine(' boundary="' . $this->boundary[2] . '"');
+                $body .= static::$LE;
+                $body .= $this->getBoundary(
+                    $this->boundary[2],
+                    $altBodyCharSet,
+                    static::CONTENT_TYPE_PLAINTEXT,
+                    $altBodyEncoding
+                );
+                $body .= $this->encodeString($this->AltBody, $altBodyEncoding);
+                $body .= static::$LE;
+                $body .= $this->getBoundary(
+                    $this->boundary[2],
+                    $bodyCharSet,
+                    static::CONTENT_TYPE_TEXT_HTML,
+                    $bodyEncoding
+                );
+                $body .= $this->encodeString($this->Body, $bodyEncoding);
+                $body .= static::$LE;
+                if (!empty($this->Ical)) {
+                    $method = static::ICAL_METHOD_REQUEST;
+                    foreach (static::$IcalMethods as $imethod) {
+                        if (stripos($this->Ical, 'METHOD:' . $imethod) !== false) {
+                            $method = $imethod;
+                            break;
+                        }
+                    }
+                    $body .= $this->getBoundary(
+                        $this->boundary[2],
+                        '',
+                        static::CONTENT_TYPE_TEXT_CALENDAR . '; method=' . $method,
+                        ''
+                    );
+                    $body .= $this->encodeString($this->Ical, $this->Encoding);
+                }
+                $body .= $this->endBoundary($this->boundary[2]);
+                $body .= static::$LE;
+                $body .= $this->attachAll('attachment', $this->boundary[1]);
+                break;
+            case 'alt_inline_attach':
+                $body .= $mimepre;
+                $body .= $this->textLine('--' . $this->boundary[1]);
+                $body .= $this->headerLine('Content-Type', static::CONTENT_TYPE_MULTIPART_ALTERNATIVE . ';');
+                $body .= $this->textLine(' boundary="' . $this->boundary[2] . '"');
+                $body .= static::$LE;
+                $body .= $this->getBoundary(
+                    $this->boundary[2],
+                    $altBodyCharSet,
+                    static::CONTENT_TYPE_PLAINTEXT,
+                    $altBodyEncoding
+                );
+                $body .= $this->encodeString($this->AltBody, $altBodyEncoding);
+                $body .= static::$LE;
+                $body .= $this->textLine('--' . $this->boundary[2]);
+                $body .= $this->headerLine('Content-Type', static::CONTENT_TYPE_MULTIPART_RELATED . ';');
+                $body .= $this->textLine(' boundary="' . $this->boundary[3] . '";');
+                $body .= $this->textLine(' type="' . static::CONTENT_TYPE_TEXT_HTML . '"');
+                $body .= static::$LE;
+                $body .= $this->getBoundary(
+                    $this->boundary[3],
+                    $bodyCharSet,
+                    static::CONTENT_TYPE_TEXT_HTML,
+                    $bodyEncoding
+                );
+                $body .= $this->encodeString($this->Body, $bodyEncoding);
+                $body .= static::$LE;
+                $body .= $this->attachAll('inline', $this->boundary[3]);
+                $body .= static::$LE;
+                $body .= $this->endBoundary($this->boundary[2]);
+                $body .= static::$LE;
+                $body .= $this->attachAll('attachment', $this->boundary[1]);
+                break;
+            default:
+                //Catch case 'plain' and case '', applies to simple `text/plain` and `text/html` body content types
+                //Reset the `Encoding` property in case we changed it for line length reasons
+                $this->Encoding = $bodyEncoding;
+                $body .= $this->encodeString($this->Body, $this->Encoding);
+                break;
+        }
+
+        if ($this->isError()) {
+            $body = '';
+            if ($this->exceptions) {
+                throw new Exception(self::lang('empty_message'), self::STOP_CRITICAL);
+            }
+        } elseif ($this->sign_key_file) {
+            try {
+                if (!defined('PKCS7_TEXT')) {
+                    throw new Exception(self::lang('extension_missing') . 'openssl');
+                }
+
+                $file = tempnam(sys_get_temp_dir(), 'srcsign');
+                $signed = tempnam(sys_get_temp_dir(), 'mailsign');
+                file_put_contents($file, $body);
+
+                //Workaround for PHP bug https://bugs.php.net/bug.php?id=69197
+                if (empty($this->sign_extracerts_file)) {
+                    $sign = @openssl_pkcs7_sign(
+                        $file,
+                        $signed,
+                        'file://' . realpath($this->sign_cert_file),
+                        ['file://' . realpath($this->sign_key_file), $this->sign_key_pass],
+                        []
+                    );
+                } else {
+                    $sign = @openssl_pkcs7_sign(
+                        $file,
+                        $signed,
+                        'file://' . realpath($this->sign_cert_file),
+                        ['file://' . realpath($this->sign_key_file), $this->sign_key_pass],
+                        [],
+                        PKCS7_DETACHED,
+                        $this->sign_extracerts_file
+                    );
+                }
+
+                @unlink($file);
+                if ($sign) {
+                    $body = file_get_contents($signed);
+                    @unlink($signed);
+                    //The message returned by openssl contains both headers and body, so need to split them up
+                    $parts = explode("\n\n", $body, 2);
+                    $this->MIMEHeader .= $parts[0] . static::$LE . static::$LE;
+                    $body = $parts[1];
+                } else {
+                    @unlink($signed);
+                    throw new Exception(self::lang('signing') . openssl_error_string());
+                }
+            } catch (Exception $exc) {
+                $body = '';
+                if ($this->exceptions) {
+                    throw $exc;
+                }
+            }
+        }
+
+        return $body;
+    }
+
+    /**
+     * Get the boundaries that this message will use
+     * @return array
+     */
+    public function getBoundaries()
+    {
+        if (empty($this->boundary)) {
+            $this->setBoundaries();
+        }
+        return $this->boundary;
+    }
+
+    /**
+     * Return the start of a message boundary.
+     *
+     * @param string $boundary
+     * @param string $charSet
+     * @param string $contentType
+     * @param string $encoding
+     *
+     * @return string
+     */
+    protected function getBoundary($boundary, $charSet, $contentType, $encoding)
+    {
+        $result = '';
+        if ('' === $charSet) {
+            $charSet = $this->CharSet;
+        }
+        if ('' === $contentType) {
+            $contentType = $this->ContentType;
+        }
+        if ('' === $encoding) {
+            $encoding = $this->Encoding;
+        }
+        $result .= $this->textLine('--' . $boundary);
+        $result .= sprintf('Content-Type: %s; charset=%s', $contentType, $charSet);
+        $result .= static::$LE;
+        //RFC1341 part 5 says 7bit is assumed if not specified
+        if (static::ENCODING_7BIT !== $encoding) {
+            $result .= $this->headerLine('Content-Transfer-Encoding', $encoding);
+        }
+        $result .= static::$LE;
+
+        return $result;
+    }
+
+    /**
+     * Return the end of a message boundary.
+     *
+     * @param string $boundary
+     *
+     * @return string
+     */
+    protected function endBoundary($boundary)
+    {
+        return static::$LE . '--' . $boundary . '--' . static::$LE;
+    }
+
+    /**
+     * Set the message type.
+     * PHPMailer only supports some preset message types, not arbitrary MIME structures.
+     */
+    protected function setMessageType()
+    {
+        $type = [];
+        if ($this->alternativeExists()) {
+            $type[] = 'alt';
+        }
+        if ($this->inlineImageExists()) {
+            $type[] = 'inline';
+        }
+        if ($this->attachmentExists()) {
+            $type[] = 'attach';
+        }
+        $this->message_type = implode('_', $type);
+        if ('' === $this->message_type) {
+            //The 'plain' message_type refers to the message having a single body element, not that it is plain-text
+            $this->message_type = 'plain';
+        }
+    }
+
+    /**
+     * Format a header line.
+     *
+     * @param string     $name
+     * @param string|int $value
+     *
+     * @return string
+     */
+    public function headerLine($name, $value)
+    {
+        return $name . ': ' . $value . static::$LE;
+    }
+
+    /**
+     * Return a formatted mail line.
+     *
+     * @param string $value
+     *
+     * @return string
+     */
+    public function textLine($value)
+    {
+        return $value . static::$LE;
+    }
+
+    /**
+     * Add an attachment from a path on the filesystem.
+     * Never use a user-supplied path to a file!
+     * Returns false if the file could not be found or read.
+     * Explicitly *does not* support passing URLs; PHPMailer is not an HTTP client.
+     * If you need to do that, fetch the resource yourself and pass it in via a local file or string.
+     *
+     * @param string $path        Path to the attachment
+     * @param string $name        Overrides the attachment name
+     * @param string $encoding    File encoding (see $Encoding)
+     * @param string $type        MIME type, e.g. `image/jpeg`; determined automatically from $path if not specified
+     * @param string $disposition Disposition to use
+     *
+     * @throws Exception
+     *
+     * @return bool
+     */
+    public function addAttachment(
+        $path,
+        $name = '',
+        $encoding = self::ENCODING_BASE64,
+        $type = '',
+        $disposition = 'attachment'
+    ) {
+        try {
+            if (!static::fileIsAccessible($path)) {
+                throw new Exception(self::lang('file_access') . $path, self::STOP_CONTINUE);
+            }
+
+            //If a MIME type is not specified, try to work it out from the file name
+            if ('' === $type) {
+                $type = static::filenameToType($path);
+            }
+
+            $filename = (string) static::mb_pathinfo($path, PATHINFO_BASENAME);
+            if ('' === $name) {
+                $name = $filename;
+            }
+            if (!$this->validateEncoding($encoding)) {
+                throw new Exception(self::lang('encoding') . $encoding);
+            }
+
+            $this->attachment[] = [
+                0 => $path,
+                1 => $filename,
+                2 => $name,
+                3 => $encoding,
+                4 => $type,
+                5 => false, //isStringAttachment
+                6 => $disposition,
+                7 => $name,
+            ];
+        } catch (Exception $exc) {
+            $this->setError($exc->getMessage());
+            $this->edebug($exc->getMessage());
+            if ($this->exceptions) {
+                throw $exc;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Return the array of attachments.
+     *
+     * @return array
+     */
+    public function getAttachments()
+    {
+        return $this->attachment;
+    }
+
+    /**
+     * Attach all file, string, and binary attachments to the message.
+     * Returns an empty string on failure.
+     *
+     * @param string $disposition_type
+     * @param string $boundary
+     *
+     * @throws Exception
+     *
+     * @return string
+     */
+    protected function attachAll($disposition_type, $boundary)
+    {
+        //Return text of body
+        $mime = [];
+        $cidUniq = [];
+        $incl = [];
+
+        //Add all attachments
+        foreach ($this->attachment as $attachment) {
+            //Check if it is a valid disposition_filter
+            if ($attachment[6] === $disposition_type) {
+                //Check for string attachment
+                $string = '';
+                $path = '';
+                $bString = $attachment[5];
+                if ($bString) {
+                    $string = $attachment[0];
+                } else {
+                    $path = $attachment[0];
+                }
+
+                $inclhash = hash('sha256', serialize($attachment));
+                if (in_array($inclhash, $incl, true)) {
+                    continue;
+                }
+                $incl[] = $inclhash;
+                $name = $attachment[2];
+                $encoding = $attachment[3];
+                $type = $attachment[4];
+                $disposition = $attachment[6];
+                $cid = $attachment[7];
+                if ('inline' === $disposition && array_key_exists($cid, $cidUniq)) {
+                    continue;
+                }
+                $cidUniq[$cid] = true;
+
+                $mime[] = sprintf('--%s%s', $boundary, static::$LE);
+                //Only include a filename property if we have one
+                if (!empty($name)) {
+                    $mime[] = sprintf(
+                        'Content-Type: %s; name=%s%s',
+                        $type,
+                        static::quotedString($this->encodeHeader($this->secureHeader($name))),
+                        static::$LE
+                    );
+                } else {
+                    $mime[] = sprintf(
+                        'Content-Type: %s%s',
+                        $type,
+                        static::$LE
+                    );
+                }
+                //RFC1341 part 5 says 7bit is assumed if not specified
+                if (static::ENCODING_7BIT !== $encoding) {
+                    $mime[] = sprintf('Content-Transfer-Encoding: %s%s', $encoding, static::$LE);
+                }
+
+                //Only set Content-IDs on inline attachments
+                if ((string) $cid !== '' && $disposition === 'inline') {
+                    $mime[] = 'Content-ID: <' . $this->encodeHeader($this->secureHeader($cid)) . '>' . static::$LE;
+                }
+
+                //Allow for bypassing the Content-Disposition header
+                if (!empty($disposition)) {
+                    $encoded_name = $this->encodeHeader($this->secureHeader($name));
+                    if (!empty($encoded_name)) {
+                        $mime[] = sprintf(
+                            'Content-Disposition: %s; filename=%s%s',
+                            $disposition,
+                            static::quotedString($encoded_name),
+                            static::$LE . static::$LE
+                        );
+                    } else {
+                        $mime[] = sprintf(
+                            'Content-Disposition: %s%s',
+                            $disposition,
+                            static::$LE . static::$LE
+                        );
+                    }
+                } else {
+                    $mime[] = static::$LE;
+                }
+
+                //Encode as string attachment
+                if ($bString) {
+                    $mime[] = $this->encodeString($string, $encoding);
+                } else {
+                    $mime[] = $this->encodeFile($path, $encoding);
+                }
+                if ($this->isError()) {
+                    return '';
+                }
+                $mime[] = static::$LE;
+            }
+        }
+
+        $mime[] = sprintf('--%s--%s', $boundary, static::$LE);
+
+        return implode('', $mime);
+    }
+
+    /**
+     * Encode a file attachment in requested format.
+     * Returns an empty string on failure.
+     *
+     * @param string $path     The full path to the file
+     * @param string $encoding The encoding to use; one of 'base64', '7bit', '8bit', 'binary', 'quoted-printable'
+     *
+     * @return string
+     */
+    protected function encodeFile($path, $encoding = self::ENCODING_BASE64)
+    {
+        try {
+            if (!static::fileIsAccessible($path)) {
+                throw new Exception(self::lang('file_open') . $path, self::STOP_CONTINUE);
+            }
+            $file_buffer = file_get_contents($path);
+            if (false === $file_buffer) {
+                throw new Exception(self::lang('file_open') . $path, self::STOP_CONTINUE);
+            }
+            $file_buffer = $this->encodeString($file_buffer, $encoding);
+
+            return $file_buffer;
+        } catch (Exception $exc) {
+            $this->setError($exc->getMessage());
+            $this->edebug($exc->getMessage());
+            if ($this->exceptions) {
+                throw $exc;
+            }
+
+            return '';
+        }
+    }
+
+    /**
+     * Encode a string in requested format.
+     * Returns an empty string on failure.
+     *
+     * @param string $str      The text to encode
+     * @param string $encoding The encoding to use; one of 'base64', '7bit', '8bit', 'binary', 'quoted-printable'
+     *
+     * @throws Exception
+     *
+     * @return string
+     */
+    public function encodeString($str, $encoding = self::ENCODING_BASE64)
+    {
+        $encoded = '';
+        switch (strtolower($encoding)) {
+            case static::ENCODING_BASE64:
+                $encoded = chunk_split(
+                    base64_encode($str),
+                    static::STD_LINE_LENGTH,
+                    static::$LE
+                );
+                break;
+            case static::ENCODING_7BIT:
+            case static::ENCODING_8BIT:
+                $encoded = static::normalizeBreaks($str);
+                //Make sure it ends with a line break
+                if (substr($encoded, -(strlen(static::$LE))) !== static::$LE) {
+                    $encoded .= static::$LE;
+                }
+                break;
+            case static::ENCODING_BINARY:
+                $encoded = $str;
+                break;
+            case static::ENCODING_QUOTED_PRINTABLE:
+                $encoded = $this->encodeQP($str);
+                break;
+            default:
+                $this->setError(self::lang('encoding') . $encoding);
+                if ($this->exceptions) {
+                    throw new Exception(self::lang('encoding') . $encoding);
+                }
+                break;
+        }
+
+        return $encoded;
+    }
+
+    /**
+     * Encode a header value (not including its label) optimally.
+     * Picks shortest of Q, B, or none. Result includes folding if needed.
+     * See RFC822 definitions for phrase, comment and text positions,
+     * and RFC2047 for inline encodings.
+     *
+     * @param string $str      The header value to encode
+     * @param string $position What context the string will be used in
+     *
+     * @return string
+     */
+    public function encodeHeader($str, $position = 'text')
+    {
+        $position = strtolower($position);
+        if ($this->UseSMTPUTF8 && !("comment" === $position)) {
+            return trim(static::normalizeBreaks($str));
+        }
+
+        $matchcount = 0;
+        switch (strtolower($position)) {
+            case 'phrase':
+                if (!preg_match('/[\200-\377]/', $str)) {
+                    //Can't use addslashes as we don't know the value of magic_quotes_sybase
+                    $encoded = addcslashes($str, "\0..\37\177\\\"");
+                    if (($str === $encoded) && !preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $str)) {
+                        return $encoded;
+                    }
+
+                    return "\"$encoded\"";
+                }
+                $matchcount = preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
+                break;
+            /* @noinspection PhpMissingBreakStatementInspection */
+            case 'comment':
+                $matchcount = preg_match_all('/[()"]/', $str, $matches);
+            //fallthrough
+            case 'text':
+            default:
+                $matchcount += preg_match_all('/[\000-\010\013\014\016-\037\177-\377]/', $str, $matches);
+                break;
+        }
+
+        if ($this->has8bitChars($str)) {
+            $charset = $this->CharSet;
+        } else {
+            $charset = static::CHARSET_ASCII;
+        }
+
+        //Q/B encoding adds 8 chars and the charset ("` =?<charset>?[QB]?<content>?=`").
+        $overhead = 8 + strlen($charset);
+
+        if ('mail' === $this->Mailer) {
+            $maxlen = static::MAIL_MAX_LINE_LENGTH - $overhead;
+        } else {
+            $maxlen = static::MAX_LINE_LENGTH - $overhead;
+        }
+
+        //Select the encoding that produces the shortest output and/or prevents corruption.
+        if ($matchcount > strlen($str) / 3) {
+            //More than 1/3 of the content needs encoding, use B-encode.
+            $encoding = 'B';
+        } elseif ($matchcount > 0) {
+            //Less than 1/3 of the content needs encoding, use Q-encode.
+            $encoding = 'Q';
+        } elseif (strlen($str) > $maxlen) {
+            //No encoding needed, but value exceeds max line length, use Q-encode to prevent corruption.
+            $encoding = 'Q';
+        } else {
+            //No reformatting needed
+            $encoding = false;
+        }
+
+        switch ($encoding) {
+            case 'B':
+                if ($this->hasMultiBytes($str)) {
+                    //Use a custom function which correctly encodes and wraps long
+                    //multibyte strings without breaking lines within a character
+                    $encoded = $this->base64EncodeWrapMB($str, "\n");
+                } else {
+                    $encoded = base64_encode($str);
+                    $maxlen -= $maxlen % 4;
+                    $encoded = trim(chunk_split($encoded, $maxlen, "\n"));
+                }
+                $encoded = preg_replace('/^(.*)$/m', ' =?' . $charset . "?$encoding?\\1?=", $encoded);
+                break;
+            case 'Q':
+                $encoded = $this->encodeQ($str, $position);
+                $encoded = $this->wrapText($encoded, $maxlen, true);
+                $encoded = str_replace('=' . static::$LE, "\n", trim($encoded));
+                $encoded = preg_replace('/^(.*)$/m', ' =?' . $charset . "?$encoding?\\1?=", $encoded);
+                break;
+            default:
+                return $str;
+        }
+
+        return trim(static::normalizeBreaks($encoded));
+    }
+
+    /**
+     * Decode an RFC2047-encoded header value
+     * Attempts multiple strategies so it works even when the mbstring extension is disabled.
+     *
+     * @param string $value   The header value to decode
+     * @param string $charset The target charset to convert to, defaults to ISO-8859-1 for BC
+     *
+     * @return string The decoded header value
+     */
+    public static function decodeHeader($value, $charset = self::CHARSET_ISO88591)
+    {
+        if (!is_string($value) || $value === '') {
+            return '';
+        }
+        // Detect the presence of any RFC2047 encoded-words
+        $hasEncodedWord = (bool) preg_match('/=\?.*\?=/s', $value);
+        if ($hasEncodedWord && defined('MB_CASE_UPPER')) {
+            $origCharset = mb_internal_encoding();
+            // Always decode to UTF-8 to provide a consistent, modern output encoding.
+            mb_internal_encoding($charset);
+            if (PHP_VERSION_ID < 80300) {
+                // Undo any RFC2047-encoded spaces-as-underscores.
+                $value = str_replace('_', '=20', $value);
+            } else {
+                // PHP 8.3+ already interprets underscores as spaces. Remove additional
+                // linear whitespace between adjacent encoded words to avoid double spacing.
+                $value = preg_replace('/(\?=)\s+(=\?)/', '$1$2', $value);
+            }
+            // Decode the header value
+            $value = mb_decode_mimeheader($value);
+            mb_internal_encoding($origCharset);
+        }
+
+        return $value;
+    }
+
+    /**
+     * Check if a string contains multi-byte characters.
+     *
+     * @param string $str multi-byte text to wrap encode
+     *
+     * @return bool
+     */
+    public function hasMultiBytes($str)
+    {
+        if (function_exists('mb_strlen')) {
+            return strlen($str) > mb_strlen($str, $this->CharSet);
+        }
+
+        //Assume no multibytes (we can't handle without mbstring functions anyway)
+        return false;
+    }
+
+    /**
+     * Does a string contain any 8-bit chars (in any charset)?
+     *
+     * @param string $text
+     *
+     * @return bool
+     */
+    public function has8bitChars($text)
+    {
+        return (bool) preg_match('/[\x80-\xFF]/', $text);
+    }
+
+    /**
+     * Encode and wrap long multibyte strings for mail headers
+     * without breaking lines within a character.
+     * Adapted from a function by paravoid.
+     *
+     * @see https://www.php.net/manual/en/function.mb-encode-mimeheader.php#60283
+     *
+     * @param string $str       multi-byte text to wrap encode
+     * @param string $linebreak string to use as linefeed/end-of-line
+     *
+     * @return string
+     */
+    public function base64EncodeWrapMB($str, $linebreak = null)
+    {
+        $start = '=?' . $this->CharSet . '?B?';
+        $end = '?=';
+        $encoded = '';
+        if (null === $linebreak) {
+            $linebreak = static::$LE;
+        }
+
+        $mb_length = mb_strlen($str, $this->CharSet);
+        //Each line must have length <= 75, including $start and $end
+        $length = 75 - strlen($start) - strlen($end);
+        //Average multi-byte ratio
+        $ratio = $mb_length / strlen($str);
+        //Base64 has a 4:3 ratio
+        $avgLength = floor($length * $ratio * .75);
+
+        $offset = 0;
+        for ($i = 0; $i < $mb_length; $i += $offset) {
+            $lookBack = 0;
+            do {
+                $offset = $avgLength - $lookBack;
+                $chunk = mb_substr($str, $i, $offset, $this->CharSet);
+                $chunk = base64_encode($chunk);
+                ++$lookBack;
+            } while (strlen($chunk) > $length);
+            $encoded .= $chunk . $linebreak;
+        }
+
+        //Chomp the last linefeed
+        return substr($encoded, 0, -strlen($linebreak));
+    }
+
+    /**
+     * Encode a string in quoted-printable format.
+     * According to RFC2045 section 6.7.
+     *
+     * @param string $string The text to encode
+     *
+     * @return string
+     */
+    public function encodeQP($string)
+    {
+        return static::normalizeBreaks(quoted_printable_encode($string));
+    }
+
+    /**
+     * Encode a string using Q encoding.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc2047#section-4.2
+     *
+     * @param string $str      the text to encode
+     * @param string $position Where the text is going to be used, see the RFC for what that means
+     *
+     * @return string
+     */
+    public function encodeQ($str, $position = 'text')
+    {
+        //There should not be any EOL in the string
+        $pattern = '';
+        $encoded = str_replace(["\r", "\n"], '', $str);
+        switch (strtolower($position)) {
+            case 'phrase':
+                //RFC 2047 section 5.3
+                $pattern = '^A-Za-z0-9!*+\/ -';
+                break;
+            /*
+             * RFC 2047 section 5.2.
+             * Build $pattern without including delimiters and []
+             */
+            /* @noinspection PhpMissingBreakStatementInspection */
+            case 'comment':
+                $pattern = '\(\)"';
+            /* Intentional fall through */
+            case 'text':
+            default:
+                //RFC 2047 section 5.1
+                //Replace every high ascii, control, =, ? and _ characters
+                $pattern = '\000-\011\013\014\016-\037\075\077\137\177-\377' . $pattern;
+                break;
+        }
+        $matches = [];
+        if (preg_match_all("/[{$pattern}]/", $encoded, $matches)) {
+            //If the string contains an '=', make sure it's the first thing we replace
+            //so as to avoid double-encoding
+            $eqkey = array_search('=', $matches[0], true);
+            if (false !== $eqkey) {
+                unset($matches[0][$eqkey]);
+                array_unshift($matches[0], '=');
+            }
+            foreach (array_unique($matches[0]) as $char) {
+                $encoded = str_replace($char, '=' . sprintf('%02X', ord($char)), $encoded);
+            }
+        }
+        //Replace spaces with _ (more readable than =20)
+        //RFC 2047 section 4.2(2)
+        return str_replace(' ', '_', $encoded);
+    }
+
+    /**
+     * Add a string or binary attachment (non-filesystem).
+     * This method can be used to attach ascii or binary data,
+     * such as a BLOB record from a database.
+     *
+     * @param string $string      String attachment data
+     * @param string $filename    Name of the attachment
+     * @param string $encoding    File encoding (see $Encoding)
+     * @param string $type        File extension (MIME) type
+     * @param string $disposition Disposition to use
+     *
+     * @throws Exception
+     *
+     * @return bool True on successfully adding an attachment
+     */
+    public function addStringAttachment(
+        $string,
+        $filename,
+        $encoding = self::ENCODING_BASE64,
+        $type = '',
+        $disposition = 'attachment'
+    ) {
+        try {
+            //If a MIME type is not specified, try to work it out from the file name
+            if ('' === $type) {
+                $type = static::filenameToType($filename);
+            }
+
+            if (!$this->validateEncoding($encoding)) {
+                throw new Exception(self::lang('encoding') . $encoding);
+            }
+
+            //Append to $attachment array
+            $this->attachment[] = [
+                0 => $string,
+                1 => $filename,
+                2 => static::mb_pathinfo($filename, PATHINFO_BASENAME),
+                3 => $encoding,
+                4 => $type,
+                5 => true, //isStringAttachment
+                6 => $disposition,
+                7 => 0,
+            ];
+        } catch (Exception $exc) {
+            $this->setError($exc->getMessage());
+            $this->edebug($exc->getMessage());
+            if ($this->exceptions) {
+                throw $exc;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add an embedded (inline) attachment from a file.
+     * This can include images, sounds, and just about any other document type.
+     * These differ from 'regular' attachments in that they are intended to be
+     * displayed inline with the message, not just attached for download.
+     * This is used in HTML messages that embed the images
+     * the HTML refers to using the `$cid` value in `img` tags, for example `<img src="cid:mylogo">`.
+     * Never use a user-supplied path to a file!
+     *
+     * @param string $path        Path to the attachment
+     * @param string $cid         Content ID of the attachment; Use this to reference
+     *                            the content when using an embedded image in HTML
+     * @param string $name        Overrides the attachment filename
+     * @param string $encoding    File encoding (see $Encoding) defaults to `base64`
+     * @param string $type        File MIME type (by default mapped from the `$path` filename's extension)
+     * @param string $disposition Disposition to use: `inline` (default) or `attachment`
+     *                            (unlikely you want this – {@see `addAttachment()`} instead)
+     *
+     * @return bool True on successfully adding an attachment
+     * @throws Exception
+     *
+     */
+    public function addEmbeddedImage(
+        $path,
+        $cid,
+        $name = '',
+        $encoding = self::ENCODING_BASE64,
+        $type = '',
+        $disposition = 'inline'
+    ) {
+        try {
+            if (!static::fileIsAccessible($path)) {
+                throw new Exception(self::lang('file_access') . $path, self::STOP_CONTINUE);
+            }
+
+            //If a MIME type is not specified, try to work it out from the file name
+            if ('' === $type) {
+                $type = static::filenameToType($path);
+            }
+
+            if (!$this->validateEncoding($encoding)) {
+                throw new Exception(self::lang('encoding') . $encoding);
+            }
+
+            $filename = (string) static::mb_pathinfo($path, PATHINFO_BASENAME);
+            if ('' === $name) {
+                $name = $filename;
+            }
+
+            //Append to $attachment array
+            $this->attachment[] = [
+                0 => $path,
+                1 => $filename,
+                2 => $name,
+                3 => $encoding,
+                4 => $type,
+                5 => false, //isStringAttachment
+                6 => $disposition,
+                7 => $cid,
+            ];
+        } catch (Exception $exc) {
+            $this->setError($exc->getMessage());
+            $this->edebug($exc->getMessage());
+            if ($this->exceptions) {
+                throw $exc;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Add an embedded stringified attachment.
+     * This can include images, sounds, and just about any other document type.
+     * If your filename doesn't contain an extension, be sure to set the $type to an appropriate MIME type.
+     *
+     * @param string $string      The attachment binary data
+     * @param string $cid         Content ID of the attachment; Use this to reference
+     *                            the content when using an embedded image in HTML
+     * @param string $name        A filename for the attachment. If this contains an extension,
+     *                            PHPMailer will attempt to set a MIME type for the attachment.
+     *                            For example 'file.jpg' would get an 'image/jpeg' MIME type.
+     * @param string $encoding    File encoding (see $Encoding), defaults to 'base64'
+     * @param string $type        MIME type - will be used in preference to any automatically derived type
+     * @param string $disposition Disposition to use
+     *
+     * @throws Exception
+     *
+     * @return bool True on successfully adding an attachment
+     */
+    public function addStringEmbeddedImage(
+        $string,
+        $cid,
+        $name = '',
+        $encoding = self::ENCODING_BASE64,
+        $type = '',
+        $disposition = 'inline'
+    ) {
+        try {
+            //If a MIME type is not specified, try to work it out from the name
+            if ('' === $type && !empty($name)) {
+                $type = static::filenameToType($name);
+            }
+
+            if (!$this->validateEncoding($encoding)) {
+                throw new Exception(self::lang('encoding') . $encoding);
+            }
+
+            //Append to $attachment array
+            $this->attachment[] = [
+                0 => $string,
+                1 => $name,
+                2 => $name,
+                3 => $encoding,
+                4 => $type,
+                5 => true, //isStringAttachment
+                6 => $disposition,
+                7 => $cid,
+            ];
+        } catch (Exception $exc) {
+            $this->setError($exc->getMessage());
+            $this->edebug($exc->getMessage());
+            if ($this->exceptions) {
+                throw $exc;
+            }
+
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Validate encodings.
+     *
+     * @param string $encoding
+     *
+     * @return bool
+     */
+    protected function validateEncoding($encoding)
+    {
+        return in_array(
+            strtolower($encoding),
+            [
+                self::ENCODING_7BIT,
+                self::ENCODING_QUOTED_PRINTABLE,
+                self::ENCODING_BASE64,
+                self::ENCODING_8BIT,
+                self::ENCODING_BINARY,
+            ],
+            true
+        );
+    }
+
+    /**
+     * Check if an embedded attachment is present with this cid.
+     *
+     * @param string $cid
+     *
+     * @return bool
+     */
+    protected function cidExists($cid)
+    {
+        foreach ($this->attachment as $attachment) {
+            if ('inline' === $attachment[6] && $cid === $attachment[7]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if an inline attachment is present.
+     *
+     * @return bool
+     */
+    public function inlineImageExists()
+    {
+        foreach ($this->attachment as $attachment) {
+            if ('inline' === $attachment[6]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if an attachment (non-inline) is present.
+     *
+     * @return bool
+     */
+    public function attachmentExists()
+    {
+        foreach ($this->attachment as $attachment) {
+            if ('attachment' === $attachment[6]) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Check if this message has an alternative body set.
+     *
+     * @return bool
+     */
+    public function alternativeExists()
+    {
+        return !empty($this->AltBody);
+    }
+
+    /**
+     * Clear queued addresses of given kind.
+     *
+     * @param string $kind 'to', 'cc', or 'bcc'
+     */
+    public function clearQueuedAddresses($kind)
+    {
+        $this->RecipientsQueue = array_filter(
+            $this->RecipientsQueue,
+            static function ($params) use ($kind) {
+                return $params[0] !== $kind;
+            }
+        );
+    }
+
+    /**
+     * Clear all To recipients.
+     */
+    public function clearAddresses()
+    {
+        foreach ($this->to as $to) {
+            unset($this->all_recipients[strtolower($to[0])]);
+        }
+        $this->to = [];
+        $this->clearQueuedAddresses('to');
+    }
+
+    /**
+     * Clear all CC recipients.
+     */
+    public function clearCCs()
+    {
+        foreach ($this->cc as $cc) {
+            unset($this->all_recipients[strtolower($cc[0])]);
+        }
+        $this->cc = [];
+        $this->clearQueuedAddresses('cc');
+    }
+
+    /**
+     * Clear all BCC recipients.
+     */
+    public function clearBCCs()
+    {
+        foreach ($this->bcc as $bcc) {
+            unset($this->all_recipients[strtolower($bcc[0])]);
+        }
+        $this->bcc = [];
+        $this->clearQueuedAddresses('bcc');
+    }
+
+    /**
+     * Clear all ReplyTo recipients.
+     */
+    public function clearReplyTos()
+    {
+        $this->ReplyTo = [];
+        $this->ReplyToQueue = [];
+    }
+
+    /**
+     * Clear all recipient types.
+     */
+    public function clearAllRecipients()
+    {
+        $this->to = [];
+        $this->cc = [];
+        $this->bcc = [];
+        $this->all_recipients = [];
+        $this->RecipientsQueue = [];
+    }
+
+    /**
+     * Clear all filesystem, string, and binary attachments.
+     */
+    public function clearAttachments()
+    {
+        $this->attachment = [];
+    }
+
+    /**
+     * Clear all custom headers.
+     */
+    public function clearCustomHeaders()
+    {
+        $this->CustomHeader = [];
+    }
+
+    /**
+     * Clear a specific custom header by name or name and value.
+     * $name value can be overloaded to contain
+     * both header name and value (name:value).
+     *
+     * @param string      $name  Custom header name
+     * @param string|null $value Header value
+     *
+     * @return bool True if a header was replaced successfully
+     */
+    public function clearCustomHeader($name, $value = null)
+    {
+        if (null === $value && strpos($name, ':') !== false) {
+            //Value passed in as name:value
+            list($name, $value) = explode(':', $name, 2);
+        }
+        $name = trim($name);
+        $value = (null === $value) ? null : trim($value);
+
+        foreach ($this->CustomHeader as $k => $pair) {
+            if ($pair[0] == $name) {
+                // We remove the header if the value is not provided or it matches.
+                if (null === $value ||  $pair[1] == $value) {
+                    unset($this->CustomHeader[$k]);
+                }
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Replace a custom header.
+     * $name value can be overloaded to contain
+     * both header name and value (name:value).
+     *
+     * @param string      $name  Custom header name
+     * @param string|null $value Header value
+     *
+     * @return bool True if a header was replaced successfully
+     * @throws Exception
+     */
+    public function replaceCustomHeader($name, $value = null)
+    {
+        if (null === $value && strpos($name, ':') !== false) {
+            //Value passed in as name:value
+            list($name, $value) = explode(':', $name, 2);
+        }
+        $name = trim($name);
+        $value = (null === $value) ? '' : trim($value);
+
+        $replaced = false;
+        foreach ($this->CustomHeader as $k => $pair) {
+            if ($pair[0] == $name) {
+                if ($replaced) {
+                    unset($this->CustomHeader[$k]);
+                    continue;
+                }
+                if (strpbrk($name . $value, "\r\n") !== false) {
+                    if ($this->exceptions) {
+                        throw new Exception(self::lang('invalid_header'));
+                    }
+
+                    return false;
+                }
+                $this->CustomHeader[$k] = [$name, $value];
+                $replaced = true;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Add an error message to the error container.
+     *
+     * @param string $msg
+     */
+    protected function setError($msg)
+    {
+        ++$this->error_count;
+        if ('smtp' === $this->Mailer && null !== $this->smtp) {
+            $lasterror = $this->smtp->getError();
+            if (!empty($lasterror['error'])) {
+                $msg .= ' ' . self::lang('smtp_error') . $lasterror['error'];
+                if (!empty($lasterror['detail'])) {
+                    $msg .= ' ' . self::lang('smtp_detail') . $lasterror['detail'];
+                }
+                if (!empty($lasterror['smtp_code'])) {
+                    $msg .= ' ' . self::lang('smtp_code') . $lasterror['smtp_code'];
+                }
+                if (!empty($lasterror['smtp_code_ex'])) {
+                    $msg .= ' ' . self::lang('smtp_code_ex') . $lasterror['smtp_code_ex'];
+                }
+            }
+        }
+        $this->ErrorInfo = $msg;
+    }
+
+    /**
+     * Return the current date and time as an RFC 822 formatted date.
+     *
+     * @return string
+     */
+    public static function rfcDate()
+    {
+        //Set the time zone to whatever the default is to avoid 500 errors
+        //Will default to UTC if it's not set properly in php.ini
+        date_default_timezone_set(@date_default_timezone_get());
+
+        return date(self::RFC822_DATE_FORMAT);
+    }
+
+    /**
+     * Normalise a user-supplied date into a correctly-formatted RFC 5322 date value
+     * string suitable for use in the Date header.
+     *
+     * Accepts:
+     *  - A {@see \DateTime} (or \DateTimeImmutable) object
+     *  - Any date/time string understood by PHP's DateTime constructor (RFC 5322, ISO 8601,
+     *    Unix timestamp with leading "@", natural-language strings, etc.)
+     *
+     * Dates in the future are not permitted for email headers; if the parsed date is later
+     * than "now" the method falls back to the current time via {@see self::rfcDate()}.
+     * An empty value, a non-string/non-DateTime argument, or any value that cannot be
+     * parsed will likewise fall back to {@see self::rfcDate()}.
+     *
+     * @param \DateTime|\DateTimeImmutable|string $date The date to normalise
+     *
+     * @return string An RFC 5322-formatted date string
+     */
+    private static function sanitiseDate($date)
+    {
+        try {
+            //Ensure the default timezone is set properly
+            date_default_timezone_set(@date_default_timezone_get());
+
+            if ($date instanceof \DateTimeInterface) {
+                $dt = $date;
+            } elseif (is_string($date) && $date !== '') {
+                $dt = new \DateTime($date);
+            } else {
+                //Empty string, null, or any unsupported type
+                return self::rfcDate();
+            }
+
+            //Reject future dates — they are invalid for outgoing message headers
+            if ($dt->getTimestamp() > time()) {
+                return self::rfcDate();
+            }
+
+            return $dt->format(self::RFC822_DATE_FORMAT);
+        } catch (\Exception $e) {
+            return self::rfcDate();
+        }
+    }
+
+    /**
+     * Get the server hostname.
+     * Returns 'localhost.localdomain' if unknown.
+     *
+     * @return string
+     */
+    protected function serverHostname()
+    {
+        $result = '';
+        if (!empty($this->Hostname)) {
+            $result = $this->Hostname;
+        } elseif (isset($_SERVER) && array_key_exists('SERVER_NAME', $_SERVER)) {
+            $result = $_SERVER['SERVER_NAME'];
+        } elseif (function_exists('gethostname') && gethostname() !== false) {
+            $result = gethostname();
+        } elseif (php_uname('n') !== '') {
+            $result = php_uname('n');
+        }
+        if (!static::isValidHost($result)) {
+            return 'localhost.localdomain';
+        }
+
+        return $result;
+    }
+
+    /**
+     * Validate whether a string contains a valid value to use as a hostname or IP address.
+     * IPv6 addresses must include [], e.g. `[::1]`, not just `::1`.
+     *
+     * @param string $host The host name or IP address to check
+     *
+     * @return bool
+     */
+    public static function isValidHost($host)
+    {
+        //Simple syntax limits
+        if (
+            empty($host)
+            || !is_string($host)
+            || strlen($host) > 256
+            || !preg_match('/^([a-z\d.-]*|\[[a-f\d:]+\])$/i', $host)
+        ) {
+            return false;
+        }
+        //Looks like a bracketed IPv6 address
+        if (strlen($host) > 2 && substr($host, 0, 1) === '[' && substr($host, -1, 1) === ']') {
+            return filter_var(substr($host, 1, -1), FILTER_VALIDATE_IP, FILTER_FLAG_IPV6) !== false;
+        }
+        //If removing all the dots results in a numeric string, it must be an IPv4 address.
+        //Need to check this first because otherwise things like `999.0.0.0` are considered valid host names
+        if (is_numeric(str_replace('.', '', $host))) {
+            //Is it a valid IPv4 address?
+            return filter_var($host, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) !== false;
+        }
+        //Is it a syntactically valid hostname (when embedded in a URL)?
+        return filter_var('https://' . $host, FILTER_VALIDATE_URL) !== false;
+    }
+
+    /**
+     * Check whether the supplied address uses Unicode in the local part.
+     *
+     * @return bool
+     */
+    protected function addressHasUnicodeLocalPart($address)
+    {
+        return (bool) preg_match('/[\x80-\xFF].*@/', $address);
+    }
+
+    /**
+     * Check whether any of the supplied addresses use Unicode in the local part.
+     *
+     * @return bool
+     */
+    protected function anyAddressHasUnicodeLocalPart($addresses)
+    {
+        foreach ($addresses as $address) {
+            if (is_array($address)) {
+                $address = $address[0];
+            }
+            if ($this->addressHasUnicodeLocalPart($address)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check whether the message requires SMTPUTF8 based on what's known so far.
+     *
+     * @return bool
+     */
+    public function needsSMTPUTF8()
+    {
+        return $this->UseSMTPUTF8;
+    }
+
+
+    /**
+     * Get an error message in the current language.
+     *
+     * @param string $key
+     *
+     * @return string
+     */
+    protected static function lang($key)
+    {
+        if (count(self::$language) < 1) {
+            self::setLanguage(); //Set the default language
+        }
+
+        if (array_key_exists($key, self::$language)) {
+            if ('smtp_connect_failed' === $key) {
+                //Include a link to troubleshooting docs on SMTP connection failure.
+                //This is by far the biggest cause of support questions
+                //but it's usually not PHPMailer's fault.
+                return self::$language[$key] . ' https://github.com/PHPMailer/PHPMailer/wiki/Troubleshooting';
+            }
+
+            return self::$language[$key];
+        }
+
+        //Return the key as a fallback
+        return $key;
+    }
+
+    /**
+     * Build an error message starting with a generic one and adding details if possible.
+     *
+     * @param string $base_key
+     * @return string
+     */
+    private function getSmtpErrorMessage($base_key)
+    {
+        $message = self::lang($base_key);
+        $error = $this->smtp->getError();
+        if (!empty($error['error'])) {
+            $message .= ' ' . $error['error'];
+            if (!empty($error['detail'])) {
+                $message .= ' ' . $error['detail'];
+            }
+        }
+
+        return $message;
+    }
+
+    /**
+     * Check if an error occurred.
+     *
+     * @return bool True if an error did occur
+     */
+    public function isError()
+    {
+        return $this->error_count > 0;
+    }
+
+    /**
+     * Add a custom header.
+     * $name value can be overloaded to contain
+     * both header name and value (name:value).
+     *
+     * @param string      $name  Custom header name
+     * @param string|null $value Header value
+     *
+     * @return bool True if a header was set successfully
+     * @throws Exception
+     */
+    public function addCustomHeader($name, $value = null)
+    {
+        if (null === $value && strpos($name, ':') !== false) {
+            //Value passed in as name:value
+            list($name, $value) = explode(':', $name, 2);
+        }
+        $name = trim($name);
+        $value = (null === $value) ? '' : trim($value);
+        //Ensure name is not empty, and that neither name nor value contain line breaks
+        if (empty($name) || strpbrk($name . $value, "\r\n") !== false) {
+            if ($this->exceptions) {
+                throw new Exception(self::lang('invalid_header'));
+            }
+
+            return false;
+        }
+        $this->CustomHeader[] = [$name, $value];
+
+        return true;
+    }
+
+    /**
+     * Returns all custom headers.
+     *
+     * @return array
+     */
+    public function getCustomHeaders()
+    {
+        return $this->CustomHeader;
+    }
+
+    /**
+     * Create a message body from an HTML string.
+     * Automatically inlines images and creates a plain-text version by converting the HTML,
+     * overwriting any existing values in Body and AltBody.
+     * Do not source $message content from user input!
+     * $basedir is prepended when handling relative URLs, e.g. <img src="/images/a.png"> and must not be empty
+     * will look for an image file in $basedir/images/a.png and convert it to inline.
+     * If you don't provide a $basedir, relative paths will be left untouched (and thus probably break in email)
+     * Converts data-uri images into embedded attachments.
+     * If you don't want to apply these transformations to your HTML, just set Body and AltBody directly.
+     *
+     * @param string        $message    HTML message string
+     * @param string        $basedir    Absolute path to a base directory to prepend to relative paths to images
+     * @param bool|callable $advanced   Whether to use the internal HTML to text converter
+     *                                  or your own custom converter
+     * @return string The transformed message body
+     *
+     * @throws Exception
+     *
+     * @see PHPMailer::html2text()
+     */
+    public function msgHTML($message, $basedir = '', $advanced = false)
+    {
+        $cid_domain = 'phpmailer.0';
+        if (filter_var($this->From, FILTER_VALIDATE_EMAIL)) {
+            //prepend with a character to create valid RFC822 string in order to validate
+            $cid_domain = substr($this->From, strrpos($this->From, '@') + 1);
+        }
+
+        preg_match_all('/(?<!-)(src|background)=["\'](.*)["\']/Ui', $message, $images);
+        if (array_key_exists(2, $images)) {
+            if (strlen($basedir) > 1 && '/' !== substr($basedir, -1)) {
+                //Ensure $basedir has a trailing /
+                $basedir .= '/';
+            }
+            foreach ($images[2] as $imgindex => $url) {
+                //Convert data URIs into embedded images
+                //e.g. "data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                $match = [];
+                if (preg_match('#^data:(image/(?:jpe?g|gif|png));?(base64)?,(.+)#', $url, $match)) {
+                    if (count($match) === 4 && static::ENCODING_BASE64 === $match[2]) {
+                        $data = base64_decode($match[3]);
+                    } elseif ('' === $match[2]) {
+                        $data = rawurldecode($match[3]);
+                    } else {
+                        //Not recognised so leave it alone
+                        continue;
+                    }
+                    //Hash the decoded data, not the URL, so that the same data-URI image used in multiple places
+                    //will only be embedded once, even if it used a different encoding
+                    $cid = substr(hash('sha256', $data), 0, 32) . '@' . $cid_domain; //RFC2392 S 2
+
+                    if (!$this->cidExists($cid)) {
+                        $this->addStringEmbeddedImage(
+                            $data,
+                            $cid,
+                            'embed' . $imgindex,
+                            static::ENCODING_BASE64,
+                            $match[1]
+                        );
+                    }
+                    $message = str_replace(
+                        $images[0][$imgindex],
+                        $images[1][$imgindex] . '="cid:' . $cid . '"',
+                        $message
+                    );
+                    continue;
+                }
+                if (
+                    //Only process relative URLs if a basedir is provided (i.e. no absolute local paths)
+                    !empty($basedir)
+                    //Ignore URLs containing parent dir traversal (..)
+                    && (strpos($url, '..') === false)
+                    //Do not change urls that are already inline images
+                    && 0 !== strpos($url, 'cid:')
+                    //Do not change absolute URLs, including anonymous protocol
+                    && !preg_match('#^[a-z][a-z0-9+.-]*:?//#i', $url)
+                ) {
+                    $filename = static::mb_pathinfo($url, PATHINFO_BASENAME);
+                    $directory = dirname($url);
+                    if ('.' === $directory) {
+                        $directory = '';
+                    }
+                    //RFC2392 S 2
+                    $cid = substr(hash('sha256', $url), 0, 32) . '@' . $cid_domain;
+                    if (strlen($basedir) > 1 && '/' !== substr($basedir, -1)) {
+                        $basedir .= '/';
+                    }
+                    if (strlen($directory) > 1 && '/' !== substr($directory, -1)) {
+                        $directory .= '/';
+                    }
+                    if (
+                        $this->addEmbeddedImage(
+                            $basedir . $directory . $filename,
+                            $cid,
+                            $filename,
+                            static::ENCODING_BASE64,
+                            static::_mime_types((string) static::mb_pathinfo($filename, PATHINFO_EXTENSION))
+                        )
+                    ) {
+                        $message = preg_replace(
+                            '/' . $images[1][$imgindex] . '=["\']' . preg_quote($url, '/') . '["\']/Ui',
+                            $images[1][$imgindex] . '="cid:' . $cid . '"',
+                            $message
+                        );
+                    }
+                }
+            }
+        }
+        $this->isHTML();
+        //Convert all message body line breaks to LE, makes quoted-printable encoding work much better
+        $this->Body = static::normalizeBreaks($message);
+        $this->AltBody = static::normalizeBreaks($this->html2text($message, $advanced));
+        if (!$this->alternativeExists()) {
+            $this->AltBody = 'This is an HTML-only message. To view it, activate HTML in your email application.'
+                . static::$LE;
+        }
+
+        return $this->Body;
+    }
+
+    /**
+     * Convert an HTML string into plain text.
+     * This is used by msgHTML().
+     * Note - older versions of this function used a bundled advanced converter
+     * which was removed for license reasons in #232.
+     * Example usage:
+     *
+     * ```php
+     * //Use default conversion
+     * $plain = $mail->html2text($html);
+     * //Use your own custom converter
+     * $plain = $mail->html2text($html, function($html) {
+     *     $converter = new MyHtml2text($html);
+     *     return $converter->get_text();
+     * });
+     * ```
+     *
+     * @param string        $html     The HTML text to convert
+     * @param bool|callable $advanced Any boolean value to use the internal converter,
+     *                                or provide your own callable for custom conversion.
+     *                                *Never* pass user-supplied data into this parameter
+     *
+     * @return string
+     */
+    public function html2text($html, $advanced = false)
+    {
+        if (is_callable($advanced)) {
+            return call_user_func($advanced, $html);
+        }
+
+        return html_entity_decode(
+            trim(strip_tags(preg_replace('/<(head|title|style|script)[^>]*>.*?<\/\\1>/si', '', $html))),
+            ENT_QUOTES,
+            $this->CharSet
+        );
+    }
+
+    /**
+     * Get the MIME type for a file extension.
+     *
+     * @param string $ext File extension
+     *
+     * @return string MIME type of file
+     */
+    public static function _mime_types($ext = '')
+    {
+        $mimes = [
+            'xl' => 'application/excel',
+            'js' => 'application/javascript',
+            'hqx' => 'application/mac-binhex40',
+            'cpt' => 'application/mac-compactpro',
+            'bin' => 'application/macbinary',
+            'doc' => 'application/msword',
+            'word' => 'application/msword',
+            'xlsx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'xltx' => 'application/vnd.openxmlformats-officedocument.spreadsheetml.template',
+            'potx' => 'application/vnd.openxmlformats-officedocument.presentationml.template',
+            'ppsx' => 'application/vnd.openxmlformats-officedocument.presentationml.slideshow',
+            'pptx' => 'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'sldx' => 'application/vnd.openxmlformats-officedocument.presentationml.slide',
+            'docx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'dotx' => 'application/vnd.openxmlformats-officedocument.wordprocessingml.template',
+            'xlam' => 'application/vnd.ms-excel.addin.macroEnabled.12',
+            'xlsb' => 'application/vnd.ms-excel.sheet.binary.macroEnabled.12',
+            'class' => 'application/octet-stream',
+            'dll' => 'application/octet-stream',
+            'dms' => 'application/octet-stream',
+            'exe' => 'application/octet-stream',
+            'lha' => 'application/octet-stream',
+            'lzh' => 'application/octet-stream',
+            'psd' => 'application/octet-stream',
+            'sea' => 'application/octet-stream',
+            'so' => 'application/octet-stream',
+            'oda' => 'application/oda',
+            'pdf' => 'application/pdf',
+            'ai' => 'application/postscript',
+            'eps' => 'application/postscript',
+            'ps' => 'application/postscript',
+            'smi' => 'application/smil',
+            'smil' => 'application/smil',
+            'mif' => 'application/vnd.mif',
+            'xls' => 'application/vnd.ms-excel',
+            'ppt' => 'application/vnd.ms-powerpoint',
+            'wbxml' => 'application/vnd.wap.wbxml',
+            'wmlc' => 'application/vnd.wap.wmlc',
+            'dcr' => 'application/x-director',
+            'dir' => 'application/x-director',
+            'dxr' => 'application/x-director',
+            'dvi' => 'application/x-dvi',
+            'gtar' => 'application/x-gtar',
+            'php3' => 'application/x-httpd-php',
+            'php4' => 'application/x-httpd-php',
+            'php' => 'application/x-httpd-php',
+            'phtml' => 'application/x-httpd-php',
+            'phps' => 'application/x-httpd-php-source',
+            'swf' => 'application/x-shockwave-flash',
+            'sit' => 'application/x-stuffit',
+            'tar' => 'application/x-tar',
+            'tgz' => 'application/x-tar',
+            'xht' => 'application/xhtml+xml',
+            'xhtml' => 'application/xhtml+xml',
+            'zip' => 'application/zip',
+            'mid' => 'audio/midi',
+            'midi' => 'audio/midi',
+            'mp2' => 'audio/mpeg',
+            'mp3' => 'audio/mpeg',
+            'm4a' => 'audio/mp4',
+            'mpga' => 'audio/mpeg',
+            'aif' => 'audio/x-aiff',
+            'aifc' => 'audio/x-aiff',
+            'aiff' => 'audio/x-aiff',
+            'ram' => 'audio/x-pn-realaudio',
+            'rm' => 'audio/x-pn-realaudio',
+            'rpm' => 'audio/x-pn-realaudio-plugin',
+            'ra' => 'audio/x-realaudio',
+            'wav' => 'audio/x-wav',
+            'mka' => 'audio/x-matroska',
+            'bmp' => 'image/bmp',
+            'gif' => 'image/gif',
+            'jpeg' => 'image/jpeg',
+            'jpe' => 'image/jpeg',
+            'jpg' => 'image/jpeg',
+            'png' => 'image/png',
+            'tiff' => 'image/tiff',
+            'tif' => 'image/tiff',
+            'webp' => 'image/webp',
+            'avif' => 'image/avif',
+            'heif' => 'image/heif',
+            'heifs' => 'image/heif-sequence',
+            'heic' => 'image/heic',
+            'heics' => 'image/heic-sequence',
+            'eml' => 'message/rfc822',
+            'css' => 'text/css',
+            'html' => 'text/html',
+            'htm' => 'text/html',
+            'shtml' => 'text/html',
+            'log' => 'text/plain',
+            'text' => 'text/plain',
+            'txt' => 'text/plain',
+            'rtx' => 'text/richtext',
+            'rtf' => 'text/rtf',
+            'vcf' => 'text/vcard',
+            'vcard' => 'text/vcard',
+            'ics' => 'text/calendar',
+            'xml' => 'text/xml',
+            'xsl' => 'text/xml',
+            'csv' => 'text/csv',
+            'wmv' => 'video/x-ms-wmv',
+            'mpeg' => 'video/mpeg',
+            'mpe' => 'video/mpeg',
+            'mpg' => 'video/mpeg',
+            'mp4' => 'video/mp4',
+            'm4v' => 'video/mp4',
+            'mov' => 'video/quicktime',
+            'qt' => 'video/quicktime',
+            'rv' => 'video/vnd.rn-realvideo',
+            'avi' => 'video/x-msvideo',
+            'movie' => 'video/x-sgi-movie',
+            'webm' => 'video/webm',
+            'mkv' => 'video/x-matroska',
+        ];
+        $ext = strtolower($ext);
+        if (array_key_exists($ext, $mimes)) {
+            return $mimes[$ext];
+        }
+
+        return 'application/octet-stream';
+    }
+
+    /**
+     * Map a file name to a MIME type.
+     * Defaults to 'application/octet-stream', i.e.. arbitrary binary data.
+     *
+     * @param string $filename A file name or full path, does not need to exist as a file
+     *
+     * @return string
+     */
+    public static function filenameToType($filename)
+    {
+        //In case the path is a URL, strip any query string before getting extension
+        $qpos = strpos($filename, '?');
+        if (false !== $qpos) {
+            $filename = substr($filename, 0, $qpos);
+        }
+        $ext = static::mb_pathinfo($filename, PATHINFO_EXTENSION);
+
+        return static::_mime_types($ext);
+    }
+
+    /**
+     * Multi-byte-safe pathinfo replacement.
+     * Drop-in replacement for pathinfo(), but multibyte- and cross-platform-safe.
+     *
+     * @see https://www.php.net/manual/en/function.pathinfo.php#107461
+     *
+     * @param string     $path    A filename or path, does not need to exist as a file
+     * @param int|string $options Either a PATHINFO_* constant,
+     *                            or a string name to return only the specified piece
+     *
+     * @return string|array
+     */
+    public static function mb_pathinfo($path, $options = null)
+    {
+        $ret = ['dirname' => '', 'basename' => '', 'extension' => '', 'filename' => ''];
+        $pathinfo = [];
+        if (preg_match('#^(.*?)[\\\\/]*(([^/\\\\]*?)(\.([^.\\\\/]+?)|))[\\\\/.]*$#m', $path, $pathinfo)) {
+            if (array_key_exists(1, $pathinfo)) {
+                $ret['dirname'] = $pathinfo[1];
+            }
+            if (array_key_exists(2, $pathinfo)) {
+                $ret['basename'] = $pathinfo[2];
+            }
+            if (array_key_exists(5, $pathinfo)) {
+                $ret['extension'] = $pathinfo[5];
+            }
+            if (array_key_exists(3, $pathinfo)) {
+                $ret['filename'] = $pathinfo[3];
+            }
+        }
+        switch ($options) {
+            case PATHINFO_DIRNAME:
+            case 'dirname':
+                return $ret['dirname'];
+            case PATHINFO_BASENAME:
+            case 'basename':
+                return $ret['basename'];
+            case PATHINFO_EXTENSION:
+            case 'extension':
+                return $ret['extension'];
+            case PATHINFO_FILENAME:
+            case 'filename':
+                return $ret['filename'];
+            default:
+                return $ret;
+        }
+    }
+
+    /**
+     * Set or reset instance properties.
+     * You should avoid this function - it's more verbose, less efficient, more error-prone and
+     * harder to debug than setting properties directly.
+     * Usage Example:
+     * `$mail->set('SMTPSecure', static::ENCRYPTION_STARTTLS);`
+     *   is the same as:
+     * `$mail->SMTPSecure = static::ENCRYPTION_STARTTLS;`.
+     *
+     * @param string $name  The property name to set
+     * @param mixed  $value The value to set the property to
+     *
+     * @return bool
+     */
+    public function set($name, $value = '')
+    {
+        if (property_exists($this, $name)) {
+            $this->{$name} = $value;
+
+            return true;
+        }
+        $this->setError(self::lang('variable_set') . $name);
+
+        return false;
+    }
+
+    /**
+     * Strip newlines to prevent header injection.
+     *
+     * @param string $str
+     *
+     * @return string
+     */
+    public function secureHeader($str)
+    {
+        return trim(str_replace(["\r", "\n"], '', $str));
+    }
+
+    /**
+     * Normalize line breaks in a string.
+     * Converts UNIX LF, Mac CR and Windows CRLF line breaks into a single line break format.
+     * Defaults to CRLF (for message bodies) and preserves consecutive breaks.
+     *
+     * @param string $text
+     * @param string $breaktype What kind of line break to use; defaults to static::$LE
+     *
+     * @return string
+     */
+    public static function normalizeBreaks($text, $breaktype = null)
+    {
+        if (null === $breaktype) {
+            $breaktype = static::$LE;
+        }
+        //Normalise to \n
+        $text = str_replace([self::CRLF, "\r"], "\n", $text);
+        //Now convert LE as needed
+        if ("\n" !== $breaktype) {
+            $text = str_replace("\n", $breaktype, $text);
+        }
+
+        return $text;
+    }
+
+    /**
+     * Remove trailing whitespace from a string.
+     *
+     * @param string $text
+     *
+     * @return string The text to remove whitespace from
+     */
+    public static function stripTrailingWSP($text)
+    {
+        return rtrim($text, " \r\n\t");
+    }
+
+    /**
+     * Strip trailing line breaks from a string.
+     *
+     * @param string $text
+     *
+     * @return string The text to remove breaks from
+     */
+    public static function stripTrailingBreaks($text)
+    {
+        return rtrim($text, "\r\n");
+    }
+
+    /**
+     * Return the current line break format string.
+     *
+     * @return string
+     */
+    public static function getLE()
+    {
+        return static::$LE;
+    }
+
+    /**
+     * Set the line break format string, e.g. "\r\n".
+     *
+     * @param string $le
+     */
+    protected static function setLE($le)
+    {
+        static::$LE = $le;
+    }
+
+    /**
+     * Set the public and private key files and password for S/MIME signing.
+     *
+     * @param string $cert_filename
+     * @param string $key_filename
+     * @param string $key_pass            Password for private key
+     * @param string $extracerts_filename Optional path to chain certificate
+     */
+    public function sign($cert_filename, $key_filename, $key_pass, $extracerts_filename = '')
+    {
+        $this->sign_cert_file = $cert_filename;
+        $this->sign_key_file = $key_filename;
+        $this->sign_key_pass = $key_pass;
+        $this->sign_extracerts_file = $extracerts_filename;
+    }
+
+    /**
+     * Quoted-Printable-encode a DKIM header.
+     *
+     * @param string $txt
+     *
+     * @return string
+     */
+    public function DKIM_QP($txt)
+    {
+        $line = '';
+        $len = strlen($txt);
+        for ($i = 0; $i < $len; ++$i) {
+            $ord = ord($txt[$i]);
+            if (((0x21 <= $ord) && ($ord <= 0x3A)) || $ord === 0x3C || ((0x3E <= $ord) && ($ord <= 0x7E))) {
+                $line .= $txt[$i];
+            } else {
+                $line .= '=' . sprintf('%02X', $ord);
+            }
+        }
+
+        return $line;
+    }
+
+    /**
+     * Generate a DKIM signature.
+     *
+     * @param string $signHeader
+     *
+     * @throws Exception
+     *
+     * @return string The DKIM signature value
+     */
+    public function DKIM_Sign($signHeader)
+    {
+        if (!defined('PKCS7_TEXT')) {
+            if ($this->exceptions) {
+                throw new Exception(self::lang('extension_missing') . 'openssl');
+            }
+
+            return '';
+        }
+        $privKeyStr = !empty($this->DKIM_private_string) ?
+            $this->DKIM_private_string :
+            file_get_contents($this->DKIM_private);
+        if ('' !== $this->DKIM_passphrase) {
+            $privKey = openssl_pkey_get_private($privKeyStr, $this->DKIM_passphrase);
+        } else {
+            $privKey = openssl_pkey_get_private($privKeyStr);
+        }
+        if (openssl_sign($signHeader, $signature, $privKey, 'sha256WithRSAEncryption')) {
+            if (\PHP_MAJOR_VERSION < 8) {
+                // phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.openssl_pkey_freeDeprecated
+                openssl_pkey_free($privKey);
+            }
+
+            return base64_encode($signature);
+        }
+        if (\PHP_MAJOR_VERSION < 8) {
+            // phpcs:ignore PHPCompatibility.FunctionUse.RemovedFunctions.openssl_pkey_freeDeprecated
+            openssl_pkey_free($privKey);
+        }
+
+        return '';
+    }
+
+    /**
+     * Generate a DKIM canonicalization header.
+     * Uses the 'relaxed' algorithm from RFC6376 section 3.4.2.
+     * Canonicalized headers should *always* use CRLF, regardless of mailer setting.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc6376#section-3.4.2
+     *
+     * @param string $signHeader Header
+     *
+     * @return string
+     */
+    public function DKIM_HeaderC($signHeader)
+    {
+        //Normalize breaks to CRLF (regardless of the mailer)
+        $signHeader = static::normalizeBreaks($signHeader, self::CRLF);
+        //Unfold header lines
+        //Note PCRE \s is too broad a definition of whitespace; RFC5322 defines it as `[ \t]`
+        //@see https://www.rfc-editor.org/rfc/rfc5322#section-2.2
+        //That means this may break if you do something daft like put vertical tabs in your headers.
+        $signHeader = preg_replace('/\r\n[ \t]+/', ' ', $signHeader);
+        //Break headers out into an array
+        $lines = explode(self::CRLF, $signHeader);
+        foreach ($lines as $key => $line) {
+            //If the header is missing a :, skip it as it's invalid
+            //This is likely to happen because the explode() above will also split
+            //on the trailing LE, leaving an empty line
+            if (strpos($line, ':') === false) {
+                continue;
+            }
+            list($heading, $value) = explode(':', $line, 2);
+            //Lower-case header name
+            $heading = strtolower($heading);
+            //Collapse white space within the value, also convert WSP to space
+            $value = preg_replace('/[ \t]+/', ' ', $value);
+            //RFC6376 is slightly unclear here - it says to delete space at the *end* of each value
+            //But then says to delete space before and after the colon.
+            //Net result is the same as trimming both ends of the value.
+            //By elimination, the same applies to the field name
+            $lines[$key] = trim($heading, " \t") . ':' . trim($value, " \t");
+        }
+
+        return implode(self::CRLF, $lines);
+    }
+
+    /**
+     * Generate a DKIM canonicalization body.
+     * Uses the 'simple' algorithm from RFC6376 section 3.4.3.
+     * Canonicalized bodies should *always* use CRLF, regardless of mailer setting.
+     *
+     * @see https://www.rfc-editor.org/rfc/rfc6376#section-3.4.3
+     *
+     * @param string $body Message Body
+     *
+     * @return string
+     */
+    public function DKIM_BodyC($body)
+    {
+        if (empty($body)) {
+            return self::CRLF;
+        }
+        //Normalize line endings to CRLF
+        $body = static::normalizeBreaks($body, self::CRLF);
+
+        //Reduce multiple trailing line breaks to a single one
+        return static::stripTrailingBreaks($body) . self::CRLF;
+    }
+
+    /**
+     * Create the DKIM header and body in a new message header.
+     *
+     * @param string $headers_line Header lines
+     * @param string $subject      Subject
+     * @param string $body         Body
+     *
+     * @throws Exception
+     *
+     * @return string
+     */
+    public function DKIM_Add($headers_line, $subject, $body)
+    {
+        $DKIMsignatureType = 'rsa-sha256'; //Signature & hash algorithms
+        $DKIMcanonicalization = 'relaxed/simple'; //Canonicalization methods of header & body
+        $DKIMquery = 'dns/txt'; //Query method
+        $DKIMtime = time();
+        //Always sign these headers without being asked
+        //Recommended list from https://www.rfc-editor.org/rfc/rfc6376#section-5.4.1
+        $autoSignHeaders = [
+            'from',
+            'to',
+            'cc',
+            'date',
+            'subject',
+            'reply-to',
+            'message-id',
+            'content-type',
+            'mime-version',
+            'x-mailer',
+        ];
+        if (stripos($headers_line, 'Subject') === false) {
+            $headers_line .= 'Subject: ' . $subject . static::$LE;
+        }
+        $headerLines = explode(static::$LE, $headers_line);
+        $currentHeaderLabel = '';
+        $currentHeaderValue = '';
+        $parsedHeaders = [];
+        $headerLineIndex = 0;
+        $headerLineCount = count($headerLines);
+        foreach ($headerLines as $headerLine) {
+            $matches = [];
+            if (preg_match('/^([^ \t]*?)(?::[ \t]*)(.*)$/', $headerLine, $matches)) {
+                if ($currentHeaderLabel !== '') {
+                    //We were previously in another header; This is the start of a new header, so save the previous one
+                    $parsedHeaders[] = ['label' => $currentHeaderLabel, 'value' => $currentHeaderValue];
+                }
+                $currentHeaderLabel = $matches[1];
+                $currentHeaderValue = $matches[2];
+            } elseif (preg_match('/^[ \t]+(.*)$/', $headerLine, $matches)) {
+                //This is a folded continuation of the current header, so unfold it
+                $currentHeaderValue .= ' ' . $matches[1];
+            }
+            ++$headerLineIndex;
+            if ($headerLineIndex >= $headerLineCount) {
+                //This was the last line, so finish off this header
+                $parsedHeaders[] = ['label' => $currentHeaderLabel, 'value' => $currentHeaderValue];
+            }
+        }
+        $copiedHeaders = [];
+        $headersToSignKeys = [];
+        $headersToSign = [];
+        foreach ($parsedHeaders as $header) {
+            //Is this header one that must be included in the DKIM signature?
+            if (in_array(strtolower($header['label']), $autoSignHeaders, true)) {
+                $headersToSignKeys[] = $header['label'];
+                $headersToSign[] = $header['label'] . ': ' . $header['value'];
+                if ($this->DKIM_copyHeaderFields) {
+                    $copiedHeaders[] = $header['label'] . ':' . //Note no space after this, as per RFC
+                        str_replace('|', '=7C', $this->DKIM_QP($header['value']));
+                }
+                continue;
+            }
+            //Is this an extra custom header we've been asked to sign?
+            if (in_array($header['label'], $this->DKIM_extraHeaders, true)) {
+                //Find its value in custom headers
+                foreach ($this->CustomHeader as $customHeader) {
+                    if ($customHeader[0] === $header['label']) {
+                        $headersToSignKeys[] = $header['label'];
+                        $headersToSign[] = $header['label'] . ': ' . $header['value'];
+                        if ($this->DKIM_copyHeaderFields) {
+                            $copiedHeaders[] = $header['label'] . ':' . //Note no space after this, as per RFC
+                                str_replace('|', '=7C', $this->DKIM_QP($header['value']));
+                        }
+                        //Skip straight to the next header
+                        continue 2;
+                    }
+                }
+            }
+        }
+        $copiedHeaderFields = '';
+        if ($this->DKIM_copyHeaderFields && count($copiedHeaders) > 0) {
+            //Assemble a DKIM 'z' tag
+            $copiedHeaderFields = ' z=';
+            $first = true;
+            foreach ($copiedHeaders as $copiedHeader) {
+                if (!$first) {
+                    $copiedHeaderFields .= static::$LE . ' |';
+                }
+                //Fold long values
+                if (strlen($copiedHeader) > self::STD_LINE_LENGTH - 3) {
+                    $copiedHeaderFields .= substr(
+                        chunk_split($copiedHeader, self::STD_LINE_LENGTH - 3, static::$LE . self::FWS),
+                        0,
+                        -strlen(static::$LE . self::FWS)
+                    );
+                } else {
+                    $copiedHeaderFields .= $copiedHeader;
+                }
+                $first = false;
+            }
+            $copiedHeaderFields .= ';' . static::$LE;
+        }
+        $headerKeys = ' h=' . implode(':', $headersToSignKeys) . ';' . static::$LE;
+        $headerValues = implode(static::$LE, $headersToSign);
+        $body = $this->DKIM_BodyC($body);
+        //Base64 of packed binary SHA-256 hash of body
+        $DKIMb64 = base64_encode(pack('H*', hash('sha256', $body)));
+        $ident = '';
+        if ('' !== $this->DKIM_identity) {
+            $ident = ' i=' . $this->DKIM_identity . ';' . static::$LE;
+        }
+        //The DKIM-Signature header is included in the signature *except for* the value of the `b` tag
+        //which is appended after calculating the signature
+        //https://www.rfc-editor.org/rfc/rfc6376#section-3.5
+        $dkimSignatureHeader = 'DKIM-Signature: v=1;' .
+            ' d=' . $this->DKIM_domain . ';' .
+            ' s=' . $this->DKIM_selector . ';' . static::$LE .
+            ' a=' . $DKIMsignatureType . ';' .
+            ' q=' . $DKIMquery . ';' .
+            ' t=' . $DKIMtime . ';' .
+            ' c=' . $DKIMcanonicalization . ';' . static::$LE .
+            $headerKeys .
+            $ident .
+            $copiedHeaderFields .
+            ' bh=' . $DKIMb64 . ';' . static::$LE .
+            ' b=';
+        //Canonicalize the set of headers
+        $canonicalizedHeaders = $this->DKIM_HeaderC(
+            $headerValues . static::$LE . $dkimSignatureHeader
+        );
+        $signature = $this->DKIM_Sign($canonicalizedHeaders);
+        $signature = trim(chunk_split($signature, self::STD_LINE_LENGTH - 3, static::$LE . self::FWS));
+
+        return static::normalizeBreaks($dkimSignatureHeader . $signature);
+    }
+
+    /**
+     * Detect if a string contains a line longer than the maximum line length
+     * allowed by RFC 2822 section 2.1.1.
+     *
+     * @param string $str
+     *
+     * @return bool
+     */
+    public static function hasLineLongerThanMax($str)
+    {
+        return (bool) preg_match('/^(.{' . (self::MAX_LINE_LENGTH + strlen(static::$LE)) . ',})/m', $str);
+    }
+
+    /**
+     * If a string contains any "special" characters, double-quote the name,
+     * and escape any double quotes with a backslash.
+     *
+     * @param string $str
+     *
+     * @return string
+     *
+     * @see RFC822 3.4.1
+     */
+    public static function quotedString($str)
+    {
+        if (preg_match('/[ ()<>@,;:"\/\[\]?=]/', $str)) {
+            //If the string contains any of these chars, it must be double-quoted
+            //and any double quotes must be escaped with a backslash
+            return '"' . str_replace('"', '\\"', $str) . '"';
+        }
+
+        //Return the string untouched, it doesn't need quoting
+        return $str;
+    }
+
+    /**
+     * Allows for public read access to 'to' property.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
+     *
+     * @return array
+     */
+    public function getToAddresses()
+    {
+        return $this->to;
+    }
+
+    /**
+     * Allows for public read access to 'cc' property.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
+     *
+     * @return array
+     */
+    public function getCcAddresses()
+    {
+        return $this->cc;
+    }
+
+    /**
+     * Allows for public read access to 'bcc' property.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
+     *
+     * @return array
+     */
+    public function getBccAddresses()
+    {
+        return $this->bcc;
+    }
+
+    /**
+     * Allows for public read access to 'ReplyTo' property.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
+     *
+     * @return array
+     */
+    public function getReplyToAddresses()
+    {
+        return $this->ReplyTo;
+    }
+
+    /**
+     * Allows for public read access to 'all_recipients' property.
+     * Before the send() call, queued addresses (i.e. with IDN) are not yet included.
+     *
+     * @return array
+     */
+    public function getAllRecipientAddresses()
+    {
+        return $this->all_recipients;
+    }
+
+    /**
+     * Perform a callback.
+     *
+     * @param bool   $isSent
+     * @param array  $to
+     * @param array  $cc
+     * @param array  $bcc
+     * @param string $subject
+     * @param string $body
+     * @param string $from
+     * @param array  $extra
+     */
+    protected function doCallback($isSent, $to, $cc, $bcc, $subject, $body, $from, $extra)
+    {
+        if (!empty($this->action_function) && is_callable($this->action_function)) {
+            call_user_func($this->action_function, $isSent, $to, $cc, $bcc, $subject, $body, $from, $extra);
+        }
+    }
+
+    /**
+     * Get the OAuthTokenProvider instance.
+     *
+     * @return OAuthTokenProvider
+     */
+    public function getOAuth()
+    {
+        return $this->oauth;
+    }
+
+    /**
+     * Set an OAuthTokenProvider instance.
+     */
+    public function setOAuth(OAuthTokenProvider $oauth)
+    {
+        $this->oauth = $oauth;
+    }
+}
