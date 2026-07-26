@@ -38,11 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 "subject" => "Password Reset OTP - CherryJoe",
                 "htmlBody" => $html_content
             ]);
-
-            // HTTPS Call gamit ang cURL (Dili gyud ma-block sa Render)
+// HTTPS Call gamit ang cURL (Dili gyud ma-block sa Render)
             $ch = curl_init($google_app_script_url);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Sundon ang redirect sa Google
+            
+            // KINI ANG NAKAPALAHI: Pugson nato nga magpabilin nga POST inig redirect
+            curl_setopt($ch, CURLOPT_POSTREDIR, 3); 
+            
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
             curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
