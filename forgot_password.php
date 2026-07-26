@@ -72,21 +72,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // ANG IMONG SUPABASE CREDENTIALS
             const supabaseUrl = 'https://gitciqkpxlokouileogg.supabase.co';
             const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpdGNpcWtweGxva291aWxlb2dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwODE3MzQsImV4cCI6MjA5OTY1NzczNH0.t1rZfxxEyiCkgqZ11srNXKXOrBhnj1gS4gRuUxkSzKs';
-            const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+            
+            // FIX: Gi-usab nato ang ngalan ngadto sa 'supabaseClient'
+            const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
             async function fireSupabaseOTP() {
-                const { data, error } = await supabase.auth.signInWithOtp({
+                const { data, error } = await supabaseClient.auth.signInWithOtp({
                     email: '<?php echo $user_email; ?>',
                     options: { shouldCreateUser: true }
                 });
 
                 if (error) {
                     alert("Supabase Error: " + error.message);
-                    window.location.href = "forgot_password.php"; // Refresh kung error
+                    window.location.href = "forgot_password.php"; 
                 } else {
-                    window.location.href = "verify_otp.php"; // Lahos sa verify page kung success
+                    window.location.href = "verify_otp.php"; 
                 }
             }
+            
+            fireSupabaseOTP();
+        </script>
             
             // I-run dayon ang function
             fireSupabaseOTP();
