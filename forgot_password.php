@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // ==========================================
             
             // BOSS: IBUTANG DINHI ANG WEB APP URL GIKAN SA GOOGLE APPS SCRIPT
-            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbx6bYj3S7WH8s9G3bRBM9ErEV-aC8YmsJVqce6yYAmS9SkbUgEeiQdzYpk0djGMcp6b/exec'; 
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbwgYTGMnmbubFoII6fCTyviOr9MMXUt8skwUGW0mGOcb7zVh_legtBKHo70L2bI8gwpvg/exec'; 
 
             $html_content = "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
                                 <h2 style='color: #059669;'>Password Reset Request</h2>
@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             $payload = json_encode([
                 "to" => $email,
-                "subject" => "Password Reset OTP - CherryJoe",
+                "subject" => "Password Reset OTP - welcome to CherryJoeriverpark",
                 "htmlBody" => $html_content
             ]);
 // HTTPS Call gamit ang cURL (Dili gyud ma-block sa Render)
