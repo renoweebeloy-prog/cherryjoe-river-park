@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'renoweebeloy536@gmail.com'; // Imong Gmail
-                $mail->Password   = 'gidhusfoizvtmhlov';         // Imong 16-letter App Password
+                $mail->Password   = 'gidh usfo izvt mhlov';         // Imong 16-letter App Password
                 
                 // GAMITON ANG PORT 465 (SSL) KAY KASAGARAN DILI NI I-BLOCK SA MGA FREE HOSTS
                 $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
