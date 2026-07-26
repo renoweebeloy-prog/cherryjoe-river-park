@@ -55,10 +55,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .logo-icon { font-size: 45px; color: #059669; margin-bottom: 10px; }
         h2 { color: #1e293b; font-size: 26px; font-weight: 800; margin-bottom: 5px; }
         p.subtitle { color: #64748b; font-size: 14px; margin-bottom: 25px; line-height: 1.5; }
+        
         .input-group { position: relative; margin-bottom: 18px; text-align: left; }
-        .input-group i { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #10b981; font-size: 18px; }
-        .input-group input { width: 100%; padding: 15px 15px 15px 45px; border: 2px solid #cbd5e1; background: #f8fafc; border-radius: 14px; font-size: 15px; color: #1e293b; transition: all 0.3s ease; }
+        
+        /* Giusab nako ang icon CSS aron mabulag ang wala ug tuo nga icon */
+        .input-group i.left-icon { position: absolute; left: 16px; top: 50%; transform: translateY(-50%); color: #10b981; font-size: 18px; }
+        .input-group i.toggle-password { position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: #64748b; font-size: 18px; cursor: pointer; transition: 0.3s ease; }
+        .input-group i.toggle-password:hover { color: #10b981; }
+
+        /* Gidugangan og padding sa right (45px) aron dili ma-tago ang text sa luyo sa mata */
+        .input-group input { width: 100%; padding: 15px 45px; border: 2px solid #cbd5e1; background: #f8fafc; border-radius: 14px; font-size: 15px; color: #1e293b; transition: all 0.3s ease; }
         .input-group input:focus { border-color: #10b981; background: #ffffff; outline: none; box-shadow: 0 0 0 4px rgba(16,185,129,0.15); }
+        
         .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 16px; width: 100%; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s ease; margin-top: 5px; }
         .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4); }
         .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; align-items: center; gap: 8px; justify-content: center; font-weight: 600;}
@@ -83,16 +91,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <!-- KUNG WALA PA, IPA-TYPE ANG PASSWORD -->
             <form method="POST">
                 <div class="input-group">
-                    <i class="fas fa-lock"></i>
-                    <input type="password" name="new_password" required placeholder="Enter New Password">
+                    <i class="fas fa-lock left-icon"></i>
+                    <input type="password" name="new_password" id="new_pass" required placeholder="Enter New Password">
+                    <i class="fas fa-eye toggle-password" onclick="togglePass('new_pass', this)"></i>
                 </div>
                 <div class="input-group">
-                    <i class="fas fa-check-circle"></i>
-                    <input type="password" name="confirm_password" required placeholder="Confirm New Password">
+                    <i class="fas fa-check-circle left-icon"></i>
+                    <input type="password" name="confirm_password" id="confirm_pass" required placeholder="Confirm New Password">
+                    <i class="fas fa-eye toggle-password" onclick="togglePass('confirm_pass', this)"></i>
                 </div>
                 <button type="submit" class="submit-btn">Reset Password</button>
             </form>
         <?php endif; ?>
     </div>
+
+    <!-- JAVASCRIPT PARA SA TOGGLE EYE -->
+    <script>
+        function togglePass(inputId, icon) {
+            const input = document.getElementById(inputId);
+            if (input.type === "password") {
+                input.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                input.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
+    </script>
 </body>
 </html>
