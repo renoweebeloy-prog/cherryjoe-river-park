@@ -3,24 +3,46 @@ session_start();
 require 'db_connect.php';
 
 $error = '';
-$trigger_supabase = false;
-$user_email = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = trim($_POST['email']);
 
     try {
-        // I-check nato sa imong MySQL kung registered ba kining email
         $stmt = $conn->prepare("SELECT id, full_name FROM users WHERE email = :email");
         $stmt->execute(['email' => $email]);
         $user = $stmt->fetch();
 
         if ($user) {
-            // Kung naa sa database, atong i-set ang session para sa next pages
+            // Magbuhat og 6-digit random code
+            $otp = rand(100000, 999999);
+            
+            // I-save ang OTP sa session aron ma-check unya sa verify_otp.php
             $_SESSION['reset_email'] = $email;
-            $user_email = $email;
-            // I-trigger nato ang Supabase nga script sa ubos!
-            $trigger_supabase = true;
+            $_SESSION['reset_otp'] = $otp;
+
+            // ==========================================
+            // ILISI KINI SA IMONG BAG-ONG WEB APP URL
+            // ==========================================
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbxiU_EBq242Vc9-TCdTZVDGE6Rymzsx6MrNc_SvMUjjrt-R5vv8zCTNAD3KEWGKxMdaxg/exec'; 
+
+            // Ipasa ang data gamit ang GET URL
+            $url = $google_app_script_url . "?email=" . urlencode($email) . "&otp=" . $otp . "&name=" . urlencode($user['full_name']);
+
+            // Simple GET Request gamit ang cURL
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); 
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            $response = curl_exec($ch);
+            curl_close($ch);
+
+            // Kung ni-SUCCESS ang Google Apps Script
+            if (trim($response) == "SUCCESS") {
+                header("Location: verify_otp.php");
+                exit();
+            } else {
+                $error = "Google System Error: " . $response;
+            }
         } else {
             $error = "Sorry, we can't find that email in our system.";
         }
@@ -52,49 +74,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 13px; margin-bottom: 20px; border: 1px solid #fca5a5; display: flex; align-items: center; gap: 8px; font-weight: 600; text-align: left;}
         .bottom-link { display: block; margin-top: 25px; color: #475569; font-size: 14px; text-decoration: none; }
         .bottom-link span { color: #059669; font-weight: 700; }
-        
-        /* Loading Overlay Styling */
-        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(255,255,255,0.95); z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
     </style>
 </head>
 <body>
-
-    <?php if ($trigger_supabase): ?>
-        <!-- SUPABASE TRIGGER OVERLAY (Mogawas kung OK ang email sa database) -->
-        <div class="overlay">
-            <i class="fas fa-spinner fa-spin" style="font-size: 50px; color: #10b981;"></i>
-            <h2 style="margin-top: 20px; color: #1e293b;">Sending OTP to your email...</h2>
-            <p style="color: #64748b; margin-top: 5px;">Powered by Supabase</p>
-        </div>
-
-        <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-        <script>
-            // ANG IMONG SUPABASE CREDENTIALS
-            const supabaseUrl = 'https://gitciqkpxlokouileogg.supabase.co';
-            const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpdGNpcWtweGxva291aWxlb2dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwODE3MzQsImV4cCI6MjA5OTY1NzczNH0.t1rZfxxEyiCkgqZ11srNXKXOrBhnj1gS4gRuUxkSzKs';
-            
-            // Gi-usab nato ang ngalan ngadto sa 'supabaseClient' aron dili mag-error
-            const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-            async function fireSupabaseOTP() {
-                const { data, error } = await supabaseClient.auth.signInWithOtp({
-                    email: '<?php echo $user_email; ?>',
-                    options: { shouldCreateUser: true }
-                });
-
-                if (error) {
-                    alert("Supabase Error: " + error.message);
-                    window.location.href = "forgot_password.php"; // Refresh kung error
-                } else {
-                    window.location.href = "verify_otp.php"; // Lahos sa verify page kung success
-                }
-            }
-            
-            // I-run dayon ang function
-            fireSupabaseOTP();
-        </script>
-    <?php endif; ?>
-
     <div class="auth-card">
         <i class="fas fa-unlock-alt logo-icon"></i>
         <h2>Forgot Password?</h2>
@@ -116,12 +98,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </div>
 
     <script>
-        // Form submit loading animation
         const form = document.querySelector('form');
         if (form) {
             form.addEventListener('submit', function() {
                 var btn = document.getElementById('btn-submit');
-                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking Database...';
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending Code...';
                 btn.style.pointerEvents = 'none';
             });
         }
