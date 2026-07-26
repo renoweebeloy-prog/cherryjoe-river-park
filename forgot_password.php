@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $error = "Google System Error: " . $response;
             }
         } else {
-            $error = "Sorry, this email is not registered in our system.";
+            $error = "Sorry, This Gmail is not registered in the system and cannot receive an OTP code. Please try again.";
         }
     } catch(PDOException $e) {
         $error = "System Error: " . $e->getMessage();
