@@ -39,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 // I-check kung nag-error ang API o na-hurot na ang limit
                 if (isset($validation_result['error'])) {
-                    $error = "System Error: Wala ma-verify ang email. Palihug sulayi usab taud-taud.";
+                    $error = "System Error: Email could not be verified. Please try again sometime.";
                 } 
                 // I-check kung SAKTO ang format UG BUHI ang server sa email
                 else if (isset($validation_result['format_valid']) && $validation_result['format_valid'] == true && $validation_result['smtp_check'] == true) {
@@ -59,7 +59,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                 } else {
                     // DILI TINUOD O PATAY NGA EMAIL
-                    $error = "Invalid Email! Palihug gamit og tinuod ug aktibo nga email address.";
+                    $error = "Invalid Email! Please use a real and active email address.";
                 }
             }
         } catch(PDOException $e) {
