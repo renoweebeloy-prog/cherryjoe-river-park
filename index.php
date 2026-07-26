@@ -10,6 +10,15 @@ if (!isset($_SESSION['user_id'])) {
 
 // I-check kung Admin ba base sa email
 $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
+
+// Kuhaon ang pangalan ug himoan og Initials (e.g. Renowee Beloy -> RB)
+$userName = $_SESSION['name'] ?? 'Guest';
+$nameParts = explode(' ', trim($userName));
+$initials = strtoupper(substr($nameParts[0], 0, 1));
+if (isset($nameParts[1])) {
+    $initials .= strtoupper(substr($nameParts[1], 0, 1));
+}
+$userRole = $isAdmin ? 'Admin' : 'Visitor';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,14 +34,14 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
         /* --- PREMIUM UI CONFIG & RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
-        body { background: #ffffff; color: #1e293b; padding-top: 60px; padding-bottom: 90px; overflow-x: hidden; }
+        body { background: #ffffff; color: #1e293b; padding-top: 60px; overflow-x: hidden; }
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #ffffff; }
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #10b981; }
 
         /* --- BACKGROUND MUSIC FLOATING BUTTON --- */
-        .music-control-btn { position: fixed; bottom: 85px; right: 20px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #059669); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); z-index: 9999; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.5); }
+        .music-control-btn { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #059669); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); z-index: 9999; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.5); }
         .music-control-btn:hover { transform: scale(1.1); }
         .music-control-btn.playing { animation: pulseMusic 1.5s infinite ease-in-out; background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
         @keyframes pulseMusic { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
@@ -82,9 +91,12 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
         /* --- 5. MODERN GLOBAL APP UI PARTS --- */
         nav { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; height: 60px; }
         .nav-left { display: flex; align-items: center; gap: 15px; color: #1e293b; }
-        .back-btn { font-size: 20px; cursor: pointer; transition: 0.3s; color: #1e293b; }
-        .back-btn:hover { color: #059669; }
-        .logo { font-size: 20px; font-weight: bold; color: #1e293b; white-space: nowrap; }
+        
+        /* NEW HAMBURGER MENU BUTTON */
+        .menu-toggle-btn { background: #2dd4bf; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 1px solid #fff; box-shadow: 0 4px 10px rgba(45, 212, 191, 0.3); transition: 0.3s; }
+        .menu-toggle-btn:hover { background: #14b8a6; transform: scale(1.05); }
+        
+        .logo { font-size: 20px; font-weight: bold; color: #1e293b; white-space: nowrap; margin-left: 5px;}
         section { padding: 50px 5%; max-width: 1200px; margin: 0 auto; }
         .title { text-align: center; font-size: 30px; margin-bottom: 35px; color: #1e293b; font-weight: 800; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
@@ -123,28 +135,7 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
         .drink-item:hover { border-color: #059669; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.08); }
         .drink-name { font-size: 15px; font-weight: 600; color: #1e293b; }
 
-        /* --- 8. PREMIUM PROFILE & SETTINGS SYSTEM --- */
-        .profile-container { max-width: 500px; margin: 0 auto; background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 24px; overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.05); }
-        .profile-banner { background: linear-gradient(135deg, #10b981, #059669); height: 120px; position: relative; }
-        .profile-avatar-wrapper { width: 105px; height: 105px; border-radius: 50%; background: #ffffff; padding: 5px; position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); }
-        .profile-avatar { width: 100%; height: 100%; border-radius: 50%; background: #ffffff; display: flex; justify-content: center; align-items: center; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.08); }
-        .profile-avatar i { font-size: 40px; color: #059669; }
-        .profile-details { padding: 65px 22px 25px 22px; text-align: center; }
-        .welcome-visitor { font-size: 12px; font-weight: 700; color: #059669; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; display: block; }
-        .profile-details h2 { font-size: 22px; color: #1e293b; font-weight: 700; }
-        .profile-details .email { color: #64748b; font-size: 14px; margin-top: 4px; }
-        .membership-tag { display: inline-block; background: rgba(16, 185, 129, 0.1); color: #059669; font-weight: 700; font-size: 11px; padding: 5px 14px; border-radius: 50px; margin-top: 14px; border: 1px solid rgba(16, 185, 129, 0.2); letter-spacing: 0.5px; }
-        .profile-menu-list { text-align: left; margin-top: 25px; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 15px; }
-        .profile-menu-item { display: flex; justify-content: space-between; align-items: center; padding: 14px 8px; color: #475569; text-decoration: none; font-size: 15px; border-bottom: 1px solid rgba(0, 0, 0, 0.03); cursor: pointer; transition: 0.2s ease; border-radius: 10px; }
-        .profile-menu-item:hover { color: #059669; padding-left: 14px; background: rgba(16, 185, 129, 0.05); }
-        .profile-menu-item div i { margin-right: 12px; width: 20px; color: #10b981; }
-        .logout-btn { color: #ef4444 !important; }
-        .logout-btn:hover { background: rgba(239, 68, 68, 0.05) !important; padding-left: 14px; }
-        .logout-btn div i { color: #ef4444 !important; }
-        .admin-badge { background: rgba(245, 158, 11, 0.1) !important; color: #d97706 !important; border-color: rgba(245, 158, 11, 0.2) !important; }
-        .admin-avatar { color: #d97706 !important; }
-
-        /* --- 9. EXPLORE ARCHITECTURE --- */
+        /* --- 8. EXPLORE ARCHITECTURE --- */
         .management { display: flex; gap: 20px; flex-wrap: wrap; }
         .management .card { flex: 1; min-width: 240px; }
         .cottage-section { display: flex; flex-direction: column; gap: 25px; }
@@ -168,6 +159,25 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
         .gallery img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; border: 1px solid rgba(0, 0, 0, 0.08); }
         .gallery img:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); border-color: #059669; }
 
+        /* --- 9. NEW SIDE MENU (DRAWER) SETTINGS --- */
+        .side-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 100001; opacity: 0; visibility: hidden; transition: 0.3s ease; }
+        .side-menu-overlay.active { opacity: 1; visibility: visible; }
+        .side-menu { position: fixed; top: 15px; left: -320px; width: 280px; height: calc(100vh - 30px); background: #0f172a; border-radius: 20px; z-index: 100002; display: flex; flex-direction: column; padding: 25px; transition: left 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 10px 0 30px rgba(0,0,0,0.3); overflow-y: auto; }
+        .side-menu.active { left: 15px; }
+        
+        .close-menu-btn { position: absolute; top: -10px; right: -10px; background: #2dd4bf; color: white; width: 40px; height: 40px; border-radius: 12px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 2px solid #0f172a; transition: 0.3s; z-index: 10; }
+        .close-menu-btn:hover { background: #14b8a6; transform: scale(1.1); }
+
+        .side-profile { text-align: left; margin-bottom: 30px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 20px; }
+        .profile-initials { background: #2dd4bf; color: #ffffff; width: 65px; height: 65px; border-radius: 18px; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 800; margin-bottom: 15px; border: 2px solid rgba(255,255,255,0.2); }
+        .profile-name { color: #ffffff; font-size: 22px; font-weight: 800; line-height: 1.2; margin-bottom: 5px; }
+        .profile-role { color: #94a3b8; font-size: 14px; }
+
+        .side-nav-links { display: flex; flex-direction: column; gap: 8px; }
+        .side-link { display: flex; align-items: center; gap: 15px; padding: 14px 16px; color: #cbd5e1; text-decoration: none; font-size: 16px; font-weight: 600; border-radius: 12px; cursor: pointer; transition: 0.3s ease; }
+        .side-link i { font-size: 20px; width: 25px; text-align: center; }
+        .side-link:hover, .side-link.active { background: rgba(45, 212, 191, 0.15); color: #2dd4bf; padding-left: 22px; }
+
         /* --- OVERLAYS & COMPONENT ENGINE --- */
         .contact { background: #f8fafc; border-top: 1px solid rgba(0, 0, 0, 0.05); text-align: center; }
         .contact p { margin: 12px 0; color: #475569; font-size: 15px; }
@@ -188,12 +198,6 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
         .feature-popup-content p { font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 24px; }
         .close-popup-btn { background: rgba(16, 185, 129, 0.1); color: #059669; border: none; padding: 12px 28px; font-size: 14px; font-weight: 600; border-radius: 50px; cursor: pointer; transition: 0.2s; }
         .close-popup-btn:hover { background: rgba(16, 185, 129, 0.2); }
-        .bottom-nav { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); display: flex; justify-content: space-around; align-items: center; padding: 14px 0; box-shadow: 0 -5px 20px rgba(0,0,0,0.05); border-top: 1px solid rgba(0, 0, 0, 0.05); z-index: 1000; }
-        .nav-item { text-decoration: none; color: #94a3b8; display: flex; flex-direction: column; align-items: center; font-size: 11px; gap: 4px; transition: 0.25s cubic-bezier(0.16, 1, 0.3, 1); cursor: pointer; }
-        .nav-item i { font-size: 19px; transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1); }
-        .nav-item:hover i { transform: translateY(-2px); color: #059669; }
-        .nav-item.active { color: #059669; font-weight: 700; }
-        .nav-item.active i { transform: scale(1.15) translateY(-1px); }
 
         @media (max-width: 600px) {
             section { padding: 40px 4%; }
@@ -205,6 +209,7 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
             .feature-table-box { padding: 18px; border-radius: 20px; }
             .table-row-grid { gap: 10px; }
             .table-cell { padding: 14px; border-radius: 12px; }
+            .side-menu { width: 260px; left: -280px; }
         }
         .map-container { border-radius: 20px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
         .map-btn { display: block; width: 100%; text-align: center; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 15px; transition: 0.3s; }
@@ -225,6 +230,47 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
     <div id="preloader">
         <div class="loader-spinner"></div>
         <div class="loader-text">Loading Experience...</div>
+    </div>
+
+    <!-- NEW SIDE MENU DRAWER -->
+    <div class="side-menu-overlay" id="sideMenuOverlay" onclick="toggleSideMenu()"></div>
+    <div class="side-menu" id="sideMenu">
+        <div class="close-menu-btn" onclick="toggleSideMenu()">
+            <i class="fas fa-times"></i>
+        </div>
+        
+        <!-- PROFILE AT THE TOP OF SIDE MENU -->
+        <div class="side-profile">
+            <div class="profile-initials"><?php echo $initials; ?></div>
+            <div class="profile-name">CherryJoe</div>
+            <div class="profile-role"><?php echo $userRole; ?></div>
+        </div>
+
+        <!-- NAVIGATION LINKS -->
+        <div class="side-nav-links">
+            <a onclick="navigateMenu('home', 'slink-home')" class="side-link active" id="slink-home">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a onclick="navigateMenu('explore', 'slink-explore')" class="side-link" id="slink-explore">
+                <i class="fas fa-compass"></i> Explore
+            </a>
+            <a onclick="navigateMenu('food', 'slink-food')" class="side-link" id="slink-food">
+                <i class="fas fa-utensils"></i> Food Menu
+            </a>
+            <a onclick="scrollToAbout()" class="side-link" id="slink-about">
+                <i class="fas fa-info-circle"></i> About Us
+            </a>
+            
+            <?php if($isAdmin): ?>
+            <a href="admin_dashboard.php" class="side-link" style="margin-top: 10px; color: #fbbf24;">
+                <i class="fas fa-cogs"></i> Admin Panel
+            </a>
+            <?php endif; ?>
+
+            <a href="logout.php" class="side-link" style="margin-top: auto; color: #f87171;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
     </div>
 
     <div class="feature-popup-modal" id="featurePopup">
@@ -279,7 +325,10 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
 
     <nav>
         <div class="nav-left">
-            <i class="fas fa-chevron-left back-btn" onclick="goBack()"></i>
+            <!-- HAMBURGER BUTTON -->
+            <div class="menu-toggle-btn" onclick="toggleSideMenu()">
+                <i class="fas fa-bars"></i>
+            </div>
             <div class="logo">CherryJoe River Park</div>
         </div>
     </nav>
@@ -459,62 +508,6 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
         </section>
     </div>
 
-    <!-- PROFILE PAGE -->
-    <div id="page-profile" class="app-page">
-        <section id="profile-section">
-            <h2 class="title">User Profile</h2>
-            <div class="profile-container">
-                <div class="profile-banner">
-                    <div class="profile-avatar-wrapper">
-                        <div class="profile-avatar">
-                            <?php if($isAdmin): ?>
-                                <i class="fas fa-user-shield admin-avatar"></i>
-                            <?php else: ?>
-                                <i class="fas fa-user-astronaut"></i>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="profile-details">
-                    <span class="welcome-visitor">Welcome!</span>
-                    <h2><?php echo htmlspecialchars($_SESSION['name'] ?? 'Guest'); ?></h2>
-                    <p class="email"><?php echo htmlspecialchars($_SESSION['email'] ?? 'guest@cherryjoe.com'); ?></p>
-                    
-                    <?php if($isAdmin): ?>
-                        <span class="membership-tag admin-badge"><i class="fas fa-crown"></i> Park Administrator</span>
-                    <?php else: ?>
-                        <span class="membership-tag"><i class="fas fa-medal"></i> Resort Visitor</span>
-                    <?php endif; ?>
-
-                    <div class="profile-menu-list">
-                        
-                        <!-- GIPAKITA LANG NI NGA BUTTON KUNG ADMIN ANG NAG LOGIN -->
-                        <?php if($isAdmin): ?>
-                            <a href="admin_dashboard.php" class="profile-menu-item">
-                                <div><i class="fas fa-cogs" style="color: #d97706;"></i> Admin Dashboard</div>
-                                <i class="fas fa-chevron-right"></i>
-                            </a>
-                        <?php endif; ?>
-
-                        <a onclick="navigateTo('food', 'nav-food')" class="profile-menu-item">
-                            <div><i class="fas fa-utensils"></i> View Food Menu</div>
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-                        <a onclick="navigateTo('explore', 'nav-about')" class="profile-menu-item">
-                            <div><i class="fas fa-compass"></i> Explore Facilities</div>
-                            <i class="fas fa-chevron-right"></i>
-                        </a>
-                        
-                        <!-- LOGOUT BUTTON -->
-                        <a href="logout.php" class="profile-menu-item logout-btn">
-                            <div><i class="fas fa-sign-out-alt"></i> Logout</div>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-    </div>
-
     <!-- FOOTER -->
     <footer>© 2026 CherryJoe River Park</footer>
 
@@ -524,14 +517,6 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
         <a id="lightbox-download" href="#" download="CherryJoe_Gallery.jpg" class="download-btn" onclick="event.stopPropagation()">
             <i class="fas fa-download"></i> Download Photo
         </a>
-    </div>
-
-    <!-- BOTTOM NAVIGATION -->
-    <div class="bottom-nav">
-        <div class="nav-item active" id="nav-home" onclick="navigateTo('home', 'nav-home')"><i class="fas fa-home"></i><span>Home</span></div>
-        <div class="nav-item" id="nav-about" onclick="navigateTo('explore', 'nav-about')"><i class="fas fa-compass"></i><span>Explore</span></div>
-        <div class="nav-item" id="nav-food" onclick="navigateTo('food', 'nav-food')"><i class="fas fa-utensils"></i><span>Food</span></div>
-        <div class="nav-item" id="nav-profile" onclick="navigateTo('profile', 'nav-profile')"><i class="fas fa-user"></i><span>Profile</span></div>
     </div>
 
     <script>
@@ -576,6 +561,36 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
             }
         }
 
+        // --- NEW SIDE MENU FUNCTIONS ---
+        function toggleSideMenu() {
+            const menu = document.getElementById('sideMenu');
+            const overlay = document.getElementById('sideMenuOverlay');
+            menu.classList.toggle('active');
+            overlay.classList.toggle('active');
+        }
+
+        function navigateMenu(pageId, linkId) {
+            // Update Active Link Color
+            document.querySelectorAll('.side-link').forEach(link => link.classList.remove('active'));
+            if(linkId) {
+                document.getElementById(linkId).classList.add('active');
+            }
+            // Navigate and Close Menu
+            navigateTo(pageId);
+            toggleSideMenu();
+        }
+
+        function scrollToAbout() {
+            // Mo adto sa Home unya mo scroll paubos didto sa About Us
+            navigateMenu('home', 'slink-about');
+            setTimeout(() => {
+                const aboutSection = document.getElementById('about');
+                if (aboutSection) {
+                    aboutSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300);
+        }
+
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const welcomeOverlay = document.getElementById('welcomeOverlay');
@@ -597,7 +612,7 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
                 
                 const hasEnteredBefore = localStorage.getItem('welcomeScreenDismissed');
                 const savedPage = localStorage.getItem('currentPage');
-                const savedNav = localStorage.getItem('currentNav');
+                const savedSideLink = localStorage.getItem('currentSideLink');
                 
                 if (hasEnteredBefore === 'true') {
                     welcomeOverlay.classList.add('hide-welcome');
@@ -607,8 +622,13 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
                     document.addEventListener('touchstart', forceAutoplayOnInteraction);
                     document.addEventListener('scroll', forceAutoplayOnInteraction);
 
-                    if (savedPage && savedNav) {
-                        navigateTo(savedPage, savedNav);
+                    if (savedPage) {
+                        navigateTo(savedPage);
+                        if(savedSideLink) {
+                            document.querySelectorAll('.side-link').forEach(link => link.classList.remove('active'));
+                            const linkToActive = document.getElementById(savedSideLink);
+                            if(linkToActive) linkToActive.classList.add('active');
+                        }
                     }
                 } else {
                     welcomeOverlay.style.display = 'flex';
@@ -654,17 +674,20 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
         function closeWelcomeScreen() {
             localStorage.setItem('welcomeScreenDismissed', 'true');
             localStorage.setItem('currentPage', 'home');
-            localStorage.setItem('currentNav', 'nav-home');
+            localStorage.setItem('currentSideLink', 'slink-home');
             
             document.getElementById('welcomeOverlay').classList.add('hide-welcome');
             setTimeout(() => { document.getElementById('welcomeOverlay').style.display = 'none'; }, 500);
             toggleMusic();
         }
 
-        function navigateTo(pageId, navItemId) {
+        function navigateTo(pageId) {
             if (localStorage.getItem('welcomeScreenDismissed') === 'true') {
                 localStorage.setItem('currentPage', pageId);
-                localStorage.setItem('currentNav', navItemId);
+                const activeSideLink = document.querySelector('.side-link.active');
+                if(activeSideLink) {
+                    localStorage.setItem('currentSideLink', activeSideLink.id);
+                }
             }
 
             const activePage = document.querySelector('.app-page.page-active');
@@ -689,16 +712,8 @@ $isAdmin = ($_SESSION['email'] === 'admin@cherryjoe.com');
                 targetPage.style.transform = 'scale(1) translateY(0)';
             }
             
-            const navItems = document.querySelectorAll('.nav-item');
-            navItems.forEach(item => item.classList.remove('active'));
-            
-            const targetedNav = document.getElementById(navItemId);
-            if (targetedNav) targetedNav.classList.add('active');
-            
             window.scrollTo({ top: 0 });
         }
-
-        function goBack() { navigateTo('home', 'nav-home'); }
 
         let currentSlideIndex = 0;
         const slides = document.querySelectorAll('.slide');
