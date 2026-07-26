@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $error = "Google System Error: " . $response;
             }
         } else {
-            $error = "Sorry, we can't find that email in our system.";
+            $error = "Sorry, this email is not registered in our system.";
         }
     } catch(PDOException $e) {
         $error = "System Error: " . $e->getMessage();
