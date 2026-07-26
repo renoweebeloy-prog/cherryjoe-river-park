@@ -55,43 +55,40 @@ $email = $_SESSION['reset_email'];
         </form>
     </div>
 
-    <!-- TAWAGON ANG SUPABASE -->
+ <!-- TAWAGON ANG SUPABASE -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const supabaseUrl = 'https://gitciqkpxlokouileogg.supabase.co';
         const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpdGNpcWtweGxva291aWxlb2dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwODE3MzQsImV4cCI6MjA5OTY1NzczNH0.t1rZfxxEyiCkgqZ11srNXKXOrBhnj1gS4gRuUxkSzKs';
-        const supabase = supabase.createClient(supabaseUrl, supabaseKey);
+        
+        // FIX: Gi-usab nato ang ngalan ngadto sa 'supabaseClient'
+        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
 
         async function verifySupabaseOTP(e) {
-            e.preventDefault(); // Pugngan ang form nga mo-reload sa page
+            e.preventDefault(); 
 
             const otpInput = document.getElementById('otp_code').value;
             const btn = document.getElementById('btn-verify');
             const errorContainer = document.getElementById('error-container');
             const errorText = document.getElementById('error-text');
 
-            // Loading Animation
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
             btn.style.pointerEvents = 'none';
             errorContainer.style.display = 'none';
 
-            // I-verify ang code ngadto sa Supabase
-            const { data, error } = await supabase.auth.verifyOtp({
+            // Gamiton ang bag-ong ngalan diri
+            const { data, error } = await supabaseClient.auth.verifyOtp({
                 email: '<?php echo $email; ?>',
                 token: otpInput,
                 type: 'email'
             });
 
             if (error) {
-                // Kung sayop ang code
                 errorText.innerText = "Invalid OTP! " + error.message;
                 errorContainer.style.display = 'flex';
-                
-                // Ibalik ang button
                 btn.innerHTML = 'Verify Code';
                 btn.style.pointerEvents = 'auto';
             } else {
-                // KUNG SUCCESS! Lahos na sa pag-buhat og bag-ong password!
                 btn.innerHTML = '<i class="fas fa-check-circle"></i> Success!';
                 btn.style.background = '#059669';
                 window.location.href = "create_new_password.php";
