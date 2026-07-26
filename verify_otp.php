@@ -1,13 +1,26 @@
 <?php
 session_start();
 
-// Kung niabot dinhi nga walay email sa session, i-kick out pabalik sa login
 if (!isset($_SESSION['reset_email'])) {
     header("Location: login.php");
     exit();
 }
 
+$error = '';
 $email = $_SESSION['reset_email'];
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $user_otp = trim($_POST['otp_code']);
+    
+    // I-compare ang gi-type sa user sa OTP nga atong gi-save
+    if ($user_otp == $_SESSION['reset_otp']) {
+        // Kung sakto, lahos na sa new password page!
+        header("Location: create_new_password.php");
+        exit();
+    } else {
+        $error = "Invalid OTP code! Please check your email and try again.";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,70 +47,32 @@ $email = $_SESSION['reset_email'];
     </style>
 </head>
 <body>
-
     <div class="auth-card">
         <i class="fas fa-shield-alt logo-icon"></i>
         <h2>Verify OTP</h2>
-        <p class="subtitle">We've sent a 6-digit code to <br> <span class="email-badge"><?php echo $email; ?></span></p>
+        <p class="subtitle">We've sent a 6-digit code to <br> <span class="email-badge"><?php echo htmlspecialchars($email); ?></span></p>
         
-        <!-- Dinhi mo-gawas ang error gikan sa Supabase -->
-        <div id="error-container" class="error-msg" style="display: none;">
-            <i class="fas fa-exclamation-circle"></i> <span id="error-text"></span>
-        </div>
+        <?php if($error): ?>
+            <div class="error-msg"><i class="fas fa-exclamation-circle"></i> <?php echo $error; ?></div>
+        <?php endif; ?>
         
-        <!-- Ang onsubmit mo-trigger sa JS sa ubos imbes nga sa PHP -->
-        <form onsubmit="verifySupabaseOTP(event)">
+        <form method="POST">
             <div class="input-group">
                 <i class="fas fa-key"></i>
-                <input type="text" id="otp_code" required placeholder="000000" maxlength="6">
+                <input type="text" name="otp_code" required placeholder="000000" maxlength="6">
             </div>
             <button type="submit" class="submit-btn" id="btn-verify">Verify Code</button>
         </form>
     </div>
 
-    <!-- TAWAGON ANG SUPABASE -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
-        const supabaseUrl = 'https://gitciqkpxlokouileogg.supabase.co';
-        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImdpdGNpcWtweGxva291aWxlb2dnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODQwODE3MzQsImV4cCI6MjA5OTY1NzczNH0.t1rZfxxEyiCkgqZ11srNXKXOrBhnj1gS4gRuUxkSzKs';
-        
-        // Gamiton ang supabaseClient aron dili mag-error
-        const supabaseClient = supabase.createClient(supabaseUrl, supabaseKey);
-
-        async function verifySupabaseOTP(e) {
-            e.preventDefault(); // Pugngan ang form nga mo-reload sa page
-
-            const otpInput = document.getElementById('otp_code').value;
-            const btn = document.getElementById('btn-verify');
-            const errorContainer = document.getElementById('error-container');
-            const errorText = document.getElementById('error-text');
-
-            // Loading Animation
-            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
-            btn.style.pointerEvents = 'none';
-            errorContainer.style.display = 'none';
-
-            // I-verify ang code ngadto sa Supabase
-            const { data, error } = await supabaseClient.auth.verifyOtp({
-                email: '<?php echo $email; ?>',
-                token: otpInput,
-                type: 'email'
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function() {
+                var btn = document.getElementById('btn-verify');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+                btn.style.pointerEvents = 'none';
             });
-
-            if (error) {
-                // Kung sayop ang code
-                errorText.innerText = "Invalid OTP! " + error.message;
-                errorContainer.style.display = 'flex';
-                
-                // Ibalik ang button
-                btn.innerHTML = 'Verify Code';
-                btn.style.pointerEvents = 'auto';
-            } else {
-                // KUNG SUCCESS! Lahos na sa pag-buhat og bag-ong password!
-                btn.innerHTML = '<i class="fas fa-check-circle"></i> Success!';
-                btn.style.background = '#059669';
-                window.location.href = "create_new_password.php";
-            }
         }
     </script>
 </body>
