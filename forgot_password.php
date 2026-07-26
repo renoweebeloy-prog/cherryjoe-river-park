@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // ==========================================
             
             // BOSS: IBUTANG DINHI ANG WEB APP URL GIKAN SA GOOGLE APPS SCRIPT
-            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbxTDKLnoaOJGMm2Nd5nakoZONMiJAIdiX2jobng3HMUI5y_XEZcnxIo4bVuUG97N_YGqQ/exec'; 
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbxEYRzVh8XSQAFvG2mMo7Ez-C5CtqSYJ5RC5jXZ_0Zqbj4oc0oOp6rvMdbHinFZjNP3Pg/exec'; 
 
             $html_content = "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
                                 <h2 style='color: #059669;'>Password Reset Request</h2>
