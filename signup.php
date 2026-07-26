@@ -15,21 +15,52 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "Passwords do not match!";
     } else {
         try {
+            // 1. I-check usa kung naa na ba sa database ang email
             $stmt = $conn->prepare("SELECT id FROM users WHERE email = :email");
             $stmt->execute(['email' => $email]);
             
             if ($stmt->fetch()) {
                 $error = "Email is already registered. Please log in.";
             } else {
-                $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-                $insert = $conn->prepare("INSERT INTO users (full_name, email, password) VALUES (:full_name, :email, :password)");
-                $insert->execute([
-                    'full_name' => $full_name,
-                    'email' => $email,
-                    'password' => $hashed_password
-                ]);
+                
+                // ==========================================
+                // 2. MAILBOXLAYER API (EMAIL VALIDATION)
+                // ==========================================
+                $api_key = '6224bc696a856510174780549bf10631';
+                $url = "http://apilayer.net/api/check?access_key=" . $api_key . "&email=" . urlencode($email);
+                
+                $ch = curl_init($url);
+                curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($ch, CURLOPT_TIMEOUT, 10); // 10 seconds timeout aron dili mag-hang
+                $json_response = curl_exec($ch);
+                curl_close($ch);
 
-                $success = "Account created successfully! You can now log in.";
+                $validation_result = json_decode($json_response, true);
+
+                // I-check kung nag-error ang API o na-hurot na ang limit
+                if (isset($validation_result['error'])) {
+                    $error = "System Error: Wala ma-verify ang email. Palihug sulayi usab taud-taud.";
+                } 
+                // I-check kung SAKTO ang format UG BUHI ang server sa email
+                else if (isset($validation_result['format_valid']) && $validation_result['format_valid'] == true && $validation_result['smtp_check'] == true) {
+                    
+                    // ==========================================
+                    // 3. SUCCESS! I-SAVE SA DATABASE
+                    // ==========================================
+                    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+                    $insert = $conn->prepare("INSERT INTO users (full_name, email, password) VALUES (:full_name, :email, :password)");
+                    $insert->execute([
+                        'full_name' => $full_name,
+                        'email' => $email,
+                        'password' => $hashed_password
+                    ]);
+
+                    $success = "Account created successfully! You can now log in.";
+
+                } else {
+                    // DILI TINUOD O PATAY NGA EMAIL
+                    $error = "Invalid Email! Palihug gamit og tinuod ug aktibo nga email address.";
+                }
             }
         } catch(PDOException $e) {
             $error = "System Error: " . $e->getMessage();
@@ -117,7 +148,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="success-msg"><i class="fas fa-check-circle"></i> <?php echo $success; ?></div>
         <?php endif; ?>
         
-        <form method="POST">
+        <form method="POST" id="signupForm">
             <div class="input-group">
                 <i class="fas fa-user left-icon"></i>
                 <input type="text" name="full_name" required placeholder="Full Name">
@@ -139,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <i class="fas fa-eye toggle-password" onclick="togglePass('signup_confirm', this)"></i>
             </div>
 
-            <button type="submit" class="submit-btn">Sign Up</button>
+            <button type="submit" class="submit-btn" id="submitBtn">Sign Up</button>
         </form>
 
         <div class="divider">OR</div>
@@ -158,7 +189,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="login.php" class="bottom-link">Already have an account? <span>Log in</span></a>
     </div>
 
-    <!-- JAVASCRIPT PARA SA MATA -->
+    <!-- JAVASCRIPT PARA SA MATA UG LOADING BUTTON -->
     <script>
         function togglePass(inputId, icon) {
             const input = document.getElementById(inputId);
@@ -172,6 +203,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 icon.classList.add("fa-eye");
             }
         }
+
+        // Loading animation kay usahay dugay mo-reply ang API
+        document.getElementById('signupForm').addEventListener('submit', function() {
+            var btn = document.getElementById('submitBtn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying Email...';
+            btn.style.pointerEvents = 'none';
+            btn.style.opacity = '0.8';
+        });
     </script>
 </body>
 </html>
