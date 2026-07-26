@@ -29,17 +29,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $mail = new PHPMailer(true);
 
             try {
-                // SERVER SETTINGS PARA SA GMAIL
+                // SERVER SETTINGS PARA SA GMAIL (RENDER BYPASS)
                 $mail->isSMTP();
-                $mail->Host       = 'smtp.gmail.com';
+                
+                // PUGSON NATO NGA MOGAMIT OG IPv4 ARON DILI MAG "NETWORK UNREACHABLE" SA RENDER
+                $mail->Host       = gethostbyname('smtp.gmail.com'); 
+                
                 $mail->SMTPAuth   = true;
                 $mail->Username   = 'renoweebeloy536@gmail.com'; // Imong Gmail
+                $mail->Password   = 'gidhusfoizvtmhlov';         // Imong 16-letter App Password
                 
-                // KINI ANG IMONG GOOGLE APP PASSWORD (Gikuhaan na nako og spaces)
-                $mail->Password   = 'gidhusfoizvtmhlov'; 
-                
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
-                $mail->Port       = 587;
+                // GAMITON ANG PORT 465 (SSL) KAY KASAGARAN DILI NI I-BLOCK SA MGA FREE HOSTS
+                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+                $mail->Port       = 465;
+
+                // I-BYPASS ANG STRICT NGA SSL VERIFICATION SA RENDER
+                $mail->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
 
                 // SENDER UG RECEIVER
                 $mail->setFrom('renoweebeloy536@gmail.com', 'CherryJoe River Park');
@@ -121,5 +132,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <a href="login.php" class="bottom-link"><i class="fas fa-arrow-left"></i> Back to <span>Log in</span></a>
     </div>
+
+    <!-- LOADING SPINNER SCRIPT -->
+    <script>
+        document.querySelector('form').addEventListener('submit', function() {
+            var btn = document.querySelector('.submit-btn');
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending... Please wait';
+            btn.style.pointerEvents = 'none'; // Aron dili ma-double click
+            btn.style.opacity = '0.8';
+        });
+    </script>
 </body>
 </html>
