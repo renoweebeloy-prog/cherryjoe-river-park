@@ -7,6 +7,8 @@ if (!isset($_SESSION['reset_otp'])) {
 }
 
 $error = '';
+// Kuhaon nato ang email gikan sa session aron ma-display
+$email = isset($_SESSION['reset_email']) ? $_SESSION['reset_email'] : '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $entered_otp = trim($_POST['otp_code']);
@@ -34,32 +36,51 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         .input-group { margin-bottom: 18px; text-align: center; }
         .input-group input { width: 100%; padding: 15px; border: 2px solid #cbd5e1; background: #f8fafc; border-radius: 14px; font-size: 24px; font-weight: bold; text-align: center; letter-spacing: 5px;}
         .input-group input:focus { border-color: #10b981; outline: none; }
-        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 16px; width: 100%; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; }
+        .submit-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; border: none; padding: 16px; width: 100%; border-radius: 50px; font-weight: 700; font-size: 16px; cursor: pointer; transition: 0.3s ease; box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);}
+        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(16, 185, 129, 0.4); }
         .error-msg { background: #fee2e2; color: #ef4444; padding: 12px; border-radius: 10px; font-size: 14px; margin-bottom: 20px; border: 1px solid #fca5a5;}
-        .spam-warning { background: #fffbeb; color: #d97706; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: bold; margin-bottom: 20px; border: 1px dashed #fcd34d; }
+        .spam-warning { background: #fffbeb; color: #d97706; padding: 10px; border-radius: 8px; font-size: 13px; font-weight: bold; margin-bottom: 20px; border: 1px dashed #fcd34d; line-height: 1.4;}
+        .email-display { color: #059669; font-weight: bold; word-break: break-all; }
     </style>
 </head>
 <body>
     <div class="auth-card">
         <i class="fas fa-shield-alt logo-icon"></i>
         <h2>Verify Your OTP</h2>
-        <p style="color: #64748b; margin-bottom: 10px;">We've sent a 6-digit code to your email.</p>
+        
+        <!-- DYNAMIC EMAIL MESSAGE -->
+        <p style="color: #64748b; margin-bottom: 15px; line-height: 1.5; font-size: 15px;">
+            We've sent a One Time Passcode to your email-<br>
+            <span class="email-display"><?php echo htmlspecialchars($email); ?></span>.
+        </p>
         
         <!-- SPAM WARNING MESSAGE -->
         <div class="spam-warning">
-            <i class="fas fa-exclamation-triangle"></i> Can't see it? Please check your  <b>Spam</b>  folder.
+            <i class="fas fa-exclamation-triangle"></i> If you did not receive it, please check your <b>Spam</b> folder.
         </div>
         
         <?php if($error): ?>
-            <div class="error-msg"><?php echo $error; ?></div>
+            <div class="error-msg"><i class="fas fa-exclamation-circle"></i> <?php echo $error; ?></div>
         <?php endif; ?>
         
         <form method="POST">
             <div class="input-group">
                 <input type="text" name="otp_code" required maxlength="6" placeholder="------" autocomplete="off">
             </div>
-            <button type="submit" class="submit-btn">Verify Code</button>
+            <button type="submit" class="submit-btn" id="btn-verify">Verify Code</button>
         </form>
     </div>
+
+    <script>
+        // Simple loading animation aron nindot tan-awon inig click
+        const form = document.querySelector('form');
+        if (form) {
+            form.addEventListener('submit', function() {
+                var btn = document.getElementById('btn-verify');
+                btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Verifying...';
+                btn.style.pointerEvents = 'none';
+            });
+        }
+    </script>
 </body>
 </html>
