@@ -2,14 +2,6 @@
 session_start();
 require 'db_connect.php';
 
-// TAWAGON NATO ANG PHPMAILER FILES
-require 'Exception.php';
-require 'PHPMailer.php';
-require 'SMTP.php';
-
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\Exception;
-
 $error = '';
 $success = '';
 
@@ -26,56 +18,47 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['reset_otp'] = $otp;
             $_SESSION['reset_email'] = $email;
 
-            $mail = new PHPMailer(true);
+            // ==========================================
+            // GOOGLE APPS SCRIPT HTTPS API (RENDER-PROOF)
+            // ==========================================
+            
+            // BOSS: IBUTANG DINHI ANG WEB APP URL GIKAN SA GOOGLE APPS SCRIPT
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbyMVehzzOnTorBYam7Iq7mrya7_ZfhQsaqxYES4n-4GL2IJ5OrC36HuPvmacxgXU0xx/exec'; 
 
-            try {
-                // SERVER SETTINGS PARA SA GMAIL (RENDER BYPASS)
-                $mail->isSMTP();
-                
-                // PUGSON NATO NGA MOGAMIT OG IPv4 ARON DILI MAG "NETWORK UNREACHABLE" SA RENDER
-                $mail->Host       = gethostbyname('smtp.gmail.com'); 
-                
-                $mail->SMTPAuth   = true;
-                $mail->Username   = 'renoweebeloy536@gmail.com'; // Imong Gmail
-                $mail->Password   = 'gidh usfo izvt mhlov';         // Imong 16-letter App Password
-                
-                // GAMITON ANG PORT 465 (SSL) KAY KASAGARAN DILI NI I-BLOCK SA MGA FREE HOSTS
-                $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
-                $mail->Port       = 465;
+            $html_content = "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
+                                <h2 style='color: #059669;'>Password Reset Request</h2>
+                                <p>Hello <b>{$user['full_name']}</b>,</p>
+                                <p>Your One-Time Password (OTP) is:</p>
+                                <h1 style='color: #ef4444; letter-spacing: 5px; text-align: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ef4444;'>{$otp}</h1>
+                                <p>Please enter this code on the website.</p>
+                              </div>";
 
-                // I-BYPASS ANG STRICT NGA SSL VERIFICATION SA RENDER
-                $mail->SMTPOptions = array(
-                    'ssl' => array(
-                        'verify_peer' => false,
-                        'verify_peer_name' => false,
-                        'allow_self_signed' => true
-                    )
-                );
+            $payload = json_encode([
+                "to" => $email,
+                "subject" => "Password Reset OTP - CherryJoe",
+                "htmlBody" => $html_content
+            ]);
 
-                // SENDER UG RECEIVER
-                $mail->setFrom('renoweebeloy536@gmail.com', 'CherryJoe River Park');
-                $mail->addAddress($email, $user['full_name']); // Mo-send ni sa BISAN UNSA nga Gmail!
+            // HTTPS Call gamit ang cURL (Dili gyud ma-block sa Render)
+            $ch = curl_init($google_app_script_url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); // Sundon ang redirect sa Google
+            curl_setopt($ch, CURLOPT_POST, true);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
-                // SULOD SA EMAIL
-                $mail->isHTML(true);
-                $mail->Subject = 'Password Reset OTP - CherryJoe';
-                $mail->Body    = "<div style='font-family: Arial, sans-serif; padding: 20px; background: #f4f4f4; border-radius: 10px;'>
-                                    <h2 style='color: #059669;'>Password Reset Request</h2>
-                                    <p>Hello <b>{$user['full_name']}</b>,</p>
-                                    <p>Your One-Time Password (OTP) is:</p>
-                                    <h1 style='color: #ef4444; letter-spacing: 5px; text-align: center; background: #fff; padding: 15px; border-radius: 8px; border: 1px dashed #ef4444;'>{$otp}</h1>
-                                    <p>Please enter this code on the website.</p>
-                                  </div>";
+            $response = curl_exec($ch);
+            $curl_err = curl_error($ch);
+            curl_close($ch);
 
-                $mail->send();
-                
-                // KUNG SUCCESS, MO-ADTO SA OTP PAGE
+            if ($curl_err) {
+                $error = "System Error: " . $curl_err;
+            } else {
                 header("Location: verify_otp.php");
                 exit();
-                
-            } catch (Exception $e) {
-                $error = "Wala na-send ang email. Error: {$mail->ErrorInfo}";
             }
+
         } else {
             $error = "Sorry, we can't find that email in our system.";
         }
@@ -133,12 +116,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="login.php" class="bottom-link"><i class="fas fa-arrow-left"></i> Back to <span>Log in</span></a>
     </div>
 
-    <!-- LOADING SPINNER SCRIPT -->
     <script>
         document.querySelector('form').addEventListener('submit', function() {
             var btn = document.querySelector('.submit-btn');
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending... Please wait';
-            btn.style.pointerEvents = 'none'; // Aron dili ma-double click
+            btn.style.pointerEvents = 'none';
             btn.style.opacity = '0.8';
         });
     </script>
