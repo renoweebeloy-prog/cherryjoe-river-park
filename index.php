@@ -11,7 +11,6 @@ if (!isset($_SESSION['user_id'])) {
 // HANDLE PROFILE PICTURE UPLOAD
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
     $uploadDir = 'uploads/';
-    // Pagbuhat og folder kung wala pa
     if (!is_dir($uploadDir)) {
         mkdir($uploadDir, 0777, true);
     }
@@ -23,7 +22,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
     $allowTypes = array('jpg','png','jpeg','gif');
     if(in_array(strtolower($fileType), $allowTypes)){
         if(move_uploaded_file($_FILES['profile_pic']['tmp_name'], $targetFilePath)){
-            // I-update ang database
             $updateStmt = $conn->prepare("UPDATE users SET profile_pic = :pic WHERE id = :id");
             $updateStmt->execute(['pic' => $targetFilePath, 'id' => $_SESSION['user_id']]);
         }
@@ -67,8 +65,7 @@ try {
     <title>CherryJoe River Park</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
-
+    
     <style>
         /* --- PREMIUM UI CONFIG & RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -130,10 +127,8 @@ try {
         /* --- 5. MODERN GLOBAL APP UI PARTS --- */
         nav { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; height: 60px; }
         .nav-left { display: flex; align-items: center; gap: 15px; color: #1e293b; }
-        
         .menu-toggle-btn { background: #10b981; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 1px solid #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); transition: 0.3s; }
         .menu-toggle-btn:hover { background: #059669; transform: scale(1.05); }
-        
         .logo { font-size: 20px; font-weight: bold; color: #1e293b; white-space: nowrap; margin-left: 5px;}
         section { padding: 50px 5%; max-width: 1200px; margin: 0 auto; }
         .title { text-align: center; font-size: 30px; margin-bottom: 35px; color: #1e293b; font-weight: 800; }
@@ -293,7 +288,7 @@ try {
         <div class="loader-text">Loading Experience...</div>
     </div>
 
-    <!-- NEW WHITE SIDE MENU DRAWER WITH PHOTO UPLOAD -->
+    <!-- SIDE MENU DRAWER WITH PHOTO UPLOAD -->
     <div class="side-menu-overlay" id="sideMenuOverlay" onclick="toggleSideMenu()"></div>
     <div class="side-menu" id="sideMenu">
         <div class="close-menu-btn" onclick="toggleSideMenu()">
@@ -328,7 +323,6 @@ try {
                 <i class="fas fa-home"></i> Home
             </a>
             
-            <!-- NEW BOOKING LINK DIRI -->
             <a onclick="navigateMenu('booking', 'slink-booking')" class="side-link" id="slink-booking">
                 <i class="fas fa-calendar-alt"></i> Booking
             </a>
@@ -355,7 +349,7 @@ try {
         </div>
     </div>
 
-    <!-- WELCOME OVERLAY & POPUP HTML KEPT SAME AS BEFORE -->
+    <!-- WELCOME OVERLAY & POPUP -->
     <div class="feature-popup-modal" id="featurePopup">
         <div class="feature-popup-content">
             <i id="popupIcon" class="fas fa-tree"></i>
@@ -438,7 +432,7 @@ try {
             </div>
         </section>
 
-        <!-- BEAUTIFUL ABOUT US SECTION -->
+        <!-- ABOUT US SECTION -->
         <section id="about" class="reveal">
             <h2 class="title">About Us</h2>
             
@@ -608,7 +602,7 @@ try {
         <section class="reveal">
             <h2 class="title">Reservation & Booking</h2>
             
-            <!-- BOOKING FORM -->
+            <!-- BOOKING FORM WITH GCASH -->
             <div style="background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto 40px auto; border: 1px solid #cbd5e1;">
                 <h3 style="color: #059669; margin-bottom: 20px; text-align: center;"><i class="fas fa-calendar-plus"></i> Book a Facility</h3>
                 <form id="bookingForm" onsubmit="submitBooking(event)">
@@ -630,6 +624,18 @@ try {
                             <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Check-Out Date</label>
                             <input type="date" id="check_out" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
                         </div>
+                    </div>
+
+                    <!-- GCASH PAYMENT DETAILS BOX -->
+                    <div style="background: #f0fdf4; border: 1px dashed #10b981; padding: 20px; border-radius: 12px; margin-bottom: 20px; text-align: center;">
+                        <p style="color: #059669; font-weight: bold; font-size: 15px; margin-bottom: 5px;">
+                            <i class="fas fa-mobile-alt"></i> GCash Payment Info
+                        </p>
+                        <p style="color: #334155; font-size: 14px;"><b>Number:</b> 0920 408 7956</p>
+                        <p style="color: #334155; font-size: 14px; margin-bottom: 15px;"><b>Account Name:</b> CherryJoe River Park</p>
+                        
+                        <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 13px; text-align: left;">GCash Reference Number (Ref No.)</label>
+                        <input type="text" id="gcash_ref" placeholder="e.g. 1002 345 6789" required style="width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #cbd5e1; outline: none;">
                     </div>
 
                     <button type="submit" id="btn-submit-booking" style="width: 100%; padding: 15px; background: #10b981; color: white; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 16px;">
@@ -656,7 +662,6 @@ try {
                                 </span>
                             </div>
                             
-                            <!-- If the booking is Pending, they can cancel it -->
                             <?php if($b['status'] === 'Pending'): ?>
                             <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 15px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
                                 <i class="fas fa-times-circle"></i> Cancel Reservation
@@ -931,10 +936,9 @@ try {
         }
 
         // ===============================================
-        // BAG-ONG MGA FUNCTION PARA SA BOOKING SYSTEM
+        // MGA FUNCTION PARA SA BOOKING SYSTEM (WITH GCASH)
         // ===============================================
 
-        // Mag-send og data didto sa process_booking.php
         async function submitBooking(e) {
             e.preventDefault();
             const btn = document.getElementById('btn-submit-booking');
@@ -943,6 +947,7 @@ try {
             const cottage = document.getElementById('cottage_type').value;
             const checkIn = document.getElementById('check_in').value;
             const checkOut = document.getElementById('check_out').value;
+            const gcashRef = document.getElementById('gcash_ref').value;
 
             btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
             btn.style.pointerEvents = 'none';
@@ -951,16 +956,15 @@ try {
                 const response = await fetch('process_booking.php', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                    body: `cottage=${encodeURIComponent(cottage)}&check_in=${checkIn}&check_out=${checkOut}`
+                    body: `cottage=${encodeURIComponent(cottage)}&check_in=${checkIn}&check_out=${checkOut}&gcash_ref=${encodeURIComponent(gcashRef)}`
                 });
                 
                 const result = await response.text();
                 
                 if(result.trim() === 'SUCCESS') {
                     msg.style.color = '#059669';
-                    msg.innerHTML = '✅ Booking submitted! Please check your email for confirmation.';
+                    msg.innerHTML = '✅ Booking submitted! GCash payment recorded. Please check your email.';
                     document.getElementById('bookingForm').reset();
-                    // I-reload aron makita dayon sa "My Bookings" list
                     setTimeout(() => location.reload(), 2500);
                 } else {
                     msg.style.color = '#ef4444';
@@ -975,7 +979,6 @@ try {
             btn.style.pointerEvents = 'auto';
         }
 
-        // Mag-cancel og Booking
         async function cancelBooking(bookingId) {
             if(!confirm("Are you sure you want to cancel this reservation?")) return;
 
