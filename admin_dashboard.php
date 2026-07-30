@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset
             $updateStmt->execute(['status' => $n_status, 'id' => $b_id]);
             
             // IPADALA ANG EMAIL PINAAGI SA GOOGLE APPS SCRIPT
-            $google_app_script_url = 'IBUTANG_DIRI_ANG_WEB_APP_URL_NIMO'; // ⚠️ ILISI KINI SA IMONG SCRIPT URL! ⚠️
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbyK1YbnNeCCkYFNyVLe9ytrPbnoci34e2KAScdYKmQRqApKrZ4F3mhMOVVa9_wawrmrjg/exec'; // ⚠️ ILISI KINI SA IMONG SCRIPT URL! ⚠️
             
             $action_type = ($n_status === 'Confirmed') ? 'confirm' : 'reject';
             
