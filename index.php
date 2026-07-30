@@ -629,11 +629,17 @@ try {
             <div style="background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto 40px auto; border: 1px solid #cbd5e1;">
                 <h3 style="color: #059669; margin-bottom: 20px; text-align: center;"><i class="fas fa-calendar-plus"></i> Book a Facility</h3>
                 <form id="bookingForm" onsubmit="submitBooking(event)">
+                    
+                    <!-- GI-UPDATE NGA MGA OPTIONS PARA SA COTTAGE/FACILITY -->
                     <div style="margin-bottom: 15px;">
                         <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Select Cottage/Facility</label>
                         <select id="cottage_type" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
                             <option value="">-- Choose Here --</option>
-                            <option value="Open Cottage (₱100)">Open Cottage (₱100)</option>
+                            <option value="Open Cottage - ₱100 (6 persons)">Open Cottage - ₱100 (Good for 6 persons)</option>
+                            <option value="Open Cottage - ₱150 (8 persons)">Open Cottage - ₱150 (Good for 8 persons)</option>
+                            <option value="Open Cottage - ₱200 (10 persons)">Open Cottage - ₱200 (Good for 10 persons)</option>
+                            <option value="Open Cottage - ₱300 (12 persons)">Open Cottage - ₱300 (Good for 12 persons)</option>
+                            <option value="Floating Cottage - ₱1500 (Family)">Floating Cottage - ₱1500 (For Family)</option>
                             <option value="Function Hall">Function Hall</option>
                         </select>
                     </div>
