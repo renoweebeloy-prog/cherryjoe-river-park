@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset
             $updateStmt->execute(['status' => $n_status, 'id' => $b_id]);
             
             // IPADALA ANG EMAIL PINAAGI SA GOOGLE APPS SCRIPT
-            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbyK1YbnNeCCkYFNyVLe9ytrPbnoci34e2KAScdYKmQRqApKrZ4F3mhMOVVa9_wawrmrjg/exec'; // ⚠️ ILISI KINI SA IMONG SCRIPT URL! ⚠️
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbz93x4b45fndZ6PTebbwNoaN9Xga8CeHtj3G7dCs0G8qQM6UAbeH41fyloDP0BWtCmhMg/exec'; // ⚠️ ILISI KINI SA IMONG SCRIPT URL! ⚠️
             
             $action_type = ($n_status === 'Confirmed') ? 'confirm' : 'reject';
             
@@ -60,7 +60,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset
     } catch(PDOException $e) { $message = "<div class='error-msg'>Failed to update booking.</div>"; }
 }
 
-// ... (PAGKOPYA SA IMONG CRUD PARA SA MENU, GALLERY, UG VIDEO. Parehas ra to kaganina) ...
+// ==========================================
+// 1. MENU MANAGEMENT (CRUD + File Upload)
+// ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_menu'])) {
     $image_url = uploadFile('photo', $upload_dir) ?: 'https://placehold.co/400x250?text=No+Image';
     try { $conn->prepare("INSERT INTO menu_items (category, name, description, price, image_url) VALUES (?, ?, ?, ?, ?)")->execute([$_POST['category'], $_POST['name'], $_POST['description'], $_POST['price'], $image_url]); $message = "<div class='success-msg'>Menu item added!</div>"; } catch(PDOException $e) {}
@@ -70,10 +72,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_menu'])) {
     try { $conn->prepare("UPDATE menu_items SET category=?, name=?, description=?, price=?, image_url=? WHERE id=?")->execute([$_POST['category'], $_POST['name'], $_POST['description'], $_POST['price'], $image_url, $_POST['item_id']]); $message = "<div class='success-msg'>Menu item updated!</div>"; } catch(PDOException $e) {}
 }
 if (isset($_GET['delete_menu'])) { try { $conn->prepare("DELETE FROM menu_items WHERE id=?")->execute([$_GET['delete_menu']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
+
+// ==========================================
+// 2. GALLERY MANAGEMENT
+// ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_gallery'])) {
     if ($photo_path = uploadFile('gallery_photo', $upload_dir)) { try { $conn->prepare("INSERT INTO gallery (image_path) VALUES (?)")->execute([$photo_path]); $message = "<div class='success-msg'>Photo added to Gallery!</div>"; } catch(PDOException $e) {} }
 }
 if (isset($_GET['delete_gallery'])) { try { $conn->prepare("DELETE FROM gallery WHERE id=?")->execute([$_GET['delete_gallery']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
+
+// ==========================================
+// 3. VIDEO TOUR MANAGEMENT
+// ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_video'])) {
     if ($video_path = uploadFile('resort_video', $upload_dir)) { try { $conn->prepare("INSERT INTO videos (title, video_path) VALUES (?, ?)")->execute([$_POST['video_title'], $video_path]); $message = "<div class='success-msg'>Video added!</div>"; } catch(PDOException $e) {} }
 }
@@ -97,7 +107,10 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard - CherryJoe</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    
+    <!-- CAMERA SCANNER SCRIPT -->
     <script src="https://unpkg.com/html5-qrcode" type="text/javascript"></script>
+
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
         body { background: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(5,150,105,0.1)); padding: 40px 20px; color: #1e293b; }
@@ -148,10 +161,10 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     
     <?php echo $message; ?>
 
-    <!-- BOOKINGS & RESERVATIONS (WITH SCANNER) -->
+    <!-- BOOKINGS & RESERVATIONS -->
     <h2 class="section-title">
         <span><i class="fas fa-calendar-check"></i> Reservation Management</span>
-        <button class="btn-scan" onclick="openScanner()"><i class="fas fa-camera"></i> Scan Guest QR</button>
+        <button class="btn-scan" onclick="openScanner()"><i class="fas fa-qrcode"></i> Scan Guest QR</button>
     </h2>
     <div class="table-container">
         <table>
@@ -163,6 +176,11 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             <tbody>
                 <?php if (count($all_bookings) > 0): ?>
                     <?php foreach ($all_bookings as $booking): ?>
+                    <?php 
+                        // I-check kung expired na ba ang petsa (base sa check_out date)
+                        $today = date('Y-m-d');
+                        $is_expired = (strtotime($booking['check_out']) < strtotime($today));
+                    ?>
                     <tr>
                         <td><b>#<?php echo htmlspecialchars($booking['id']); ?></b></td>
                         <td>
@@ -172,11 +190,18 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                         <td>
                             <div style="font-weight: 600; color: #059669;"><?php echo htmlspecialchars($booking['cottage_type']); ?></div>
                             <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in']); ?> | <b>Out:</b> <?php echo htmlspecialchars($booking['check_out']); ?></div>
+                            <?php if ($is_expired && $booking['status'] !== 'Cancelled'): ?>
+                                <span style="color: #ef4444; font-weight: bold; font-size: 11px;"><i class="fas fa-exclamation-circle"></i> Date Passed</span>
+                            <?php endif; ?>
                         </td>
                         <td><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold;"><?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?></span></td>
-                        <td><span class="status-badge <?php echo htmlspecialchars($booking['status']); ?>"><?php echo htmlspecialchars($booking['status']); ?></span></td>
                         <td>
-                            <?php if ($booking['status'] === 'Pending'): ?>
+                            <span class="status-badge <?php echo htmlspecialchars($booking['status']); ?>">
+                                <?php echo htmlspecialchars($booking['status']); ?>
+                            </span>
+                        </td>
+                        <td>
+                            <?php if ($booking['status'] === 'Pending' && !$is_expired): ?>
                                 <form method="POST" class="action-form" onsubmit="return confirm('Approve booking? An email with the QR code will be sent to the guest.');">
                                     <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
                                     <input type="hidden" name="new_status" value="Confirmed">
@@ -187,6 +212,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                                     <input type="hidden" name="new_status" value="Cancelled">
                                     <button type="submit" class="btn-action btn-reject"><i class="fas fa-times"></i> Reject</button>
                                 </form>
+                            <?php elseif ($is_expired && $booking['status'] === 'Pending'): ?>
+                                <span style="color: #ef4444; font-size: 12px; font-weight: bold; font-style: italic;"><i class="fas fa-ban"></i> Expired</span>
                             <?php else: ?>
                                 <span style="color: #94a3b8; font-size: 12px; font-style: italic;">No actions</span>
                             <?php endif; ?>
@@ -200,8 +227,119 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         </table>
     </div>
 
-    <!-- MGA SUNOD NGA SECTIONS (FOOD, GALLERY, VIDEO) GIPABILIN GIKAN SA IMONG CODE -->
-    <!-- ... (Imo na ning ipadayon ang mga html para sa Menu/Gallery, same ra gihapon) ... -->
+    <!-- MENU MANAGEMENT -->
+    <h2 class="section-title" style="margin-top: 60px;"><i class="fas fa-utensils"></i> Manage Food Menu</h2>
+    <div class="form-box">
+        <h3><?php echo $is_editing ? 'Edit Menu Item' : 'Add New Menu Item'; ?></h3>
+        <form method="POST" enctype="multipart/form-data">
+            <?php if($is_editing): ?>
+                <input type="hidden" name="item_id" value="<?php echo $edit_data['id']; ?>">
+                <input type="hidden" name="existing_image" value="<?php echo $edit_data['image_url']; ?>">
+            <?php endif; ?>
+
+            <div class="form-grid">
+                <div>
+                    <label>Category</label>
+                    <select name="category">
+                        <option value="Specialties" <?php if($edit_data['category']=='Specialties') echo 'selected'; ?>>Specialties</option>
+                        <option value="Combo Meal" <?php if($edit_data['category']=='Combo Meal') echo 'selected'; ?>>Combo Meal</option>
+                        <option value="Finger Foods" <?php if($edit_data['category']=='Finger Foods') echo 'selected'; ?>>Finger Foods</option>
+                        <option value="Drinks" <?php if($edit_data['category']=='Drinks') echo 'selected'; ?>>Drinks</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Food/Drink Name</label>
+                    <input type="text" name="name" required value="<?php echo htmlspecialchars($edit_data['name']); ?>">
+                </div>
+                <div>
+                    <label>Price</label>
+                    <input type="text" name="price" required value="<?php echo htmlspecialchars($edit_data['price']); ?>">
+                </div>
+                <div>
+                    <label>Upload Photo</label>
+                    <input type="file" name="photo" accept="image/*">
+                    <?php if($is_editing) echo "<small style='color:green;'>Leave blank to keep existing photo.</small>"; ?>
+                </div>
+                <div class="full-width">
+                    <label>Description</label>
+                    <textarea name="description" rows="2"><?php echo htmlspecialchars($edit_data['description']); ?></textarea>
+                </div>
+            </div>
+            <button type="submit" name="<?php echo $is_editing ? 'update_menu' : 'add_menu'; ?>" class="btn-green">
+                <i class="fas fa-save"></i> <?php echo $is_editing ? 'Update Item' : 'Add to Menu'; ?>
+            </button>
+            <?php if($is_editing): ?> <a href="admin_dashboard.php" style="margin-left:10px; color:#475569;">Cancel</a> <?php endif; ?>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <tr><th>Image</th><th>Name & Price</th><th>Action</th></tr>
+            <?php foreach($menu_list as $row): ?>
+            <tr>
+                <td><img src="<?php echo $row['image_url']; ?>" class="item-img" onerror="this.src='https://placehold.co/100'"></td>
+                <td><strong><?php echo $row['name']; ?></strong><br><span style="color:#059669;"><?php echo $row['price']; ?></span></td>
+                <td>
+                    <a href="admin_dashboard.php?edit_menu=<?php echo $row['id']; ?>" class="edit-btn">Edit</a>
+                    <a href="admin_dashboard.php?delete_menu=<?php echo $row['id']; ?>" class="delete-btn">Delete</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
+    <!-- GALLERY MANAGEMENT -->
+    <h2 class="section-title" style="margin-top: 60px;"><i class="fas fa-images"></i> Manage Gallery Photos</h2>
+    <div class="form-box">
+        <form method="POST" enctype="multipart/form-data">
+            <label>Upload Photo for Gallery</label>
+            <input type="file" name="gallery_photo" accept="image/*" required style="margin-bottom:10px;">
+            <button type="submit" name="add_gallery" class="btn-green"><i class="fas fa-upload"></i> Upload to Gallery</button>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <tr><th>Gallery Photo</th><th>Action</th></tr>
+            <?php foreach($gallery_list as $img): ?>
+            <tr>
+                <td><img src="<?php echo $img['image_path']; ?>" class="item-img" style="width: 100px; height: 60px;"></td>
+                <td><a href="admin_dashboard.php?delete_gallery=<?php echo $img['id']; ?>" class="delete-btn">Delete</a></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
+    <!-- VIDEO TOUR MANAGEMENT -->
+    <h2 class="section-title" style="margin-top: 60px;"><i class="fas fa-video"></i> Manage Resort Videos</h2>
+    <div class="form-box">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-grid">
+                <div>
+                    <label>Video Title</label>
+                    <input type="text" name="video_title" required placeholder="Ex: Pool Amenities">
+                </div>
+                <div>
+                    <label>Upload Video (MP4)</label>
+                    <input type="file" name="resort_video" accept="video/mp4" required>
+                </div>
+            </div>
+            <button type="submit" name="add_video" class="btn-green"><i class="fas fa-upload"></i> Upload Video</button>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <tr><th>Video Title</th><th>Action</th></tr>
+            <?php foreach($video_list as $vid): ?>
+            <tr>
+                <td><strong><?php echo $vid['title']; ?></strong></td>
+                <td><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn">Delete</a></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
+
 </div>
 
 <!-- QR SCANNER MODAL -->
@@ -213,7 +351,12 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     </div>
 </div>
 
+<!-- IPASA ANG BOOKING DATA GIKAN SA PHP PAINGON SA JAVASCRIPT ARON MA-CHECK ANG EXPIRATION INIG SCAN -->
 <script>
+    // JSON Data gikan sa database
+    const bookingsData = <?php echo json_encode($all_bookings); ?>;
+    const todayDate = "<?php echo date('Y-m-d'); ?>";
+
     let html5QrcodeScanner;
 
     function openScanner() {
@@ -233,18 +376,41 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             html5QrcodeScanner.clear();
             document.getElementById('scannerModal').style.display = 'none';
             
-            if (confirm("✅ QR Code Detected!\nBooking ID: #" + bookingId + "\n\nDo you want to APPROVE this reservation now?")) {
-                let form = document.createElement('form');
-                form.method = 'POST';
-                form.innerHTML = `<input type="hidden" name="booking_id" value="${bookingId}"><input type="hidden" name="new_status" value="Confirmed">`;
-                document.body.appendChild(form);
-                form.submit();
+            // PANGITAON ANG BOOKING DATA SA ARRAY
+            let booking = bookingsData.find(b => b.id == bookingId);
+
+            if (booking) {
+                // E-CHECK KUNG EXPIRED NA BA (Check-Out Date < Karon nga Petsa)
+                if (booking.check_out < todayDate) {
+                    alert("❌ QR Code Expired!\n\nThis QR Code belongs to a past date (" + booking.check_out + ") and can no longer be approved.");
+                    return; // PAHUNONGON ANG CODE DIRI
+                }
+
+                // E-CHECK KUNG GI-CANCEL NA DAAN
+                if (booking.status === 'Cancelled') {
+                    alert("❌ Invalid!\n\nThis booking has already been cancelled.");
+                    return; // PAHUNONGON ANG CODE DIRI
+                }
+
+                // KUNG OKAY ANG PETSA, IPANGUTANA KUNG I-APPROVE BA
+                if (confirm("✅ QR Code Detected!\nBooking ID: #" + bookingId + "\nGuest Name: " + booking.user_name + "\n\nDo you want to APPROVE this reservation now?")) {
+                    let form = document.createElement('form');
+                    form.method = 'POST';
+                    form.innerHTML = `<input type="hidden" name="booking_id" value="${bookingId}"><input type="hidden" name="new_status" value="Confirmed">`;
+                    document.body.appendChild(form);
+                    form.submit();
+                }
+            } else {
+                alert("❌ Booking ID #" + bookingId + " not found in the system.");
             }
         } else {
             alert("❌ Invalid QR Code! This is not a CherryJoe River Park reservation.");
         }
     }
-    function onScanFailure(error) {}
+    
+    function onScanFailure(error) {
+        // I-ignore ang errors while nag-scan pa ang camera
+    }
 </script>
 </body>
 </html>
