@@ -28,6 +28,52 @@ function uploadFile($fileInputName, $uploadDir) {
 }
 
 // ==========================================
+// 0. BOOKING & RESERVATION MANAGEMENT (NEW)
+// ==========================================
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset($_POST['new_status'])) {
+    $b_id = $_POST['booking_id'];
+    $n_status = $_POST['new_status']; // Pwede 'Confirmed' o 'Cancelled'
+
+    try {
+        // Kuhaon una nato ang details sa guest aron naay mapadad-an sa email
+        $getStmt = $conn->prepare("SELECT * FROM bookings WHERE id = :id");
+        $getStmt->execute(['id' => $b_id]);
+        $b_data = $getStmt->fetch();
+
+        if($b_data) {
+            // I-update ang database nga Confirmed o Cancelled
+            $updateStmt = $conn->prepare("UPDATE bookings SET status = :status WHERE id = :id");
+            $updateStmt->execute(['status' => $n_status, 'id' => $b_id]);
+            
+            // IPADALA ANG EMAIL PINAAGI SA GOOGLE APPS SCRIPT
+            $google_app_script_url = 'IBUTANG_DIRI_ANG_WEB_APP_URL_NIMO'; // ⚠️ ILISI KINI SA IMONG SCRIPT URL! ⚠️
+            
+            $action_type = ($n_status === 'Confirmed') ? 'confirm' : 'reject';
+            
+            $url = $google_app_script_url . "?action=" . $action_type . 
+                   "&email=" . urlencode($b_data['user_email']) . 
+                   "&name=" . urlencode($b_data['user_name']) . 
+                   "&cottage=" . urlencode($b_data['cottage_type']) . 
+                   "&check_in=" . urlencode($b_data['check_in']) . 
+                   "&check_out=" . urlencode($b_data['check_out']);
+
+            $ch = curl_init($url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true); 
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_exec($ch);
+            curl_close($ch);
+
+            $message = "<div class='success-msg'><i class='fas fa-check-circle'></i> Booking ID #$b_id has been successfully $n_status. An email was sent to the guest.</div>";
+        } else {
+            $message = "<div class='error-msg'>Booking not found.</div>";
+        }
+    } catch(PDOException $e) {
+        $message = "<div class='error-msg'>Failed to update booking.</div>";
+    }
+}
+
+// ==========================================
 // 1. MENU MANAGEMENT (CRUD + File Upload)
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_menu'])) {
@@ -129,7 +175,7 @@ if (isset($_GET['delete_video'])) {
     } catch(PDOException $e) {}
 }
 
-// --- FETCH DATA FOR DISPLAY ---
+// --- FETCH ALL DATA FOR DISPLAY ---
 $is_editing = false;
 $edit_data = ['id'=>'', 'category'=>'Specialties', 'name'=>'', 'price'=>'', 'description'=>'', 'image_url'=>''];
 
@@ -142,9 +188,19 @@ if (isset($_GET['edit_menu'])) {
     } catch(PDOException $e) {}
 }
 
+// Fetch Menu, Gallery, Videos
 $menu_list = $conn->query("SELECT * FROM menu_items ORDER BY id DESC")->fetchAll();
 $gallery_list = $conn->query("SELECT * FROM gallery ORDER BY id DESC")->fetchAll();
 $video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll();
+
+// Fetch Bookings (New)
+try {
+    $stmt_bk = $conn->prepare("SELECT * FROM bookings ORDER BY created_at DESC");
+    $stmt_bk->execute();
+    $all_bookings = $stmt_bk->fetchAll();
+} catch(PDOException $e) {
+    $all_bookings = [];
+}
 ?>
 
 <!DOCTYPE html>
@@ -169,37 +225,114 @@ $video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll();
         .full-width { grid-column: span 2; }
         label { font-size: 13px; font-weight: bold; color: #64748b; display: block; margin-bottom: 5px; text-transform: uppercase;}
         input[type="text"], input[type="file"], select, textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; }
+        
+        /* BUTTONS */
         .btn-green { background: #059669; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         .btn-green:hover { background: #047857; }
+        .action-form { display: inline-block; margin-right: 5px; }
+        .btn-action { padding: 6px 12px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-size: 12px; transition: 0.2s; color: white; }
+        .btn-confirm { background: #10b981; } .btn-confirm:hover { background: #059669; }
+        .btn-reject { background: #ef4444; } .btn-reject:hover { background: #dc2626; }
         
+        /* TABLES */
+        .table-container { overflow-x: auto; }
         table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; border: 1px solid #e2e8f0; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-        th { background: #f1f5f9; color: #475569; }
+        th { background: #f1f5f9; color: #475569; font-size: 13px; text-transform: uppercase; }
         .item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
         .delete-btn { color: #ef4444; text-decoration: none; font-weight: bold; font-size: 14px;}
         .edit-btn { color: #3b82f6; text-decoration: none; font-weight: bold; margin-right: 10px; font-size: 14px;}
         
-        .success-msg { background: #d1fae5; color: #059669; padding: 15px; border-radius: 8px; margin-bottom: 20px;}
-        .error-msg { background: #fee2e2; color: #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px;}
+        /* STATUS BADGES & ALERTS */
+        .status-badge { padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .Pending { background: #fef3c7; color: #d97706; }
+        .Confirmed { background: #d1fae5; color: #059669; }
+        .Cancelled { background: #fee2e2; color: #ef4444; }
+
+        .success-msg { background: #d1fae5; color: #059669; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
+        .error-msg { background: #fee2e2; color: #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <div class="dashboard-container">
     <div class="header-flex">
-        <h1><i class="fas fa-cogs"></i> Admin Content Manager</h1>
-        <a href="index.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back to App</a>
+        <h1><i class="fas fa-cogs"></i> Admin System Panel</h1>
+        <a href="index.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Website</a>
     </div>
     
     <?php echo $message; ?>
 
     <!-- ============================================== -->
+    <!-- SECTION 0: BOOKINGS & RESERVATIONS (NEW) -->
+    <!-- ============================================== -->
+    <h2 class="section-title"><i class="fas fa-calendar-check"></i> Reservation Management</h2>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Guest Details</th>
+                    <th>Facility & Dates</th>
+                    <th>GCash Ref</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (count($all_bookings) > 0): ?>
+                    <?php foreach ($all_bookings as $booking): ?>
+                    <tr>
+                        <td><b>#<?php echo htmlspecialchars($booking['id']); ?></b></td>
+                        <td>
+                            <div style="font-weight: bold;"><?php echo htmlspecialchars($booking['user_name']); ?></div>
+                            <div style="font-size: 12px; color: #64748b;"><?php echo htmlspecialchars($booking['user_email']); ?></div>
+                        </td>
+                        <td>
+                            <div style="font-weight: 600; color: #059669;"><?php echo htmlspecialchars($booking['cottage_type']); ?></div>
+                            <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in']); ?> | <b>Out:</b> <?php echo htmlspecialchars($booking['check_out']); ?></div>
+                        </td>
+                        <td>
+                            <span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold;">
+                                <?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?>
+                            </span>
+                        </td>
+                        <td>
+                            <span class="status-badge <?php echo htmlspecialchars($booking['status']); ?>">
+                                <?php echo htmlspecialchars($booking['status']); ?>
+                            </span>
+                        </td>
+                        <td>
+                            <?php if ($booking['status'] === 'Pending'): ?>
+                                <form method="POST" class="action-form" onsubmit="return confirm('Approve booking? An email will be sent to the guest.');">
+                                    <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
+                                    <input type="hidden" name="new_status" value="Confirmed">
+                                    <button type="submit" class="btn-action btn-confirm"><i class="fas fa-check"></i> Approve</button>
+                                </form>
+                                <form method="POST" class="action-form" onsubmit="return confirm('Reject booking? A cancellation email will be sent.');">
+                                    <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
+                                    <input type="hidden" name="new_status" value="Cancelled">
+                                    <button type="submit" class="btn-action btn-reject"><i class="fas fa-times"></i> Reject</button>
+                                </form>
+                            <?php else: ?>
+                                <span style="color: #94a3b8; font-size: 12px; font-style: italic;">No actions</span>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr><td colspan="6" style="text-align: center; color: #64748b;">No reservations found.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- ============================================== -->
     <!-- SECTION 1: FOOD MENU -->
     <!-- ============================================== -->
-    <h2 class="section-title"><i class="fas fa-utensils"></i> Manage Food Menu</h2>
+    <h2 class="section-title" style="margin-top: 60px;"><i class="fas fa-utensils"></i> Manage Food Menu</h2>
     <div class="form-box">
         <h3><?php echo $is_editing ? 'Edit Menu Item' : 'Add New Menu Item'; ?></h3>
-        <!-- IMPORTANTE ANG enctype="multipart/form-data" PARA MAKA UPLOAD OG FILE -->
         <form method="POST" enctype="multipart/form-data">
             <?php if($is_editing): ?>
                 <input type="hidden" name="item_id" value="<?php echo $edit_data['id']; ?>">
@@ -241,19 +374,21 @@ $video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll();
         </form>
     </div>
 
-    <table>
-        <tr><th>Image</th><th>Name & Price</th><th>Action</th></tr>
-        <?php foreach($menu_list as $row): ?>
-        <tr>
-            <td><img src="<?php echo $row['image_url']; ?>" class="item-img" onerror="this.src='https://placehold.co/100'"></td>
-            <td><strong><?php echo $row['name']; ?></strong><br><span style="color:#059669;"><?php echo $row['price']; ?></span></td>
-            <td>
-                <a href="admin_dashboard.php?edit_menu=<?php echo $row['id']; ?>" class="edit-btn">Edit</a>
-                <a href="admin_dashboard.php?delete_menu=<?php echo $row['id']; ?>" class="delete-btn">Delete</a>
-            </td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
+    <div class="table-container">
+        <table>
+            <tr><th>Image</th><th>Name & Price</th><th>Action</th></tr>
+            <?php foreach($menu_list as $row): ?>
+            <tr>
+                <td><img src="<?php echo $row['image_url']; ?>" class="item-img" onerror="this.src='https://placehold.co/100'"></td>
+                <td><strong><?php echo $row['name']; ?></strong><br><span style="color:#059669;"><?php echo $row['price']; ?></span></td>
+                <td>
+                    <a href="admin_dashboard.php?edit_menu=<?php echo $row['id']; ?>" class="edit-btn">Edit</a>
+                    <a href="admin_dashboard.php?delete_menu=<?php echo $row['id']; ?>" class="delete-btn">Delete</a>
+                </td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
 
     <!-- ============================================== -->
     <!-- SECTION 2: GALLERY PHOTOS -->
@@ -267,15 +402,17 @@ $video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll();
         </form>
     </div>
 
-    <table>
-        <tr><th>Gallery Photo</th><th>Action</th></tr>
-        <?php foreach($gallery_list as $img): ?>
-        <tr>
-            <td><img src="<?php echo $img['image_path']; ?>" class="item-img" style="width: 100px; height: 60px;"></td>
-            <td><a href="admin_dashboard.php?delete_gallery=<?php echo $img['id']; ?>" class="delete-btn">Delete</a></td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
+    <div class="table-container">
+        <table>
+            <tr><th>Gallery Photo</th><th>Action</th></tr>
+            <?php foreach($gallery_list as $img): ?>
+            <tr>
+                <td><img src="<?php echo $img['image_path']; ?>" class="item-img" style="width: 100px; height: 60px;"></td>
+                <td><a href="admin_dashboard.php?delete_gallery=<?php echo $img['id']; ?>" class="delete-btn">Delete</a></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
 
     <!-- ============================================== -->
     <!-- SECTION 3: EXPLORE VIDEOS -->
@@ -297,15 +434,17 @@ $video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll();
         </form>
     </div>
 
-    <table>
-        <tr><th>Video Title</th><th>Action</th></tr>
-        <?php foreach($video_list as $vid): ?>
-        <tr>
-            <td><strong><?php echo $vid['title']; ?></strong></td>
-            <td><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn">Delete</a></td>
-        </tr>
-        <?php endforeach; ?>
-    </table>
+    <div class="table-container">
+        <table>
+            <tr><th>Video Title</th><th>Action</th></tr>
+            <?php foreach($video_list as $vid): ?>
+            <tr>
+                <td><strong><?php echo $vid['title']; ?></strong></td>
+                <td><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn">Delete</a></td>
+            </tr>
+            <?php endforeach; ?>
+        </table>
+    </div>
 
 </div>
 </body>
