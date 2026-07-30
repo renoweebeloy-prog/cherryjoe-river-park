@@ -284,7 +284,7 @@ try {
 
     <!-- AUDIO TAG -->
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.mp" type="audio/mpeg">
+        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
@@ -630,7 +630,6 @@ try {
                 <h3 style="color: #059669; margin-bottom: 20px; text-align: center;"><i class="fas fa-calendar-plus"></i> Book a Facility</h3>
                 <form id="bookingForm" onsubmit="submitBooking(event)">
                     
-                    <!-- GI-UPDATE NGA MGA OPTIONS PARA SA COTTAGE/FACILITY -->
                     <div style="margin-bottom: 15px;">
                         <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Select Cottage/Facility</label>
                         <select id="cottage_type" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
@@ -645,13 +644,14 @@ try {
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                        <!-- GI-UPDATE: GIBUTANGAN UG MIN ATTRIBUTE ARON DILI MAKA-SELECT UG PAST DATE -->
                         <div>
                             <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Check-In Date</label>
-                            <input type="date" id="check_in" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
+                            <input type="date" id="check_in" min="<?php echo date('Y-m-d'); ?>" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
                         </div>
                         <div>
                             <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Check-Out Date</label>
-                            <input type="date" id="check_out" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
+                            <input type="date" id="check_out" min="<?php echo date('Y-m-d'); ?>" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
                         </div>
                     </div>
 
@@ -679,6 +679,11 @@ try {
             <div class="features-grid">
                 <?php if (count($userBookings) > 0): ?>
                     <?php foreach ($userBookings as $b): ?>
+                        <?php 
+                            // E-check kung expired na ba base sa check_out date
+                            $today = date('Y-m-d');
+                            $is_expired = (strtotime($b['check_out']) < strtotime($today));
+                        ?>
                         <div class="booking-card">
                             <div>
                                 <h4 style="color: #1e293b; margin-bottom: 8px; font-size: 16px; font-weight: bold;">
@@ -689,17 +694,29 @@ try {
                                 <span class="booking-status status-<?php echo htmlspecialchars($b['status']); ?>">
                                     <?php echo htmlspecialchars($b['status']); ?>
                                 </span>
+                                
+                                <!-- Ipakita ang "(Expired)" label kung nilabay na ang date ug wala na-cancel -->
+                                <?php if($is_expired && $b['status'] !== 'Cancelled'): ?>
+                                    <span style="font-size: 11px; color: #ef4444; font-weight: bold; margin-left: 5px;">(Expired)</span>
+                                <?php endif; ?>
                             </div>
                             
-                            <!-- Ipakita lang ang QR Code button kung CONFIRMED ang status -->
+                            <!-- Ipakita ang QR Code button kung CONFIRMED -->
                             <?php if($b['status'] === 'Confirmed'): ?>
-                                <button onclick="showQRCode('CJRP-<?php echo $b['id']; ?>', '<?php echo addslashes($b['cottage_type']); ?>')" style="margin-top: 15px; background: #1e293b; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
-                                    <i class="fas fa-qrcode"></i> Show QR Code
-                                </button>
+                                <?php if(!$is_expired): ?>
+                                    <button onclick="showQRCode('CJRP-<?php echo $b['id']; ?>', '<?php echo addslashes($b['cottage_type']); ?>')" style="margin-top: 15px; background: #1e293b; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
+                                        <i class="fas fa-qrcode"></i> Show QR Code
+                                    </button>
+                                <?php else: ?>
+                                    <!-- Disable ang QR Code kung expired na ang booking -->
+                                    <button disabled style="margin-top: 15px; background: #94a3b8; color: white; border: none; padding: 10px; border-radius: 8px; cursor: not-allowed; font-weight: bold; width: 100%;">
+                                        <i class="fas fa-qrcode"></i> QR Code Expired
+                                    </button>
+                                <?php endif; ?>
                             <?php endif; ?>
                             
-                            <!-- Ipakita lang ang Cancel button kung PENDING pa ang status -->
-                            <?php if($b['status'] === 'Pending'): ?>
+                            <!-- Ipakita ang Cancel button kung PENDING pa ug wala pa na-expire -->
+                            <?php if($b['status'] === 'Pending' && !$is_expired): ?>
                                 <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 10px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
                                     <i class="fas fa-times-circle"></i> Cancel Reservation
                                 </button>
@@ -972,6 +989,16 @@ try {
             box.classList.remove('show');
             setTimeout(() => box.style.display = 'none', 300);
         }
+
+        // ===============================================
+        // PREVENT DATES EARLIER THAN CHECK-IN
+        // ===============================================
+        document.getElementById('check_in').addEventListener('change', function() {
+            document.getElementById('check_out').min = this.value;
+            if(document.getElementById('check_out').value < this.value) {
+                document.getElementById('check_out').value = this.value;
+            }
+        });
 
         // ===============================================
         // QR CODE LOGIC (NEW)
