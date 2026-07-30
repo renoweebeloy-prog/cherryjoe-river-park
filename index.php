@@ -276,7 +276,7 @@ try {
 
     <!-- AUDIO TAG -->
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
+        <source src="assetsmusiconetime.mp" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
@@ -323,9 +323,12 @@ try {
                 <i class="fas fa-home"></i> Home
             </a>
             
+            <!-- GIPAKITA LANG ANG BOOKING KUNG DILI ADMIN (Visitor) -->
+            <?php if(!$isAdmin): ?>
             <a onclick="navigateMenu('booking', 'slink-booking')" class="side-link" id="slink-booking">
                 <i class="fas fa-calendar-alt"></i> Booking
             </a>
+            <?php endif; ?>
 
             <a onclick="navigateMenu('explore', 'slink-explore')" class="side-link" id="slink-explore">
                 <i class="fas fa-compass"></i> Explore
@@ -597,7 +600,8 @@ try {
         </section>
     </div>
 
-    <!-- NEW PAGE: BOOKING & RESERVATION -->
+    <!-- NEW PAGE: BOOKING & RESERVATION (ONLY ACCESSIBLE IF NOT ADMIN) -->
+    <?php if(!$isAdmin): ?>
     <div id="page-booking" class="app-page">
         <section class="reveal">
             <h2 class="title">Reservation & Booking</h2>
@@ -691,6 +695,7 @@ try {
             </div>
         </section>
     </div>
+    <?php endif; ?>
 
     <!-- FOOTER -->
     <footer>© 2026 CherryJoe River Park</footer>
@@ -873,7 +878,7 @@ try {
             const activePage = document.querySelector('.app-page.page-active');
             const targetPage = document.getElementById('page-' + pageId);
             
-            if (activePage && activePage !== targetPage) {
+            if (activePage && activePage !== targetPage && targetPage) {
                 activePage.style.opacity = '0';
                 activePage.style.transform = 'scale(0.98) translateY(12px)';
                 
@@ -886,7 +891,7 @@ try {
                         targetPage.style.transform = 'scale(1) translateY(0)';
                     });
                 }, 250);
-            } else if (!activePage) {
+            } else if (!activePage && targetPage) {
                 targetPage.classList.add('page-active');
                 targetPage.style.opacity = '1';
                 targetPage.style.transform = 'scale(1) translateY(0)';
