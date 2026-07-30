@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
     }
 }
 
-// KUHAON ANG LATEST DATA SA USER LAbI NA ANG PICTURE UG PANGALAN
+// KUHAON ANG LATEST DATA SA USER
 $stmt = $conn->prepare("SELECT full_name, email, profile_pic FROM users WHERE id = :id");
 $stmt->execute(['id' => $_SESSION['user_id']]);
 $currentUser = $stmt->fetch();
@@ -42,11 +42,21 @@ $profilePic = $currentUser['profile_pic'] ?? null;
 $isAdmin = ($userEmail === 'admin@cherryjoe.com');
 $userRole = $isAdmin ? 'Admin' : 'Visitor';
 
-// Himoan og Initials (e.g. Renowee Beloy -> RB)
+// Himoan og Initials
 $nameParts = explode(' ', trim($userName));
 $initials = strtoupper(substr($nameParts[0], 0, 1));
 if (isset($nameParts[1])) {
     $initials .= strtoupper(substr($nameParts[1], 0, 1));
+}
+
+// KUHAON ANG MGA BOOKINGS SA USER (Para sa "My Bookings" list)
+$userBookings = [];
+try {
+    $bookingStmt = $conn->prepare("SELECT * FROM bookings WHERE user_id = :uid ORDER BY created_at DESC");
+    $bookingStmt->execute(['uid' => $_SESSION['user_id']]);
+    $userBookings = $bookingStmt->fetchAll();
+} catch(PDOException $e) {
+    // Safely ignore kung wala pa na-create ang bookings table sa Supabase
 }
 ?>
 <!DOCTYPE html>
@@ -195,7 +205,7 @@ if (isset($nameParts[1])) {
         .gallery img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; border: 1px solid rgba(0, 0, 0, 0.08); }
         .gallery img:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); border-color: #059669; }
 
-        /* --- 9. NEW WHITE SIDE MENU (DRAWER) SETTINGS --- */
+        /* --- 9. WHITE SIDE MENU (DRAWER) SETTINGS --- */
         .side-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 100001; opacity: 0; visibility: hidden; transition: 0.3s ease; }
         .side-menu-overlay.active { opacity: 1; visibility: visible; }
         
@@ -207,7 +217,6 @@ if (isset($nameParts[1])) {
 
         .side-profile { text-align: left; margin-bottom: 30px; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 20px; }
         
-        /* NEW: PROFILE PICTURE UPLOAD STYLES */
         .profile-pic-container { position: relative; width: 70px; height: 70px; margin-bottom: 15px; cursor: pointer; border-radius: 18px; overflow: hidden; border: 2px solid rgba(16,185,129,0.3); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2); }
         .profile-img-preview { width: 100%; height: 100%; object-fit: cover; }
         .upload-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; color: white; font-size: 20px; }
@@ -242,6 +251,13 @@ if (isset($nameParts[1])) {
         .feature-popup-content p { font-size: 14px; color: #475569; line-height: 1.6; margin-bottom: 24px; }
         .close-popup-btn { background: rgba(16, 185, 129, 0.1); color: #059669; border: none; padding: 12px 28px; font-size: 14px; font-weight: 600; border-radius: 50px; cursor: pointer; transition: 0.2s; }
         .close-popup-btn:hover { background: rgba(16, 185, 129, 0.2); }
+
+        /* BOOKING SPECIFIC STYLES */
+        .booking-card { background: #fff; padding: 20px; border-radius: 16px; border: 1px solid #cbd5e1; box-shadow: 0 5px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between; }
+        .booking-status { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
+        .status-Pending { background: #fef3c7; color: #d97706; }
+        .status-Confirmed { background: #d1fae5; color: #059669; }
+        .status-Cancelled { background: #fee2e2; color: #ef4444; }
 
         @media (max-width: 600px) {
             section { padding: 40px 4%; }
@@ -284,7 +300,6 @@ if (isset($nameParts[1])) {
             <i class="fas fa-times"></i>
         </div>
         
-        <!-- PROFILE AT THE TOP OF SIDE MENU -->
         <div class="side-profile">
             <!-- PROFILE PHOTO AREA WITH CLICK-TO-UPLOAD -->
             <div class="profile-pic-container" onclick="document.getElementById('profilePicInput').click()" title="Click to change photo">
@@ -312,6 +327,12 @@ if (isset($nameParts[1])) {
             <a onclick="navigateMenu('home', 'slink-home')" class="side-link active" id="slink-home">
                 <i class="fas fa-home"></i> Home
             </a>
+            
+            <!-- NEW BOOKING LINK DIRI -->
+            <a onclick="navigateMenu('booking', 'slink-booking')" class="side-link" id="slink-booking">
+                <i class="fas fa-calendar-alt"></i> Booking
+            </a>
+
             <a onclick="navigateMenu('explore', 'slink-explore')" class="side-link" id="slink-explore">
                 <i class="fas fa-compass"></i> Explore
             </a>
@@ -334,6 +355,7 @@ if (isset($nameParts[1])) {
         </div>
     </div>
 
+    <!-- WELCOME OVERLAY & POPUP HTML KEPT SAME AS BEFORE -->
     <div class="feature-popup-modal" id="featurePopup">
         <div class="feature-popup-content">
             <i id="popupIcon" class="fas fa-tree"></i>
@@ -386,7 +408,6 @@ if (isset($nameParts[1])) {
 
     <nav>
         <div class="nav-left">
-            <!-- HAMBURGER BUTTON -->
             <div class="menu-toggle-btn" onclick="toggleSideMenu()">
                 <i class="fas fa-bars"></i>
             </div>
@@ -533,9 +554,7 @@ if (isset($nameParts[1])) {
             <div class="food-grid-container">
                 
                 <?php
-                // Kuhaon nato sa Supabase database gamit ang PDO
                 $categories = ['Specialties', 'Combo Meal', 'Finger Foods', 'Drinks'];
-                
                 foreach ($categories as $cat) {
                     try {
                         $stmt = $conn->prepare("SELECT * FROM menu_items WHERE category = :cat ORDER BY id DESC");
@@ -543,8 +562,6 @@ if (isset($nameParts[1])) {
                         $items = $stmt->fetchAll();
                         
                         if (count($items) > 0) {
-                            
-                            // Magbutang tag icon depende sa category
                             $icon = 'fas fa-star';
                             if ($cat == 'Combo Meal') $icon = 'fas fa-concierge-bell';
                             if ($cat == 'Finger Foods') $icon = 'fas fa-hamburger';
@@ -565,16 +582,13 @@ if (isset($nameParts[1])) {
                                 echo "<div class='food-item-grid'>";
                                 foreach ($items as $item) {
                                     $img = !empty($item['image_url']) ? htmlspecialchars($item['image_url']) : 'https://placehold.co/400x250?text=No+Image';
-                                    
                                     echo "<div class='food-card-with-img'>";
                                     echo "<img src='$img' alt='".htmlspecialchars($item['name'])."' onerror=\"this.src='https://placehold.co/400x250?text=No+Image'\">";
                                     echo "<div class='food-card-body'>";
                                     echo "<div><h3>".htmlspecialchars($item['name'])."</h3>";
-                                    
                                     if (!empty($item['description'])) {
                                         echo "<p class='desc'>".nl2br(htmlspecialchars($item['description']))."</p>";
                                     }
-                                    
                                     echo "</div>";
                                     echo "<div class='food-card-footer'><span class='food-price'>".htmlspecialchars($item['price'])."</span><span class='food-status'>Available</span></div>";
                                     echo "</div></div>";
@@ -582,12 +596,93 @@ if (isset($nameParts[1])) {
                                 echo "</div>";
                             }
                         }
-                    } catch(PDOException $e) {
-                        // Error handling silently if needed
-                    }
+                    } catch(PDOException $e) { }
                 }
                 ?>
+            </div>
+        </section>
+    </div>
+
+    <!-- NEW PAGE: BOOKING & RESERVATION -->
+    <div id="page-booking" class="app-page">
+        <section class="reveal">
+            <h2 class="title">Reservation & Booking</h2>
+            
+            <!-- BOOKING FORM -->
+            <div style="background: #fff; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 600px; margin: 0 auto 40px auto; border: 1px solid #cbd5e1;">
+                <h3 style="color: #059669; margin-bottom: 20px; text-align: center;"><i class="fas fa-calendar-plus"></i> Book a Facility</h3>
+                <form id="bookingForm" onsubmit="submitBooking(event)">
+                    <div style="margin-bottom: 15px;">
+                        <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Select Cottage/Facility</label>
+                        <select id="cottage_type" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
+                            <option value="">-- Choose Here --</option>
+                            <option value="Open Cottage (₱100)">Open Cottage (₱100)</option>
+                            <option value="Function Hall">Function Hall</option>
+                        </select>
+                    </div>
+                    
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                        <div>
+                            <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Check-In Date</label>
+                            <input type="date" id="check_in" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
+                        </div>
+                        <div>
+                            <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Check-Out Date</label>
+                            <input type="date" id="check_out" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
+                        </div>
+                    </div>
+
+                    <button type="submit" id="btn-submit-booking" style="width: 100%; padding: 15px; background: #10b981; color: white; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; transition: 0.3s; font-size: 16px;">
+                        Confirm Reservation
+                    </button>
+                    <div id="booking-msg" style="margin-top: 15px; text-align: center; font-weight: bold; font-size: 14px;"></div>
+                </form>
+            </div>
+
+            <!-- MY BOOKINGS LIST -->
+            <h3 class="section-subtitle" style="margin-top: 50px;">My Bookings</h3>
+            <div class="features-grid">
+                <?php if (count($userBookings) > 0): ?>
+                    <?php foreach ($userBookings as $b): ?>
+                        <div class="booking-card">
+                            <div>
+                                <h4 style="color: #1e293b; margin-bottom: 8px; font-size: 16px; font-weight: bold;">
+                                    <?php echo htmlspecialchars($b['cottage_type']); ?>
+                                </h4>
+                                <p style="color: #64748b; font-size: 13px; margin-bottom: 5px;"><i class="fas fa-calendar-check"></i> <b>In:</b> <?php echo htmlspecialchars($b['check_in']); ?></p>
+                                <p style="color: #64748b; font-size: 13px; margin-bottom: 15px;"><i class="fas fa-calendar-times"></i> <b>Out:</b> <?php echo htmlspecialchars($b['check_out']); ?></p>
+                                <span class="booking-status status-<?php echo htmlspecialchars($b['status']); ?>">
+                                    <?php echo htmlspecialchars($b['status']); ?>
+                                </span>
+                            </div>
+                            
+                            <!-- If the booking is Pending, they can cancel it -->
+                            <?php if($b['status'] === 'Pending'): ?>
+                            <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 15px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
+                                <i class="fas fa-times-circle"></i> Cancel Reservation
+                            </button>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <p style="text-align: center; color: #64748b; width: 100%; font-size: 15px;">You have no reservations yet.</p>
+                <?php endif; ?>
+            </div>
+        </section>
+
+        <!-- RESORT POLICIES & FAQS -->
+        <section class="reveal" style="margin-top: 40px;">
+            <h2 class="title">Resort Policies & FAQs</h2>
+            <div style="max-width: 800px; margin: 0 auto; background: #f8fafc; padding: 30px; border-radius: 20px; border: 1px solid #cbd5e1;">
+                <h3 style="color: #059669; margin-bottom: 10px; font-size: 18px;"><i class="fas fa-file-alt"></i> Cancellation Policy</h3>
+                <p style="color: #475569; margin-bottom: 25px; font-size: 15px; line-height: 1.6;">You can modify or cancel your booking for free up to 24 hours before your check-in date. Cancellations made on the day of the reservation are non-refundable.</p>
                 
+                <h3 style="color: #059669; margin-bottom: 10px; font-size: 18px;"><i class="fas fa-question-circle"></i> Frequently Asked Questions</h3>
+                <ul style="color: #475569; font-size: 15px; padding-left: 20px; line-height: 1.8;">
+                    <li><strong>Are pets allowed?</strong> Yes, we are a pet-friendly resort! Just ensure they are on a leash.</li>
+                    <li><strong>Do you allow outside food?</strong> Yes, there is no corkage fee for outside food, except for alcoholic beverages.</li>
+                    <li><strong>What time is check-in?</strong> Standard check-in is at 11:00 AM.</li>
+                </ul>
             </div>
         </section>
     </div>
@@ -645,7 +740,6 @@ if (isset($nameParts[1])) {
             }
         }
 
-        // --- SIDE MENU FUNCTIONS ---
         function toggleSideMenu() {
             const menu = document.getElementById('sideMenu');
             const overlay = document.getElementById('sideMenuOverlay');
@@ -682,7 +776,7 @@ if (isset($nameParts[1])) {
                     musicIcon.className = "fas fa-pause";
                     musicBtn.classList.add('playing');
                 }).catch(error => {
-                    console.log("Autoplay blocked. Waiting for user interaction.");
+                    console.log("Autoplay blocked.");
                 });
             }
 
@@ -834,6 +928,78 @@ if (isset($nameParts[1])) {
             const box = document.getElementById('lightbox');
             box.classList.remove('show');
             setTimeout(() => box.style.display = 'none', 300);
+        }
+
+        // ===============================================
+        // BAG-ONG MGA FUNCTION PARA SA BOOKING SYSTEM
+        // ===============================================
+
+        // Mag-send og data didto sa process_booking.php
+        async function submitBooking(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btn-submit-booking');
+            const msg = document.getElementById('booking-msg');
+            
+            const cottage = document.getElementById('cottage_type').value;
+            const checkIn = document.getElementById('check_in').value;
+            const checkOut = document.getElementById('check_out').value;
+
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Processing...';
+            btn.style.pointerEvents = 'none';
+
+            try {
+                const response = await fetch('process_booking.php', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                    body: `cottage=${encodeURIComponent(cottage)}&check_in=${checkIn}&check_out=${checkOut}`
+                });
+                
+                const result = await response.text();
+                
+                if(result.trim() === 'SUCCESS') {
+                    msg.style.color = '#059669';
+                    msg.innerHTML = '✅ Booking submitted! Please check your email for confirmation.';
+                    document.getElementById('bookingForm').reset();
+                    // I-reload aron makita dayon sa "My Bookings" list
+                    setTimeout(() => location.reload(), 2500);
+                } else {
+                    msg.style.color = '#ef4444';
+                    msg.innerHTML = '❌ Error: ' + result;
+                }
+            } catch (error) {
+                msg.style.color = '#ef4444';
+                msg.innerHTML = '❌ System Error. Please try again.';
+            }
+            
+            btn.innerHTML = 'Confirm Reservation';
+            btn.style.pointerEvents = 'auto';
+        }
+
+        // Mag-cancel og Booking
+        async function cancelBooking(bookingId) {
+            if(!confirm("Are you sure you want to cancel this reservation?")) return;
+
+            try {
+                const formData = new FormData();
+                formData.append('action', 'cancel');
+                formData.append('booking_id', bookingId);
+
+                const response = await fetch('process_booking.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                const result = await response.text();
+                
+                if(result.trim() === 'SUCCESS_CANCEL') {
+                    alert('Reservation cancelled successfully.');
+                    location.reload();
+                } else {
+                    alert('Failed to cancel. ' + result);
+                }
+            } catch(e) {
+                alert('System Error.');
+            }
         }
 
         emailjs.init("xUnFGUm3ZIw6UfW_h");
