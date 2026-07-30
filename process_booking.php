@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ==========================================
         // 2. I-SEND ANG EMAIL GAMIT ANG GOOGLE APPS SCRIPT
         // ==========================================
-        $google_app_script_url = 'IBUTANG_DIRI_ANG_WEB_APP_URL_NIMO'; 
+        $google_app_script_url = 'https://script.google.com/macros/s/AKfycbyPx7ThrruhQHnI26fLNZ6hsFeciOlVyU9Eu-eqo99_z4n1i-Sthft-EZGrS6JKFftTmQ/exec'; 
 
         // Nagbutang ta og action=booking aron mailhan sa Google nga booking ni, dili OTP
         $url = $google_app_script_url . "?action=booking&email=" . urlencode($user_email) . "&name=" . urlencode($user_name) . "&cottage=" . urlencode($cottage) . "&check_in=" . urlencode($check_in) . "&check_out=" . urlencode($check_out);
