@@ -66,6 +66,9 @@ try {
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     
+    <!-- QR CODE GENERATOR SCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    
     <style>
         /* --- PREMIUM UI CONFIG & RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
@@ -254,6 +257,11 @@ try {
         .status-Confirmed { background: #d1fae5; color: #059669; }
         .status-Cancelled { background: #fee2e2; color: #ef4444; }
 
+        /* QR MODAL */
+        .qr-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999999; display: none; justify-content: center; align-items: center; padding: 20px; }
+        .qr-modal-content { background: #ffffff; padding: 30px; border-radius: 20px; text-align: center; max-width: 350px; width: 100%; }
+        #qrcode-container img { margin: 0 auto; border: 10px solid #fff; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
         @media (max-width: 600px) {
             section { padding: 40px 4%; }
             .title { font-size: 25px; margin-bottom: 25px; }
@@ -276,7 +284,7 @@ try {
 
     <!-- AUDIO TAG -->
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.mp" type="audio/mpeg">
+        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
@@ -349,6 +357,17 @@ try {
             <a href="logout.php" class="side-link" style="margin-top: auto; color: #dc2626;">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
+        </div>
+    </div>
+
+    <!-- QR CODE MODAL -->
+    <div class="qr-modal" id="qrModal" onclick="closeQRModal()">
+        <div class="qr-modal-content" onclick="event.stopPropagation()">
+            <h3 style="color:#059669; margin-bottom:10px;"><i class="fas fa-qrcode"></i> Your Booking QR</h3>
+            <p id="qr-cottage-name" style="margin-bottom:20px; font-weight:bold; color:#1e293b;"></p>
+            <div id="qrcode-container" style="display:flex; justify-content:center; margin-bottom:20px;"></div>
+            <p style="font-size:13px; color:#64748b; margin-bottom:20px;">Present this QR code to the admin upon arrival to confirm your reservation instantly.</p>
+            <button onclick="closeQRModal()" style="background:#ef4444; color:white; border:none; padding:10px 20px; border-radius:50px; font-weight:bold; cursor:pointer; width:100%;">Close Panel</button>
         </div>
     </div>
 
@@ -666,8 +685,13 @@ try {
                                 </span>
                             </div>
                             
+                            <!-- QR CODE BUTTON (NEW) -->
+                            <button onclick="showQRCode('CJRP-<?php echo $b['id']; ?>', '<?php echo addslashes($b['cottage_type']); ?>')" style="margin-top: 15px; background: #1e293b; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
+                                <i class="fas fa-qrcode"></i> Show QR Code
+                            </button>
+
                             <?php if($b['status'] === 'Pending'): ?>
-                            <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 15px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
+                            <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 10px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
                                 <i class="fas fa-times-circle"></i> Cancel Reservation
                             </button>
                             <?php endif; ?>
@@ -941,6 +965,29 @@ try {
         }
 
         // ===============================================
+        // QR CODE LOGIC (NEW)
+        // ===============================================
+        function showQRCode(codeText, cottageName) {
+            document.getElementById('qr-cottage-name').innerText = cottageName;
+            document.getElementById('qrcode-container').innerHTML = ""; 
+            
+            new QRCode(document.getElementById("qrcode-container"), {
+                text: codeText,
+                width: 200,
+                height: 200,
+                colorDark : "#059669",
+                colorLight : "#ffffff",
+                correctLevel : QRCode.CorrectLevel.H
+            });
+            
+            document.getElementById('qrModal').style.display = 'flex';
+        }
+
+        function closeQRModal() {
+            document.getElementById('qrModal').style.display = 'none';
+        }
+
+        // ===============================================
         // MGA FUNCTION PARA SA BOOKING SYSTEM (WITH GCASH)
         // ===============================================
 
@@ -1010,7 +1057,6 @@ try {
             }
         }
 
-        emailjs.init("xUnFGUm3ZIw6UfW_h");
     </script>
 </body>
 </html>
