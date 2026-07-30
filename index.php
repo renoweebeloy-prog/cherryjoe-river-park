@@ -284,7 +284,7 @@ try {
 
     <!-- AUDIO TAG -->
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
+        <source src="assetsmusiconetime.mp" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
