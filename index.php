@@ -360,19 +360,16 @@ try {
         </div>
     </div>
 
-   <!-- Ipakita lang ang QR Code button kung CONFIRMED ang status -->
-    <?php if($b['status'] === 'Confirmed'): ?>
-        <button onclick="showQRCode('CJRP-<?php echo $b['id']; ?>', '<?php echo addslashes($b['cottage_type']); ?>')" style="margin-top: 15px; background: #1e293b; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
-            <i class="fas fa-qrcode"></i> Show QR Code
-        </button>
-    <?php endif; ?>
-    
-    <!-- Ipakita lang ang Cancel button kung PENDING pa ang status -->
-    <?php if($b['status'] === 'Pending'): ?>
-        <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 10px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
-            <i class="fas fa-times-circle"></i> Cancel Reservation
-        </button>
-    <?php endif; ?>
+    <!-- QR CODE MODAL -->
+    <div class="qr-modal" id="qrModal" onclick="closeQRModal()">
+        <div class="qr-modal-content" onclick="event.stopPropagation()">
+            <h3 style="color:#059669; margin-bottom:10px;"><i class="fas fa-qrcode"></i> Your Booking QR</h3>
+            <p id="qr-cottage-name" style="margin-bottom:20px; font-weight:bold; color:#1e293b;"></p>
+            <div id="qrcode-container" style="display:flex; justify-content:center; margin-bottom:20px;"></div>
+            <p style="font-size:13px; color:#64748b; margin-bottom:20px;">Present this QR code to the admin upon arrival to confirm your reservation instantly.</p>
+            <button onclick="closeQRModal()" style="background:#ef4444; color:white; border:none; padding:10px 20px; border-radius:50px; font-weight:bold; cursor:pointer; width:100%;">Close Panel</button>
+        </div>
+    </div>
 
     <!-- WELCOME OVERLAY & POPUP -->
     <div class="feature-popup-modal" id="featurePopup">
@@ -688,15 +685,18 @@ try {
                                 </span>
                             </div>
                             
-                            <!-- QR CODE BUTTON (NEW) -->
-                            <button onclick="showQRCode('CJRP-<?php echo $b['id']; ?>', '<?php echo addslashes($b['cottage_type']); ?>')" style="margin-top: 15px; background: #1e293b; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
-                                <i class="fas fa-qrcode"></i> Show QR Code
-                            </button>
-
+                            <!-- Ipakita lang ang QR Code button kung CONFIRMED ang status -->
+                            <?php if($b['status'] === 'Confirmed'): ?>
+                                <button onclick="showQRCode('CJRP-<?php echo $b['id']; ?>', '<?php echo addslashes($b['cottage_type']); ?>')" style="margin-top: 15px; background: #1e293b; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
+                                    <i class="fas fa-qrcode"></i> Show QR Code
+                                </button>
+                            <?php endif; ?>
+                            
+                            <!-- Ipakita lang ang Cancel button kung PENDING pa ang status -->
                             <?php if($b['status'] === 'Pending'): ?>
-                            <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 10px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
-                                <i class="fas fa-times-circle"></i> Cancel Reservation
-                            </button>
+                                <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 10px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
+                                    <i class="fas fa-times-circle"></i> Cancel Reservation
+                                </button>
                             <?php endif; ?>
                         </div>
                     <?php endforeach; ?>
