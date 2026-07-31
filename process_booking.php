@@ -65,7 +65,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // ==========================================
         // ⚠️ ILISI KINI SA IMONG GOOGLE APPS SCRIPT URL! ⚠️
         // ==========================================
-        $google_app_script_url = 'https://script.google.com/macros/s/AKfycbwjd4-XVy8NacNT3kRnxLnAFAw2oTI4tR6a9ixj9e2c8MgDVWD6aSBforYA2XvOq46RtA/exec'; 
+        $google_app_script_url = 'https://script.google.com/macros/s/AKfycbzBLL7ucN94qFnJ_6mH3T55rTeOkryVVE-1f_T0LY01EdwMaOueb59KfkiSP8wOwQdfxQ/exec'; 
 
         $url = $google_app_script_url . "?action=booking&email=" . urlencode($user_email) . "&name=" . urlencode($user_name) . "&cottage=" . urlencode($cottage) . "&check_in=" . urlencode($check_in) . "&check_out=" . urlencode($check_out) . "&gcash_ref=" . urlencode($gcash_ref);
 
