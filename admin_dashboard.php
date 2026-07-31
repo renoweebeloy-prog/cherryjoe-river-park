@@ -25,6 +25,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_slots'])) {
 }
 $current_slots = (int)file_get_contents($slots_file);
 
+// ==========================================
+// MAINTENANCE MODE MANAGEMENT
+// ==========================================
+$maintenance_file = 'maintenance_mode.txt';
+if(!file_exists($maintenance_file)) { file_put_contents($maintenance_file, "0"); }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['toggle_maintenance'])) {
+    $current_m = file_get_contents($maintenance_file);
+    $new_m = ($current_m === "1") ? "0" : "1";
+    file_put_contents($maintenance_file, $new_m);
+    $status_text = ($new_m === "1") ? "ENABLED" : "DISABLED";
+    $message = "<div class='success-msg'><i class='fas fa-tools'></i> Maintenance mode $status_text!</div>";
+}
+$is_maintenance = (file_get_contents($maintenance_file) === "1");
+
 function uploadFile($fileInputName, $uploadDir) {
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
         $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);
@@ -35,11 +50,11 @@ function uploadFile($fileInputName, $uploadDir) {
 }
 
 // ==========================================
-// 0. BOOKING & RESERVATION MANAGEMENT 
+// BOOKING & RESERVATION MANAGEMENT 
 // ==========================================
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset($_POST['new_status'])) {
     $b_id = $_POST['booking_id'];
-    $n_status = $_POST['new_status']; // Pwede 'Confirmed', 'Cancelled', o 'Verified'
+    $n_status = $_POST['new_status']; 
 
     try {
         $getStmt = $conn->prepare("SELECT * FROM bookings WHERE id = :id");
@@ -50,10 +65,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset
             $updateStmt = $conn->prepare("UPDATE bookings SET status = :status WHERE id = :id");
             $updateStmt->execute(['status' => $n_status, 'id' => $b_id]);
             
-            // IPADALA ANG EMAIL PINAAGI SA GOOGLE APPS SCRIPT
-            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbw2tEl71Ge9W98MnMiNKMJ9UTa_huFJyIJ_Q6-0bwtJ-5NAzFBPbmDAgTs8yfZhxpr6Jg/exec'; // ⚠️ SCRIPT URL ⚠️
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbzraWE7fbxFfwI8mm5ixTHT9NLQUxLqcjlwfPpkl7yfe3-4F-t44fRosm3EL7sDj1ju4w/exec'; // ⚠️ SCRIPT URL ⚠️
             
-            // LOGIC PARA SA SAKTO NGA ACTION
             $action_type = '';
             if ($n_status === 'Confirmed') { $action_type = 'confirm'; }
             elseif ($n_status === 'Cancelled') { $action_type = 'reject'; }
@@ -82,7 +95,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset
     } catch(PDOException $e) { $message = "<div class='error-msg'>Failed to update booking.</div>"; }
 }
 
+// ==========================================
 // MENU MANAGEMENT
+// ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_menu'])) {
     $image_url = uploadFile('photo', $upload_dir) ?: 'https://placehold.co/400x250?text=No+Image';
     try { $conn->prepare("INSERT INTO menu_items (category, name, description, price, image_url) VALUES (?, ?, ?, ?, ?)")->execute([$_POST['category'], $_POST['name'], $_POST['description'], $_POST['price'], $image_url]); $message = "<div class='success-msg'>Menu item added!</div>"; } catch(PDOException $e) {}
@@ -93,24 +108,37 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_menu'])) {
 }
 if (isset($_GET['delete_menu'])) { try { $conn->prepare("DELETE FROM menu_items WHERE id=?")->execute([$_GET['delete_menu']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
 
+// ==========================================
 // GALLERY MANAGEMENT
+// ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_gallery'])) {
     if ($photo_path = uploadFile('gallery_photo', $upload_dir)) { try { $conn->prepare("INSERT INTO gallery (image_path) VALUES (?)")->execute([$photo_path]); $message = "<div class='success-msg'>Photo added to Gallery!</div>"; } catch(PDOException $e) {} }
 }
 if (isset($_GET['delete_gallery'])) { try { $conn->prepare("DELETE FROM gallery WHERE id=?")->execute([$_GET['delete_gallery']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
 
+// ==========================================
 // VIDEO TOUR MANAGEMENT
+// ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_video'])) {
     if ($video_path = uploadFile('resort_video', $upload_dir)) { try { $conn->prepare("INSERT INTO videos (title, video_path) VALUES (?, ?)")->execute([$_POST['video_title'], $video_path]); $message = "<div class='success-msg'>Video added!</div>"; } catch(PDOException $e) {} }
 }
 if (isset($_GET['delete_video'])) { try { $conn->prepare("DELETE FROM videos WHERE id=?")->execute([$_GET['delete_video']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
 
-$is_editing = false; $edit_data = ['id'=>'', 'category'=>'Specialties', 'name'=>'', 'price'=>'', 'description'=>'', 'image_url'=>''];
-if (isset($_GET['edit_menu'])) { $is_editing = true; try { $stmt = $conn->prepare("SELECT * FROM menu_items WHERE id=?"); $stmt->execute([$_GET['edit_menu']]); if($item = $stmt->fetch()) $edit_data = $item; } catch(PDOException $e) {} }
 
-$menu_list = $conn->query("SELECT * FROM menu_items ORDER BY id DESC")->fetchAll();
-$gallery_list = $conn->query("SELECT * FROM gallery ORDER BY id DESC")->fetchAll();
-$video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll();
+// FETCH DATA FOR TABLES & EDITING
+$is_editing = false; $edit_data = ['id'=>'', 'category'=>'Specialties', 'name'=>'', 'price'=>'', 'description'=>'', 'image_url'=>''];
+if (isset($_GET['edit_menu'])) { 
+    $is_editing = true; 
+    try { 
+        $stmt = $conn->prepare("SELECT * FROM menu_items WHERE id=?"); 
+        $stmt->execute([$_GET['edit_menu']]); 
+        if($item = $stmt->fetch()) $edit_data = $item; 
+    } catch(PDOException $e) {} 
+}
+
+try { $menu_list = $conn->query("SELECT * FROM menu_items ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $menu_list = []; }
+try { $gallery_list = $conn->query("SELECT * FROM gallery ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $gallery_list = []; }
+try { $video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $video_list = []; }
 try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at DESC")->fetchAll(); } catch(PDOException $e) { $all_bookings = []; }
 ?>
 
@@ -144,26 +172,25 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         input[type="text"], input[type="number"], input[type="file"], select, textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; }
         .btn-green { background: #059669; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; }
         
-        .table-container { overflow-x: auto; }
-        table { width: 100%; border-collapse: collapse; margin-top: 10px; background: white; border: 1px solid #e2e8f0; }
-        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        .table-container { overflow-x: auto; background: white; border: 1px solid #e2e8f0; border-radius: 10px; }
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
         th { background: #f1f5f9; color: #475569; font-size: 13px; text-transform: uppercase; }
-        .item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; }
-        .delete-btn { color: #ef4444; text-decoration: none; font-weight: bold; font-size: 14px;}
-        .edit-btn { color: #3b82f6; text-decoration: none; font-weight: bold; margin-right: 10px; font-size: 14px;}
+        .item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #cbd5e1; }
+        .delete-btn { color: white; background: #ef4444; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; display: inline-block;}
+        .edit-btn { color: white; background: #3b82f6; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-right: 5px; font-size: 13px; display: inline-block;}
         
-        .status-badge { padding: 4px 10px; border-radius: 50px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .status-badge { padding: 6px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
         .Pending { background: #fef3c7; color: #d97706; }
         .Confirmed { background: #d1fae5; color: #059669; }
         .Cancelled { background: #fee2e2; color: #ef4444; }
-        .Verified { background: #e0e7ff; color: #2563eb; } /* BAG-O NGA COLOR PARA SA VERIFIED/CHECKED-IN */
+        .Verified { background: #e0e7ff; color: #2563eb; } 
         .success-msg { background: #d1fae5; color: #059669; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
         .error-msg { background: #fee2e2; color: #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
 
-        /* GAME SLOTS BOX */
-        .slots-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 20px; border-radius: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;}
-        .slots-box h3 { color: #d97706; margin-bottom: 5px; }
-        .slots-box p { color: #b45309; font-size: 13px; }
+        .slots-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 20px; border-radius: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;}
+        .slots-box h3 { margin-bottom: 5px; font-size: 18px; }
+        .slots-box p { font-size: 13px; margin-top: 5px;}
     </style>
 </head>
 <body>
@@ -176,16 +203,33 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     
     <?php echo $message; ?>
 
-    <!-- GAME SLOTS MANAGER -->
-    <div class="slots-box">
-        <div>
-            <h3><i class="fas fa-gamepad"></i> 3D Game Prize Slots</h3>
-            <p>Control how many users can win a prize today. (Current Slots: <b><?php echo $current_slots; ?></b>)</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+        <!-- GAME SLOTS MANAGER -->
+        <div class="slots-box" style="border-color: #f59e0b; background: #fffbeb;">
+            <div>
+                <h3 style="color: #d97706;"><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
+                <p style="color: #b45309;">Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
+            </div>
+            <form method="POST" style="display: flex; gap: 10px; align-items: center;">
+                <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 10px 15px;">Update</button>
+            </form>
         </div>
-        <form method="POST" style="display: flex; gap: 10px; align-items: center;">
-            <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 100px; text-align: center; font-weight: bold; font-size: 18px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
-            <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0;">Update Slots</button>
-        </form>
+
+        <!-- MAINTENANCE MODE MANAGER -->
+        <div class="slots-box" style="border-color: #3b82f6; background: #eff6ff;">
+            <div>
+                <h3 style="color: #1d4ed8;"><i class="fas fa-tools"></i> Maintenance Mode</h3>
+                <p style="color: #1e3a8a;">Turn off website for users. (Status: <b><?php echo $is_maintenance ? '<span style="color:#ef4444;">ON</span>' : '<span style="color:#10b981;">OFF</span>'; ?></b>)</p>
+            </div>
+            <form method="POST" style="display: flex; gap: 10px; align-items: center;">
+                <?php if($is_maintenance): ?>
+                    <button type="submit" name="toggle_maintenance" class="btn-green" style="background:#ef4444; margin-top:0; padding: 10px 15px;">Disable Maintenance</button>
+                <?php else: ?>
+                    <button type="submit" name="toggle_maintenance" class="btn-green" style="background:#3b82f6; margin-top:0; padding: 10px 15px;">Enable Maintenance</button>
+                <?php endif; ?>
+            </form>
+        </div>
     </div>
 
     <!-- BOOKINGS & RESERVATIONS -->
@@ -193,7 +237,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         <span><i class="fas fa-calendar-check"></i> Reservation Management</span>
         <button class="btn-scan" onclick="openScanner()"><i class="fas fa-qrcode"></i> Scan Guest QR</button>
     </h2>
-    <div class="table-container">
+    <div class="table-container" style="margin-bottom: 50px;">
         <table>
             <thead>
                 <tr>
@@ -210,17 +254,17 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                     <tr>
                         <td><b>#<?php echo htmlspecialchars($booking['id']); ?></b></td>
                         <td>
-                            <div style="font-weight: bold;"><?php echo htmlspecialchars($booking['user_name']); ?></div>
-                            <div style="font-size: 12px; color: #64748b;"><?php echo htmlspecialchars($booking['user_email']); ?></div>
+                            <div style="font-weight: bold; font-size: 15px;"><?php echo htmlspecialchars($booking['user_name']); ?></div>
+                            <div style="font-size: 12px; color: #64748b; margin-top: 4px;"><?php echo htmlspecialchars($booking['user_email']); ?></div>
                         </td>
                         <td>
-                            <div style="font-weight: 600; color: #059669;"><?php echo htmlspecialchars($booking['cottage_type']); ?></div>
-                            <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in']); ?> | <b>Out:</b> <?php echo htmlspecialchars($booking['check_out']); ?></div>
+                            <div style="font-weight: bold; color: #059669; font-size: 14px; margin-bottom: 4px;"><?php echo htmlspecialchars($booking['cottage_type']); ?></div>
+                            <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in']); ?> <br> <b>Out:</b> <?php echo htmlspecialchars($booking['check_out']); ?></div>
                             <?php if ($is_expired && $booking['status'] !== 'Cancelled'): ?>
-                                <span style="color: #ef4444; font-weight: bold; font-size: 11px;"><i class="fas fa-exclamation-circle"></i> Date Passed</span>
+                                <span style="color: #ef4444; font-weight: bold; font-size: 11px; display: inline-block; margin-top: 4px;"><i class="fas fa-exclamation-circle"></i> Date Passed</span>
                             <?php endif; ?>
                         </td>
-                        <td><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold;"><?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?></span></td>
+                        <td><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 13px;"><?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?></span></td>
                         <td>
                             <span class="status-badge <?php echo htmlspecialchars($booking['status']); ?>">
                                 <?php echo htmlspecialchars($booking['status']); ?>
@@ -231,12 +275,12 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Approve booking?');">
                                     <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
                                     <input type="hidden" name="new_status" value="Confirmed">
-                                    <button type="submit" style="background:#10b981; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;"><i class="fas fa-check"></i></button>
+                                    <button type="submit" style="background:#10b981; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Confirm Booking"><i class="fas fa-check"></i></button>
                                 </form>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Reject booking?');">
                                     <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
                                     <input type="hidden" name="new_status" value="Cancelled">
-                                    <button type="submit" style="background:#ef4444; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer;"><i class="fas fa-times"></i></button>
+                                    <button type="submit" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Reject Booking"><i class="fas fa-times"></i></button>
                                 </form>
                             <?php elseif ($is_expired && $booking['status'] === 'Pending'): ?>
                                 <span style="color: #ef4444; font-size: 12px; font-weight: bold; font-style: italic;"><i class="fas fa-ban"></i> Expired</span>
@@ -249,35 +293,167 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                     </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
-                    <tr><td colspan="6" style="text-align: center; color: #64748b;">No reservations found.</td></tr>
+                    <tr><td colspan="6" style="text-align: center; color: #64748b; padding: 20px;">No reservations found.</td></tr>
                 <?php endif; ?>
             </tbody>
         </table>
     </div>
 
-    <!-- MENU, GALLERY, VIDEO MANAGEMENTS... -->
-    <h2 class="section-title" style="margin-top: 60px;"><i class="fas fa-utensils"></i> Manage Food Menu</h2>
+    <!-- MENU MANAGEMENT -->
+    <h2 class="section-title"><i class="fas fa-utensils"></i> Manage Food Menu</h2>
     <div class="form-box">
+        <h3 style="margin-bottom: 15px; color: #059669; font-size: 18px;"><?php echo $is_editing ? 'Edit Menu Item' : 'Add New Menu Item'; ?></h3>
         <form method="POST" enctype="multipart/form-data">
+            <?php if($is_editing): ?>
+                <input type="hidden" name="item_id" value="<?php echo $edit_data['id']; ?>">
+                <input type="hidden" name="existing_image" value="<?php echo $edit_data['image_url']; ?>">
+            <?php endif; ?>
+
             <div class="form-grid">
-                <div><label>Category</label><select name="category"><option>Specialties</option><option>Combo Meal</option><option>Finger Foods</option><option>Drinks</option></select></div>
-                <div><label>Name</label><input type="text" name="name" required></div>
-                <div><label>Price</label><input type="text" name="price" required></div>
-                <div><label>Photo</label><input type="file" name="photo" accept="image/*"></div>
-                <div class="full-width"><label>Description</label><textarea name="description" rows="2"></textarea></div>
+                <div>
+                    <label>Category</label>
+                    <select name="category">
+                        <option value="Specialties" <?php if($edit_data['category']=='Specialties') echo 'selected'; ?>>Specialties</option>
+                        <option value="Combo Meal" <?php if($edit_data['category']=='Combo Meal') echo 'selected'; ?>>Combo Meal</option>
+                        <option value="Finger Foods" <?php if($edit_data['category']=='Finger Foods') echo 'selected'; ?>>Finger Foods</option>
+                        <option value="Drinks" <?php if($edit_data['category']=='Drinks') echo 'selected'; ?>>Drinks</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Food/Drink Name</label>
+                    <input type="text" name="name" required value="<?php echo htmlspecialchars($edit_data['name']); ?>">
+                </div>
+                <div>
+                    <label>Price</label>
+                    <input type="text" name="price" required value="<?php echo htmlspecialchars($edit_data['price']); ?>">
+                </div>
+                <div>
+                    <label>Upload Photo</label>
+                    <input type="file" name="photo" accept="image/*">
+                    <?php if($is_editing) echo "<small style='color:#059669; display:block; margin-top:5px; font-weight:bold;'>Leave blank to keep existing photo.</small>"; ?>
+                </div>
+                <div class="full-width">
+                    <label>Description</label>
+                    <textarea name="description" rows="2"><?php echo htmlspecialchars($edit_data['description']); ?></textarea>
+                </div>
             </div>
-            <button type="submit" name="add_menu" class="btn-green"><i class="fas fa-save"></i> Add to Menu</button>
+            <button type="submit" name="<?php echo $is_editing ? 'update_menu' : 'add_menu'; ?>" class="btn-green">
+                <i class="fas fa-save"></i> <?php echo $is_editing ? 'Update Item' : 'Add to Menu'; ?>
+            </button>
+            <?php if($is_editing): ?> 
+                <a href="admin_dashboard.php" style="margin-left:15px; color:#475569; font-weight:bold; text-decoration:none;">Cancel Edit</a> 
+            <?php endif; ?>
         </form>
     </div>
 
-    <!-- QR SCANNER MODAL -->
-    <div class="scanner-modal" id="scannerModal">
-        <div class="scanner-box">
-            <h3 style="color:#059669; margin-bottom:15px;"><i class="fas fa-camera"></i> Scan Guest QR Code</h3>
-            <div id="reader" style="width:100%; border-radius:10px; overflow:hidden;"></div>
-            <button onclick="closeScanner()" style="margin-top:20px; background:#ef4444; color:white; border:none; padding:10px 20px; border-radius:50px; font-weight:bold; cursor:pointer; width:100%;">Close Camera</button>
-        </div>
+    <!-- DISPLAY FOOD MENU TABLE -->
+    <div class="table-container" style="margin-bottom: 50px;">
+        <table>
+            <thead>
+                <tr><th>Image</th><th>Name & Description</th><th>Category & Price</th><th>Action</th></tr>
+            </thead>
+            <tbody>
+                <?php if(count($menu_list) > 0): ?>
+                    <?php foreach($menu_list as $row): ?>
+                    <tr>
+                        <td style="width: 80px;"><img src="<?php echo $row['image_url']; ?>" class="item-img" onerror="this.src='https://placehold.co/100'"></td>
+                        <td>
+                            <strong style="font-size: 16px; color: #1e293b;"><?php echo htmlspecialchars($row['name']); ?></strong>
+                            <div style="font-size: 12px; color: #64748b; margin-top: 5px;"><?php echo htmlspecialchars($row['description']); ?></div>
+                        </td>
+                        <td>
+                            <div style="font-size: 13px; font-weight: bold; color: #475569; margin-bottom: 4px;"><?php echo htmlspecialchars($row['category']); ?></div>
+                            <span style="color:#059669; font-weight: 900; font-size: 15px;"><?php echo htmlspecialchars($row['price']); ?></span>
+                        </td>
+                        <td>
+                            <a href="admin_dashboard.php?edit_menu=<?php echo $row['id']; ?>" class="edit-btn"><i class="fas fa-edit"></i> Edit</a>
+                            <a href="admin_dashboard.php?delete_menu=<?php echo $row['id']; ?>" class="delete-btn" onclick="return confirm('Delete this item?');"><i class="fas fa-trash"></i> Delete</a>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr><td colspan="4" style="text-align: center; color: #64748b; padding: 20px;">No menu items added yet.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </div>
+
+    <!-- GALLERY MANAGEMENT -->
+    <h2 class="section-title"><i class="fas fa-images"></i> Manage Gallery Photos</h2>
+    <div class="form-box">
+        <form method="POST" enctype="multipart/form-data" style="display: flex; gap: 15px; align-items: flex-end;">
+            <div style="flex: 1;">
+                <label>Upload Photo for Gallery</label>
+                <input type="file" name="gallery_photo" accept="image/*" required>
+            </div>
+            <button type="submit" name="add_gallery" class="btn-green" style="margin-top: 0;"><i class="fas fa-upload"></i> Upload</button>
+        </form>
+    </div>
+
+    <div class="table-container" style="margin-bottom: 50px;">
+        <table>
+            <thead><tr><th>Gallery Photo</th><th>Action</th></tr></thead>
+            <tbody>
+                <?php if(count($gallery_list) > 0): ?>
+                    <?php foreach($gallery_list as $img): ?>
+                    <tr>
+                        <td><img src="<?php echo $img['image_path']; ?>" class="item-img" style="width: 120px; height: 80px;"></td>
+                        <td style="vertical-align: middle;"><a href="admin_dashboard.php?delete_gallery=<?php echo $img['id']; ?>" class="delete-btn" onclick="return confirm('Delete this photo?');"><i class="fas fa-trash"></i> Delete</a></td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr><td colspan="2" style="text-align: center; color: #64748b; padding: 20px;">No gallery photos added yet.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- VIDEO TOUR MANAGEMENT -->
+    <h2 class="section-title"><i class="fas fa-video"></i> Manage Resort Videos</h2>
+    <div class="form-box">
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-grid">
+                <div>
+                    <label>Video Title</label>
+                    <input type="text" name="video_title" required placeholder="Ex: Pool Amenities">
+                </div>
+                <div>
+                    <label>Upload Video (MP4)</label>
+                    <input type="file" name="resort_video" accept="video/mp4" required>
+                </div>
+            </div>
+            <button type="submit" name="add_video" class="btn-green"><i class="fas fa-upload"></i> Upload Video</button>
+        </form>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead><tr><th>Video Title</th><th>Action</th></tr></thead>
+            <tbody>
+                <?php if(count($video_list) > 0): ?>
+                    <?php foreach($video_list as $vid): ?>
+                    <tr>
+                        <td><strong><?php echo htmlspecialchars($vid['title']); ?></strong></td>
+                        <td><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn" onclick="return confirm('Delete this video?');"><i class="fas fa-trash"></i> Delete</a></td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr><td colspan="2" style="text-align: center; color: #64748b; padding: 20px;">No videos added yet.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+<!-- QR SCANNER MODAL -->
+<div class="scanner-modal" id="scannerModal">
+    <div class="scanner-box">
+        <h3 style="color:#059669; margin-bottom:15px;"><i class="fas fa-camera"></i> Scan Guest QR Code</h3>
+        <div id="reader" style="width:100%; border-radius:10px; overflow:hidden;"></div>
+        <button onclick="closeScanner()" style="margin-top:20px; background:#ef4444; color:white; border:none; padding:10px 20px; border-radius:50px; font-weight:bold; cursor:pointer; width:100%;">Close Camera</button>
+    </div>
+</div>
 
 <script>
     const bookingsData = <?php echo json_encode($all_bookings); ?>;
@@ -306,7 +482,6 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 if (booking.status === 'Cancelled') { alert("❌ Invalid! Cancelled booking."); return; }
                 if (booking.status === 'Verified') { alert("✅ Guest is already Checked-In / Verified!"); return; }
 
-                // KUNG CONFIRMED O PENDING, PANGUTANA KUNG I-VERIFY/CHECK-IN NA BA
                 if (confirm("✅ QR Code Detected!\nBooking ID: #" + bookingId + "\nGuest Name: " + booking.user_name + "\n\nDo you want to VERIFY and CHECK-IN this guest now?")) {
                     let form = document.createElement('form'); form.method = 'POST';
                     form.innerHTML = `<input type="hidden" name="booking_id" value="${bookingId}"><input type="hidden" name="new_status" value="Verified">`;
