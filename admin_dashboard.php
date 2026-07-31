@@ -12,6 +12,21 @@ $message = '';
 $upload_dir = 'uploads/';
 if (!is_dir($upload_dir)) { mkdir($upload_dir, 0777, true); }
 
+// ==========================================
+// GAME SLOTS MANAGEMENT (NEW)
+// ==========================================
+$slots_file = 'game_slots.txt';
+if(!file_exists($slots_file)) { file_put_contents($slots_file, "10"); } // Default is 10 slots
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_slots'])) {
+    $new_slots = (int)$_POST['game_slots'];
+    file_put_contents($slots_file, $new_slots);
+    $message = "<div class='success-msg'><i class='fas fa-gamepad'></i> Game slots successfully updated to $new_slots!</div>";
+}
+// Kuhaon ang current slots para ma-display sa admin panel
+$current_slots = (int)file_get_contents($slots_file);
+
+
 function uploadFile($fileInputName, $uploadDir) {
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
         $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);
@@ -116,7 +131,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
         body { background: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(5,150,105,0.1)); padding: 40px 20px; color: #1e293b; }
         .dashboard-container { background: #fff; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 1100px; margin: 0 auto; }
-        .header-flex { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(16, 185, 129, 0.1); padding-bottom: 20px; margin-bottom: 30px; }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(16, 185, 129, 0.1); padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;}
         .header-flex h1 { color: #059669; font-size: 28px; display: flex; align-items: center; gap: 12px; }
         .back-btn { background: #f8fafc; color: #475569; padding: 10px 20px; border-radius: 50px; text-decoration: none; border: 1px solid #cbd5e1; font-weight: 600; }
         .section-title { font-size: 20px; margin: 40px 0 15px 0; color: #1e293b; border-left: 5px solid #059669; padding-left: 10px; display: flex; justify-content: space-between; align-items: center;}
@@ -150,6 +165,11 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         .Cancelled { background: #fee2e2; color: #ef4444; }
         .success-msg { background: #d1fae5; color: #059669; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
         .error-msg { background: #fee2e2; color: #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
+
+        /* GAME SLOTS BOX */
+        .slots-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 20px; border-radius: 15px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;}
+        .slots-box h3 { color: #d97706; margin-bottom: 5px; }
+        .slots-box p { color: #b45309; font-size: 13px; }
     </style>
 </head>
 <body>
@@ -161,6 +181,18 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     </div>
     
     <?php echo $message; ?>
+
+    <!-- GAME SLOTS MANAGER -->
+    <div class="slots-box">
+        <div>
+            <h3><i class="fas fa-gamepad"></i> 3D Game Prize Slots</h3>
+            <p>Control how many users can win a prize today. (Current Slots: <b><?php echo $current_slots; ?></b>)</p>
+        </div>
+        <form method="POST" style="display: flex; gap: 10px; align-items: center;">
+            <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 100px; text-align: center; font-weight: bold; font-size: 18px; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px;">
+            <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0;">Update Slots</button>
+        </form>
+    </div>
 
     <!-- BOOKINGS & RESERVATIONS -->
     <h2 class="section-title">
@@ -413,7 +445,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             html5QrcodeScanner.clear();
             document.getElementById('scannerModal').style.display = 'none';
             
-            alert("🎉 FREE ENTRANCE TICKET (3D GAME WINNER)!\n\nTicket Code: " + decodedText + "\n\nKini nga guest nakadaog og FREE ENTRANCE kay naka-2000 points siya sa River Dodge!");
+            alert("🎉 GAME PRIZE TICKET!\n\nTicket Code: " + decodedText + "\n\nKini nga guest nakadaog og premyo (Free Entrance o Free Snacks) gikan sa CherryJoe 3D Game!");
         } 
         // 3. KUNG LAHI NGA QR CODE (DILI CJRP UG DILI WINTIX)
         else {
