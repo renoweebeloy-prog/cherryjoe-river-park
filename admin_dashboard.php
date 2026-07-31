@@ -199,8 +199,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         .error-msg { background: #fee2e2; color: #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
 
         .slots-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;}
-        .slots-box h3 { margin-bottom: 5px; font-size: 16px; color: #d97706;}
-        .slots-box p { font-size: 13px; margin-top: 5px; color: #b45309;}
+        .slots-box h3 { margin-bottom: 5px; font-size: 16px;}
+        .slots-box p { font-size: 13px; margin-top: 5px;}
 
         /* FOOD MENU GRID DISPLAY (STRICTLY 4 COLUMNS) */
         .food-manager-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
@@ -254,7 +254,6 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     
     <div class="header-flex">
         <h1><i class="fas fa-cogs"></i> Admin Dashboard</h1>
-        <!-- GI-UPDATE ANG EXIT ADMIN NGADTO SA BACK TO ADMIN -->
         <a href="index.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Admin</a>
     </div>
     
@@ -275,7 +274,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             <i class="fas fa-video"></i> Videos
         </div>
         <div class="admin-tab-btn" id="btn-settings" onclick="switchAdminTab('settings')">
-            <i class="fas fa-gamepad"></i> Game Settings
+            <i class="fas fa-cogs"></i> System Settings
         </div>
     </div>
 
@@ -478,18 +477,37 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         </div>
     </div>
 
-    <!-- TAB 5: GAME SETTINGS -->
+    <!-- TAB 5: SYSTEM SETTINGS (GAME SLOTS & MAINTENANCE) -->
     <div id="tab-settings" class="admin-section">
-        <h2 class="section-title"><i class="fas fa-cogs"></i> Game Settings</h2>
-        <div class="slots-box">
-            <div>
-                <h3><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
-                <p>Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
+        <h2 class="section-title"><i class="fas fa-cogs"></i> System Settings</h2>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+            <!-- GAME SLOTS MANAGER -->
+            <div class="slots-box" style="border-color: #f59e0b; background: #fffbeb;">
+                <div>
+                    <h3 style="color: #d97706;"><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
+                    <p style="color: #b45309;">Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
+                </div>
+                <form method="POST" style="display: flex; gap: 10px; align-items: center;">
+                    <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                    <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 10px 15px;">Update</button>
+                </form>
             </div>
-            <form method="POST" style="display: flex; gap: 10px; align-items: center;">
-                <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px;">
-                <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 8px 15px;">Update</button>
-            </form>
+
+            <!-- MAINTENANCE MODE MANAGER -->
+            <div class="slots-box" style="border-color: #3b82f6; background: #eff6ff;">
+                <div>
+                    <h3 style="color: #1d4ed8;"><i class="fas fa-tools"></i> Maintenance Mode</h3>
+                    <p style="color: #1e3a8a;">Turn off website for users. (Status: <b><?php echo $is_maintenance ? '<span style="color:#ef4444;">ON</span>' : '<span style="color:#10b981;">OFF</span>'; ?></b>)</p>
+                </div>
+                <form method="POST" style="display: flex; gap: 10px; align-items: center;">
+                    <?php if($is_maintenance): ?>
+                        <button type="submit" name="toggle_maintenance" class="btn-green" style="background:#ef4444; margin-top:0; padding: 10px 15px;">Disable Maintenance</button>
+                    <?php else: ?>
+                        <button type="submit" name="toggle_maintenance" class="btn-green" style="background:#3b82f6; margin-top:0; padding: 10px 15px;">Enable Maintenance</button>
+                    <?php endif; ?>
+                </form>
+            </div>
         </div>
     </div>
 
