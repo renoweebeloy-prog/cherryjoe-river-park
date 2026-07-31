@@ -262,6 +262,13 @@ try {
         .qr-modal-content { background: #ffffff; padding: 30px; border-radius: 20px; text-align: center; max-width: 350px; width: 100%; }
         #qrcode-container img { margin: 0 auto; border: 10px solid #fff; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
+        /* GAMES SPECIFIC STYLES */
+        .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+        .game-card { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid #cbd5e1; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .game-card iframe { width: 100%; height: 400px; border: none; }
+        .game-info { padding: 15px; text-align: center; }
+        .game-info h3 { color: #059669; margin-bottom: 5px; font-size: 18px; font-weight: 700;}
+
         @media (max-width: 600px) {
             section { padding: 40px 4%; }
             .title { font-size: 25px; margin-bottom: 25px; }
@@ -284,7 +291,7 @@ try {
 
     <!-- AUDIO TAG -->
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.mp" type="audio/mpeg">
+        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
@@ -344,6 +351,12 @@ try {
             <a onclick="navigateMenu('food', 'slink-food')" class="side-link" id="slink-food">
                 <i class="fas fa-utensils"></i> Food Menu
             </a>
+            
+            <!-- BAG-O NGA LINK PARA SA 3D GAMES -->
+            <a onclick="navigateMenu('games', 'slink-games')" class="side-link" id="slink-games">
+                <i class="fas fa-gamepad"></i> 3D Games
+            </a>
+
             <a onclick="scrollToAbout()" class="side-link" id="slink-about">
                 <i class="fas fa-info-circle"></i> About Us
             </a>
@@ -619,6 +632,33 @@ try {
         </section>
     </div>
 
+    <!-- BAG-O: 3D GAMES PAGE -->
+    <div id="page-games" class="app-page">
+        <section class="reveal">
+            <h2 class="title">Arcade & 3D Games</h2>
+            <div class="about-intro">
+                <p>Enjoy playing these free 3D browser games while waiting for your booking approval or just to pass the time!</p>
+            </div>
+            
+            <div class="games-grid">
+                <!-- Game 1: 3D Racing -->
+                <div class="game-card">
+                    <iframe src="https://www.crazygames.com/embed/poly-track" allow="gamepad *;"></iframe>
+                    <div class="game-info">
+                        <h3>Poly Track (3D Racing)</h3>
+                    </div>
+                </div>
+                <!-- Game 2: 3D FPS -->
+                <div class="game-card">
+                    <iframe src="https://www.crazygames.com/embed/shell-shockers" allow="gamepad *;"></iframe>
+                    <div class="game-info">
+                        <h3>Shell Shockers (3D FPS)</h3>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
     <!-- NEW PAGE: BOOKING & RESERVATION (ONLY ACCESSIBLE IF NOT ADMIN) -->
     <?php if(!$isAdmin): ?>
     <div id="page-booking" class="app-page">
@@ -644,7 +684,6 @@ try {
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                        <!-- GI-UPDATE: GIBUTANGAN UG MIN ATTRIBUTE ARON DILI MAKA-SELECT UG PAST DATE -->
                         <div>
                             <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Check-In Date</label>
                             <input type="date" id="check_in" min="<?php echo date('Y-m-d'); ?>" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
@@ -701,21 +740,20 @@ try {
                                 <?php endif; ?>
                             </div>
                             
-                            <!-- Ipakita ang QR Code button kung CONFIRMED -->
+                            <!-- Ipakita lang ang QR Code button kung CONFIRMED ang status -->
                             <?php if($b['status'] === 'Confirmed'): ?>
                                 <?php if(!$is_expired): ?>
                                     <button onclick="showQRCode('CJRP-<?php echo $b['id']; ?>', '<?php echo addslashes($b['cottage_type']); ?>')" style="margin-top: 15px; background: #1e293b; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
                                         <i class="fas fa-qrcode"></i> Show QR Code
                                     </button>
                                 <?php else: ?>
-                                    <!-- Disable ang QR Code kung expired na ang booking -->
                                     <button disabled style="margin-top: 15px; background: #94a3b8; color: white; border: none; padding: 10px; border-radius: 8px; cursor: not-allowed; font-weight: bold; width: 100%;">
                                         <i class="fas fa-qrcode"></i> QR Code Expired
                                     </button>
                                 <?php endif; ?>
                             <?php endif; ?>
                             
-                            <!-- Ipakita ang Cancel button kung PENDING pa ug wala pa na-expire -->
+                            <!-- Ipakita lang ang Cancel button kung PENDING pa ang status ug wala pa na-expire -->
                             <?php if($b['status'] === 'Pending' && !$is_expired): ?>
                                 <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 10px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
                                     <i class="fas fa-times-circle"></i> Cancel Reservation
