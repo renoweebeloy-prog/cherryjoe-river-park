@@ -25,6 +25,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_slots'])) {
 }
 $current_slots = (int)file_get_contents($slots_file);
 
+// ==========================================
+// MAINTENANCE MODE MANAGEMENT
+// ==========================================
+$maintenance_file = 'maintenance_mode.txt';
+if(!file_exists($maintenance_file)) { file_put_contents($maintenance_file, "0"); }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['toggle_maintenance'])) {
+    $current_m = file_get_contents($maintenance_file);
+    $new_m = ($current_m === "1") ? "0" : "1";
+    file_put_contents($maintenance_file, $new_m);
+    $status_text = ($new_m === "1") ? "ENABLED" : "DISABLED";
+    $message = "<div class='success-msg'><i class='fas fa-tools'></i> Maintenance mode $status_text!</div>";
+}
+$is_maintenance = (file_get_contents($maintenance_file) === "1");
+
 function uploadFile($fileInputName, $uploadDir) {
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
         $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);
@@ -186,9 +201,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             .section-title { font-size: 18px; flex-direction: column; align-items: flex-start; gap: 10px; }
             .btn-scan { width: 100%; text-align: center; }
             
-            /* FORCE TABLE TO BE CARDS ON MOBILE */
             table, thead, tbody, th, td, tr { display: block; width: 100%; }
-            thead tr { position: absolute; top: -9999px; left: -9999px; } /* Hide Headers */
+            thead tr { position: absolute; top: -9999px; left: -9999px; } 
             
             tr { border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 15px; background: #ffffff; padding: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
             
@@ -200,9 +214,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 text-align: right;
                 min-height: 45px;
             }
-            td:last-child { border-bottom: 0; text-align: center; padding-left: 10px; } /* Center actions */
+            td:last-child { border-bottom: 0; text-align: center; padding-left: 10px; } 
             
-            /* Add Custom Labels */
             td:before { 
                 position: absolute;
                 top: 12px;
@@ -234,16 +247,18 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     
     <?php echo $message; ?>
 
-    <!-- GAME SLOTS MANAGER -->
-    <div class="slots-box" style="border-color: #f59e0b; background: #fffbeb;">
-        <div>
-            <h3 style="color: #d97706;"><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
-            <p style="color: #b45309;">Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
+        <!-- GAME SLOTS MANAGER -->
+        <div class="slots-box" style="border-color: #f59e0b; background: #fffbeb;">
+            <div>
+                <h3 style="color: #d97706;"><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
+                <p style="color: #b45309;">Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
+            </div>
+            <form method="POST" style="display: flex; gap: 10px; align-items: center;">
+                <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px;">
+                <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 10px 15px;">Update</button>
+            </form>
         </div>
-        <form method="POST" style="display: flex; gap: 10px; align-items: center;">
-            <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px;">
-            <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 10px 15px;">Update</button>
-        </form>
     </div>
 
     <!-- BOOKINGS & RESERVATIONS -->
@@ -266,22 +281,22 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                         $is_expired = (strtotime($booking['check_out']) < strtotime($today));
                     ?>
                     <tr>
-                        <td data-label="ID"><b>#<?php echo htmlspecialchars($booking['id']); ?></b></td>
+                        <td data-label="ID"><b>#<?php echo htmlspecialchars($booking['id'] ?? ''); ?></b></td>
                         <td data-label="Guest">
-                            <div style="font-weight: bold; font-size: 15px;"><?php echo htmlspecialchars($booking['user_name']); ?></div>
-                            <div style="font-size: 12px; color: #64748b; margin-top: 4px;"><?php echo htmlspecialchars($booking['user_email']); ?></div>
+                            <div style="font-weight: bold; font-size: 15px;"><?php echo htmlspecialchars($booking['user_name'] ?? ''); ?></div>
+                            <div style="font-size: 12px; color: #64748b; margin-top: 4px;"><?php echo htmlspecialchars($booking['user_email'] ?? ''); ?></div>
                         </td>
                         <td data-label="Facility">
-                            <div style="font-weight: bold; color: #059669; font-size: 14px; margin-bottom: 4px;"><?php echo htmlspecialchars($booking['cottage_type']); ?></div>
-                            <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in']); ?> <br> <b>Out:</b> <?php echo htmlspecialchars($booking['check_out']); ?></div>
+                            <div style="font-weight: bold; color: #059669; font-size: 14px; margin-bottom: 4px;"><?php echo htmlspecialchars($booking['cottage_type'] ?? ''); ?></div>
+                            <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in'] ?? ''); ?> <br> <b>Out:</b> <?php echo htmlspecialchars($booking['check_out'] ?? ''); ?></div>
                             <?php if ($is_expired && $booking['status'] !== 'Cancelled'): ?>
                                 <span style="color: #ef4444; font-weight: bold; font-size: 11px; display: inline-block; margin-top: 4px;"><i class="fas fa-exclamation-circle"></i> Date Passed</span>
                             <?php endif; ?>
                         </td>
                         <td data-label="GCash Ref"><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 13px;"><?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?></span></td>
                         <td data-label="Status">
-                            <span class="status-badge <?php echo htmlspecialchars($booking['status']); ?>">
-                                <?php echo htmlspecialchars($booking['status']); ?>
+                            <span class="status-badge <?php echo htmlspecialchars($booking['status'] ?? ''); ?>">
+                                <?php echo htmlspecialchars($booking['status'] ?? ''); ?>
                             </span>
                         </td>
                         <td data-label="Actions">
@@ -327,19 +342,19 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 <div>
                     <label>Category</label>
                     <select name="category">
-                        <option value="Specialties" <?php if($edit_data['category']=='Specialties') echo 'selected'; ?>>Specialties</option>
-                        <option value="Combo Meals" <?php if($edit_data['category']=='Combo Meals') echo 'selected'; ?>>Combo Meals</option>
-                        <option value="Finger Foods" <?php if($edit_data['category']=='Finger Foods') echo 'selected'; ?>>Finger Foods</option>
-                        <option value="Drinks" <?php if($edit_data['category']=='Drinks') echo 'selected'; ?>>Drinks</option>
+                        <option value="Specialties" <?php if(($edit_data['category'] ?? '')=='Specialties') echo 'selected'; ?>>Specialties</option>
+                        <option value="Combo Meals" <?php if(($edit_data['category'] ?? '')=='Combo Meals') echo 'selected'; ?>>Combo Meals</option>
+                        <option value="Finger Foods" <?php if(($edit_data['category'] ?? '')=='Finger Foods') echo 'selected'; ?>>Finger Foods</option>
+                        <option value="Drinks" <?php if(($edit_data['category'] ?? '')=='Drinks') echo 'selected'; ?>>Drinks</option>
                     </select>
                 </div>
                 <div>
                     <label>Food/Drink Name</label>
-                    <input type="text" name="name" required value="<?php echo htmlspecialchars($edit_data['name']); ?>">
+                    <input type="text" name="name" required value="<?php echo htmlspecialchars($edit_data['name'] ?? ''); ?>">
                 </div>
                 <div>
                     <label>Price</label>
-                    <input type="text" name="price" required value="<?php echo htmlspecialchars($edit_data['price']); ?>">
+                    <input type="text" name="price" required value="<?php echo htmlspecialchars($edit_data['price'] ?? ''); ?>">
                 </div>
                 <div>
                     <label>Upload Photo</label>
@@ -348,7 +363,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 </div>
                 <div class="full-width">
                     <label>Description</label>
-                    <textarea name="description" rows="2"><?php echo htmlspecialchars($edit_data['description']); ?></textarea>
+                    <textarea name="description" rows="2"><?php echo htmlspecialchars($edit_data['description'] ?? ''); ?></textarea>
                 </div>
             </div>
             <button type="submit" name="<?php echo $is_editing ? 'update_menu' : 'add_menu'; ?>" class="btn-green">
@@ -372,12 +387,12 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                     <tr>
                         <td data-label="Image" style="width: 80px;"><img src="<?php echo $row['image_url']; ?>" class="item-img" onerror="this.src='https://placehold.co/100'"></td>
                         <td data-label="Details">
-                            <strong style="font-size: 16px; color: #1e293b;"><?php echo htmlspecialchars($row['name']); ?></strong>
-                            <div style="font-size: 12px; color: #64748b; margin-top: 5px;"><?php echo htmlspecialchars($row['description']); ?></div>
+                            <strong style="font-size: 16px; color: #1e293b;"><?php echo htmlspecialchars($row['name'] ?? ''); ?></strong>
+                            <div style="font-size: 12px; color: #64748b; margin-top: 5px;"><?php echo htmlspecialchars($row['description'] ?? ''); ?></div>
                         </td>
                         <td data-label="Category/Price">
-                            <div style="font-size: 13px; font-weight: bold; color: #475569; margin-bottom: 4px;"><?php echo htmlspecialchars($row['category']); ?></div>
-                            <span style="color:#059669; font-weight: 900; font-size: 15px;"><?php echo htmlspecialchars($row['price']); ?></span>
+                            <div style="font-size: 13px; font-weight: bold; color: #475569; margin-bottom: 4px;"><?php echo htmlspecialchars($row['category'] ?? ''); ?></div>
+                            <span style="color:#059669; font-weight: 900; font-size: 15px;"><?php echo htmlspecialchars($row['price'] ?? ''); ?></span>
                         </td>
                         <td data-label="Action">
                             <a href="admin_dashboard.php?edit_menu=<?php echo $row['id']; ?>" class="edit-btn"><i class="fas fa-edit"></i> Edit</a>
@@ -447,7 +462,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 <?php if(count($video_list) > 0): ?>
                     <?php foreach($video_list as $vid): ?>
                     <tr>
-                        <td data-label="Video Title"><strong><?php echo htmlspecialchars($vid['title']); ?></strong></td>
+                        <td data-label="Video Title"><strong><?php echo htmlspecialchars($vid['title'] ?? ''); ?></strong></td>
                         <td data-label="Action"><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn" onclick="return confirm('Delete this video?');"><i class="fas fa-trash"></i> Delete</a></td>
                     </tr>
                     <?php endforeach; ?>
@@ -512,4 +527,4 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     function onScanFailure(error) {}
 </script>
 </body>
-</html>
+</html>```
