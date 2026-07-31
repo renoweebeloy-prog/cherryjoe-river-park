@@ -2,42 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>CherryJoe 3D River Dodge</title>
     <style>
-        body { margin: 0; overflow: hidden; background-color: #87CEEB; font-family: 'Segoe UI', Tahoma, sans-serif; }
-        #game-ui { position: absolute; top: 15px; left: 20px; width: 100%; pointer-events: none; z-index: 10; }
-        #score { color: #ffffff; font-size: 28px; font-weight: 900; text-shadow: 2px 2px 5px rgba(0,0,0,0.7); }
-        #game-over { display: none; position: absolute; top: 50vh; left: 50vw; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); pointer-events: auto; }
+        body { margin: 0; overflow: hidden; background-color: #87CEEB; font-family: 'Segoe UI', Tahoma, sans-serif; touch-action: none; user-select: none; -webkit-user-select: none; }
+        
+        #game-ui { position: absolute; top: 15px; left: 20px; width: 100%; pointer-events: none; z-index: 10; display: flex; flex-direction: column; }
+        #score { color: #ffffff; font-size: 32px; font-weight: 900; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
+        #high-score { color: #facc15; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); margin-top: 5px; }
+        
+        #game-over { display: none; position: absolute; top: 50vh; left: 50vw; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); pointer-events: auto; z-index: 30; min-width: 300px; }
         #game-over h1 { color: #ef4444; margin-top: 0; font-size: 38px; font-weight: 900; letter-spacing: 2px; }
-        #game-over button { background: #10b981; color: white; border: none; padding: 15px 30px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); }
+        #game-over button { background: #10b981; color: white; border: none; padding: 15px 30px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); margin-top: 15px; }
         #game-over button:hover { background: #059669; transform: scale(1.05); }
+        
         #controls-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold; text-shadow: 1px 1px 4px black; font-size: 16px; text-align: center; width: 100%; pointer-events: none; }
+        
+        /* --- MOBILE CONTROL PANEL STYLES --- */
+        #mobile-controls { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; display: flex; justify-content: space-between; padding: 0 30px; box-sizing: border-box; z-index: 20; }
+        .control-btn { background: rgba(16, 185, 129, 0.7); color: white; border: 3px solid rgba(255, 255, 255, 0.8); width: 80px; height: 80px; border-radius: 50%; font-size: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: auto; }
+        .control-btn:active, .control-btn.active { background: rgba(5, 150, 105, 0.9); transform: scale(0.95); border-color: #ffffff; }
     </style>
     <!-- THREE.JS LIBRARY -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
+    <!-- MGA AUDIO FILES (I-DOWNLOAD UG IBUTANG SA IMONG FOLDER) -->
+    <audio id="snd-boat" src="boat.mp3" loop preload="auto"></audio>
+    <audio id="snd-crash" src="crash.mp3" preload="auto"></audio>
+
+    <!-- UI UG SCORE -->
     <div id="game-ui">
         <div id="score">Score: 0</div>
+        <div id="high-score">High Score: 0</div>
     </div>
     
-    <div id="controls-hint">Use LEFT and RIGHT arrow keys (or tap sides of screen) to steer the Bangka!</div>
+    <!-- ON-SCREEN CONTROL BUTTONS PARA SA CELLPHONE -->
+    <div id="mobile-controls">
+        <div class="control-btn" id="btn-left">◀</div>
+        <div class="control-btn" id="btn-right">▶</div>
+    </div>
 
+    <!-- GAME OVER SCREEN -->
     <div id="game-over">
         <h1>CRASHED!</h1>
-        <p id="final-score" style="font-size: 22px; font-weight: bold; color: #1e293b; margin-bottom: 25px;"></p>
+        <p id="final-score" style="font-size: 22px; font-weight: bold; color: #1e293b; margin-bottom: 5px;"></p>
         <button onclick="resetGame()">Try Again</button>
     </div>
 
     <script>
         // ==========================================
+        // AUDIO & HIGH SCORE SETUP
+        // ==========================================
+        const sndBoat = document.getElementById('snd-boat');
+        const sndCrash = document.getElementById('snd-crash');
+        let audioStarted = false;
+
+        // Pag-load sa High Score gikan sa browser
+        let savedHighScore = localStorage.getItem('cj_highscore') || 0;
+        document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
+
+        // I-play ang bangka sound inig first tap/click sa player
+        function startAudio() {
+            if (!audioStarted) {
+                sndBoat.volume = 0.5;
+                sndBoat.play().catch(e => console.log("Audio blocked by browser until interacted"));
+                audioStarted = true;
+            }
+        }
+
+        // ==========================================
         // 1. SETUP SCENE, CAMERA, & RENDERER
         // ==========================================
         const scene = new THREE.Scene();
-        scene.background = new THREE.Color(0x87CEEB); // Sky blue background
-        scene.fog = new THREE.Fog(0x87CEEB, 20, 80); // Fog aron nindot tan-awon sa layo
+        scene.background = new THREE.Color(0x87CEEB); 
+        scene.fog = new THREE.Fog(0x87CEEB, 20, 80); 
 
         const camera = new THREE.PerspectiveCamera(70, window.innerWidth / window.innerHeight, 0.1, 1000);
         camera.position.set(0, 6, 12);
@@ -62,27 +102,27 @@
         // 3. RIVER & GROUND
         // ==========================================
         const riverGeo = new THREE.PlaneGeometry(35, 200);
-        const riverMat = new THREE.MeshStandardMaterial({ color: 0x0284c7 }); // River water color
+        const riverMat = new THREE.MeshStandardMaterial({ color: 0x0284c7 }); 
         const river = new THREE.Mesh(riverGeo, riverMat);
         river.rotation.x = -Math.PI / 2;
         river.receiveShadow = true;
         scene.add(river);
 
         // ==========================================
-        // 4. PLAYER (PINOY BANGKA)
+        // 4. PLAYER (PINOY BANGKA UG DUHA KA TAO)
         // ==========================================
         const player = new THREE.Group();
-        const woodMat = new THREE.MeshStandardMaterial({ color: 0x8B4513 }); // Brown wood
-        const paintMat = new THREE.MeshStandardMaterial({ color: 0xffffff }); // White paint stripe
+        const woodMat = new THREE.MeshStandardMaterial({ color: 0x8B4513 }); 
+        const paintMat = new THREE.MeshStandardMaterial({ color: 0xffffff }); 
 
-        // Lawas sa Bangka (Hull)
+        // Lawas sa Bangka
         const hullGeo = new THREE.BoxGeometry(1.2, 0.6, 3);
         const hull = new THREE.Mesh(hullGeo, woodMat);
         hull.position.y = 0.3;
         hull.castShadow = true;
         player.add(hull);
 
-        // Atubangan sa Bangka (Bow)
+        // Atubangan
         const bowGeo = new THREE.ConeGeometry(0.6, 1.5, 4);
         const bow = new THREE.Mesh(bowGeo, paintMat);
         bow.rotation.x = -Math.PI / 2;
@@ -91,7 +131,7 @@
         bow.castShadow = true;
         player.add(bow);
 
-        // Luyo sa Bangka (Stern)
+        // Luyo
         const stern = new THREE.Mesh(bowGeo, paintMat);
         stern.rotation.x = Math.PI / 2;
         stern.rotation.y = Math.PI / 4;
@@ -99,7 +139,7 @@
         stern.castShadow = true;
         player.add(stern);
 
-        // Katig (Outriggers - Left & Right)
+        // Katig
         const katigGeo = new THREE.CylinderGeometry(0.1, 0.1, 4, 8);
         const bambooMat = new THREE.MeshStandardMaterial({ color: 0xd97706 });
         
@@ -113,7 +153,6 @@
         katigR.position.set(1.8, 0.2, 0);
         player.add(katigR);
 
-        // Mga Kahoy Nagkonektar sa Katig
         const poleGeo = new THREE.CylinderGeometry(0.05, 0.05, 3.6, 8);
         const pole1 = new THREE.Mesh(poleGeo, bambooMat);
         pole1.rotation.z = Math.PI / 2;
@@ -125,10 +164,35 @@
         pole2.position.set(0, 0.4, 1);
         player.add(pole2);
 
+        // --- DUHA KA TAO (PASSENGERS) ---
+        const skinMat = new THREE.MeshStandardMaterial({ color: 0xffccaa }); // Panit
+        const shirt1Mat = new THREE.MeshStandardMaterial({ color: 0xef4444 }); // Pula nga sanina
+        const shirt2Mat = new THREE.MeshStandardMaterial({ color: 0x3b82f6 }); // Blue nga sanina
+
+        function createPerson(shirtMaterial, zPos) {
+            const person = new THREE.Group();
+            // Lawas
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.7, 0.6), shirtMaterial);
+            body.position.y = 0.65;
+            body.castShadow = true;
+            person.add(body);
+            // Ulo
+            const head = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.4), skinMat);
+            head.position.y = 1.2;
+            head.castShadow = true;
+            person.add(head);
+
+            person.position.z = zPos;
+            return person;
+        }
+
+        player.add(createPerson(shirt1Mat, -0.6)); // Tao sa atubangan (Pula)
+        player.add(createPerson(shirt2Mat, 0.6));  // Tao sa luyo (Blue)
+
         scene.add(player);
 
         // ==========================================
-        // 5. GAME VARIABLES & LOGIC
+        // 5. GAME VARIABLES & CONTROL LOGIC
         // ==========================================
         let obstacles = [];
         let mountains = [];
@@ -138,31 +202,46 @@
         
         const keys = { ArrowLeft: false, ArrowRight: false, a: false, d: false };
 
-        // Key Listeners
-        window.addEventListener('keydown', (e) => { if(keys.hasOwnProperty(e.key)) keys[e.key] = true; });
+        // Keyboard Controls
+        window.addEventListener('keydown', (e) => { 
+            startAudio();
+            if(keys.hasOwnProperty(e.key)) keys[e.key] = true; 
+        });
         window.addEventListener('keyup', (e) => { if(keys.hasOwnProperty(e.key)) keys[e.key] = false; });
 
-        // Touch Controls para sa Mobile
-        window.addEventListener('touchstart', (e) => {
-            if (e.touches[0].clientX < window.innerWidth / 2) keys.ArrowLeft = true;
-            else keys.ArrowRight = true;
-        });
-        window.addEventListener('touchend', () => { keys.ArrowLeft = false; keys.ArrowRight = false; });
+        // ON-SCREEN BUTTON CONTROLS (Para sa Cellphone & Mouse)
+        const btnLeft = document.getElementById('btn-left');
+        const btnRight = document.getElementById('btn-right');
+
+        function pressLeft() { startAudio(); keys.ArrowLeft = true; btnLeft.classList.add('active'); }
+        function releaseLeft() { keys.ArrowLeft = false; btnLeft.classList.remove('active'); }
+        function pressRight() { startAudio(); keys.ArrowRight = true; btnRight.classList.add('active'); }
+        function releaseRight() { keys.ArrowRight = false; btnRight.classList.remove('active'); }
+
+        btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); pressLeft(); });
+        btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); releaseLeft(); });
+        btnLeft.addEventListener('mousedown', pressLeft);
+        btnLeft.addEventListener('mouseup', releaseLeft);
+        btnLeft.addEventListener('mouseleave', releaseLeft);
+
+        btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); pressRight(); });
+        btnRight.addEventListener('touchend', (e) => { e.preventDefault(); releaseRight(); });
+        btnRight.addEventListener('mousedown', pressRight);
+        btnRight.addEventListener('mouseup', releaseRight);
+        btnRight.addEventListener('mouseleave', releaseRight);
 
         // ==========================================
         // 6. SPAWNERS (ROCKS & MOUNTAINS)
         // ==========================================
         const rockMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
-        const mtnMat = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 1 }); // Dark green mountain
+        const mtnMat = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 1 });
 
         function spawnObstacle() {
             if (isGameOver) return;
-            // Mag-spawn og bato sa suba
             const size = 1.5 + Math.random();
             const rockGeo = new THREE.DodecahedronGeometry(size, 1);
             const rock = new THREE.Mesh(rockGeo, rockMat);
             
-            // Random position sa suba (x limits: -12 to 12)
             rock.position.set((Math.random() - 0.5) * 24, size/2, -80);
             rock.castShadow = true;
             
@@ -175,25 +254,23 @@
 
         function spawnMountains() {
             if (isGameOver) return;
-            // Mag-spawn og Bukid sa Wala (Left)
             const mtnGeo = new THREE.ConeGeometry(5 + Math.random()*5, 8 + Math.random()*10, 5);
+            
             const mtnL = new THREE.Mesh(mtnGeo, mtnMat);
             mtnL.position.set(-20 - Math.random()*5, 0, -100);
             scene.add(mtnL);
             mountains.push(mtnL);
 
-            // Mag-spawn og Bukid sa Tuo (Right)
             const mtnR = new THREE.Mesh(mtnGeo, mtnMat);
             mtnR.position.set(20 + Math.random()*5, 0, -100);
             scene.add(mtnR);
             mountains.push(mtnR);
 
-            setTimeout(spawnMountains, 300); // Spawn rapidly to create a continuous mountain range
+            setTimeout(spawnMountains, 300);
         }
 
-        // Start Spawners
         setTimeout(spawnObstacle, 1000);
-        spawnMountains(); // Initial spawn
+        spawnMountains();
 
         // ==========================================
         // 7. MAIN ANIMATION LOOP
@@ -202,24 +279,20 @@
             if (isGameOver) return;
             requestAnimationFrame(animate);
 
-            // Player Movement (Limit sa daplin sa suba)
+            // Movement
             if ((keys.ArrowLeft || keys.a) && player.position.x > -14) player.position.x -= 0.25;
             if ((keys.ArrowRight || keys.d) && player.position.x < 14) player.position.x += 0.25;
 
-            // Player tilt effect (mo-kiling ang bangka inig liko)
+            // Tilt effect
             if (keys.ArrowLeft || keys.a) player.rotation.z = Math.min(player.rotation.z + 0.05, 0.2);
             else if (keys.ArrowRight || keys.d) player.rotation.z = Math.max(player.rotation.z - 0.05, -0.2);
-            else player.rotation.z *= 0.9; // Mobalik sa sentro kung dili pisliton
+            else player.rotation.z *= 0.9;
 
             // Move Mountains
             for (let i = 0; i < mountains.length; i++) {
                 let mtn = mountains[i];
                 mtn.position.z += speed;
-                if (mtn.position.z > 20) {
-                    scene.remove(mtn);
-                    mountains.splice(i, 1);
-                    i--;
-                }
+                if (mtn.position.z > 20) { scene.remove(mtn); mountains.splice(i, 1); i--; }
             }
 
             // Move Obstacles and Check Collisions
@@ -227,38 +300,45 @@
                 let obs = obstacles[i];
                 obs.position.z += speed;
 
-                // Bangka Collision Box is roughly width 3.6 (including katig) and length 5
-                // Gi-adjust ang math aron dili ra kaayo sayon ma-igo
-                if (Math.abs(player.position.x - obs.position.x) < 2.0 && 
-                    Math.abs(player.position.z - obs.position.z) < 2.5) {
+                if (Math.abs(player.position.x - obs.position.x) < 2.0 && Math.abs(player.position.z - obs.position.z) < 2.5) {
                     gameOver();
                 }
 
-                // Add Score
                 if (obs.position.z > 5 && !obs.passed) {
                     score += 10;
                     document.getElementById('score').innerText = "Score: " + score;
                     obs.passed = true;
-                    speed += 0.005; // Pa-paspason og gamay
+                    speed += 0.005; 
                 }
 
-                // Remove obs
-                if (obs.position.z > 20) {
-                    scene.remove(obs);
-                    obstacles.splice(i, 1);
-                    i--;
-                }
+                if (obs.position.z > 20) { scene.remove(obs); obstacles.splice(i, 1); i--; }
             }
             renderer.render(scene, camera);
         }
 
         // ==========================================
-        // 8. GAME OVER & RESET
+        // 8. GAME OVER & RESET (HIGH SCORE LOGIC)
         // ==========================================
         function gameOver() {
             isGameOver = true;
+            
+            // Audio Effects
+            sndBoat.pause();
+            sndCrash.currentTime = 0;
+            sndCrash.play().catch(e=>{});
+
             document.getElementById('game-over').style.display = 'block';
-            document.getElementById('final-score').innerText = "Total Distance: " + score;
+            document.getElementById('mobile-controls').style.display = 'none'; 
+
+            // E-CHECK ANG HIGH SCORE
+            if (score > savedHighScore) {
+                savedHighScore = score;
+                localStorage.setItem('cj_highscore', savedHighScore); // Save sa browser
+                document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
+                document.getElementById('final-score').innerHTML = "You scored: " + score + "<br><br><span style='color:#059669; font-size:26px;'>🎉 NEW HIGH SCORE! 🎉</span>";
+            } else {
+                document.getElementById('final-score').innerHTML = "Distance Reached: " + score;
+            }
         }
 
         window.resetGame = function() {
@@ -267,28 +347,28 @@
             speed = 0.25;
             document.getElementById('score').innerText = "Score: 0";
             document.getElementById('game-over').style.display = 'none';
+            document.getElementById('mobile-controls').style.display = 'flex'; 
             player.position.x = 0;
             player.rotation.z = 0;
             
-            // Limpyohan ang old objects
-            obstacles.forEach(obs => scene.remove(obs));
-            obstacles = [];
-            mountains.forEach(mtn => scene.remove(mtn));
-            mountains = [];
+            // Balik padagan sa boat sound
+            sndBoat.play().catch(e=>{});
+
+            obstacles.forEach(obs => scene.remove(obs)); obstacles = [];
+            mountains.forEach(mtn => scene.remove(mtn)); mountains = [];
             
             spawnObstacle();
             spawnMountains();
             animate();
         }
 
-        // Handle Window Resize
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight);
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
         });
 
-        animate(); // Start Game
+        animate();
     </script>
 </body>
 </html>
