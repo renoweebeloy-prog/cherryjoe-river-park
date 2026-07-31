@@ -2,7 +2,7 @@
 session_start();
 
 // ==========================================
-// API: SERVER-SIDE GAME DATA SYNC (PARA SAME ATTEMPTS KADA DEVICE)
+// API: SERVER-SIDE GAME DATA SYNC
 // ==========================================
 $slots_file = 'game_slots.txt';
 $stats_file = 'game_stats.json';
@@ -195,31 +195,33 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .dot { width: 9px; height: 9px; background-color: rgba(0, 0, 0, 0.2); border-radius: 50%; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .dot.active { background-color: #059669; transform: scale(1.2); width: 26px; border-radius: 6px; }
 
-        /* --- 7. FOOD MANAGEMENT PACK (UPDATED FOR LIGHTBOX & QUICK NAV) --- */
+        /* --- 7. FOOD MANAGEMENT PACK (GRID 4 ITEMS ON MOBILE) --- */
         .food-nav-menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; position: sticky; top: 60px; background: rgba(255,255,255,0.95); padding: 15px 0; z-index: 100; backdrop-filter: blur(10px); }
         .food-nav-menu a { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 14px; color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1; transition: 0.3s; }
         .food-nav-menu a:hover, .food-nav-menu a.active-nav { background: #059669; color: white; border-color: #059669; }
 
-        .food-grid-container { max-width: 1000px; margin: 0 auto; scroll-margin-top: 150px; }
+        .food-grid-container { max-width: 1200px; margin: 0 auto; scroll-margin-top: 150px; }
         .food-category-title { font-size: 20px; color: #1e293b; border-left: 5px solid #059669; padding-left: 12px; margin: 40px 0 20px 0; font-weight: 700; letter-spacing: 0.5px; }
-        .food-item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-        .food-card-with-img { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
-        .food-card-with-img:hover { transform: translateY(-5px); border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.1); }
         
-        /* UPDATED IMAGE CURSOR FOR LIGHTBOX */
-        .food-card-with-img img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); cursor: zoom-in; }
+        /* GRID SETUP: Min 4 columns for desktop */
+        .food-item-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; }
+        
+        .food-card-with-img { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 16px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
+        .food-card-with-img:hover { transform: translateY(-5px); border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.1); }
+        .food-card-with-img img { width: 100%; height: 180px; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); cursor: zoom-in; }
         .food-card-with-img:hover img { transform: scale(1.05); }
         
-        .food-card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
-        .food-card-body h3 { font-size: 17px; color: #1e293b; margin-bottom: 8px; font-weight: 600; }
-        .food-card-body p.desc { font-size: 13px; color: #64748b; margin-bottom: 12px; line-height: 1.4; }
-        .food-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 12px; }
-        .food-price { font-size: 18px; font-weight: 700; color: #059669; }
-        .food-status { font-size: 11px; background: rgba(16, 185, 129, 0.1); color: #059669; padding: 4px 12px; border-radius: 50px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        .drinks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; }
+        .food-card-body { padding: 15px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .food-card-body h3 { font-size: 15px; color: #1e293b; margin-bottom: 5px; font-weight: 600; line-height: 1.2; }
+        .food-card-body p.desc { font-size: 12px; color: #64748b; margin-bottom: 10px; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+        .food-card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid rgba(0, 0, 0, 0.05); padding-top: 10px; }
+        .food-price { font-size: 16px; font-weight: 700; color: #059669; }
+        .food-status { font-size: 10px; background: rgba(16, 185, 129, 0.1); color: #059669; padding: 4px 8px; border-radius: 50px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        
+        .drinks-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; }
         .drink-item { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 15px; border-radius: 14px; display: flex; justify-content: space-between; align-items: center; transition: all 0.2s ease; }
         .drink-item:hover { border-color: #059669; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.08); }
-        .drink-name { font-size: 15px; font-weight: 600; color: #1e293b; }
+        .drink-name { font-size: 14px; font-weight: 600; color: #1e293b; }
 
         .management { display: flex; gap: 20px; flex-wrap: wrap; }
         .management .card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex: 1; min-width: 240px; }
@@ -280,7 +282,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .lightbox.show { opacity: 1; }
         .lightbox.show img { transform: scale(1); }
         
-        /* Dili nato ipakita ang download button kung gikan sa food menu (Optional) */
         .download-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 10px; transform: translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); border: 2px solid rgba(255, 255, 255, 0.5); cursor: pointer; }
         .download-btn:hover { background: linear-gradient(135deg, #059669, #047857); transform: scale(1.05) translateY(18px) !important; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4); }
         .lightbox.show .download-btn { opacity: 1; transform: translateY(0); }
@@ -321,8 +322,15 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             .side-menu { width: 260px; left: -280px; }
             .about-intro { padding: 15px; font-size: 14px; }
             
-            /* Responsive Food Menu Tabs */
             .food-nav-menu a { padding: 8px 12px; font-size: 12px; }
+            /* FORCE 4 COLUMNS ON MOBILE */
+            .food-item-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 8px !important; }
+            .food-card-body { padding: 8px; }
+            .food-card-body h3 { font-size: 11px; margin-bottom: 2px; }
+            .food-card-body p.desc { font-size: 9px; margin-bottom: 5px; }
+            .food-price { font-size: 11px; }
+            .food-status { display: none; } /* Hide available badge to save space on mobile */
+            .food-card-with-img img { height: 90px; }
         }
         .map-container { border-radius: 20px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
         .map-btn { display: block; width: 100%; text-align: center; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 15px; transition: 0.3s; }
@@ -332,7 +340,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
 <body>
 
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
+        <source src="assetsmusiconetime.m3" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
@@ -604,7 +612,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
 
     <!-- FOOD PAGE (DYNAMIC PDO) -->
     <div id="page-food" class="app-page">
-        <!-- TABS PARA DALI RA PAG-NAVIGATE (DILI NA MAG SIGEG SCROLL PABABA) -->
         <div class="food-nav-menu">
             <a href="#cat-Specialties" onclick="setActiveNav(this)">Specialties</a>
             <a href="#cat-Combo Meals" onclick="setActiveNav(this)">Combo Meals</a>
@@ -629,7 +636,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                             if ($cat == 'Finger Foods') $icon = 'fas fa-hamburger';
                             if ($cat == 'Drinks') $icon = 'fas fa-glass-cheers';
 
-                            // GI-BUTANGAN NAKO OG ID KADA CATEGORY TITLE PARA MA-CLICK SA TABS SA IBABAW
                             echo "<div class='food-category-title' id='cat-".htmlspecialchars($cat)."'><i class='$icon'></i> ".htmlspecialchars($cat)."</div>";
                             
                             if ($cat == 'Drinks') {
@@ -646,7 +652,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                                 foreach ($items as $item) {
                                     $img = !empty($item['image_url']) ? htmlspecialchars($item['image_url']) : 'https://placehold.co/400x250?text=No+Image';
                                     echo "<div class='food-card-with-img'>";
-                                    // ANG IMG TAG GIBUTANGAN UG ONCLICK="SHOWIMAGE(THIS.SRC)" PARA MO-ENLARGE INIG CLICK!
                                     echo "<img src='$img' alt='".htmlspecialchars($item['name'])."' onclick=\"showImage(this.src)\" onerror=\"this.src='https://placehold.co/400x250?text=No+Image'\">";
                                     echo "<div class='food-card-body'>";
                                     echo "<div><h3>".htmlspecialchars($item['name'])."</h3>";
@@ -1044,15 +1049,8 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             document.getElementById('lightbox-img').src = src;
             
             const downloadBtn = document.getElementById('lightbox-download');
-            // Tagoon nato ang download button kung gikan sa food menu para nindot tan-awon
-            if (src.includes('uploads/')) {
-                downloadBtn.style.display = 'none';
-            } else {
-                downloadBtn.style.display = 'flex';
-                downloadBtn.href = src;
-                let filename = src.split('/').pop() || 'CherryJoe_Photo.jpg';
-                downloadBtn.download = filename;
-            }
+            // GIPAPAWAS NAKO ANG DOWNLOAD BUTTON SA TANAN BISAN ASA PA GIKAN
+            downloadBtn.style.display = 'none';
 
             box.style.display = 'flex'; 
             setTimeout(() => box.classList.add('show'), 15);
