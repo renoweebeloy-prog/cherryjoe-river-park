@@ -46,7 +46,6 @@
 </head>
 <body>
 
-    <!-- GIGAMIT NAKO ANG EXACT FILENAMES NGA IMONG GIPANGAYO -->
     <audio id="snd-boat" src="boat.mp3.mp3" loop preload="auto"></audio>
     <audio id="snd-crash" src="crash.mp3.mp3" preload="auto"></audio>
 
@@ -64,10 +63,8 @@
         <button id="btn-start" onclick="startGame()">▶ PLAY NOW</button>
     </div>
 
-    <!-- WINNER BANNER -->
     <div id="win-banner">🎉 <span id="win-text"></span><br><span style="font-size:12px;">Sent to Email. Check in 1 minute.</span> 🎉</div>
 
-    <!-- UI UG SCORE (Side-by-side layout) -->
     <div id="game-ui">
         <div class="score-row">
             <div id="score">Score: 0</div>
@@ -101,17 +98,28 @@
         const sndBoat = document.getElementById('snd-boat');
         const sndCrash = document.getElementById('snd-crash');
 
-        // ATTEMPTS & GOAL LOGIC (Reset daily)
+        // ==========================================
+        // 2. USER-SPECIFIC ATTEMPTS LOGIC (LAHI-LAHI KADA USER)
+        // ==========================================
+        // Gamiton ang email (o 'guest' kung wala) isip identifier sa database
+        const userKey = playerEmail ? playerEmail : 'guest';
+        const keyAttempts = 'cj_attempts_' + userKey;
+        const keyDate = 'cj_date_' + userKey;
+        const keyGoal = 'cj_goal_' + userKey;
+        const keyHighscore = 'cj_highscore_' + userKey;
+
         let todayStr = new Date().toDateString();
-        if(localStorage.getItem('cj_date') !== todayStr) {
-            localStorage.setItem('cj_attempts', '5');
-            localStorage.setItem('cj_date', todayStr);
-            localStorage.setItem('cj_goal', '2000'); // Reset goal back to 2000 each day
+        
+        // Reset kada adlaw para niining specific nga user
+        if(localStorage.getItem(keyDate) !== todayStr) {
+            localStorage.setItem(keyAttempts, '5');
+            localStorage.setItem(keyDate, todayStr);
+            localStorage.setItem(keyGoal, '2000'); // Reset goal back to 2000 each day
         }
         
-        let attemptsLeft = parseInt(localStorage.getItem('cj_attempts')) || 0;
-        let currentGoal = parseInt(localStorage.getItem('cj_goal')) || 2000;
-        let savedHighScore = localStorage.getItem('cj_highscore') || 0;
+        let attemptsLeft = parseInt(localStorage.getItem(keyAttempts)) || 0;
+        let currentGoal = parseInt(localStorage.getItem(keyGoal)) || 2000;
+        let savedHighScore = localStorage.getItem(keyHighscore) || 0;
 
         // UI UPDATES SA START SCREEN
         document.getElementById('ui-slots').innerText = availableSlots;
@@ -129,7 +137,9 @@
             document.getElementById('btn-start').style.background = "#64748b";
         }
 
-        // SCENE SETUP
+        // ==========================================
+        // 3. SCENE SETUP
+        // ==========================================
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x87CEEB); 
         scene.fog = new THREE.Fog(0x87CEEB, 20, 80); 
@@ -143,13 +153,14 @@
         renderer.shadowMap.enabled = true;
         document.body.appendChild(renderer.domElement);
 
-        const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
         scene.add(ambientLight);
         const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
         dirLight.position.set(10, 20, 10);
         dirLight.castShadow = true;
         scene.add(dirLight);
 
+        // WAVY RIVER
         const riverGeo = new THREE.PlaneGeometry(35, 200, 30, 60); 
         const riverMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, flatShading: false }); 
         const river = new THREE.Mesh(riverGeo, riverMat);
@@ -182,15 +193,16 @@
         player.add(createPerson(0x3b82f6, 0.6));  
         scene.add(player);
 
-        // 5. VARIABLES & STATE
-        let obstacles = [], scenery = []; 
+        // ==========================================
+        // 4. VARIABLES & CONTROLS
+        // ==========================================
+        let obstacles = [], scenery = [], fishes = [], birds = []; 
         let isGameOver = true; 
         let score = 0;
         let baseSpeed = 0.25; 
         let speed = baseSpeed;
         let prizeWonThisRound = false; 
         
-        // 6. CONTROLS
         const keys = { left: false, right: false };
         
         window.addEventListener('keydown', (e) => { 
@@ -217,10 +229,15 @@
         btnRight.addEventListener('touchend', (e) => { e.preventDefault(); setRight(false); }, {passive: false});
         btnRight.addEventListener('mousedown', () => setRight(true));
 
-        // 7. SPAWNERS
+        // ==========================================
+        // 5. SPAWNERS (ROCKS, MOUNTAINS, FISH, BIRDS)
+        // ==========================================
         const rockMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
         const mtnMat = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 1 });
+        const fishMat = new THREE.MeshStandardMaterial({ color: 0xffa500 }); // Orange Fish
+        const birdMat = new THREE.MeshBasicMaterial({ color: 0x1e293b, side: THREE.DoubleSide }); // Dark Bird
 
+        // Rocks sa tunga nga likayan
         function spawnObstacle() {
             if (isGameOver) return;
             const size = 1.5 + Math.random();
@@ -232,34 +249,64 @@
             setTimeout(spawnObstacle, spawnTime);
         }
 
+        // Bukid ug bato sa kilid
         function spawnScenery() {
             if (isGameOver) return;
             
-            // Bukid
             if (Math.random() > 0.5) {
                 const mtnGeo = new THREE.ConeGeometry(5+Math.random()*5, 8+Math.random()*10, 5);
                 const mtnL = new THREE.Mesh(mtnGeo, mtnMat); mtnL.position.set(-25-Math.random()*5, 0, -100); scene.add(mtnL); scenery.push(mtnL);
                 const mtnR = new THREE.Mesh(mtnGeo, mtnMat); mtnR.position.set(25+Math.random()*5, 0, -100); scene.add(mtnR); scenery.push(mtnR);
             }
 
-            // Bato sa kilid
             if (Math.random() > 0.6) {
                 const sideRockSize = 2 + Math.random() * 2;
                 const sideRockGeo = new THREE.DodecahedronGeometry(sideRockSize, 1);
                 
-                const rockL = new THREE.Mesh(sideRockGeo, rockMat);
-                rockL.position.set(-16 - Math.random()*2, sideRockSize/3, -100);
-                scene.add(rockL); scenery.push(rockL);
-
-                const rockR = new THREE.Mesh(sideRockGeo, rockMat);
-                rockR.position.set(16 + Math.random()*2, sideRockSize/3, -100);
-                scene.add(rockR); scenery.push(rockR);
+                const rockL = new THREE.Mesh(sideRockGeo, rockMat); rockL.position.set(-16 - Math.random()*2, sideRockSize/3, -100); scene.add(rockL); scenery.push(rockL);
+                const rockR = new THREE.Mesh(sideRockGeo, rockMat); rockR.position.set(16 + Math.random()*2, sideRockSize/3, -100); scene.add(rockR); scenery.push(rockR);
             }
 
             setTimeout(spawnScenery, 800); 
         }
 
-        // 8. START GAME FUNCTION
+        // Mga Isda nga molukso sa tubig
+        function spawnFish() {
+            if (isGameOver) return;
+            if (Math.random() > 0.5) {
+                const fishGeo = new THREE.ConeGeometry(0.3, 1, 4);
+                const fish = new THREE.Mesh(fishGeo, fishMat);
+                fish.rotation.x = Math.PI / 2;
+                fish.position.set((Math.random() - 0.5) * 20, -1, -80);
+                
+                fish.userData = { phaseOffset: Math.random() * Math.PI * 2 };
+                scene.add(fish); fishes.push(fish);
+            }
+            setTimeout(spawnFish, 1200);
+        }
+
+        // Mga langgam nga molupad
+        function spawnBird() {
+            if (isGameOver) return;
+            if (Math.random() > 0.3) {
+                const bird = new THREE.Group();
+                const wingGeo = new THREE.PlaneGeometry(0.6, 0.3);
+                
+                const leftWing = new THREE.Mesh(wingGeo, birdMat); leftWing.position.x = -0.3;
+                const rightWing = new THREE.Mesh(wingGeo, birdMat); rightWing.position.x = 0.3;
+                
+                bird.add(leftWing); bird.add(rightWing);
+                bird.position.set((Math.random() - 0.5) * 40, 8 + Math.random() * 5, -100);
+                
+                bird.userData = { left: leftWing, right: rightWing, wingSpeed: 0.15 + Math.random() * 0.15, phase: Math.random() * Math.PI * 2 };
+                scene.add(bird); birds.push(bird);
+            }
+            setTimeout(spawnBird, 2000);
+        }
+
+        // ==========================================
+        // 6. MAIN GAME LOGIC
+        // ==========================================
         window.startGame = function() {
             document.getElementById('start-screen').style.display = 'none';
             document.getElementById('game-ui').style.display = 'flex';
@@ -272,23 +319,22 @@
             isGameOver = false;
             spawnObstacle();
             spawnScenery();
+            spawnFish();
+            spawnBird();
             animate();
 
             setTimeout(() => { document.getElementById('controls-hint').style.display = 'none'; }, 4000);
         }
 
-        // 9. WIN EMAIL TRIGGER (Image Beacon technique)
+        // WIN EMAIL TRIGGER 
         function triggerWinEmail(prizeName) {
             const banner = document.getElementById('win-banner');
             document.getElementById('win-text').innerText = prizeName + " WON!";
             banner.style.display = 'block';
             
-            setTimeout(() => {
-                banner.style.display = 'none';
-            }, 4000);
+            setTimeout(() => { banner.style.display = 'none'; }, 4000);
 
             if(playerEmail && availableSlots > 0 && attemptsLeft > 0) {
-                // E-deduct ang slot sa server backend
                 fetch('index.php?action=deduct_slot');
                 availableSlots--;
 
@@ -300,12 +346,12 @@
             }
         }
 
-        // 10. ANIMATION LOOP
+        // ANIMATION LOOP
         function animate() {
             if (isGameOver) return;
             requestAnimationFrame(animate);
 
-            // River Wave
+            // WAVY RIVER
             const time = Date.now() * 0.002;
             const positions = riverGeo.attributes.position;
             for(let i = 0; i < positions.count; i++) {
@@ -316,20 +362,47 @@
             }
             positions.needsUpdate = true;
 
-            // Player Movement (Speed Increases Maneuverability slightly)
+            // Player Movement 
             let turnSpeed = 0.25 + (speed - 0.25);
             if (keys.left && player.position.x > -14) player.position.x -= turnSpeed;
             if (keys.right && player.position.x < 14) player.position.x += turnSpeed;
-            
             if (keys.left) player.rotation.z = Math.min(player.rotation.z + 0.05, 0.2);
             else if (keys.right) player.rotation.z = Math.max(player.rotation.z - 0.05, -0.2);
             else player.rotation.z *= 0.9;
 
+            // Move Scenery 
             for (let i = 0; i < scenery.length; i++) {
                 let s = scenery[i]; s.position.z += speed;
                 if (s.position.z > 20) { scene.remove(s); scenery.splice(i, 1); i--; }
             }
 
+            // Move & Animate Fishes (LUKSO LUKSO SA TUBIG)
+            for (let i = 0; i < fishes.length; i++) {
+                let f = fishes[i]; 
+                f.position.z += speed * 1.3; // Mas paspas gamay sa bato
+                
+                let jumpArc = Math.sin((Date.now() * 0.005) + f.userData.phaseOffset);
+                f.position.y = jumpArc * 2.5 - 0.5; // Molukso pataas
+                f.rotation.x = (Math.PI / 2) - (Math.cos((Date.now() * 0.005) + f.userData.phaseOffset) * 0.8); // Motutok pataas ug paubos
+
+                if (f.position.z > 20) { scene.remove(f); fishes.splice(i, 1); i--; }
+            }
+
+            // Move & Animate Birds (LUPAD LUPAD UG FLAP WINGS)
+            for (let i = 0; i < birds.length; i++) {
+                let b = birds[i]; 
+                b.position.z += speed * 1.5; 
+                b.position.x += Math.sin(Date.now() * 0.001 + b.userData.phase) * 0.05; // Moli-liko gamay sa hangin
+                
+                // Pag-flap sa pako
+                let flap = Math.sin(Date.now() * b.userData.wingSpeed + b.userData.phase);
+                b.userData.left.rotation.y = flap * 0.6;
+                b.userData.right.rotation.y = -flap * 0.6;
+
+                if (b.position.z > 20) { scene.remove(b); birds.splice(i, 1); i--; }
+            }
+
+            // Move Obstacles & COLLISION
             for (let i = 0; i < obstacles.length; i++) {
                 let obs = obstacles[i]; 
                 obs.position.z += speed;
@@ -346,8 +419,7 @@
                     document.getElementById('score').innerText = "Score: " + score;
                     obs.passed = true;
                     
-                    // BOAT MO-PASPAS UG MAAYO KADA OBSTACLE
-                    speed += 0.003; 
+                    speed += 0.003; // SPEED INCREASES!
                     
                     // DYNAMIC GOAL CHECKER (2k, 3k, 4k, 5k, 8k)
                     if(score >= currentGoal && !prizeWonThisRound && availableSlots > 0 && attemptsLeft > 0) {
@@ -361,9 +433,9 @@
                         else if(currentGoal === 3000) currentGoal = 4000;
                         else if(currentGoal === 4000) currentGoal = 5000;
                         else if(currentGoal === 5000) currentGoal = 8000;
-                        else currentGoal = 999999; // Wala nay sunod if malapas sa 8000
+                        else currentGoal = 999999; 
                         
-                        localStorage.setItem('cj_goal', currentGoal);
+                        localStorage.setItem(keyGoal, currentGoal);
                         updateGoalText();
                     }
                 }
@@ -372,17 +444,17 @@
             renderer.render(scene, camera);
         }
 
-        // 11. GAME OVER LOGIC
+        // GAME OVER LOGIC
         function gameOver() {
             isGameOver = true;
             sndBoat.pause(); 
             sndCrash.currentTime = 0; 
             sndCrash.play().catch(e=>{});
 
-            // DEDUCT ATTEMPT (Only if there are attempts left to deduct)
+            // DEDUCT ATTEMPT FOR SPECIFIC USER
             if(attemptsLeft > 0) {
                 attemptsLeft--;
-                localStorage.setItem('cj_attempts', attemptsLeft);
+                localStorage.setItem(keyAttempts, attemptsLeft);
             }
 
             document.getElementById('game-over').style.display = 'block';
@@ -393,14 +465,14 @@
             
             if (score > savedHighScore) {
                 savedHighScore = score;
-                localStorage.setItem('cj_highscore', savedHighScore); 
+                localStorage.setItem(keyHighscore, savedHighScore); 
                 document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
                 msg = "You scored: " + score + "<br><br><span style='color:#059669; font-size:26px;'>🎉 NEW HIGH SCORE! 🎉</span>";
             }
             
-            // Ipakita pila nalang ka attempts
             msg += `<br><br><span style='font-size:14px; color:#ef4444;'>Attempts Left Today: ${attemptsLeft}</span>`;
             document.getElementById('final-score').innerHTML = msg;
+            document.getElementById('ui-attempts').innerText = attemptsLeft;
         }
 
         window.resetGame = function() {
@@ -418,9 +490,13 @@
             
             obstacles.forEach(obs => scene.remove(obs)); obstacles = [];
             scenery.forEach(s => scene.remove(s)); scenery = [];
+            fishes.forEach(f => scene.remove(f)); fishes = [];
+            birds.forEach(b => scene.remove(b)); birds = [];
             
             spawnObstacle(); 
             spawnScenery(); 
+            spawnFish();
+            spawnBird();
             animate();
         }
 
