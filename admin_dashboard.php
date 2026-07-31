@@ -25,21 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_slots'])) {
 }
 $current_slots = (int)file_get_contents($slots_file);
 
-// ==========================================
-// MAINTENANCE MODE MANAGEMENT
-// ==========================================
-$maintenance_file = 'maintenance_mode.txt';
-if(!file_exists($maintenance_file)) { file_put_contents($maintenance_file, "0"); }
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['toggle_maintenance'])) {
-    $current_m = file_get_contents($maintenance_file);
-    $new_m = ($current_m === "1") ? "0" : "1";
-    file_put_contents($maintenance_file, $new_m);
-    $status_text = ($new_m === "1") ? "ENABLED" : "DISABLED";
-    $message = "<div class='success-msg'><i class='fas fa-tools'></i> Maintenance mode $status_text!</div>";
-}
-$is_maintenance = (file_get_contents($maintenance_file) === "1");
-
 function uploadFile($fileInputName, $uploadDir) {
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
         $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);
@@ -154,12 +139,22 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
         body { background: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(5,150,105,0.1)); padding: 20px; color: #1e293b; }
         
-        /* CARD-BASED LAYOUT */
-        .admin-card { background: #ffffff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #e2e8f0; }
-        
-        .header-flex { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(16, 185, 129, 0.1); padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;}
-        .header-flex h1 { color: #059669; font-size: 28px; display: flex; align-items: center; gap: 12px; }
+        .header-flex { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(16, 185, 129, 0.1); padding-bottom: 20px; margin-bottom: 20px; flex-wrap: wrap; gap: 15px;}
+        .header-flex h1 { color: #059669; font-size: 28px; display: flex; align-items: center; gap: 12px; margin: 0;}
         .back-btn { background: #f8fafc; color: #475569; padding: 10px 20px; border-radius: 50px; text-decoration: none; border: 1px solid #cbd5e1; font-weight: 600; }
+        
+        /* TABS NAVIGATION */
+        .admin-tabs-nav { display: flex; gap: 10px; overflow-x: auto; padding-bottom: 10px; margin-bottom: 20px; scrollbar-width: none; }
+        .admin-tabs-nav::-webkit-scrollbar { display: none; }
+        .admin-tab-btn { background: #f1f5f9; color: #64748b; padding: 12px 20px; border-radius: 12px; font-weight: bold; cursor: pointer; text-align: center; border: 2px solid transparent; transition: 0.3s; flex: 1; min-width: max-content; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 15px;}
+        .admin-tab-btn.active { background: #d1fae5; color: #059669; border-color: #059669; box-shadow: 0 4px 10px rgba(5, 150, 105, 0.15); }
+        .admin-tab-btn:hover:not(.active) { background: #e2e8f0; }
+
+        /* SECTIONS */
+        .admin-section { display: none; animation: fadeIn 0.4s; background: #ffffff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #e2e8f0; }
+        .admin-section.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         .section-title { font-size: 18px; margin-bottom: 20px; color: #1e293b; border-left: 5px solid #059669; padding-left: 10px; display: flex; justify-content: space-between; align-items: center;}
         
         .btn-scan { background: #1e293b; color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 14px;}
@@ -171,9 +166,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         .full-width { grid-column: span 2; }
         label { font-size: 13px; font-weight: bold; color: #64748b; display: block; margin-bottom: 5px; text-transform: uppercase;}
         input[type="text"], input[type="number"], input[type="file"], select, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
-        .btn-green { background: #059669; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
+        .btn-green { background: #059669; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; display: inline-block;}
         
-        /* STANDARD TABLES (FOR DESKTOP) */
         .table-container { overflow-x: auto; background: white; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 20px;}
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
@@ -181,12 +175,12 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         .delete-btn { color: white; background: #ef4444; padding: 6px 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 12px; display: inline-block; margin-top: 5px;}
         .edit-btn { color: white; background: #3b82f6; padding: 6px 10px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-right: 5px; font-size: 12px; display: inline-block; margin-top: 5px;}
         
-        .status-badge { padding: 6px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+        .status-badge { padding: 6px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; text-transform: uppercase; display: inline-block; }
         .Pending { background: #fef3c7; color: #d97706; }
         .Confirmed { background: #d1fae5; color: #059669; }
         .Cancelled { background: #fee2e2; color: #ef4444; }
         .Verified { background: #e0e7ff; color: #2563eb; } 
-        .success-msg { background: #d1fae5; color: #059669; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
+        .success-msg { background: #d1fae5; color: #059669; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; border: 1px solid #a7f3d0;}
         .error-msg { background: #fee2e2; color: #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
 
         .slots-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;}
@@ -215,6 +209,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             .header-flex h1 { font-size: 22px; }
             .section-title { font-size: 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
             .btn-scan { width: 100%; text-align: center; }
+            .admin-section { padding: 15px; }
             
             /* FORCE 4 COLUMNS ON MOBILE FOR FOOD MENU */
             .food-manager-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
@@ -249,24 +244,32 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     
     <?php echo $message; ?>
 
-    <!-- 1. GAME SLOTS & RESERVATION CARD -->
-    <div class="admin-card">
+    <!-- TABS NAVIGATION PARA DI NA SIGE'G SCROLL -->
+    <div class="admin-tabs-nav">
+        <div class="admin-tab-btn active" id="btn-reservations" onclick="switchAdminTab('reservations')">
+            <i class="fas fa-calendar-check"></i> Reservations
+        </div>
+        <div class="admin-tab-btn" id="btn-menu" onclick="switchAdminTab('menu')">
+            <i class="fas fa-utensils"></i> Food Menu
+        </div>
+        <div class="admin-tab-btn" id="btn-gallery" onclick="switchAdminTab('gallery')">
+            <i class="fas fa-images"></i> Gallery
+        </div>
+        <div class="admin-tab-btn" id="btn-videos" onclick="switchAdminTab('videos')">
+            <i class="fas fa-video"></i> Videos
+        </div>
+        <div class="admin-tab-btn" id="btn-settings" onclick="switchAdminTab('settings')">
+            <i class="fas fa-gamepad"></i> Game Settings
+        </div>
+    </div>
+
+    <!-- TAB 1: RESERVATION MANAGEMENT -->
+    <div id="tab-reservations" class="admin-section active">
         <h2 class="section-title">
             <span><i class="fas fa-calendar-check"></i> Reservation Management</span>
             <button class="btn-scan" onclick="openScanner()"><i class="fas fa-qrcode"></i> Scan Guest QR</button>
         </h2>
         
-        <div class="slots-box">
-            <div>
-                <h3><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
-                <p>Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
-            </div>
-            <form method="POST" style="display: flex; gap: 10px; align-items: center;">
-                <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px;">
-                <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 8px 15px;">Update</button>
-            </form>
-        </div>
-
         <div class="table-container">
             <table>
                 <thead>
@@ -327,8 +330,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         </div>
     </div>
 
-    <!-- 2. FOOD MENU MANAGEMENT CARD -->
-    <div class="admin-card">
+    <!-- TAB 2: FOOD MENU MANAGEMENT -->
+    <div id="tab-menu" class="admin-section">
         <h2 class="section-title"><i class="fas fa-utensils"></i> Manage Food Menu</h2>
         
         <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px dashed #cbd5e1; margin-bottom: 20px;">
@@ -375,7 +378,6 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             </form>
         </div>
 
-        <!-- NEW GRID DISPLAY FOR FOOD MENU (FULL SCREEN IN MOBILE) -->
         <div class="food-manager-grid">
             <?php if(count($menu_list) > 0): ?>
                 <?php foreach($menu_list as $row): ?>
@@ -398,8 +400,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         </div>
     </div>
 
-    <!-- 3. GALLERY MANAGEMENT CARD -->
-    <div class="admin-card">
+    <!-- TAB 3: GALLERY MANAGEMENT -->
+    <div id="tab-gallery" class="admin-section">
         <h2 class="section-title"><i class="fas fa-images"></i> Manage Gallery Photos</h2>
         
         <form method="POST" enctype="multipart/form-data" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 20px;">
@@ -410,7 +412,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             <button type="submit" name="add_gallery" class="btn-green" style="margin-top: 0;"><i class="fas fa-upload"></i> Upload</button>
         </form>
 
-        <div class="food-manager-grid"> <!-- Gi-reuse ang grid setup sa food para limpyo -->
+        <div class="food-manager-grid">
             <?php if(count($gallery_list) > 0): ?>
                 <?php foreach($gallery_list as $img): ?>
                 <div class="food-item-card">
@@ -424,8 +426,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         </div>
     </div>
 
-    <!-- 4. VIDEO TOUR MANAGEMENT CARD -->
-    <div class="admin-card">
+    <!-- TAB 4: VIDEO TOUR MANAGEMENT -->
+    <div id="tab-videos" class="admin-section">
         <h2 class="section-title"><i class="fas fa-video"></i> Manage Resort Videos</h2>
         <form method="POST" enctype="multipart/form-data" style="margin-bottom: 20px;">
             <div class="form-grid">
@@ -460,6 +462,21 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         </div>
     </div>
 
+    <!-- TAB 5: GAME SETTINGS -->
+    <div id="tab-settings" class="admin-section">
+        <h2 class="section-title"><i class="fas fa-cogs"></i> Game Settings</h2>
+        <div class="slots-box">
+            <div>
+                <h3><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
+                <p>Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
+            </div>
+            <form method="POST" style="display: flex; gap: 10px; align-items: center;">
+                <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px;">
+                <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 8px 15px;">Update</button>
+            </form>
+        </div>
+    </div>
+
 </div>
 
 <!-- QR SCANNER MODAL -->
@@ -477,6 +494,33 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
 </div>
 
 <script>
+    // ==========================================
+    // TABS LOGIC PARA DI NA MAG SCROLL
+    // ==========================================
+    function switchAdminTab(tabId) {
+        document.querySelectorAll('.admin-section').forEach(sec => sec.classList.remove('active'));
+        document.querySelectorAll('.admin-tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        document.getElementById('tab-' + tabId).classList.add('active');
+        document.getElementById('btn-' + tabId).classList.add('active');
+        
+        // I-save sa browser aron kung mo-add/delete ta, di mobalik sa Reservations nga tab
+        localStorage.setItem('adminLastTab', tabId);
+    }
+
+    // Kung naay gipindot nga edit, siguradong adto sa menu tab mobalik
+    <?php if($is_editing): ?>
+        localStorage.setItem('adminLastTab', 'menu');
+    <?php endif; ?>
+
+    window.addEventListener('load', () => {
+        let lastTab = localStorage.getItem('adminLastTab');
+        if(lastTab) { switchAdminTab(lastTab); }
+    });
+
+    // ==========================================
+    // QR SCANNER LOGIC
+    // ==========================================
     const bookingsData = <?php echo json_encode($all_bookings); ?>;
     const todayDate = "<?php echo date('Y-m-d'); ?>";
     let html5QrcodeScanner;
@@ -518,7 +562,9 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     }
     function onScanFailure(error) {}
 
+    // ==========================================
     // LIGHTBOX SCRIPT FOR IMAGES
+    // ==========================================
     function showImage(src) { 
         const box = document.getElementById('lightbox');
         document.getElementById('lightbox-img').src = src;
