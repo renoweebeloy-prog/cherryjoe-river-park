@@ -9,9 +9,13 @@
         
         /* --- START SCREEN (ENTRANCE) --- */
         #start-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; text-align: center; padding: 20px; box-sizing: border-box; }
-        #start-screen h1 { color: #059669; font-size: 35px; margin-bottom: 10px; font-weight: 900; }
-        #start-screen p { color: #334155; font-size: 18px; max-width: 400px; margin-bottom: 30px; line-height: 1.5; }
-        #start-screen .promo { background: #fef3c7; border: 2px dashed #f59e0b; padding: 15px; border-radius: 15px; color: #d97706; font-weight: bold; font-size: 16px; margin-bottom: 30px; }
+        #start-screen h1 { color: #059669; font-size: 35px; margin-bottom: 5px; font-weight: 900; }
+        
+        .rules-box { background: #fff; border: 2px dashed #059669; padding: 20px; border-radius: 15px; margin-bottom: 20px; max-width: 400px; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .rules-box h3 { color: #d97706; margin-top: 0; font-size: 18px; text-align: center; }
+        .rules-box ul { padding-left: 20px; margin-bottom: 0; font-size: 14px; color: #334155; line-height: 1.6; }
+        .stat-badge { background: #fef3c7; color: #d97706; padding: 3px 8px; border-radius: 5px; font-weight: bold; }
+
         #start-screen button { background: #10b981; color: white; border: none; padding: 15px 40px; font-size: 22px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); transition: 0.2s; }
         #start-screen button:active { transform: scale(0.95); }
 
@@ -22,13 +26,13 @@
         #goal-text { color: #facc15; font-size: 14px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 8px; margin: 0; white-space: nowrap; }
         #high-score { color: #10b981; font-size: 16px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); margin: 0; }
         
-        /* BANNER KUNG MAKA-SCORE UG 2000 (Mawala dayon) */
+        /* BANNER KUNG MAKA-SCORE UG GOAL */
         #win-banner { display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 16px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: 0 10px 25px rgba(217, 119, 6, 0.5); z-index: 100; border: 2px solid #fef3c7; text-align: center; width: 90%; max-width: 400px; animation: popIn 0.5s ease-out; }
         @keyframes popIn { 0% { transform: translate(-50%, -20px) scale(0.8); opacity: 0; } 100% { transform: translate(-50%, 0) scale(1); opacity: 1; } }
 
         /* --- CRASH / GAME OVER SCREEN --- */
-        #game-over { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.98); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); z-index: 50; width: 85%; max-width: 350px; }
-        #game-over h1 { color: #ef4444; margin-top: 0; font-size: 38px; font-weight: 900; letter-spacing: 2px; margin-bottom: 10px; }
+        #game-over { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.98); padding: 30px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); z-index: 50; width: 85%; max-width: 350px; }
+        #game-over h1 { color: #ef4444; margin-top: 0; font-size: 38px; font-weight: 900; letter-spacing: 2px; margin-bottom: 5px; }
         #game-over button { background: #10b981; color: white; border: none; padding: 15px 30px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); margin-top: 15px; width: 100%; }
         
         #controls-hint { position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold; text-shadow: 1px 1px 4px black; font-size: 14px; text-align: center; width: 100%; pointer-events: none; z-index: 10; display: none; }
@@ -42,26 +46,32 @@
 </head>
 <body>
 
+    <!-- GIGAMIT NAKO ANG EXACT FILENAMES NGA IMONG GIPANGAYO -->
     <audio id="snd-boat" src="boat.mp3.mp3" loop preload="auto"></audio>
     <audio id="snd-crash" src="crash.mp3.mp3" preload="auto"></audio>
 
     <div id="start-screen">
         <h1>🛶 River Dodge</h1>
-        <p>Steer the Boat left and right to dodge the river rocks.</p>
-        <div class="promo">
-            🎁 <b>REWARD:</b> Score <b>2000 Pts</b> to win a Free Entrance Ticket directly to your email!
+        <div class="rules-box">
+            <h3>📜 Game Rules & Prizes</h3>
+            <ul>
+                <li>Dodge rocks! Boat gets faster as score increases.</li>
+                <li><b>Prizes:</b> 2000, 3000, 4000, 5000 pts = Free Ticket. <br><b>8000 pts = Free Snacks!</b></li>
+                <li><b>Attempts:</b> You have <span class="stat-badge" id="ui-attempts">5</span> attempts today.</li>
+                <li><b>Slots:</b> <span class="stat-badge" id="ui-slots">X</span> prizes left today.</li>
+            </ul>
         </div>
-        <button onclick="startGame()">▶ PLAY NOW</button>
+        <button id="btn-start" onclick="startGame()">▶ PLAY NOW</button>
     </div>
 
-    <!-- WINNER BANNER (Kini kay mawala ra human sa 4 seconds) -->
-    <div id="win-banner">🎉 2000 SCORE REACHED!<br><span style="font-size:12px;">Check your email for the Free Ticket.</span> 🎉</div>
+    <!-- WINNER BANNER -->
+    <div id="win-banner">🎉 <span id="win-text"></span><br><span style="font-size:12px;">Sent to Email. Check in 1 minute.</span> 🎉</div>
 
-    <!-- UI UG SCORE (Gi-grupo aron magtapad) -->
+    <!-- UI UG SCORE (Side-by-side layout) -->
     <div id="game-ui">
         <div class="score-row">
             <div id="score">Score: 0</div>
-            <div id="goal-text">Goal: 2000 Pts = Free Ticket!</div>
+            <div id="goal-text">Goal: 2000</div>
         </div>
         <div id="high-score">High Score: 0</div>
     </div>
@@ -80,19 +90,46 @@
     </div>
 
     <script>
-        // 1. URL PARAMS PARA SA EMAIL
+        // 1. URL PARAMS PARA SA EMAIL UG SLOTS
         const urlParams = new URLSearchParams(window.location.search);
         const playerName = urlParams.get('name') || 'Guest';
         const playerEmail = urlParams.get('email') || '';
+        let availableSlots = parseInt(urlParams.get('slots')) || 0;
 
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2tEl71Ge9W98MnMiNKMJ9UTa_huFJyIJ_Q6-0bwtJ-5NAzFBPbmDAgTs8yfZhxpr6Jg/exec";
 
         const sndBoat = document.getElementById('snd-boat');
         const sndCrash = document.getElementById('snd-crash');
 
+        // ATTEMPTS & GOAL LOGIC (Reset daily)
+        let todayStr = new Date().toDateString();
+        if(localStorage.getItem('cj_date') !== todayStr) {
+            localStorage.setItem('cj_attempts', '5');
+            localStorage.setItem('cj_date', todayStr);
+            localStorage.setItem('cj_goal', '2000'); // Reset goal back to 2000 each day
+        }
+        
+        let attemptsLeft = parseInt(localStorage.getItem('cj_attempts')) || 0;
+        let currentGoal = parseInt(localStorage.getItem('cj_goal')) || 2000;
         let savedHighScore = localStorage.getItem('cj_highscore') || 0;
-        document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
 
+        // UI UPDATES SA START SCREEN
+        document.getElementById('ui-slots').innerText = availableSlots;
+        document.getElementById('ui-attempts').innerText = attemptsLeft;
+        document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
+        
+        function updateGoalText() {
+            let prizeStr = (currentGoal >= 8000) ? "Free Snacks" : "Free Ticket";
+            document.getElementById('goal-text').innerText = `Goal: ${currentGoal} Pts = ${prizeStr}`;
+        }
+        updateGoalText();
+
+        if (attemptsLeft <= 0 || availableSlots <= 0) {
+            document.getElementById('btn-start').innerText = "Play For Fun (0 Prizes/Attempts)";
+            document.getElementById('btn-start').style.background = "#64748b";
+        }
+
+        // SCENE SETUP
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x87CEEB); 
         scene.fog = new THREE.Fog(0x87CEEB, 20, 80); 
@@ -120,6 +157,7 @@
         river.receiveShadow = true;
         scene.add(river);
 
+        // BANGKA UG TAO
         const player = new THREE.Group();
         const woodMat = new THREE.MeshStandardMaterial({ color: 0x8B4513 }); 
         const paintMat = new THREE.MeshStandardMaterial({ color: 0xffffff }); 
@@ -150,7 +188,7 @@
         let score = 0;
         let baseSpeed = 0.25; 
         let speed = baseSpeed;
-        let ticketWon = false; 
+        let prizeWonThisRound = false; 
         
         // 6. CONTROLS
         const keys = { left: false, right: false };
@@ -204,7 +242,7 @@
                 const mtnR = new THREE.Mesh(mtnGeo, mtnMat); mtnR.position.set(25+Math.random()*5, 0, -100); scene.add(mtnR); scenery.push(mtnR);
             }
 
-            // Mga bato sa kilid
+            // Bato sa kilid
             if (Math.random() > 0.6) {
                 const sideRockSize = 2 + Math.random() * 2;
                 const sideRockGeo = new THREE.DodecahedronGeometry(sideRockSize, 1);
@@ -239,22 +277,26 @@
             setTimeout(() => { document.getElementById('controls-hint').style.display = 'none'; }, 4000);
         }
 
-        // 9. WIN EMAIL TRIGGER
-        function triggerWinEmail() {
+        // 9. WIN EMAIL TRIGGER (Image Beacon technique)
+        function triggerWinEmail(prizeName) {
             const banner = document.getElementById('win-banner');
+            document.getElementById('win-text').innerText = prizeName + " WON!";
             banner.style.display = 'block';
             
             setTimeout(() => {
                 banner.style.display = 'none';
             }, 4000);
 
-            if(playerEmail) {
+            if(playerEmail && availableSlots > 0 && attemptsLeft > 0) {
+                // E-deduct ang slot sa server backend
+                fetch('index.php?action=deduct_slot');
+                availableSlots--;
+
                 const ticketId = "WINTIX-" + Math.floor(Math.random() * 999999);
-                const fetchUrl = `${APPS_SCRIPT_URL}?action=win&name=${encodeURIComponent(playerName)}&email=${encodeURIComponent(playerEmail)}&ticket=${ticketId}`;
+                const fetchUrl = `${APPS_SCRIPT_URL}?action=win&name=${encodeURIComponent(playerName)}&email=${encodeURIComponent(playerEmail)}&ticket=${ticketId}&prize=${encodeURIComponent(prizeName)}`;
                 
                 let beacon = new Image();
                 beacon.src = fetchUrl;
-                console.log("Email request triggered to: " + playerEmail);
             }
         }
 
@@ -263,6 +305,7 @@
             if (isGameOver) return;
             requestAnimationFrame(animate);
 
+            // River Wave
             const time = Date.now() * 0.002;
             const positions = riverGeo.attributes.position;
             for(let i = 0; i < positions.count; i++) {
@@ -273,6 +316,7 @@
             }
             positions.needsUpdate = true;
 
+            // Player Movement (Speed Increases Maneuverability slightly)
             let turnSpeed = 0.25 + (speed - 0.25);
             if (keys.left && player.position.x > -14) player.position.x -= turnSpeed;
             if (keys.right && player.position.x < 14) player.position.x += turnSpeed;
@@ -302,11 +346,25 @@
                     document.getElementById('score').innerText = "Score: " + score;
                     obs.passed = true;
                     
-                    speed += 0.002; 
+                    // BOAT MO-PASPAS UG MAAYO KADA OBSTACLE
+                    speed += 0.003; 
                     
-                    if(score >= 2000 && !ticketWon) {
-                        ticketWon = true;
-                        triggerWinEmail();
+                    // DYNAMIC GOAL CHECKER (2k, 3k, 4k, 5k, 8k)
+                    if(score >= currentGoal && !prizeWonThisRound && availableSlots > 0 && attemptsLeft > 0) {
+                        prizeWonThisRound = true;
+                        
+                        let pName = (currentGoal >= 8000) ? "Free Snacks" : "Free Entrance Ticket";
+                        triggerWinEmail(pName);
+
+                        // SET NEXT GOAL
+                        if(currentGoal === 2000) currentGoal = 3000;
+                        else if(currentGoal === 3000) currentGoal = 4000;
+                        else if(currentGoal === 4000) currentGoal = 5000;
+                        else if(currentGoal === 5000) currentGoal = 8000;
+                        else currentGoal = 999999; // Wala nay sunod if malapas sa 8000
+                        
+                        localStorage.setItem('cj_goal', currentGoal);
+                        updateGoalText();
                     }
                 }
                 if (obs.position.z > 20) { scene.remove(obs); obstacles.splice(i, 1); i--; }
@@ -321,25 +379,35 @@
             sndCrash.currentTime = 0; 
             sndCrash.play().catch(e=>{});
 
+            // DEDUCT ATTEMPT (Only if there are attempts left to deduct)
+            if(attemptsLeft > 0) {
+                attemptsLeft--;
+                localStorage.setItem('cj_attempts', attemptsLeft);
+            }
+
             document.getElementById('game-over').style.display = 'block';
             document.getElementById('mobile-controls').style.display = 'none'; 
             document.getElementById('win-banner').style.display = 'none';
 
+            let msg = "Distance Reached: " + score;
+            
             if (score > savedHighScore) {
                 savedHighScore = score;
                 localStorage.setItem('cj_highscore', savedHighScore); 
                 document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
-                document.getElementById('final-score').innerHTML = "You scored: " + score + "<br><br><span style='color:#059669; font-size:26px;'>🎉 NEW HIGH SCORE! 🎉</span>";
-            } else {
-                document.getElementById('final-score').innerHTML = "Distance Reached: " + score;
+                msg = "You scored: " + score + "<br><br><span style='color:#059669; font-size:26px;'>🎉 NEW HIGH SCORE! 🎉</span>";
             }
+            
+            // Ipakita pila nalang ka attempts
+            msg += `<br><br><span style='font-size:14px; color:#ef4444;'>Attempts Left Today: ${attemptsLeft}</span>`;
+            document.getElementById('final-score').innerHTML = msg;
         }
 
         window.resetGame = function() {
             isGameOver = false; 
             score = 0; 
             speed = baseSpeed; 
-            ticketWon = false;
+            prizeWonThisRound = false;
             
             document.getElementById('score').innerText = "Score: 0";
             document.getElementById('game-over').style.display = 'none';
