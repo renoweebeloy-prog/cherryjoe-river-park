@@ -1,5 +1,14 @@
 <?php 
 session_start();
+
+// API PARA MA-DEDUCT ANG SLOTS KUNG MAKA-DAOG SA DULA
+$slots_file = 'game_slots.txt';
+if (isset($_GET['action']) && $_GET['action'] == 'deduct_slot') {
+    $s = file_exists($slots_file) ? (int)file_get_contents($slots_file) : 0;
+    if ($s > 0) file_put_contents($slots_file, $s - 1);
+    exit("OK");
+}
+
 require 'db_connect.php';
 
 // KUNG WALA NAKA LOG-IN, E-KICK OUT PAINGON SA LOGIN PAGE
@@ -56,6 +65,9 @@ try {
 } catch(PDOException $e) {
     // Safely ignore kung wala pa na-create ang bookings table sa Supabase
 }
+
+// KUHAON ANG CURRENT SLOTS ARON IPASA SA DULA
+$current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_file) : 10;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -288,7 +300,7 @@ try {
 
     <!-- AUDIO TAG -->
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.mp" type="audio/mpeg">
+        <source src="assetsmusiconetime.m3" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
@@ -640,7 +652,7 @@ try {
             <div class="games-grid" style="display: block;">
                 <!-- CHERRYJOE CUSTOM 3D GAME -->
                 <div class="game-card" style="max-width: 800px; margin: 0 auto; background: #f8fafc; border: 2px solid #10b981; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                    <iframe src="3dgame.html?name=<?php echo urlencode($userName); ?>&email=<?php echo urlencode($userEmail); ?>" width="100%" height="500" frameborder="0" style="border: none; display: block;"></iframe>
+                    <iframe src="3dgame.html?name=<?php echo urlencode($userName); ?>&email=<?php echo urlencode($userEmail); ?>&slots=<?php echo $current_game_slots; ?>" width="100%" height="500" frameborder="0" style="border: none; display: block;"></iframe>
                     <div style="background: #ffffff; border-top: 1px solid #cbd5e1; padding: 15px; text-align: center;">
                         <h3 style="color: #059669; margin-bottom: 5px; font-size: 18px;"><i class="fas fa-ship"></i> CherryJoe River Dodge</h3>
                         <p style="font-size: 13px; color: #64748b;">Controls: Use Left & Right arrows (or tap the left/right sides of your screen) to dodge the rocks!</p>
