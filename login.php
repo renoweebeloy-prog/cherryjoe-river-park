@@ -1,15 +1,35 @@
 <?php
+session_start();
+
 // ==========================================
-// MAINTENANCE MODE CHECKER (BAG-O!)
+// 1. MAINTENANCE MODE CHECKER
 // ==========================================
 $maintenance_file = 'maintenance_mode.txt';
 $is_maintenance = file_exists($maintenance_file) && file_get_contents($maintenance_file) === "1";
 
-// Kung naka-ON ang maintenance ug DILI Admin ang nag-open, ipakita ang Maintenance Screen
-if ($is_maintenance && !$isAdmin) {
-    // ... Dako kaayo nga HTML code diri ...
+// ==========================================
+// 2. ADMIN SECRET BYPASS (Gikan sa Padlock)
+// ==========================================
+// Kung gi-click sa Admin ang padlock sa maintenance.php (?admin=true)
+if (isset($_GET['admin']) && $_GET['admin'] === 'true') {
+    $_SESSION['admin_bypass'] = true; // Tagaan og temporary VIP pass ang browser sa Admin
+}
+
+// ==========================================
+// 3. BLOCK NORMAL USERS
+// ==========================================
+// Kung maintenance mode karon UG wala pay VIP pass ang ni-visit
+if ($is_maintenance && empty($_SESSION['admin_bypass'])) {
+    // I-itsa ang user padulong sa maintenance page
+    header("Location: maintenance.php");
     exit();
 }
+
+// ... [ANG IMONG KARAAN NGA CODE SA LOGIN.PHP IPADAYON DIRI SA UBOS] ...
+// Pananglitan:
+// require 'db_connect.php';
+// if ($_SERVER['REQUEST_METHOD'] == 'POST') { ... }
+?>
 session_start();
 require 'db_connect.php';
 
