@@ -29,7 +29,7 @@ if ($is_maintenance && empty($_SESSION['admin_bypass'])) {
 // Pananglitan:
 // require 'db_connect.php';
 // if ($_SERVER['REQUEST_METHOD'] == 'POST') { ... }
-?>
+
 session_start();
 require 'db_connect.php';
 
