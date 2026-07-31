@@ -1,5 +1,7 @@
 <?php 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // ==========================================
 // 1. MAINTENANCE MODE CHECKER & ADMIN BYPASS
@@ -90,77 +92,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $error = "System Error: " . $e->getMessage(); 
     } 
 } 
-
-
-// ... [ANG IMONG KARAAN NGA CODE SA LOGIN.PHP IPADAYON DIRI SA UBOS] ...
-// Pananglitan:
-// require 'db_connect.php';
-// if ($_SERVER['REQUEST_METHOD'] == 'POST') { ... }
-
-session_start();
-require 'db_connect.php';
-
-// AUTO-LOGIN LOGIC
-if (!isset($_SESSION['user_id']) && isset($_COOKIE['cherryjoe_user'])) {
-    try {
-        $stmt = $conn->prepare("SELECT id, full_name, email FROM users WHERE id = :id");
-        $stmt->execute(['id' => $_COOKIE['cherryjoe_user']]);
-        $user = $stmt->fetch();
-
-        if ($user) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['name'] = $user['full_name'];
-            $_SESSION['email'] = $user['email'];
-        }
-    } catch(PDOException $e) {
-        // Ignore error
-    }
-}
-
-// Redirect kung naka-login na
-if (isset($_SESSION['user_id'])) {
-    if ($_SESSION['email'] === 'admin@cherryjoe.com') {
-        header("Location: admin_dashboard.php");
-    } else {
-        header("Location: index.php");
-    }
-    exit();
-}
-
-$error = '';
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $remember = isset($_POST['remember']);
-
-    try {
-        $stmt = $conn->prepare("SELECT id, full_name, password, email FROM users WHERE email = :email");
-        $stmt->execute(['email' => $email]);
-        $user = $stmt->fetch();
-
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['name'] = $user['full_name'];
-            $_SESSION['email'] = $user['email'];
-            
-            if ($remember) {
-                setcookie('cherryjoe_user', $user['id'], time() + (86400 * 30), "/"); 
-            }
-            
-            if ($user['email'] === 'admin@cherryjoe.com') {
-                header("Location: admin_dashboard.php");
-            } else {
-                header("Location: index.php");
-            }
-            exit();
-        } else {
-            $error = "Invalid email or password.";
-        }
-    } catch(PDOException $e) {
-        $error = "System Error: " . $e->getMessage();
-    }
-}
 ?>
 <!DOCTYPE html>
 <html lang="en">
