@@ -1,12 +1,45 @@
 <?php 
 session_start();
 
-// API PARA MA-DEDUCT ANG SLOTS KUNG MAKA-DAOG SA DULA
+// ==========================================
+// API: SERVER-SIDE GAME DATA SYNC (PARA SAME ATTEMPTS KADA DEVICE)
+// ==========================================
 $slots_file = 'game_slots.txt';
-if (isset($_GET['action']) && $_GET['action'] == 'deduct_slot') {
-    $s = file_exists($slots_file) ? (int)file_get_contents($slots_file) : 0;
-    if ($s > 0) file_put_contents($slots_file, $s - 1);
-    exit("OK");
+$stats_file = 'game_stats.json';
+$today = date('Y-m-d');
+
+// I-setup ang JSON file kung wala pa
+if (!file_exists($stats_file)) { file_put_contents($stats_file, json_encode(['date' => $today, 'users' => []])); }
+$stats_data = json_decode(file_get_contents($stats_file), true);
+
+// I-reset ang data kung bag-o na nga adlaw (Para mobalik sa 5 attempts ugma)
+if ($stats_data['date'] !== $today) {
+    $stats_data = ['date' => $today, 'users' => []];
+    file_put_contents($stats_file, json_encode($stats_data), LOCK_EX);
+}
+
+// API Handler para sa pag-update sa data gikan sa dula
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == 'deduct_slot') {
+        $s = file_exists($slots_file) ? (int)file_get_contents($slots_file) : 0;
+        if ($s > 0) file_put_contents($slots_file, $s - 1, LOCK_EX);
+        exit("OK");
+    }
+    if ($_GET['action'] == 'update_stat' && isset($_GET['email'])) {
+        $em = $_GET['email'];
+        $type = $_GET['type'];
+        $val = $_GET['val'];
+        
+        if (!isset($stats_data['users'][$em])) {
+            $stats_data['users'][$em] = ['attempts' => 5, 'goal' => 2000, 'highscore' => 0];
+        }
+        if ($type == 'attempt') $stats_data['users'][$em]['attempts'] = (int)$val;
+        if ($type == 'goal') $stats_data['users'][$em]['goal'] = (int)$val;
+        if ($type == 'highscore') $stats_data['users'][$em]['highscore'] = (int)$val;
+        
+        file_put_contents($stats_file, json_encode($stats_data), LOCK_EX);
+        exit("OK");
+    }
 }
 
 require 'db_connect.php';
@@ -20,14 +53,10 @@ if (!isset($_SESSION['user_id'])) {
 // HANDLE PROFILE PICTURE UPLOAD
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
     $uploadDir = 'uploads/';
-    if (!is_dir($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
-    }
-    
+    if (!is_dir($uploadDir)) { mkdir($uploadDir, 0777, true); }
     $fileName = time() . '_' . basename($_FILES['profile_pic']['name']);
     $targetFilePath = $uploadDir . $fileName;
     $fileType = pathinfo($targetFilePath, PATHINFO_EXTENSION);
-    
     $allowTypes = array('jpg','png','jpeg','gif');
     if(in_array(strtolower($fileType), $allowTypes)){
         if(move_uploaded_file($_FILES['profile_pic']['tmp_name'], $targetFilePath)){
@@ -49,24 +78,25 @@ $profilePic = $currentUser['profile_pic'] ?? null;
 $isAdmin = ($userEmail === 'admin@cherryjoe.com');
 $userRole = $isAdmin ? 'Admin' : 'Visitor';
 
-// Himoan og Initials
 $nameParts = explode(' ', trim($userName));
 $initials = strtoupper(substr($nameParts[0], 0, 1));
-if (isset($nameParts[1])) {
-    $initials .= strtoupper(substr($nameParts[1], 0, 1));
-}
+if (isset($nameParts[1])) { $initials .= strtoupper(substr($nameParts[1], 0, 1)); }
 
-// KUHAON ANG MGA BOOKINGS SA USER (Para sa "My Bookings" list)
 $userBookings = [];
 try {
     $bookingStmt = $conn->prepare("SELECT * FROM bookings WHERE user_id = :uid ORDER BY created_at DESC");
     $bookingStmt->execute(['uid' => $_SESSION['user_id']]);
     $userBookings = $bookingStmt->fetchAll();
-} catch(PDOException $e) {
-    // Safely ignore kung wala pa na-create ang bookings table sa Supabase
-}
+} catch(PDOException $e) {}
 
-// KUHAON ANG CURRENT SLOTS ARON IPASA SA DULA
+// KUHAON ANG GAME STATS SA USER PARA IPASA SA 3D GAME (Kini ang mo-sync!)
+if (!isset($stats_data['users'][$userEmail])) {
+    $stats_data['users'][$userEmail] = ['attempts' => 5, 'goal' => 2000, 'highscore' => 0];
+    file_put_contents($stats_file, json_encode($stats_data), LOCK_EX);
+}
+$u_attempts = $stats_data['users'][$userEmail]['attempts'];
+$u_goal = $stats_data['users'][$userEmail]['goal'];
+$u_highscore = $stats_data['users'][$userEmail]['highscore'];
 $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_file) : 10;
 ?>
 <!DOCTYPE html>
@@ -77,8 +107,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
     <title>CherryJoe River Park</title>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-    
-    <!-- QR CODE GENERATOR SCRIPT -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
@@ -300,7 +328,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
 
     <!-- AUDIO TAG -->
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.m3" type="audio/mpeg">
+        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
@@ -652,7 +680,8 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             <div class="games-grid" style="display: block;">
                 <!-- CHERRYJOE CUSTOM 3D GAME -->
                 <div class="game-card" style="max-width: 800px; margin: 0 auto; background: #f8fafc; border: 2px solid #10b981; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                    <iframe src="3dgame.html?name=<?php echo urlencode($userName); ?>&email=<?php echo urlencode($userEmail); ?>&slots=<?php echo $current_game_slots; ?>" width="100%" height="500" frameborder="0" style="border: none; display: block;"></iframe>
+                    <!-- GIPASA ANG ATTEMPTS, GOAL, HIGHSCORE SA IFRAME GIKAN SA PHP SERVER -->
+                    <iframe src="3dgame.html?name=<?php echo urlencode($userName); ?>&email=<?php echo urlencode($userEmail); ?>&slots=<?php echo $current_game_slots; ?>&attempts=<?php echo $u_attempts; ?>&goal=<?php echo $u_goal; ?>&highscore=<?php echo $u_highscore; ?>" width="100%" height="500" frameborder="0" style="border: none; display: block;"></iframe>
                     <div style="background: #ffffff; border-top: 1px solid #cbd5e1; padding: 15px; text-align: center;">
                         <h3 style="color: #059669; margin-bottom: 5px; font-size: 18px;"><i class="fas fa-ship"></i> CherryJoe River Dodge</h3>
                         <p style="font-size: 13px; color: #64748b;">Controls: Use Left & Right arrows (or tap the left/right sides of your screen) to dodge the rocks!</p>
