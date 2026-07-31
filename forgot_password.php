@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             // ==========================================
             // ILISI KINI SA IMONG BAG-ONG WEB APP URL
             // ==========================================
-            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbz93x4b45fndZ6PTebbwNoaN9Xga8CeHtj3G7dCs0G8qQM6UAbeH41fyloDP0BWtCmhMg/exec'; 
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbw2tEl71Ge9W98MnMiNKMJ9UTa_huFJyIJ_Q6-0bwtJ-5NAzFBPbmDAgTs8yfZhxpr6Jg/exec'; 
 
             // Ipasa ang data gamit ang GET URL
             $url = $google_app_script_url . "?email=" . urlencode($email) . "&otp=" . $otp . "&name=" . urlencode($user['full_name']);
