@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset
             $updateStmt = $conn->prepare("UPDATE bookings SET status = :status WHERE id = :id");
             $updateStmt->execute(['status' => $n_status, 'id' => $b_id]);
             
-            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbzraWE7fbxFfwI8mm5ixTHT9NLQUxLqcjlwfPpkl7yfe3-4F-t44fRosm3EL7sDj1ju4w/exec'; // ⚠️ SCRIPT URL ⚠️
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbzraWE7fbxFfwI8mm5ixTHT9NLQUxLqcjlwfPpkl7yfe3-4F-t44fRosm3EL7sDj1ju4w/exec'; 
             
             $action_type = '';
             if ($n_status === 'Confirmed') { $action_type = 'confirm'; }
@@ -152,32 +152,34 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
 
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, sans-serif; }
-        body { background: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(5,150,105,0.1)); padding: 40px 20px; color: #1e293b; }
-        .dashboard-container { background: #fff; padding: 40px; border-radius: 24px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); max-width: 1100px; margin: 0 auto; }
+        body { background: linear-gradient(135deg, rgba(16,185,129,0.05), rgba(5,150,105,0.1)); padding: 20px; color: #1e293b; }
+        
+        /* CARD-BASED LAYOUT */
+        .admin-card { background: #ffffff; padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-bottom: 30px; border: 1px solid #e2e8f0; }
+        
         .header-flex { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid rgba(16, 185, 129, 0.1); padding-bottom: 20px; margin-bottom: 30px; flex-wrap: wrap; gap: 15px;}
         .header-flex h1 { color: #059669; font-size: 28px; display: flex; align-items: center; gap: 12px; }
         .back-btn { background: #f8fafc; color: #475569; padding: 10px 20px; border-radius: 50px; text-decoration: none; border: 1px solid #cbd5e1; font-weight: 600; }
-        .section-title { font-size: 20px; margin: 40px 0 15px 0; color: #1e293b; border-left: 5px solid #059669; padding-left: 10px; display: flex; justify-content: space-between; align-items: center;}
+        .section-title { font-size: 18px; margin-bottom: 20px; color: #1e293b; border-left: 5px solid #059669; padding-left: 10px; display: flex; justify-content: space-between; align-items: center;}
         
-        .btn-scan { background: #1e293b; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; }
+        .btn-scan { background: #1e293b; color: white; border: none; padding: 8px 15px; border-radius: 8px; font-weight: bold; cursor: pointer; transition: 0.2s; font-size: 14px;}
         .btn-scan:hover { background: #0f172a; }
         .scanner-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 9999; justify-content: center; align-items: center; padding: 20px;}
         .scanner-box { background: white; padding: 20px; border-radius: 15px; width: 100%; max-width: 500px; text-align: center; }
 
-        .form-box { background: #f8fafc; padding: 25px; border-radius: 15px; border: 1px solid #e2e8f0; margin-bottom: 20px;}
-        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;}
         .full-width { grid-column: span 2; }
         label { font-size: 13px; font-weight: bold; color: #64748b; display: block; margin-bottom: 5px; text-transform: uppercase;}
-        input[type="text"], input[type="number"], input[type="file"], select, textarea { width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 8px; background: white; }
-        .btn-green { background: #059669; color: white; border: none; padding: 12px 25px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 15px; }
+        input[type="text"], input[type="number"], input[type="file"], select, textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #f8fafc; }
+        .btn-green { background: #059669; color: white; border: none; padding: 10px 20px; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
         
-        .table-container { overflow-x: auto; background: white; border: 1px solid #e2e8f0; border-radius: 10px; }
+        /* STANDARD TABLES (FOR DESKTOP) */
+        .table-container { overflow-x: auto; background: white; border: 1px solid #e2e8f0; border-radius: 10px; margin-bottom: 20px;}
         table { width: 100%; border-collapse: collapse; }
-        th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #e2e8f0; }
         th { background: #f1f5f9; color: #475569; font-size: 13px; text-transform: uppercase; }
-        .item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #cbd5e1; }
-        .delete-btn { color: white; background: #ef4444; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; display: inline-block; margin-top: 5px;}
-        .edit-btn { color: white; background: #3b82f6; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-right: 5px; font-size: 13px; display: inline-block; margin-top: 5px;}
+        .delete-btn { color: white; background: #ef4444; padding: 6px 10px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 12px; display: inline-block; margin-top: 5px;}
+        .edit-btn { color: white; background: #3b82f6; padding: 6px 10px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-right: 5px; font-size: 12px; display: inline-block; margin-top: 5px;}
         
         .status-badge { padding: 6px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
         .Pending { background: #fef3c7; color: #d97706; }
@@ -187,260 +189,245 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         .success-msg { background: #d1fae5; color: #059669; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
         .error-msg { background: #fee2e2; color: #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
 
-        .slots-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 20px; border-radius: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;}
-        .slots-box h3 { margin-bottom: 5px; font-size: 18px; }
-        .slots-box p { font-size: 13px; margin-top: 5px;}
+        .slots-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;}
+        .slots-box h3 { margin-bottom: 5px; font-size: 16px; color: #d97706;}
+        .slots-box p { font-size: 13px; margin-top: 5px; color: #b45309;}
+
+        /* FOOD MENU GRID DISPLAY */
+        .food-manager-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        .food-item-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
+        .food-item-card img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; cursor: zoom-in; }
+        .food-item-card h4 { color: #1e293b; font-size: 15px; margin-bottom: 5px; }
+        .food-item-card .cat-price { display: flex; justify-content: space-between; font-size: 12px; color: #64748b; font-weight: bold; margin-bottom: 5px;}
+        .food-item-card .price { color: #059669; }
+        .food-item-card .actions { display: flex; justify-content: space-between; margin-top: 10px; border-top: 1px dashed #cbd5e1; padding-top: 10px;}
+
+        /* LIGHTBOX WITHOUT DOWNLOAD BUTTON */
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; justify-content: center; align-items: center; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; cursor: zoom-out; }
+        .lightbox img { max-width: 95%; max-height: 85%; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 2px solid #ffffff; }
+        .lightbox.show { opacity: 1; }
+        .lightbox.show img { transform: scale(1); }
 
         /* ==========================================
-           MOBILE RESPONSIVE TABLES (FULL SCREEN CP)
+           MOBILE RESPONSIVE TWEAKS
            ========================================== */
         @media screen and (max-width: 768px) {
-            body { padding: 10px; background: #f8fafc; }
-            .dashboard-container { padding: 15px; box-shadow: none; border-radius: 10px; }
             .header-flex h1 { font-size: 22px; }
-            .section-title { font-size: 18px; flex-direction: column; align-items: flex-start; gap: 10px; }
+            .section-title { font-size: 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
             .btn-scan { width: 100%; text-align: center; }
             
-            table, thead, tbody, th, td, tr { display: block; width: 100%; }
-            thead tr { position: absolute; top: -9999px; left: -9999px; } 
+            /* FORCE 4 COLUMNS ON MOBILE FOR FOOD MENU */
+            .food-manager-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+            .food-item-card { padding: 8px; }
+            .food-item-card img { height: 80px; }
+            .food-item-card h4 { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            .food-item-card .cat-price { flex-direction: column; font-size: 10px; gap: 2px; }
+            .food-item-card .actions { flex-direction: column; gap: 5px; align-items: stretch;}
+            .food-item-card .actions a { text-align: center; width: 100%; padding: 4px; font-size: 10px;}
             
-            tr { border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 15px; background: #ffffff; padding: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
-            
-            td { 
-                border: none;
-                border-bottom: 1px solid #e2e8f0; 
-                position: relative;
-                padding: 10px 10px 10px 40%; 
-                text-align: right;
-                min-height: 45px;
-            }
-            td:last-child { border-bottom: 0; text-align: center; padding-left: 10px; } 
-            
-            td:before { 
-                position: absolute;
-                top: 12px;
-                left: 10px;
-                width: 35%; 
-                padding-right: 10px; 
-                white-space: nowrap;
-                text-align: left;
-                font-weight: bold;
-                color: #64748b;
-                font-size: 12px;
-                text-transform: uppercase;
-                content: attr(data-label);
-            }
-            
-            .item-img { float: right; width: 70px; height: 70px; border-radius: 8px; }
             .form-grid { grid-template-columns: 1fr; }
             .full-width { grid-column: span 1; }
+
+            /* FOR BOOKING TABLES (CARD STYLE) */
+            table, thead, tbody, th, td, tr { display: block; width: 100%; }
+            thead tr { display: none; } 
+            tr { border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 15px; padding: 10px; }
+            td { border: none; border-bottom: 1px dashed #e2e8f0; padding: 10px 0; text-align: left; position: relative;}
+            td:last-child { border-bottom: 0; text-align: center; } 
+            td::before { content: attr(data-label) ": "; font-weight: bold; color: #64748b; font-size: 12px; display: block; margin-bottom: 4px; }
         }
     </style>
 </head>
 <body>
 
-<div class="dashboard-container">
+<div style="max-width: 1200px; margin: auto;">
+    
     <div class="header-flex">
-        <h1><i class="fas fa-cogs"></i> Admin System Panel</h1>
-        <a href="index.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Website</a>
+        <h1><i class="fas fa-cogs"></i> Admin Dashboard</h1>
+        <a href="index.php" class="back-btn"><i class="fas fa-arrow-left"></i> Exit Admin</a>
     </div>
     
     <?php echo $message; ?>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
-        <!-- GAME SLOTS MANAGER -->
-        <div class="slots-box" style="border-color: #f59e0b; background: #fffbeb;">
+    <!-- 1. GAME SLOTS & RESERVATION CARD -->
+    <div class="admin-card">
+        <h2 class="section-title">
+            <span><i class="fas fa-calendar-check"></i> Reservation Management</span>
+            <button class="btn-scan" onclick="openScanner()"><i class="fas fa-qrcode"></i> Scan Guest QR</button>
+        </h2>
+        
+        <div class="slots-box">
             <div>
-                <h3 style="color: #d97706;"><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
-                <p style="color: #b45309;">Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
+                <h3><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
+                <p>Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
             </div>
             <form method="POST" style="display: flex; gap: 10px; align-items: center;">
-                <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px;">
-                <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 10px 15px;">Update</button>
+                <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px;">
+                <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 8px 15px;">Update</button>
             </form>
+        </div>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th><th>Guest Details</th><th>Facility & Dates</th><th>GCash Ref</th><th>Status</th><th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (count($all_bookings) > 0): ?>
+                        <?php foreach ($all_bookings as $booking): ?>
+                        <?php 
+                            $today = date('Y-m-d');
+                            $is_expired = (strtotime($booking['check_out']) < strtotime($today));
+                        ?>
+                        <tr>
+                            <td data-label="Booking ID"><b>#<?php echo htmlspecialchars($booking['id'] ?? ''); ?></b></td>
+                            <td data-label="Guest">
+                                <div style="font-weight: bold; font-size: 15px;"><?php echo htmlspecialchars($booking['user_name'] ?? ''); ?></div>
+                                <div style="font-size: 12px; color: #64748b;"><?php echo htmlspecialchars($booking['user_email'] ?? ''); ?></div>
+                            </td>
+                            <td data-label="Facility">
+                                <div style="font-weight: bold; color: #059669; font-size: 14px;"><?php echo htmlspecialchars($booking['cottage_type'] ?? ''); ?></div>
+                                <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in'] ?? ''); ?> <br> <b>Out:</b> <?php echo htmlspecialchars($booking['check_out'] ?? ''); ?></div>
+                            </td>
+                            <td data-label="GCash Ref"><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 13px;"><?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?></span></td>
+                            <td data-label="Status">
+                                <span class="status-badge <?php echo htmlspecialchars($booking['status'] ?? ''); ?>">
+                                    <?php echo htmlspecialchars($booking['status'] ?? ''); ?>
+                                </span>
+                            </td>
+                            <td data-label="Actions">
+                                <?php if ($booking['status'] === 'Pending' && !$is_expired): ?>
+                                    <form method="POST" style="display:inline;" onsubmit="return confirm('Approve booking?');">
+                                        <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
+                                        <input type="hidden" name="new_status" value="Confirmed">
+                                        <button type="submit" style="background:#10b981; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Confirm Booking"><i class="fas fa-check"></i></button>
+                                    </form>
+                                    <form method="POST" style="display:inline;" onsubmit="return confirm('Reject booking?');">
+                                        <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
+                                        <input type="hidden" name="new_status" value="Cancelled">
+                                        <button type="submit" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Reject Booking"><i class="fas fa-times"></i></button>
+                                    </form>
+                                <?php elseif ($is_expired && $booking['status'] === 'Pending'): ?>
+                                    <span style="color: #ef4444; font-size: 12px; font-weight: bold; font-style: italic;"><i class="fas fa-ban"></i> Expired</span>
+                                <?php elseif ($booking['status'] === 'Verified'): ?>
+                                    <span style="color: #2563eb; font-size: 12px; font-weight: bold;"><i class="fas fa-check-double"></i> Checked-In</span>
+                                <?php else: ?>
+                                    <span style="color: #94a3b8; font-size: 12px; font-style: italic;">No actions</span>
+                                <?php endif; ?>
+                            </td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="6" style="text-align: center; color: #64748b; padding: 20px;">No reservations found.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 
-    <!-- BOOKINGS & RESERVATIONS -->
-    <h2 class="section-title">
-        <span><i class="fas fa-calendar-check"></i> Reservation Management</span>
-        <button class="btn-scan" onclick="openScanner()"><i class="fas fa-qrcode"></i> Scan Guest QR</button>
-    </h2>
-    <div class="table-container" style="margin-bottom: 50px;">
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th><th>Guest Details</th><th>Facility & Dates</th><th>GCash Ref</th><th>Status</th><th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php if (count($all_bookings) > 0): ?>
-                    <?php foreach ($all_bookings as $booking): ?>
-                    <?php 
-                        $today = date('Y-m-d');
-                        $is_expired = (strtotime($booking['check_out']) < strtotime($today));
-                    ?>
-                    <tr>
-                        <td data-label="ID"><b>#<?php echo htmlspecialchars($booking['id'] ?? ''); ?></b></td>
-                        <td data-label="Guest">
-                            <div style="font-weight: bold; font-size: 15px;"><?php echo htmlspecialchars($booking['user_name'] ?? ''); ?></div>
-                            <div style="font-size: 12px; color: #64748b; margin-top: 4px;"><?php echo htmlspecialchars($booking['user_email'] ?? ''); ?></div>
-                        </td>
-                        <td data-label="Facility">
-                            <div style="font-weight: bold; color: #059669; font-size: 14px; margin-bottom: 4px;"><?php echo htmlspecialchars($booking['cottage_type'] ?? ''); ?></div>
-                            <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in'] ?? ''); ?> <br> <b>Out:</b> <?php echo htmlspecialchars($booking['check_out'] ?? ''); ?></div>
-                            <?php if ($is_expired && $booking['status'] !== 'Cancelled'): ?>
-                                <span style="color: #ef4444; font-weight: bold; font-size: 11px; display: inline-block; margin-top: 4px;"><i class="fas fa-exclamation-circle"></i> Date Passed</span>
-                            <?php endif; ?>
-                        </td>
-                        <td data-label="GCash Ref"><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 13px;"><?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?></span></td>
-                        <td data-label="Status">
-                            <span class="status-badge <?php echo htmlspecialchars($booking['status'] ?? ''); ?>">
-                                <?php echo htmlspecialchars($booking['status'] ?? ''); ?>
-                            </span>
-                        </td>
-                        <td data-label="Actions">
-                            <?php if ($booking['status'] === 'Pending' && !$is_expired): ?>
-                                <form method="POST" style="display:inline;" onsubmit="return confirm('Approve booking?');">
-                                    <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
-                                    <input type="hidden" name="new_status" value="Confirmed">
-                                    <button type="submit" style="background:#10b981; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Confirm Booking"><i class="fas fa-check"></i> Approve</button>
-                                </form>
-                                <form method="POST" style="display:inline;" onsubmit="return confirm('Reject booking?');">
-                                    <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
-                                    <input type="hidden" name="new_status" value="Cancelled">
-                                    <button type="submit" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Reject Booking"><i class="fas fa-times"></i> Reject</button>
-                                </form>
-                            <?php elseif ($is_expired && $booking['status'] === 'Pending'): ?>
-                                <span style="color: #ef4444; font-size: 12px; font-weight: bold; font-style: italic;"><i class="fas fa-ban"></i> Expired</span>
-                            <?php elseif ($booking['status'] === 'Verified'): ?>
-                                <span style="color: #2563eb; font-size: 12px; font-weight: bold;"><i class="fas fa-check-double"></i> Checked-In</span>
-                            <?php else: ?>
-                                <span style="color: #94a3b8; font-size: 12px; font-style: italic;">No actions</span>
-                            <?php endif; ?>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr><td colspan="6" style="text-align: center; color: #64748b; padding: 20px;">No reservations found.</td></tr>
+    <!-- 2. FOOD MENU MANAGEMENT CARD -->
+    <div class="admin-card">
+        <h2 class="section-title"><i class="fas fa-utensils"></i> Manage Food Menu</h2>
+        
+        <div style="background: #f8fafc; padding: 20px; border-radius: 12px; border: 1px dashed #cbd5e1; margin-bottom: 20px;">
+            <h3 style="margin-bottom: 15px; color: #059669; font-size: 16px;"><i class="fas fa-plus-circle"></i> <?php echo $is_editing ? 'Edit Menu Item' : 'Add New Item'; ?></h3>
+            <form method="POST" enctype="multipart/form-data">
+                <?php if($is_editing): ?>
+                    <input type="hidden" name="item_id" value="<?php echo $edit_data['id']; ?>">
+                    <input type="hidden" name="existing_image" value="<?php echo $edit_data['image_url']; ?>">
                 <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
 
-    <!-- MENU MANAGEMENT -->
-    <h2 class="section-title"><i class="fas fa-utensils"></i> Manage Food Menu</h2>
-    <div class="form-box">
-        <h3 style="margin-bottom: 15px; color: #059669; font-size: 18px;"><?php echo $is_editing ? 'Edit Menu Item' : 'Add New Menu Item'; ?></h3>
-        <form method="POST" enctype="multipart/form-data">
-            <?php if($is_editing): ?>
-                <input type="hidden" name="item_id" value="<?php echo $edit_data['id']; ?>">
-                <input type="hidden" name="existing_image" value="<?php echo $edit_data['image_url']; ?>">
-            <?php endif; ?>
-
-            <div class="form-grid">
-                <div>
-                    <label>Category</label>
-                    <select name="category">
-                        <option value="Specialties" <?php if(($edit_data['category'] ?? '')=='Specialties') echo 'selected'; ?>>Specialties</option>
-                        <option value="Combo Meals" <?php if(($edit_data['category'] ?? '')=='Combo Meals') echo 'selected'; ?>>Combo Meals</option>
-                        <option value="Finger Foods" <?php if(($edit_data['category'] ?? '')=='Finger Foods') echo 'selected'; ?>>Finger Foods</option>
-                        <option value="Drinks" <?php if(($edit_data['category'] ?? '')=='Drinks') echo 'selected'; ?>>Drinks</option>
-                    </select>
+                <div class="form-grid">
+                    <div>
+                        <label>Category</label>
+                        <select name="category">
+                            <option value="Specialties" <?php if(($edit_data['category'] ?? '')=='Specialties') echo 'selected'; ?>>Specialties</option>
+                            <option value="Combo Meals" <?php if(($edit_data['category'] ?? '')=='Combo Meals') echo 'selected'; ?>>Combo Meals</option>
+                            <option value="Finger Foods" <?php if(($edit_data['category'] ?? '')=='Finger Foods') echo 'selected'; ?>>Finger Foods</option>
+                            <option value="Drinks" <?php if(($edit_data['category'] ?? '')=='Drinks') echo 'selected'; ?>>Drinks</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>Food/Drink Name</label>
+                        <input type="text" name="name" required value="<?php echo htmlspecialchars($edit_data['name'] ?? ''); ?>">
+                    </div>
+                    <div>
+                        <label>Price</label>
+                        <input type="text" name="price" required value="<?php echo htmlspecialchars($edit_data['price'] ?? ''); ?>">
+                    </div>
+                    <div>
+                        <label>Upload Photo</label>
+                        <input type="file" name="photo" accept="image/*">
+                    </div>
+                    <div class="full-width">
+                        <label>Description (Optional)</label>
+                        <textarea name="description" rows="2"><?php echo htmlspecialchars($edit_data['description'] ?? ''); ?></textarea>
+                    </div>
                 </div>
-                <div>
-                    <label>Food/Drink Name</label>
-                    <input type="text" name="name" required value="<?php echo htmlspecialchars($edit_data['name'] ?? ''); ?>">
-                </div>
-                <div>
-                    <label>Price</label>
-                    <input type="text" name="price" required value="<?php echo htmlspecialchars($edit_data['price'] ?? ''); ?>">
-                </div>
-                <div>
-                    <label>Upload Photo</label>
-                    <input type="file" name="photo" accept="image/*">
-                    <?php if($is_editing) echo "<small style='color:#059669; display:block; margin-top:5px; font-weight:bold;'>Leave blank to keep existing photo.</small>"; ?>
-                </div>
-                <div class="full-width">
-                    <label>Description</label>
-                    <textarea name="description" rows="2"><?php echo htmlspecialchars($edit_data['description'] ?? ''); ?></textarea>
-                </div>
-            </div>
-            <button type="submit" name="<?php echo $is_editing ? 'update_menu' : 'add_menu'; ?>" class="btn-green">
-                <i class="fas fa-save"></i> <?php echo $is_editing ? 'Update Item' : 'Add to Menu'; ?>
-            </button>
-            <?php if($is_editing): ?> 
-                <a href="admin_dashboard.php" style="margin-left:15px; color:#475569; font-weight:bold; text-decoration:none;">Cancel Edit</a> 
-            <?php endif; ?>
-        </form>
-    </div>
-
-    <!-- DISPLAY FOOD MENU TABLE -->
-    <div class="table-container" style="margin-bottom: 50px;">
-        <table>
-            <thead>
-                <tr><th>Image</th><th>Name & Description</th><th>Category & Price</th><th>Action</th></tr>
-            </thead>
-            <tbody>
-                <?php if(count($menu_list) > 0): ?>
-                    <?php foreach($menu_list as $row): ?>
-                    <tr>
-                        <td data-label="Image" style="width: 80px;"><img src="<?php echo $row['image_url']; ?>" class="item-img" onerror="this.src='https://placehold.co/100'"></td>
-                        <td data-label="Details">
-                            <strong style="font-size: 16px; color: #1e293b;"><?php echo htmlspecialchars($row['name'] ?? ''); ?></strong>
-                            <div style="font-size: 12px; color: #64748b; margin-top: 5px;"><?php echo htmlspecialchars($row['description'] ?? ''); ?></div>
-                        </td>
-                        <td data-label="Category/Price">
-                            <div style="font-size: 13px; font-weight: bold; color: #475569; margin-bottom: 4px;"><?php echo htmlspecialchars($row['category'] ?? ''); ?></div>
-                            <span style="color:#059669; font-weight: 900; font-size: 15px;"><?php echo htmlspecialchars($row['price'] ?? ''); ?></span>
-                        </td>
-                        <td data-label="Action">
-                            <a href="admin_dashboard.php?edit_menu=<?php echo $row['id']; ?>" class="edit-btn"><i class="fas fa-edit"></i> Edit</a>
-                            <a href="admin_dashboard.php?delete_menu=<?php echo $row['id']; ?>" class="delete-btn" onclick="return confirm('Delete this item?');"><i class="fas fa-trash"></i> Delete</a>
-                        </td>
-                    </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr><td colspan="4" style="text-align: center; color: #64748b; padding: 20px;">No menu items added yet.</td></tr>
+                <button type="submit" name="<?php echo $is_editing ? 'update_menu' : 'add_menu'; ?>" class="btn-green">
+                    <i class="fas fa-save"></i> <?php echo $is_editing ? 'Save Changes' : 'Add to Menu'; ?>
+                </button>
+                <?php if($is_editing): ?> 
+                    <a href="admin_dashboard.php" style="margin-left:15px; color:#475569; font-weight:bold; text-decoration:none;">Cancel</a> 
                 <?php endif; ?>
-            </tbody>
-        </table>
+            </form>
+        </div>
+
+        <!-- NEW GRID DISPLAY FOR FOOD MENU (FULL SCREEN IN MOBILE) -->
+        <div class="food-manager-grid">
+            <?php if(count($menu_list) > 0): ?>
+                <?php foreach($menu_list as $row): ?>
+                <div class="food-item-card">
+                    <img src="<?php echo $row['image_url']; ?>" onclick="showImage(this.src)" onerror="this.src='https://placehold.co/400x250?text=No+Image'">
+                    <h4><?php echo htmlspecialchars($row['name'] ?? ''); ?></h4>
+                    <div class="cat-price">
+                        <span><?php echo htmlspecialchars($row['category'] ?? ''); ?></span>
+                        <span class="price"><?php echo htmlspecialchars($row['price'] ?? ''); ?></span>
+                    </div>
+                    <div class="actions">
+                        <a href="admin_dashboard.php?edit_menu=<?php echo $row['id']; ?>" class="edit-btn"><i class="fas fa-edit"></i> Edit</a>
+                        <a href="admin_dashboard.php?delete_menu=<?php echo $row['id']; ?>" class="delete-btn" onclick="return confirm('Delete this item?');"><i class="fas fa-trash"></i> Delete</a>
+                    </div>
+                </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p style="text-align: center; color: #64748b; padding: 20px; width: 100%; grid-column: 1 / -1;">No menu items added yet.</p>
+            <?php endif; ?>
+        </div>
     </div>
 
-    <!-- GALLERY MANAGEMENT -->
-    <h2 class="section-title"><i class="fas fa-images"></i> Manage Gallery Photos</h2>
-    <div class="form-box">
-        <form method="POST" enctype="multipart/form-data" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+    <!-- 3. GALLERY MANAGEMENT CARD -->
+    <div class="admin-card">
+        <h2 class="section-title"><i class="fas fa-images"></i> Manage Gallery Photos</h2>
+        
+        <form method="POST" enctype="multipart/form-data" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap; margin-bottom: 20px;">
             <div style="flex: 1; min-width: 250px;">
                 <label>Upload Photo for Gallery</label>
-                <input type="file" name="gallery_photo" accept="image/*" required>
+                <input type="file" name="gallery_photo" accept="image/*" required style="background:#f8fafc;">
             </div>
             <button type="submit" name="add_gallery" class="btn-green" style="margin-top: 0;"><i class="fas fa-upload"></i> Upload</button>
         </form>
+
+        <div class="food-manager-grid"> <!-- Gi-reuse ang grid setup sa food para limpyo -->
+            <?php if(count($gallery_list) > 0): ?>
+                <?php foreach($gallery_list as $img): ?>
+                <div class="food-item-card">
+                    <img src="<?php echo $img['image_path']; ?>" onclick="showImage(this.src)" style="height: 100px;">
+                    <a href="admin_dashboard.php?delete_gallery=<?php echo $img['id']; ?>" class="delete-btn" style="text-align:center;" onclick="return confirm('Delete this photo?');"><i class="fas fa-trash"></i> Delete Photo</a>
+                </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p style="text-align: center; color: #64748b; padding: 20px; width: 100%; grid-column: 1 / -1;">No gallery photos added yet.</p>
+            <?php endif; ?>
+        </div>
     </div>
 
-    <div class="table-container" style="margin-bottom: 50px;">
-        <table>
-            <thead><tr><th>Gallery Photo</th><th>Action</th></tr></thead>
-            <tbody>
-                <?php if(count($gallery_list) > 0): ?>
-                    <?php foreach($gallery_list as $img): ?>
-                    <tr>
-                        <td data-label="Photo"><img src="<?php echo $img['image_path']; ?>" class="item-img" style="width: 120px; height: 80px;"></td>
-                        <td data-label="Action" style="vertical-align: middle;"><a href="admin_dashboard.php?delete_gallery=<?php echo $img['id']; ?>" class="delete-btn" onclick="return confirm('Delete this photo?');"><i class="fas fa-trash"></i> Delete</a></td>
-                    </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr><td colspan="2" style="text-align: center; color: #64748b; padding: 20px;">No gallery photos added yet.</td></tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- VIDEO TOUR MANAGEMENT -->
-    <h2 class="section-title"><i class="fas fa-video"></i> Manage Resort Videos</h2>
-    <div class="form-box">
-        <form method="POST" enctype="multipart/form-data">
+    <!-- 4. VIDEO TOUR MANAGEMENT CARD -->
+    <div class="admin-card">
+        <h2 class="section-title"><i class="fas fa-video"></i> Manage Resort Videos</h2>
+        <form method="POST" enctype="multipart/form-data" style="margin-bottom: 20px;">
             <div class="form-grid">
                 <div>
                     <label>Video Title</label>
@@ -448,29 +435,29 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 </div>
                 <div>
                     <label>Upload Video (MP4)</label>
-                    <input type="file" name="resort_video" accept="video/mp4" required>
+                    <input type="file" name="resort_video" accept="video/mp4" required style="background:#f8fafc;">
                 </div>
             </div>
             <button type="submit" name="add_video" class="btn-green"><i class="fas fa-upload"></i> Upload Video</button>
         </form>
-    </div>
 
-    <div class="table-container">
-        <table>
-            <thead><tr><th>Video Title</th><th>Action</th></tr></thead>
-            <tbody>
-                <?php if(count($video_list) > 0): ?>
-                    <?php foreach($video_list as $vid): ?>
-                    <tr>
-                        <td data-label="Video Title"><strong><?php echo htmlspecialchars($vid['title'] ?? ''); ?></strong></td>
-                        <td data-label="Action"><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn" onclick="return confirm('Delete this video?');"><i class="fas fa-trash"></i> Delete</a></td>
-                    </tr>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <tr><td colspan="2" style="text-align: center; color: #64748b; padding: 20px;">No videos added yet.</td></tr>
-                <?php endif; ?>
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table>
+                <thead><tr><th>Video Title</th><th>Action</th></tr></thead>
+                <tbody>
+                    <?php if(count($video_list) > 0): ?>
+                        <?php foreach($video_list as $vid): ?>
+                        <tr>
+                            <td data-label="Title"><strong><?php echo htmlspecialchars($vid['title'] ?? ''); ?></strong></td>
+                            <td data-label="Action"><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn" onclick="return confirm('Delete this video?');"><i class="fas fa-trash"></i> Delete</a></td>
+                        </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr><td colspan="2" style="text-align: center; color: #64748b; padding: 20px;">No videos added yet.</td></tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
     </div>
 
 </div>
@@ -482,6 +469,11 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         <div id="reader" style="width:100%; border-radius:10px; overflow:hidden;"></div>
         <button onclick="closeScanner()" style="margin-top:20px; background:#ef4444; color:white; border:none; padding:10px 20px; border-radius:50px; font-weight:bold; cursor:pointer; width:100%;">Close Camera</button>
     </div>
+</div>
+
+<!-- LIGHTBOX (NO DOWNLOAD BUTTON) -->
+<div class="lightbox" id="lightbox" onclick="hideImage()">
+    <img id="lightbox-img" alt="Enlarged Preview">
 </div>
 
 <script>
@@ -525,6 +517,20 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         }
     }
     function onScanFailure(error) {}
+
+    // LIGHTBOX SCRIPT FOR IMAGES
+    function showImage(src) { 
+        const box = document.getElementById('lightbox');
+        document.getElementById('lightbox-img').src = src;
+        box.style.display = 'flex'; 
+        setTimeout(() => box.classList.add('show'), 15);
+    }
+    
+    function hideImage() { 
+        const box = document.getElementById('lightbox');
+        box.classList.remove('show');
+        setTimeout(() => box.style.display = 'none', 300);
+    }
 </script>
 </body>
-</html>```
+</html>
