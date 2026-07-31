@@ -11,6 +11,10 @@
         #score { color: #ffffff; font-size: 32px; font-weight: 900; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
         #high-score { color: #facc15; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); margin-top: 5px; }
         
+        /* BANNER KUNG MAKA-SCORE UG 2000 */
+        #win-banner { display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 18px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: 0 10px 25px rgba(217, 119, 6, 0.5); z-index: 100; border: 2px solid #fef3c7; white-space: nowrap; animation: pop 0.5s ease-out; }
+        @keyframes pop { 0% { transform: translate(-50%, -20px) scale(0.8); opacity: 0; } 100% { transform: translate(-50%, 0) scale(1); opacity: 1; } }
+
         #game-over { display: none; position: absolute; top: 50vh; left: 50vw; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); pointer-events: auto; z-index: 30; min-width: 300px; }
         #game-over h1 { color: #ef4444; margin-top: 0; font-size: 38px; font-weight: 900; letter-spacing: 2px; }
         #game-over button { background: #10b981; color: white; border: none; padding: 15px 30px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); margin-top: 15px; }
@@ -18,33 +22,29 @@
         
         #controls-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold; text-shadow: 1px 1px 4px black; font-size: 16px; text-align: center; width: 100%; pointer-events: none; }
         
-        /* --- MOBILE CONTROL PANEL STYLES --- */
         #mobile-controls { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; display: flex; justify-content: space-between; padding: 0 30px; box-sizing: border-box; z-index: 20; }
         .control-btn { background: rgba(16, 185, 129, 0.7); color: white; border: 3px solid rgba(255, 255, 255, 0.8); width: 80px; height: 80px; border-radius: 50%; font-size: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: auto; }
         .control-btn:active, .control-btn.active { background: rgba(5, 150, 105, 0.9); transform: scale(0.95); border-color: #ffffff; }
     </style>
-    <!-- THREE.JS LIBRARY -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
-    <!-- MGA AUDIO FILES (I-DOWNLOAD UG IBUTANG SA IMONG FOLDER) -->
-    <audio id="snd-boat" src="boat.mp3" loop preload="auto"></audio>
-    <audio id="snd-crash" src="crash.mp3" preload="auto"></audio>
+    <audio id="boat.mp3" loop preload="auto"></audio>
+    <audio id="crash.mp3"></audio>
 
-    <!-- UI UG SCORE -->
+    <div id="win-banner">🎉 2000 SCORE! Free Ticket sent to your Email! 🎉</div>
+
     <div id="game-ui">
         <div id="score">Score: 0</div>
         <div id="high-score">High Score: 0</div>
     </div>
     
-    <!-- ON-SCREEN CONTROL BUTTONS PARA SA CELLPHONE -->
     <div id="mobile-controls">
         <div class="control-btn" id="btn-left">◀</div>
         <div class="control-btn" id="btn-right">▶</div>
     </div>
 
-    <!-- GAME OVER SCREEN -->
     <div id="game-over">
         <h1>CRASHED!</h1>
         <p id="final-score" style="font-size: 22px; font-weight: bold; color: #1e293b; margin-bottom: 5px;"></p>
@@ -52,29 +52,29 @@
     </div>
 
     <script>
-        // ==========================================
-        // AUDIO & HIGH SCORE SETUP
-        // ==========================================
+        // 1. KUHAON ANG PANGALAN UG EMAIL GIKAN SA INDEX.PHP (via URL)
+        const urlParams = new URLSearchParams(window.location.search);
+        const playerName = urlParams.get('name') || 'Guest';
+        const playerEmail = urlParams.get('email') || '';
+
+        // ⚠️ ILISI KINI SA IMONG GOOGLE APPS SCRIPT URL ⚠️
+        const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2tEl71Ge9W98MnMiNKMJ9UTa_huFJyIJ_Q6-0bwtJ-5NAzFBPbmDAgTs8yfZhxpr6Jg/exec";
+
         const sndBoat = document.getElementById('snd-boat');
         const sndCrash = document.getElementById('snd-crash');
         let audioStarted = false;
 
-        // Pag-load sa High Score gikan sa browser
         let savedHighScore = localStorage.getItem('cj_highscore') || 0;
         document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
 
-        // I-play ang bangka sound inig first tap/click sa player
         function startAudio() {
             if (!audioStarted) {
                 sndBoat.volume = 0.5;
-                sndBoat.play().catch(e => console.log("Audio blocked by browser until interacted"));
+                sndBoat.play().catch(e=>{});
                 audioStarted = true;
             }
         }
 
-        // ==========================================
-        // 1. SETUP SCENE, CAMERA, & RENDERER
-        // ==========================================
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x87CEEB); 
         scene.fog = new THREE.Fog(0x87CEEB, 20, 80); 
@@ -88,9 +88,6 @@
         renderer.shadowMap.enabled = true;
         document.body.appendChild(renderer.domElement);
 
-        // ==========================================
-        // 2. LIGHTING
-        // ==========================================
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
         scene.add(ambientLight);
         const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
@@ -99,273 +96,165 @@
         scene.add(dirLight);
 
         // ==========================================
-        // 3. RIVER & GROUND
+        // WAVY RIVER SETUP (Daghan og segments aron mo-balod)
         // ==========================================
-        const riverGeo = new THREE.PlaneGeometry(35, 200);
-        const riverMat = new THREE.MeshStandardMaterial({ color: 0x0284c7 }); 
+        const riverGeo = new THREE.PlaneGeometry(35, 200, 30, 60); 
+        const riverMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, flatShading: false }); 
         const river = new THREE.Mesh(riverGeo, riverMat);
         river.rotation.x = -Math.PI / 2;
         river.receiveShadow = true;
         scene.add(river);
 
-        // ==========================================
-        // 4. PLAYER (PINOY BANGKA UG DUHA KA TAO)
-        // ==========================================
+        // BUILD BANGKA & PASSENGERS (Gipamub-an para sa space)
         const player = new THREE.Group();
         const woodMat = new THREE.MeshStandardMaterial({ color: 0x8B4513 }); 
         const paintMat = new THREE.MeshStandardMaterial({ color: 0xffffff }); 
-
-        // Lawas sa Bangka
-        const hullGeo = new THREE.BoxGeometry(1.2, 0.6, 3);
-        const hull = new THREE.Mesh(hullGeo, woodMat);
-        hull.position.y = 0.3;
-        hull.castShadow = true;
-        player.add(hull);
-
-        // Atubangan
-        const bowGeo = new THREE.ConeGeometry(0.6, 1.5, 4);
-        const bow = new THREE.Mesh(bowGeo, paintMat);
-        bow.rotation.x = -Math.PI / 2;
-        bow.rotation.y = Math.PI / 4;
-        bow.position.set(0, 0.3, -2.25);
-        bow.castShadow = true;
-        player.add(bow);
-
-        // Luyo
-        const stern = new THREE.Mesh(bowGeo, paintMat);
-        stern.rotation.x = Math.PI / 2;
-        stern.rotation.y = Math.PI / 4;
-        stern.position.set(0, 0.3, 2.25);
-        stern.castShadow = true;
-        player.add(stern);
-
-        // Katig
-        const katigGeo = new THREE.CylinderGeometry(0.1, 0.1, 4, 8);
         const bambooMat = new THREE.MeshStandardMaterial({ color: 0xd97706 });
+
+        const hull = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.6, 3), woodMat); hull.position.y=0.3; hull.castShadow=true; player.add(hull);
+        const bow = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.5, 4), paintMat); bow.rotation.x=-Math.PI/2; bow.rotation.y=Math.PI/4; bow.position.set(0,0.3,-2.25); bow.castShadow=true; player.add(bow);
+        const stern = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.5, 4), paintMat); stern.rotation.x=Math.PI/2; stern.rotation.y=Math.PI/4; stern.position.set(0,0.3,2.25); stern.castShadow=true; player.add(stern);
         
-        const katigL = new THREE.Mesh(katigGeo, bambooMat);
-        katigL.rotation.x = Math.PI / 2;
-        katigL.position.set(-1.8, 0.2, 0);
-        player.add(katigL);
+        const katigL = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 4, 8), bambooMat); katigL.rotation.x=Math.PI/2; katigL.position.set(-1.8,0.2,0); player.add(katigL);
+        const katigR = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 4, 8), bambooMat); katigR.rotation.x=Math.PI/2; katigR.position.set(1.8,0.2,0); player.add(katigR);
+        const pole1 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 3.6, 8), bambooMat); pole1.rotation.z=Math.PI/2; pole1.position.set(0,0.4,-1); player.add(pole1);
+        const pole2 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 3.6, 8), bambooMat); pole2.rotation.z=Math.PI/2; pole2.position.set(0,0.4,1); player.add(pole2);
 
-        const katigR = new THREE.Mesh(katigGeo, bambooMat);
-        katigR.rotation.x = Math.PI / 2;
-        katigR.position.set(1.8, 0.2, 0);
-        player.add(katigR);
-
-        const poleGeo = new THREE.CylinderGeometry(0.05, 0.05, 3.6, 8);
-        const pole1 = new THREE.Mesh(poleGeo, bambooMat);
-        pole1.rotation.z = Math.PI / 2;
-        pole1.position.set(0, 0.4, -1);
-        player.add(pole1);
-
-        const pole2 = new THREE.Mesh(poleGeo, bambooMat);
-        pole2.rotation.z = Math.PI / 2;
-        pole2.position.set(0, 0.4, 1);
-        player.add(pole2);
-
-        // --- DUHA KA TAO (PASSENGERS) ---
-        const skinMat = new THREE.MeshStandardMaterial({ color: 0xffccaa }); // Panit
-        const shirt1Mat = new THREE.MeshStandardMaterial({ color: 0xef4444 }); // Pula nga sanina
-        const shirt2Mat = new THREE.MeshStandardMaterial({ color: 0x3b82f6 }); // Blue nga sanina
-
-        function createPerson(shirtMaterial, zPos) {
-            const person = new THREE.Group();
-            // Lawas
-            const body = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.7, 0.6), shirtMaterial);
-            body.position.y = 0.65;
-            body.castShadow = true;
-            person.add(body);
-            // Ulo
-            const head = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.4), skinMat);
-            head.position.y = 1.2;
-            head.castShadow = true;
-            person.add(head);
-
-            person.position.z = zPos;
-            return person;
+        function createPerson(color, zPos) {
+            const p = new THREE.Group();
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.7, 0.6), new THREE.MeshStandardMaterial({ color: color })); body.position.y=0.65; body.castShadow=true; p.add(body);
+            const head = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.4), new THREE.MeshStandardMaterial({ color: 0xffccaa })); head.position.y=1.2; head.castShadow=true; p.add(head);
+            p.position.z = zPos; return p;
         }
-
-        player.add(createPerson(shirt1Mat, -0.6)); // Tao sa atubangan (Pula)
-        player.add(createPerson(shirt2Mat, 0.6));  // Tao sa luyo (Blue)
-
+        player.add(createPerson(0xef4444, -0.6)); player.add(createPerson(0x3b82f6, 0.6));
         scene.add(player);
 
-        // ==========================================
-        // 5. GAME VARIABLES & CONTROL LOGIC
-        // ==========================================
-        let obstacles = [];
-        let mountains = [];
-        let isGameOver = false;
-        let score = 0;
-        let speed = 0.25;
+        // VARIABLES
+        let obstacles = [], mountains = [];
+        let isGameOver = false, score = 0, speed = 0.25;
+        let ticketWon = false; // Flag para dili sigeg send og email
         
         const keys = { ArrowLeft: false, ArrowRight: false, a: false, d: false };
-
-        // Keyboard Controls
-        window.addEventListener('keydown', (e) => { 
-            startAudio();
-            if(keys.hasOwnProperty(e.key)) keys[e.key] = true; 
-        });
+        window.addEventListener('keydown', (e) => { startAudio(); if(keys.hasOwnProperty(e.key)) keys[e.key] = true; });
         window.addEventListener('keyup', (e) => { if(keys.hasOwnProperty(e.key)) keys[e.key] = false; });
 
-        // ON-SCREEN BUTTON CONTROLS (Para sa Cellphone & Mouse)
-        const btnLeft = document.getElementById('btn-left');
-        const btnRight = document.getElementById('btn-right');
-
+        const btnLeft = document.getElementById('btn-left'), btnRight = document.getElementById('btn-right');
         function pressLeft() { startAudio(); keys.ArrowLeft = true; btnLeft.classList.add('active'); }
         function releaseLeft() { keys.ArrowLeft = false; btnLeft.classList.remove('active'); }
         function pressRight() { startAudio(); keys.ArrowRight = true; btnRight.classList.add('active'); }
         function releaseRight() { keys.ArrowRight = false; btnRight.classList.remove('active'); }
 
-        btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); pressLeft(); });
-        btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); releaseLeft(); });
-        btnLeft.addEventListener('mousedown', pressLeft);
-        btnLeft.addEventListener('mouseup', releaseLeft);
-        btnLeft.addEventListener('mouseleave', releaseLeft);
+        btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); pressLeft(); }); btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); releaseLeft(); });
+        btnLeft.addEventListener('mousedown', pressLeft); btnLeft.addEventListener('mouseup', releaseLeft); btnLeft.addEventListener('mouseleave', releaseLeft);
+        btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); pressRight(); }); btnRight.addEventListener('touchend', (e) => { e.preventDefault(); releaseRight(); });
+        btnRight.addEventListener('mousedown', pressRight); btnRight.addEventListener('mouseup', releaseRight); btnRight.addEventListener('mouseleave', releaseRight);
 
-        btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); pressRight(); });
-        btnRight.addEventListener('touchend', (e) => { e.preventDefault(); releaseRight(); });
-        btnRight.addEventListener('mousedown', pressRight);
-        btnRight.addEventListener('mouseup', releaseRight);
-        btnRight.addEventListener('mouseleave', releaseRight);
-
-        // ==========================================
-        // 6. SPAWNERS (ROCKS & MOUNTAINS)
-        // ==========================================
         const rockMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
         const mtnMat = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 1 });
 
         function spawnObstacle() {
             if (isGameOver) return;
             const size = 1.5 + Math.random();
-            const rockGeo = new THREE.DodecahedronGeometry(size, 1);
-            const rock = new THREE.Mesh(rockGeo, rockMat);
-            
-            rock.position.set((Math.random() - 0.5) * 24, size/2, -80);
-            rock.castShadow = true;
-            
-            scene.add(rock);
-            obstacles.push(rock);
-            
-            let spawnTime = Math.max(400, 1200 - (score * 15));
-            setTimeout(spawnObstacle, spawnTime);
+            const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(size, 1), rockMat);
+            rock.position.set((Math.random() - 0.5) * 24, size/2, -80); rock.castShadow = true;
+            scene.add(rock); obstacles.push(rock);
+            setTimeout(spawnObstacle, Math.max(300, 1200 - (score * 15)));
         }
 
         function spawnMountains() {
             if (isGameOver) return;
-            const mtnGeo = new THREE.ConeGeometry(5 + Math.random()*5, 8 + Math.random()*10, 5);
-            
-            const mtnL = new THREE.Mesh(mtnGeo, mtnMat);
-            mtnL.position.set(-20 - Math.random()*5, 0, -100);
-            scene.add(mtnL);
-            mountains.push(mtnL);
-
-            const mtnR = new THREE.Mesh(mtnGeo, mtnMat);
-            mtnR.position.set(20 + Math.random()*5, 0, -100);
-            scene.add(mtnR);
-            mountains.push(mtnR);
-
+            const mtnGeo = new THREE.ConeGeometry(5+Math.random()*5, 8+Math.random()*10, 5);
+            const mtnL = new THREE.Mesh(mtnGeo, mtnMat); mtnL.position.set(-20-Math.random()*5, 0, -100); scene.add(mtnL); mountains.push(mtnL);
+            const mtnR = new THREE.Mesh(mtnGeo, mtnMat); mtnR.position.set(20+Math.random()*5, 0, -100); scene.add(mtnR); mountains.push(mtnR);
             setTimeout(spawnMountains, 300);
         }
+        setTimeout(spawnObstacle, 1000); spawnMountains();
 
-        setTimeout(spawnObstacle, 1000);
-        spawnMountains();
+        // LOGIC PARA SA GMAIL (Mopadala if ma-reach ang 2000)
+        function triggerWinEmail() {
+            document.getElementById('win-banner').style.display = 'block';
+            if(playerEmail && APPS_SCRIPT_URL.includes("script.google.com")) {
+                const ticketId = "WINTIX-" + Math.floor(Math.random() * 999999);
+                const fetchUrl = `${APPS_SCRIPT_URL}?action=win&name=${encodeURIComponent(playerName)}&email=${encodeURIComponent(playerEmail)}&ticket=${ticketId}`;
+                fetch(fetchUrl, { mode: 'no-cors' }).then(() => console.log('Win email request sent.'));
+            }
+        }
 
-        // ==========================================
-        // 7. MAIN ANIMATION LOOP
-        // ==========================================
         function animate() {
             if (isGameOver) return;
             requestAnimationFrame(animate);
 
+            // WAVE ANIMATION PARA SA SAPA
+            const time = Date.now() * 0.002;
+            const positions = riverGeo.attributes.position;
+            for(let i = 0; i < positions.count; i++) {
+                const x = positions.getX(i);
+                const y = positions.getY(i);
+                const z = Math.sin(x * 1.5 + time) * 0.3 + Math.cos(y * 0.5 + time) * 0.3;
+                positions.setZ(i, z);
+            }
+            positions.needsUpdate = true;
+
             // Movement
             if ((keys.ArrowLeft || keys.a) && player.position.x > -14) player.position.x -= 0.25;
             if ((keys.ArrowRight || keys.d) && player.position.x < 14) player.position.x += 0.25;
-
-            // Tilt effect
             if (keys.ArrowLeft || keys.a) player.rotation.z = Math.min(player.rotation.z + 0.05, 0.2);
             else if (keys.ArrowRight || keys.d) player.rotation.z = Math.max(player.rotation.z - 0.05, -0.2);
             else player.rotation.z *= 0.9;
 
-            // Move Mountains
             for (let i = 0; i < mountains.length; i++) {
-                let mtn = mountains[i];
-                mtn.position.z += speed;
+                let mtn = mountains[i]; mtn.position.z += speed;
                 if (mtn.position.z > 20) { scene.remove(mtn); mountains.splice(i, 1); i--; }
             }
 
-            // Move Obstacles and Check Collisions
             for (let i = 0; i < obstacles.length; i++) {
-                let obs = obstacles[i];
-                obs.position.z += speed;
-
-                if (Math.abs(player.position.x - obs.position.x) < 2.0 && Math.abs(player.position.z - obs.position.z) < 2.5) {
-                    gameOver();
-                }
-
+                let obs = obstacles[i]; obs.position.z += speed;
+                if (Math.abs(player.position.x - obs.position.x) < 2.0 && Math.abs(player.position.z - obs.position.z) < 2.5) { gameOver(); }
                 if (obs.position.z > 5 && !obs.passed) {
                     score += 10;
                     document.getElementById('score').innerText = "Score: " + score;
                     obs.passed = true;
                     speed += 0.005; 
+                    
+                    // IF MA-REACH ANG 2000 POINTS, IPADALA ANG EMAIL!
+                    if(score >= 2000 && !ticketWon) {
+                        ticketWon = true;
+                        triggerWinEmail();
+                    }
                 }
-
                 if (obs.position.z > 20) { scene.remove(obs); obstacles.splice(i, 1); i--; }
             }
             renderer.render(scene, camera);
         }
 
-        // ==========================================
-        // 8. GAME OVER & RESET (HIGH SCORE LOGIC)
-        // ==========================================
         function gameOver() {
             isGameOver = true;
-            
-            // Audio Effects
-            sndBoat.pause();
-            sndCrash.currentTime = 0;
-            sndCrash.play().catch(e=>{});
-
+            sndBoat.pause(); sndCrash.currentTime = 0; sndCrash.play().catch(e=>{});
             document.getElementById('game-over').style.display = 'block';
             document.getElementById('mobile-controls').style.display = 'none'; 
 
-            // E-CHECK ANG HIGH SCORE
             if (score > savedHighScore) {
-                savedHighScore = score;
-                localStorage.setItem('cj_highscore', savedHighScore); // Save sa browser
+                savedHighScore = score; localStorage.setItem('cj_highscore', savedHighScore); 
                 document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
                 document.getElementById('final-score').innerHTML = "You scored: " + score + "<br><br><span style='color:#059669; font-size:26px;'>🎉 NEW HIGH SCORE! 🎉</span>";
-            } else {
-                document.getElementById('final-score').innerHTML = "Distance Reached: " + score;
-            }
+            } else { document.getElementById('final-score').innerHTML = "Distance Reached: " + score; }
         }
 
         window.resetGame = function() {
-            isGameOver = false;
-            score = 0;
-            speed = 0.25;
+            isGameOver = false; score = 0; speed = 0.25; ticketWon = false;
             document.getElementById('score').innerText = "Score: 0";
             document.getElementById('game-over').style.display = 'none';
+            document.getElementById('win-banner').style.display = 'none';
             document.getElementById('mobile-controls').style.display = 'flex'; 
-            player.position.x = 0;
-            player.rotation.z = 0;
-            
-            // Balik padagan sa boat sound
+            player.position.x = 0; player.rotation.z = 0;
             sndBoat.play().catch(e=>{});
-
             obstacles.forEach(obs => scene.remove(obs)); obstacles = [];
             mountains.forEach(mtn => scene.remove(mtn)); mountains = [];
-            
-            spawnObstacle();
-            spawnMountains();
-            animate();
+            spawnObstacle(); spawnMountains(); animate();
         }
 
         window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight); camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix();
         });
 
         animate();
