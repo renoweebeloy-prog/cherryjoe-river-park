@@ -7,52 +7,77 @@
     <style>
         body { margin: 0; overflow: hidden; background-color: #87CEEB; font-family: 'Segoe UI', Tahoma, sans-serif; touch-action: none; user-select: none; -webkit-user-select: none; }
         
-        #game-ui { position: absolute; top: 15px; left: 20px; width: 100%; pointer-events: none; z-index: 10; display: flex; flex-direction: column; }
-        #score { color: #ffffff; font-size: 32px; font-weight: 900; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); }
-        #high-score { color: #facc15; font-size: 18px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); margin-top: 5px; }
+        /* --- START SCREEN (ENTRANCE) --- */
+        #start-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; text-align: center; padding: 20px; box-sizing: border-box; }
+        #start-screen h1 { color: #059669; font-size: 35px; margin-bottom: 10px; font-weight: 900; }
+        #start-screen p { color: #334155; font-size: 18px; max-width: 400px; margin-bottom: 30px; line-height: 1.5; }
+        #start-screen .promo { background: #fef3c7; border: 2px dashed #f59e0b; padding: 15px; border-radius: 15px; color: #d97706; font-weight: bold; font-size: 16px; margin-bottom: 30px; }
+        #start-screen button { background: #10b981; color: white; border: none; padding: 15px 40px; font-size: 22px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); transition: 0.2s; }
+        #start-screen button:active { transform: scale(0.95); }
+
+        /* --- GAME UI --- */
+        #game-ui { display: none; position: absolute; top: 15px; left: 20px; width: 100%; pointer-events: none; z-index: 10; flex-direction: column; }
+        #score { color: #ffffff; font-size: 32px; font-weight: 900; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin-bottom: 5px; }
+        #goal-text { color: #facc15; font-size: 14px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 8px; width: fit-content; }
         
         /* BANNER KUNG MAKA-SCORE UG 2000 */
-        #win-banner { display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 18px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: 0 10px 25px rgba(217, 119, 6, 0.5); z-index: 100; border: 2px solid #fef3c7; white-space: nowrap; animation: pop 0.5s ease-out; }
+        #win-banner { display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 16px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: 0 10px 25px rgba(217, 119, 6, 0.5); z-index: 100; border: 2px solid #fef3c7; text-align: center; width: 90%; max-width: 400px; animation: pop 0.5s ease-out; }
         @keyframes pop { 0% { transform: translate(-50%, -20px) scale(0.8); opacity: 0; } 100% { transform: translate(-50%, 0) scale(1); opacity: 1; } }
 
-        #game-over { display: none; position: absolute; top: 50vh; left: 50vw; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.95); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); pointer-events: auto; z-index: 30; min-width: 300px; }
-        #game-over h1 { color: #ef4444; margin-top: 0; font-size: 38px; font-weight: 900; letter-spacing: 2px; }
-        #game-over button { background: #10b981; color: white; border: none; padding: 15px 30px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); margin-top: 15px; }
-        #game-over button:hover { background: #059669; transform: scale(1.05); }
+        /* --- CRASH / GAME OVER SCREEN --- */
+        #game-over { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.98); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); z-index: 50; width: 85%; max-width: 350px; }
+        #game-over h1 { color: #ef4444; margin-top: 0; font-size: 38px; font-weight: 900; letter-spacing: 2px; margin-bottom: 10px; }
+        #game-over button { background: #10b981; color: white; border: none; padding: 15px 30px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); margin-top: 15px; width: 100%; }
         
-        #controls-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold; text-shadow: 1px 1px 4px black; font-size: 16px; text-align: center; width: 100%; pointer-events: none; }
+        #controls-hint { position: absolute; bottom: 120px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold; text-shadow: 1px 1px 4px black; font-size: 14px; text-align: center; width: 100%; pointer-events: none; z-index: 10; display: none; }
         
-        #mobile-controls { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; display: flex; justify-content: space-between; padding: 0 30px; box-sizing: border-box; z-index: 20; }
-        .control-btn { background: rgba(16, 185, 129, 0.7); color: white; border: 3px solid rgba(255, 255, 255, 0.8); width: 80px; height: 80px; border-radius: 50%; font-size: 40px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: auto; }
-        .control-btn:active, .control-btn.active { background: rgba(5, 150, 105, 0.9); transform: scale(0.95); border-color: #ffffff; }
+        /* --- MOBILE CONTROLS --- */
+        #mobile-controls { display: none; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; justify-content: space-between; padding: 0 30px; box-sizing: border-box; z-index: 20; }
+        .control-btn { background: rgba(16, 185, 129, 0.8); color: white; border: 3px solid rgba(255, 255, 255, 0.8); width: 75px; height: 75px; border-radius: 50%; font-size: 35px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: auto; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
 
-    <audio id="boat.mp3" loop preload="auto"></audio>
-    <audio id="crash.mp3"></audio>
+    <audio id="snd-boat" src="boat.mp3.mp3" loop preload="auto"></audio>
+    <audio id="snd-crash" src="crash.mp3.mp3" preload="auto"></audio>
 
-    <div id="win-banner">🎉 2000 SCORE! Free Ticket sent to your Email! 🎉</div>
+    <!-- START SCREEN (ENTRANCE) -->
+    <div id="start-screen">
+        <h1>🛶 River Dodge</h1>
+        <p>Steer the Bangka left and right to dodge the river rocks.</p>
+        <div class="promo">
+            🎁 <b>REWARD:</b> Score <b>2000 Pts</b> to win a Free Entrance Ticket directly to your email!
+        </div>
+        <button onclick="startGame()">▶ PLAY NOW</button>
+    </div>
 
+    <!-- WINNER BANNER -->
+    <div id="win-banner">🎉 2000 SCORE REACHED!<br><span style="font-size:12px;">Check your email for the Free Ticket.</span> 🎉</div>
+
+    <!-- UI UG SCORE -->
     <div id="game-ui">
         <div id="score">Score: 0</div>
-        <div id="high-score">High Score: 0</div>
+        <div id="goal-text">Goal: 2000 Pts = Free Ticket!</div>
     </div>
     
+    <div id="controls-hint" class="game-element">Use buttons to dodge!</div>
+
+    <!-- MOBILE CONTROLS -->
     <div id="mobile-controls">
         <div class="control-btn" id="btn-left">◀</div>
         <div class="control-btn" id="btn-right">▶</div>
     </div>
 
+    <!-- CRASHED SCREEN -->
     <div id="game-over">
         <h1>CRASHED!</h1>
-        <p id="final-score" style="font-size: 22px; font-weight: bold; color: #1e293b; margin-bottom: 5px;"></p>
+        <p id="final-score" style="font-size: 20px; font-weight: bold; color: #1e293b; margin-bottom: 5px;"></p>
         <button onclick="resetGame()">Try Again</button>
     </div>
 
     <script>
-        // 1. KUHAON ANG PANGALAN UG EMAIL GIKAN SA INDEX.PHP (via URL)
+        // 1. URL PARAMS PARA SA EMAIL
         const urlParams = new URLSearchParams(window.location.search);
         const playerName = urlParams.get('name') || 'Guest';
         const playerEmail = urlParams.get('email') || '';
@@ -62,19 +87,8 @@
 
         const sndBoat = document.getElementById('snd-boat');
         const sndCrash = document.getElementById('snd-crash');
-        let audioStarted = false;
 
-        let savedHighScore = localStorage.getItem('cj_highscore') || 0;
-        document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
-
-        function startAudio() {
-            if (!audioStarted) {
-                sndBoat.volume = 0.5;
-                sndBoat.play().catch(e=>{});
-                audioStarted = true;
-            }
-        }
-
+        // 2. SCENE SETUP
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x87CEEB); 
         scene.fog = new THREE.Fog(0x87CEEB, 20, 80); 
@@ -95,9 +109,7 @@
         dirLight.castShadow = true;
         scene.add(dirLight);
 
-        // ==========================================
-        // WAVY RIVER SETUP (Daghan og segments aron mo-balod)
-        // ==========================================
+        // 3. WAVY RIVER
         const riverGeo = new THREE.PlaneGeometry(35, 200, 30, 60); 
         const riverMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, flatShading: false }); 
         const river = new THREE.Mesh(riverGeo, riverMat);
@@ -105,7 +117,7 @@
         river.receiveShadow = true;
         scene.add(river);
 
-        // BUILD BANGKA & PASSENGERS (Gipamub-an para sa space)
+        // 4. BANGKA UG TAO
         const player = new THREE.Group();
         const woodMat = new THREE.MeshStandardMaterial({ color: 0x8B4513 }); 
         const paintMat = new THREE.MeshStandardMaterial({ color: 0xffffff }); 
@@ -126,29 +138,44 @@
             const head = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.4), new THREE.MeshStandardMaterial({ color: 0xffccaa })); head.position.y=1.2; head.castShadow=true; p.add(head);
             p.position.z = zPos; return p;
         }
-        player.add(createPerson(0xef4444, -0.6)); player.add(createPerson(0x3b82f6, 0.6));
+        player.add(createPerson(0xef4444, -0.6)); // Tao 1 (Red)
+        player.add(createPerson(0x3b82f6, 0.6));  // Tao 2 (Blue)
         scene.add(player);
 
-        // VARIABLES
+        // 5. VARIABLES & STATE
         let obstacles = [], mountains = [];
-        let isGameOver = false, score = 0, speed = 0.25;
-        let ticketWon = false; // Flag para dili sigeg send og email
+        let isGameOver = true; // Naka-pause inig start
+        let score = 0, speed = 0.25;
+        let ticketWon = false; 
         
-        const keys = { ArrowLeft: false, ArrowRight: false, a: false, d: false };
-        window.addEventListener('keydown', (e) => { startAudio(); if(keys.hasOwnProperty(e.key)) keys[e.key] = true; });
-        window.addEventListener('keyup', (e) => { if(keys.hasOwnProperty(e.key)) keys[e.key] = false; });
+        // 6. CONTROLS (Gi-ayos para smooth sa mobile)
+        const keys = { left: false, right: false };
+        
+        window.addEventListener('keydown', (e) => { 
+            if(e.key === 'ArrowLeft' || e.key === 'a') keys.left = true; 
+            if(e.key === 'ArrowRight' || e.key === 'd') keys.right = true; 
+        });
+        window.addEventListener('keyup', (e) => { 
+            if(e.key === 'ArrowLeft' || e.key === 'a') keys.left = false; 
+            if(e.key === 'ArrowRight' || e.key === 'd') keys.right = false; 
+        });
 
-        const btnLeft = document.getElementById('btn-left'), btnRight = document.getElementById('btn-right');
-        function pressLeft() { startAudio(); keys.ArrowLeft = true; btnLeft.classList.add('active'); }
-        function releaseLeft() { keys.ArrowLeft = false; btnLeft.classList.remove('active'); }
-        function pressRight() { startAudio(); keys.ArrowRight = true; btnRight.classList.add('active'); }
-        function releaseRight() { keys.ArrowRight = false; btnRight.classList.remove('active'); }
+        const btnLeft = document.getElementById('btn-left');
+        const btnRight = document.getElementById('btn-right');
 
-        btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); pressLeft(); }); btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); releaseLeft(); });
-        btnLeft.addEventListener('mousedown', pressLeft); btnLeft.addEventListener('mouseup', releaseLeft); btnLeft.addEventListener('mouseleave', releaseLeft);
-        btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); pressRight(); }); btnRight.addEventListener('touchend', (e) => { e.preventDefault(); releaseRight(); });
-        btnRight.addEventListener('mousedown', pressRight); btnRight.addEventListener('mouseup', releaseRight); btnRight.addEventListener('mouseleave', releaseRight);
+        function setLeft(val) { keys.left = val; btnLeft.style.background = val ? 'rgba(5, 150, 105, 0.9)' : 'rgba(16, 185, 129, 0.8)'; }
+        function setRight(val) { keys.right = val; btnRight.style.background = val ? 'rgba(5, 150, 105, 0.9)' : 'rgba(16, 185, 129, 0.8)'; }
 
+        btnLeft.addEventListener('touchstart', (e) => { e.preventDefault(); setLeft(true); }, {passive: false});
+        btnLeft.addEventListener('touchend', (e) => { e.preventDefault(); setLeft(false); }, {passive: false});
+        btnLeft.addEventListener('mousedown', () => setLeft(true));
+        window.addEventListener('mouseup', () => { setLeft(false); setRight(false); });
+
+        btnRight.addEventListener('touchstart', (e) => { e.preventDefault(); setRight(true); }, {passive: false});
+        btnRight.addEventListener('touchend', (e) => { e.preventDefault(); setRight(false); }, {passive: false});
+        btnRight.addEventListener('mousedown', () => setRight(true));
+
+        // 7. SPAWNERS
         const rockMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
         const mtnMat = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 1 });
 
@@ -168,23 +195,43 @@
             const mtnR = new THREE.Mesh(mtnGeo, mtnMat); mtnR.position.set(20+Math.random()*5, 0, -100); scene.add(mtnR); mountains.push(mtnR);
             setTimeout(spawnMountains, 300);
         }
-        setTimeout(spawnObstacle, 1000); spawnMountains();
 
-        // LOGIC PARA SA GMAIL (Mopadala if ma-reach ang 2000)
+        // 8. START GAME FUNCTION
+        window.startGame = function() {
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('game-ui').style.display = 'flex';
+            document.getElementById('mobile-controls').style.display = 'flex';
+            document.getElementById('controls-hint').style.display = 'block';
+            
+            // Start Audio Safely
+            sndBoat.volume = 0.5;
+            sndBoat.play().catch(e=>{});
+
+            isGameOver = false;
+            spawnObstacle();
+            spawnMountains();
+            animate();
+
+            // Tago-a ang controls hint human sa 4 seconds
+            setTimeout(() => { document.getElementById('controls-hint').style.display = 'none'; }, 4000);
+        }
+
+        // 9. WIN EMAIL TRIGGER
         function triggerWinEmail() {
             document.getElementById('win-banner').style.display = 'block';
             if(playerEmail && APPS_SCRIPT_URL.includes("script.google.com")) {
                 const ticketId = "WINTIX-" + Math.floor(Math.random() * 999999);
                 const fetchUrl = `${APPS_SCRIPT_URL}?action=win&name=${encodeURIComponent(playerName)}&email=${encodeURIComponent(playerEmail)}&ticket=${ticketId}`;
-                fetch(fetchUrl, { mode: 'no-cors' }).then(() => console.log('Win email request sent.'));
+                fetch(fetchUrl, { mode: 'no-cors' }).then(() => console.log('Win email sent.'));
             }
         }
 
+        // 10. ANIMATION LOOP
         function animate() {
             if (isGameOver) return;
             requestAnimationFrame(animate);
 
-            // WAVE ANIMATION PARA SA SAPA
+            // WAVY RIVER ANIMATION
             const time = Date.now() * 0.002;
             const positions = riverGeo.attributes.position;
             for(let i = 0; i < positions.count; i++) {
@@ -195,28 +242,40 @@
             }
             positions.needsUpdate = true;
 
-            // Movement
-            if ((keys.ArrowLeft || keys.a) && player.position.x > -14) player.position.x -= 0.25;
-            if ((keys.ArrowRight || keys.d) && player.position.x < 14) player.position.x += 0.25;
-            if (keys.ArrowLeft || keys.a) player.rotation.z = Math.min(player.rotation.z + 0.05, 0.2);
-            else if (keys.ArrowRight || keys.d) player.rotation.z = Math.max(player.rotation.z - 0.05, -0.2);
+            // Player Movement
+            if (keys.left && player.position.x > -14) player.position.x -= 0.25;
+            if (keys.right && player.position.x < 14) player.position.x += 0.25;
+            
+            // Bangka Tilt
+            if (keys.left) player.rotation.z = Math.min(player.rotation.z + 0.05, 0.2);
+            else if (keys.right) player.rotation.z = Math.max(player.rotation.z - 0.05, -0.2);
             else player.rotation.z *= 0.9;
 
+            // Move Mountains
             for (let i = 0; i < mountains.length; i++) {
                 let mtn = mountains[i]; mtn.position.z += speed;
                 if (mtn.position.z > 20) { scene.remove(mtn); mountains.splice(i, 1); i--; }
             }
 
+            // Move Obstacles & COLLISION DETECTION (Gi-ayos na!)
             for (let i = 0; i < obstacles.length; i++) {
-                let obs = obstacles[i]; obs.position.z += speed;
-                if (Math.abs(player.position.x - obs.position.x) < 2.0 && Math.abs(player.position.z - obs.position.z) < 2.5) { gameOver(); }
+                let obs = obstacles[i]; 
+                obs.position.z += speed;
+
+                // Bangka Collision Box
+                let diffX = Math.abs(player.position.x - obs.position.x);
+                let diffZ = Math.abs(player.position.z - obs.position.z);
+                if (diffX < 2.0 && diffZ < 2.0) {
+                    gameOver();
+                    return; // Stop animation loop immediately
+                }
+
                 if (obs.position.z > 5 && !obs.passed) {
                     score += 10;
                     document.getElementById('score').innerText = "Score: " + score;
                     obs.passed = true;
                     speed += 0.005; 
                     
-                    // IF MA-REACH ANG 2000 POINTS, IPADALA ANG EMAIL!
                     if(score >= 2000 && !ticketWon) {
                         ticketWon = true;
                         triggerWinEmail();
@@ -227,37 +286,43 @@
             renderer.render(scene, camera);
         }
 
+        // 11. GAME OVER LOGIC
         function gameOver() {
             isGameOver = true;
-            sndBoat.pause(); sndCrash.currentTime = 0; sndCrash.play().catch(e=>{});
+            sndBoat.pause(); 
+            sndCrash.currentTime = 0; 
+            sndCrash.play().catch(e=>{});
+
             document.getElementById('game-over').style.display = 'block';
             document.getElementById('mobile-controls').style.display = 'none'; 
+            document.getElementById('win-banner').style.display = 'none';
 
-            if (score > savedHighScore) {
-                savedHighScore = score; localStorage.setItem('cj_highscore', savedHighScore); 
-                document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
-                document.getElementById('final-score').innerHTML = "You scored: " + score + "<br><br><span style='color:#059669; font-size:26px;'>🎉 NEW HIGH SCORE! 🎉</span>";
-            } else { document.getElementById('final-score').innerHTML = "Distance Reached: " + score; }
+            document.getElementById('final-score').innerHTML = "Distance Reached: " + score;
         }
 
         window.resetGame = function() {
             isGameOver = false; score = 0; speed = 0.25; ticketWon = false;
             document.getElementById('score').innerText = "Score: 0";
             document.getElementById('game-over').style.display = 'none';
-            document.getElementById('win-banner').style.display = 'none';
             document.getElementById('mobile-controls').style.display = 'flex'; 
+            
             player.position.x = 0; player.rotation.z = 0;
             sndBoat.play().catch(e=>{});
+            
             obstacles.forEach(obs => scene.remove(obs)); obstacles = [];
             mountains.forEach(mtn => scene.remove(mtn)); mountains = [];
-            spawnObstacle(); spawnMountains(); animate();
+            
+            spawnObstacle(); 
+            spawnMountains(); 
+            animate();
         }
 
         window.addEventListener('resize', () => {
             renderer.setSize(window.innerWidth, window.innerHeight); camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix();
         });
 
-        animate();
+        // Initial Render para dili black screen
+        renderer.render(scene, camera);
     </script>
 </body>
 </html>
