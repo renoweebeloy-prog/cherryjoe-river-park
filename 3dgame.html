@@ -8,11 +8,11 @@
         body { margin: 0; overflow: hidden; background-color: #87CEEB; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         #game-ui { position: absolute; top: 10px; left: 10px; width: 100%; pointer-events: none; z-index: 10; }
         #score { color: #ffffff; font-size: 24px; font-weight: bold; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); }
-        #game-over { display: none; position: absolute; top: 50vh; left: 50vw; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.9); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); pointer-events: auto; }
+        #game-over { display: none; position: absolute; top: 50vh; left: 50vw; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.95); padding: 30px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.2); pointer-events: auto; }
         #game-over h1 { color: #ef4444; margin-top: 0; font-size: 32px; }
         #game-over button { background: #10b981; color: white; border: none; padding: 12px 25px; font-size: 18px; font-weight: bold; border-radius: 50px; cursor: pointer; transition: 0.3s; }
         #game-over button:hover { background: #059669; transform: scale(1.05); }
-        #controls-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold; text-shadow: 1px 1px 3px black; font-size: 14px; }
+        #controls-hint { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: white; font-weight: bold; text-shadow: 1px 1px 3px black; font-size: 14px; text-align: center; width: 100%; pointer-events: none; }
     </style>
     <!-- THREE.JS LIBRARY -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -23,7 +23,7 @@
         <div id="score">Score: 0</div>
     </div>
     
-    <div id="controls-hint">Use LEFT and RIGHT arrow keys to dodge!</div>
+    <div id="controls-hint">Use LEFT and RIGHT arrow keys (or tap sides of screen) to dodge!</div>
 
     <div id="game-over">
         <h1>GAME OVER!</h1>
@@ -35,8 +35,6 @@
         // 1. SETUP SCENE, CAMERA, & RENDERER
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x87CEEB); // Sky blue background
-        
-        // Add fog for a better horizon effect
         scene.fog = new THREE.Fog(0x87CEEB, 10, 50);
 
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -51,27 +49,30 @@
         // 2. LIGHTING
         const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
         scene.add(ambientLight);
-        
         const dirLight = new THREE.DirectionalLight(0xffffff, 0.8);
         dirLight.position.set(10, 20, 10);
         dirLight.castShadow = true;
         scene.add(dirLight);
 
         // 3. RIVER (GROUND)
-        const riverGeo = new THREE.PlaneGeometry(30, 200);
-        const riverMat = new THREE.MeshStandardMaterial({ color: 0x0ea5e9 }); // River water color
+        const riverGeo = new PlaneGeometry(30, 200);
+        const riverMat = new THREE.MeshStandardMaterial({ color: 0x0ea5e9 });
         const river = new THREE.Mesh(riverGeo, riverMat);
         river.rotation.x = -Math.PI / 2;
         river.receiveShadow = true;
         scene.add(river);
 
         // 4. PLAYER (BOAT)
-        const playerGeo = new THREE.BoxGeometry(1, 1, 2);
-        const playerMat = new THREE.MeshStandardMaterial({ color: 0xfacc15 }); // Yellow boat
+        const playerGeo = new BoxGeometry(1, 1, 2);
+        const playerMat = new THREE.MeshStandardMaterial({ color: 0xfacc15 });
         const player = new THREE.Mesh(playerGeo, playerMat);
         player.position.y = 0.5;
         player.castShadow = true;
         scene.add(player);
+
+        // Alias for Geometries because of older Three.js version compatibility
+        function PlaneGeometry(w, h) { return new THREE.PlaneGeometry(w, h); }
+        function BoxGeometry(w, h, d) { return new THREE.BoxGeometry(w, h, d); }
 
         // 5. GAME VARIABLES & LOGIC
         let obstacles = [];
@@ -85,10 +86,9 @@
         window.addEventListener('keydown', (e) => { if(keys.hasOwnProperty(e.key)) keys[e.key] = true; });
         window.addEventListener('keyup', (e) => { if(keys.hasOwnProperty(e.key)) keys[e.key] = false; });
 
-        // Touch Controls para sa Mobile (Tap left/right side of screen)
+        // Touch Controls para sa Mobile
         window.addEventListener('touchstart', (e) => {
-            const touchX = e.touches[0].clientX;
-            if (touchX < window.innerWidth / 2) keys.ArrowLeft = true;
+            if (e.touches[0].clientX < window.innerWidth / 2) keys.ArrowLeft = true;
             else keys.ArrowRight = true;
         });
         window.addEventListener('touchend', () => { keys.ArrowLeft = false; keys.ArrowRight = false; });
@@ -96,20 +96,16 @@
         // Spawn Obstacles (Rocks)
         function spawnObstacle() {
             if (isGameOver) return;
-            const rockGeo = new THREE.BoxGeometry(1.5, 1.5, 1.5);
-            const rockMat = new THREE.MeshStandardMaterial({ color: 0x475569 }); // Gray rock
+            const rockGeo = new BoxGeometry(1.5, 1.5, 1.5);
+            const rockMat = new THREE.MeshStandardMaterial({ color: 0x475569 });
             const rock = new THREE.Mesh(rockGeo, rockMat);
             
-            // Random position across the river width
-            rock.position.x = (Math.random() - 0.5) * 10; 
-            rock.position.y = 0.75;
-            rock.position.z = -50; // Spawn far away
+            rock.position.set((Math.random() - 0.5) * 10, 0.75, -50);
             rock.castShadow = true;
             
             scene.add(rock);
             obstacles.push(rock);
             
-            // Spawn faster as score increases
             let spawnTime = Math.max(500, 1500 - (score * 20));
             setTimeout(spawnObstacle, spawnTime);
         }
@@ -130,18 +126,15 @@
                 let obs = obstacles[i];
                 obs.position.z += speed;
 
-                // Collision Detection (Simple bounding box math)
-                if (Math.abs(player.position.x - obs.position.x) < 1.2 && 
-                    Math.abs(player.position.z - obs.position.z) < 1.5) {
+                if (Math.abs(player.position.x - obs.position.x) < 1.2 && Math.abs(player.position.z - obs.position.z) < 1.5) {
                     gameOver();
                 }
 
-                // Remove passed obstacles and add score
                 if (obs.position.z > 5 && !obs.passed) {
                     score += 10;
                     document.getElementById('score').innerText = "Score: " + score;
                     obs.passed = true;
-                    speed += 0.005; // Increase speed slightly
+                    speed += 0.005; 
                 }
 
                 if (obs.position.z > 15) {
@@ -150,7 +143,6 @@
                     i--;
                 }
             }
-
             renderer.render(scene, camera);
         }
 
@@ -168,7 +160,6 @@
             document.getElementById('game-over').style.display = 'none';
             player.position.x = 0;
             
-            // Clear old obstacles
             obstacles.forEach(obs => scene.remove(obs));
             obstacles = [];
             
