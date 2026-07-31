@@ -19,6 +19,7 @@
         #game-ui { display: none; position: absolute; top: 15px; left: 20px; width: 100%; pointer-events: none; z-index: 10; flex-direction: column; }
         #score { color: #ffffff; font-size: 32px; font-weight: 900; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin-bottom: 5px; }
         #goal-text { color: #facc15; font-size: 14px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 8px; width: fit-content; }
+        #high-score { color: #10b981; font-size: 16px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); margin-top: 5px; }
         
         /* BANNER KUNG MAKA-SCORE UG 2000 */
         #win-banner { display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 16px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: 0 10px 25px rgba(217, 119, 6, 0.5); z-index: 100; border: 2px solid #fef3c7; text-align: center; width: 90%; max-width: 400px; animation: pop 0.5s ease-out; }
@@ -34,6 +35,7 @@
         /* --- MOBILE CONTROLS --- */
         #mobile-controls { display: none; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); width: 100%; max-width: 500px; justify-content: space-between; padding: 0 30px; box-sizing: border-box; z-index: 20; }
         .control-btn { background: rgba(16, 185, 129, 0.8); color: white; border: 3px solid rgba(255, 255, 255, 0.8); width: 75px; height: 75px; border-radius: 50%; font-size: 35px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: auto; }
+        .control-btn:active, .control-btn.active { background: rgba(5, 150, 105, 0.9); transform: scale(0.95); border-color: #ffffff; }
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -58,6 +60,7 @@
     <!-- UI UG SCORE -->
     <div id="game-ui">
         <div id="score">Score: 0</div>
+        <div id="high-score">High Score: 0</div>
         <div id="goal-text">Goal: 2000 Pts = Free Ticket!</div>
     </div>
     
@@ -82,11 +85,15 @@
         const playerName = urlParams.get('name') || 'Guest';
         const playerEmail = urlParams.get('email') || '';
 
-        // ⚠️ ILISI KINI SA IMONG GOOGLE APPS SCRIPT URL ⚠️
+        // ⚠️ GI-BUTANG NA IMONG GOOGLE APPS SCRIPT URL ⚠️
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2tEl71Ge9W98MnMiNKMJ9UTa_huFJyIJ_Q6-0bwtJ-5NAzFBPbmDAgTs8yfZhxpr6Jg/exec";
 
         const sndBoat = document.getElementById('snd-boat');
         const sndCrash = document.getElementById('snd-crash');
+
+        // HIGH SCORE INITIALIZATION
+        let savedHighScore = localStorage.getItem('cj_highscore') || 0;
+        document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
 
         // 2. SCENE SETUP
         const scene = new THREE.Scene();
@@ -143,12 +150,12 @@
         scene.add(player);
 
         // 5. VARIABLES & STATE
-        let obstacles = [], mountains = [];
-        let isGameOver = true; // Naka-pause inig start
+        let obstacles = [], scenery = []; 
+        let isGameOver = true; 
         let score = 0, speed = 0.25;
         let ticketWon = false; 
         
-        // 6. CONTROLS (Gi-ayos para smooth sa mobile)
+        // 6. CONTROLS
         const keys = { left: false, right: false };
         
         window.addEventListener('keydown', (e) => { 
@@ -179,21 +186,41 @@
         const rockMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
         const mtnMat = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 1 });
 
+        // GI-LUAG LUAG ANG MGA BATO PARA DILI KAAYO LISOD ABTON ANG 2000
         function spawnObstacle() {
             if (isGameOver) return;
             const size = 1.5 + Math.random();
             const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(size, 1), rockMat);
             rock.position.set((Math.random() - 0.5) * 24, size/2, -80); rock.castShadow = true;
             scene.add(rock); obstacles.push(rock);
-            setTimeout(spawnObstacle, Math.max(300, 1200 - (score * 15)));
+            
+            // Mas hinay ang gawas sa mga bato karon
+            let spawnTime = Math.max(800, 2000 - (score * 5));
+            setTimeout(spawnObstacle, spawnTime);
         }
 
-        function spawnMountains() {
+        // Scenery (Mga Bukid ug Bato nga naa ra sa kilid)
+        function spawnScenery() {
             if (isGameOver) return;
-            const mtnGeo = new THREE.ConeGeometry(5+Math.random()*5, 8+Math.random()*10, 5);
-            const mtnL = new THREE.Mesh(mtnGeo, mtnMat); mtnL.position.set(-20-Math.random()*5, 0, -100); scene.add(mtnL); mountains.push(mtnL);
-            const mtnR = new THREE.Mesh(mtnGeo, mtnMat); mtnR.position.set(20+Math.random()*5, 0, -100); scene.add(mtnR); mountains.push(mtnR);
-            setTimeout(spawnMountains, 300);
+            
+            if (Math.random() > 0.4) {
+                const mtnGeo = new THREE.ConeGeometry(5+Math.random()*5, 8+Math.random()*10, 5);
+                const mtnL = new THREE.Mesh(mtnGeo, mtnMat); mtnL.position.set(-25-Math.random()*5, 0, -100); scene.add(mtnL); scenery.push(mtnL);
+                const mtnR = new THREE.Mesh(mtnGeo, mtnMat); mtnR.position.set(25+Math.random()*5, 0, -100); scene.add(mtnR); scenery.push(mtnR);
+            }
+
+            const sideRockSize = 2 + Math.random() * 2;
+            const sideRockGeo = new THREE.DodecahedronGeometry(sideRockSize, 1);
+            
+            const rockL = new THREE.Mesh(sideRockGeo, rockMat);
+            rockL.position.set(-16 - Math.random()*2, sideRockSize/3, -100);
+            scene.add(rockL); scenery.push(rockL);
+
+            const rockR = new THREE.Mesh(sideRockGeo, rockMat);
+            rockR.position.set(16 + Math.random()*2, sideRockSize/3, -100);
+            scene.add(rockR); scenery.push(rockR);
+
+            setTimeout(spawnScenery, 300);
         }
 
         // 8. START GAME FUNCTION
@@ -203,26 +230,24 @@
             document.getElementById('mobile-controls').style.display = 'flex';
             document.getElementById('controls-hint').style.display = 'block';
             
-            // Start Audio Safely
             sndBoat.volume = 0.5;
             sndBoat.play().catch(e=>{});
 
             isGameOver = false;
             spawnObstacle();
-            spawnMountains();
+            spawnScenery();
             animate();
 
-            // Tago-a ang controls hint human sa 4 seconds
             setTimeout(() => { document.getElementById('controls-hint').style.display = 'none'; }, 4000);
         }
 
-        // 9. WIN EMAIL TRIGGER
+        // 9. WIN EMAIL TRIGGER (AUTOMATIC SEND INIG 2000 SCORE)
         function triggerWinEmail() {
             document.getElementById('win-banner').style.display = 'block';
-            if(playerEmail && APPS_SCRIPT_URL.includes("script.google.com")) {
+            if(playerEmail) {
                 const ticketId = "WINTIX-" + Math.floor(Math.random() * 999999);
                 const fetchUrl = `${APPS_SCRIPT_URL}?action=win&name=${encodeURIComponent(playerName)}&email=${encodeURIComponent(playerEmail)}&ticket=${ticketId}`;
-                fetch(fetchUrl, { mode: 'no-cors' }).then(() => console.log('Win email sent.'));
+                fetch(fetchUrl, { mode: 'no-cors' }).then(() => console.log('Win email request sent.'));
             }
         }
 
@@ -251,31 +276,31 @@
             else if (keys.right) player.rotation.z = Math.max(player.rotation.z - 0.05, -0.2);
             else player.rotation.z *= 0.9;
 
-            // Move Mountains
-            for (let i = 0; i < mountains.length; i++) {
-                let mtn = mountains[i]; mtn.position.z += speed;
-                if (mtn.position.z > 20) { scene.remove(mtn); mountains.splice(i, 1); i--; }
+            // Move Scenery 
+            for (let i = 0; i < scenery.length; i++) {
+                let s = scenery[i]; s.position.z += speed;
+                if (s.position.z > 20) { scene.remove(s); scenery.splice(i, 1); i--; }
             }
 
-            // Move Obstacles & COLLISION DETECTION (Gi-ayos na!)
+            // Move Obstacles & COLLISION DETECTION
             for (let i = 0; i < obstacles.length; i++) {
                 let obs = obstacles[i]; 
                 obs.position.z += speed;
 
-                // Bangka Collision Box
                 let diffX = Math.abs(player.position.x - obs.position.x);
                 let diffZ = Math.abs(player.position.z - obs.position.z);
                 if (diffX < 2.0 && diffZ < 2.0) {
                     gameOver();
-                    return; // Stop animation loop immediately
+                    return; 
                 }
 
                 if (obs.position.z > 5 && !obs.passed) {
                     score += 10;
                     document.getElementById('score').innerText = "Score: " + score;
                     obs.passed = true;
-                    speed += 0.005; 
+                    speed += 0.003; // Smooth acceleration
                     
+                    // KINI ANG AUTOMATIC SEND! (Inig abot ug 2000, padala dayon email sa kaugalingon nga gmail account)
                     if(score >= 2000 && !ticketWon) {
                         ticketWon = true;
                         triggerWinEmail();
@@ -286,7 +311,7 @@
             renderer.render(scene, camera);
         }
 
-        // 11. GAME OVER LOGIC
+        // 11. GAME OVER LOGIC UG HIGH SCORE RECORD
         function gameOver() {
             isGameOver = true;
             sndBoat.pause(); 
@@ -297,7 +322,15 @@
             document.getElementById('mobile-controls').style.display = 'none'; 
             document.getElementById('win-banner').style.display = 'none';
 
-            document.getElementById('final-score').innerHTML = "Distance Reached: " + score;
+            // E-CHECK ANG HIGH SCORE PARA MA-SAVE 
+            if (score > savedHighScore) {
+                savedHighScore = score;
+                localStorage.setItem('cj_highscore', savedHighScore); 
+                document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
+                document.getElementById('final-score').innerHTML = "You scored: " + score + "<br><br><span style='color:#059669; font-size:26px;'>🎉 NEW HIGH SCORE! 🎉</span>";
+            } else {
+                document.getElementById('final-score').innerHTML = "Distance Reached: " + score;
+            }
         }
 
         window.resetGame = function() {
@@ -310,10 +343,10 @@
             sndBoat.play().catch(e=>{});
             
             obstacles.forEach(obs => scene.remove(obs)); obstacles = [];
-            mountains.forEach(mtn => scene.remove(mtn)); mountains = [];
+            scenery.forEach(s => scene.remove(s)); scenery = [];
             
             spawnObstacle(); 
-            spawnMountains(); 
+            spawnScenery(); 
             animate();
         }
 
@@ -321,7 +354,6 @@
             renderer.setSize(window.innerWidth, window.innerHeight); camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix();
         });
 
-        // Initial Render para dili black screen
         renderer.render(scene, camera);
     </script>
 </body>
