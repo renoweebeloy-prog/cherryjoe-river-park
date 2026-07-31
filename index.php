@@ -8,17 +8,14 @@ $slots_file = 'game_slots.txt';
 $stats_file = 'game_stats.json';
 $today = date('Y-m-d');
 
-// I-setup ang JSON file kung wala pa
 if (!file_exists($stats_file)) { file_put_contents($stats_file, json_encode(['date' => $today, 'users' => []])); }
 $stats_data = json_decode(file_get_contents($stats_file), true);
 
-// I-reset ang data kung bag-o na nga adlaw (Para mobalik sa 5 attempts ugma)
 if ($stats_data['date'] !== $today) {
     $stats_data = ['date' => $today, 'users' => []];
     file_put_contents($stats_file, json_encode($stats_data), LOCK_EX);
 }
 
-// API Handler para sa pag-update sa data gikan sa dula
 if (isset($_GET['action'])) {
     if ($_GET['action'] == 'deduct_slot') {
         $s = file_exists($slots_file) ? (int)file_get_contents($slots_file) : 0;
@@ -44,7 +41,19 @@ if (isset($_GET['action'])) {
 
 require 'db_connect.php';
 
-// KUNG WALA NAKA LOG-IN, E-KICK OUT PAINGON SA LOGIN PAGE
+// ==========================================
+// MAINTENANCE MODE CHECKER
+// ==========================================
+$maintenance_file = 'maintenance_mode.txt';
+$is_maintenance = file_exists($maintenance_file) && file_get_contents($maintenance_file) === "1";
+
+$isAdmin = (isset($_SESSION['email']) && $_SESSION['email'] === 'admin@cherryjoe.com');
+
+if ($is_maintenance && !$isAdmin) {
+    header("Location: maintenance.php");
+    exit();
+}
+
 if (!isset($_SESSION['user_id'])) {
     header("Location: login.php");
     exit();
@@ -74,8 +83,6 @@ $currentUser = $stmt->fetch();
 $userName = $currentUser['full_name'] ?? 'Guest';
 $userEmail = $currentUser['email'] ?? '';
 $profilePic = $currentUser['profile_pic'] ?? null;
-
-$isAdmin = ($userEmail === 'admin@cherryjoe.com');
 $userRole = $isAdmin ? 'Admin' : 'Visitor';
 
 $nameParts = explode(' ', trim($userName));
@@ -89,7 +96,6 @@ try {
     $userBookings = $bookingStmt->fetchAll();
 } catch(PDOException $e) {}
 
-// KUHAON ANG GAME STATS SA USER PARA IPASA SA 3D GAME (Kini ang mo-sync!)
 if (!isset($stats_data['users'][$userEmail])) {
     $stats_data['users'][$userEmail] = ['attempts' => 5, 'goal' => 2000, 'highscore' => 0];
     file_put_contents($stats_file, json_encode($stats_data), LOCK_EX);
@@ -110,7 +116,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     
     <style>
-        /* --- PREMIUM UI CONFIG & RESET --- */
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
         html { scroll-behavior: smooth; }
         body { background: #ffffff; color: #1e293b; padding-top: 60px; overflow-x: hidden; }
@@ -119,24 +124,20 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         ::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
         ::-webkit-scrollbar-thumb:hover { background: #10b981; }
 
-        /* --- BACKGROUND MUSIC FLOATING BUTTON --- */
         .music-control-btn { position: fixed; bottom: 20px; right: 20px; width: 50px; height: 50px; background: linear-gradient(135deg, #10b981, #059669); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4); z-index: 9999; transition: all 0.3s ease; border: 2px solid rgba(255, 255, 255, 0.5); }
         .music-control-btn:hover { transform: scale(1.1); }
         .music-control-btn.playing { animation: pulseMusic 1.5s infinite ease-in-out; background: linear-gradient(135deg, #ef4444, #b91c1c); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.4); }
         @keyframes pulseMusic { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
 
-        /* --- 1. PREMIUM LOADING SCREEN --- */
         #preloader { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #f8fafc; z-index: 1000000; display: flex; flex-direction: column; justify-content: center; align-items: center; transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.6s; }
         .loader-spinner { width: 55px; height: 55px; border: 3px solid rgba(16, 185, 129, 0.1); border-radius: 50%; border-top-color: #059669; animation: spin 0.7s cubic-bezier(0.42, 0, 0.58, 1) infinite; margin-bottom: 20px; }
         @keyframes spin { to { transform: rotate(360deg); } }
         .loader-text { color: #059669; font-size: 13px; letter-spacing: 2px; font-weight: 600; text-transform: uppercase; animation: pulseText 1.5s infinite ease-in-out; }
         @keyframes pulseText { 0%, 100% { opacity: 0.6; } 50% { opacity: 1; color: #10b981; } }
 
-        /* --- 2. SCROLL REVEAL TIMING PACK --- */
         .reveal { opacity: 0; transform: translateY(35px) scale(0.98); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0) scale(1); }
 
-        /* --- 3. GLASSMORPHISM WELCOME OVERLAY --- */
         .welcome-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at center, rgba(248, 250, 252, 0.92), rgba(255, 255, 255, 0.99)); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); z-index: 99999; display: none; justify-content: center; align-items: center; padding: 20px; transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .welcome-container { max-width: 480px; width: 100%; max-height: 92vh; overflow-y: auto; padding: 10px 5px; text-align: center; }
         .welcome-container h1 { font-size: 32px; color: #1e293b; margin-bottom: 8px; font-weight: 800; letter-spacing: -0.5px; }
@@ -163,11 +164,9 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .welcome-overlay.hide-welcome { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
         .welcome-overlay.hide-welcome .welcome-container { transform: scale(0.92) translateY(-20px); opacity: 0; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
 
-        /* --- 4. SMOOTH MOBILE PAGE APP TRANSITIONS --- */
         .app-page { display: none; opacity: 0; transform: scale(0.98) translateY(15px); transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
         .app-page.page-active { display: block; opacity: 1; transform: scale(1) translateY(0); }
 
-        /* --- 5. MODERN GLOBAL APP UI PARTS --- */
         nav { position: fixed; top: 0; width: 100%; background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-bottom: 1px solid rgba(0, 0, 0, 0.05); padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; height: 60px; }
         .nav-left { display: flex; align-items: center; gap: 15px; color: #1e293b; }
         .menu-toggle-btn { background: #10b981; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 1px solid #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); transition: 0.3s; }
@@ -176,7 +175,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         section { padding: 50px 5%; max-width: 1200px; margin: 0 auto; }
         .title { text-align: center; font-size: 30px; margin-bottom: 35px; color: #1e293b; font-weight: 800; }
 
-        /* --- ABOUT US DESIGN STYLES --- */
         .about-intro { text-align: center; max-width: 800px; margin: 0 auto 40px auto; color: #475569; font-size: 16px; line-height: 1.8; padding: 25px; background: rgba(16, 185, 129, 0.05); border-radius: 16px; border: 1px dashed rgba(16, 185, 129, 0.3); box-shadow: 0 10px 20px rgba(0,0,0,0.02); }
         .about-intro strong { color: #059669; font-size: 18px; }
         .section-subtitle { text-align: center; font-size: 22px; color: #1e293b; margin-bottom: 25px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
@@ -187,7 +185,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .feature-card h4 { color: #1e293b; font-size: 18px; margin-bottom: 12px; font-weight: 800; }
         .feature-card p { color: #64748b; font-size: 14px; line-height: 1.6; }
 
-        /* --- 6. PREMIUM HERO SLIDESHOW --- */
         .hero { height: calc(100vh - 60px); position: relative; overflow: hidden; display: flex; justify-content: center; align-items: flex-end; text-align: center; }
         .hero-slides { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
         .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-size: cover; background-position: center; background-repeat: no-repeat; opacity: 0; transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1), transform 7s ease; transform: scale(1.06); }
@@ -198,14 +195,21 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .dot { width: 9px; height: 9px; background-color: rgba(0, 0, 0, 0.2); border-radius: 50%; cursor: pointer; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1); }
         .dot.active { background-color: #059669; transform: scale(1.2); width: 26px; border-radius: 6px; }
 
-        /* --- 7. FOOD MANAGEMENT PACK --- */
-        .food-grid-container { max-width: 1000px; margin: 0 auto; }
+        /* --- 7. FOOD MANAGEMENT PACK (UPDATED FOR LIGHTBOX & QUICK NAV) --- */
+        .food-nav-menu { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-bottom: 30px; position: sticky; top: 60px; background: rgba(255,255,255,0.95); padding: 15px 0; z-index: 100; backdrop-filter: blur(10px); }
+        .food-nav-menu a { text-decoration: none; padding: 10px 20px; border-radius: 50px; font-weight: bold; font-size: 14px; color: #475569; background: #f1f5f9; border: 1px solid #cbd5e1; transition: 0.3s; }
+        .food-nav-menu a:hover, .food-nav-menu a.active-nav { background: #059669; color: white; border-color: #059669; }
+
+        .food-grid-container { max-width: 1000px; margin: 0 auto; scroll-margin-top: 150px; }
         .food-category-title { font-size: 20px; color: #1e293b; border-left: 5px solid #059669; padding-left: 12px; margin: 40px 0 20px 0; font-weight: 700; letter-spacing: 0.5px; }
         .food-item-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
         .food-card-with-img { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,0,0,0.03); }
         .food-card-with-img:hover { transform: translateY(-5px); border-color: rgba(16, 185, 129, 0.4); box-shadow: 0 15px 30px rgba(16, 185, 129, 0.1); }
-        .food-card-with-img img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
+        
+        /* UPDATED IMAGE CURSOR FOR LIGHTBOX */
+        .food-card-with-img img { width: 100%; height: 200px; object-fit: cover; transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1); cursor: zoom-in; }
         .food-card-with-img:hover img { transform: scale(1.05); }
+        
         .food-card-body { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
         .food-card-body h3 { font-size: 17px; color: #1e293b; margin-bottom: 8px; font-weight: 600; }
         .food-card-body p.desc { font-size: 13px; color: #64748b; margin-bottom: 12px; line-height: 1.4; }
@@ -217,7 +221,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .drink-item:hover { border-color: #059669; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.08); }
         .drink-name { font-size: 15px; font-weight: 600; color: #1e293b; }
 
-        /* --- 8. EXPLORE ARCHITECTURE --- */
         .management { display: flex; gap: 20px; flex-wrap: wrap; }
         .management .card { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.06); padding: 25px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.03); flex: 1; min-width: 240px; }
         .management .card h3 { color: #059669; margin-bottom: 10px; font-weight: 700; font-size: 18px; }
@@ -240,10 +243,9 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .video-card video { width: 100%; height: 460px; object-fit: cover; border-radius: 14px; background: #000; display: block; }
         .video-card h3 { font-size: 15px; color: #1e293b; margin-top: 12px; font-weight: 600; padding-left: 4px; text-align: left; }
         .gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
-        .gallery img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; cursor: pointer; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; border: 1px solid rgba(0, 0, 0, 0.08); }
+        .gallery img { width: 100%; height: 150px; object-fit: cover; border-radius: 16px; cursor: zoom-in; transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s, box-shadow 0.4s; border: 1px solid rgba(0, 0, 0, 0.08); }
         .gallery img:hover { transform: scale(1.05) translateY(-3px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); border-color: #059669; }
 
-        /* --- 9. WHITE SIDE MENU (DRAWER) SETTINGS --- */
         .side-menu-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.5); backdrop-filter: blur(4px); z-index: 100001; opacity: 0; visibility: hidden; transition: 0.3s ease; }
         .side-menu-overlay.active { opacity: 1; visibility: visible; }
         
@@ -254,13 +256,11 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .close-menu-btn:hover { background: #059669; transform: scale(1.1); }
 
         .side-profile { text-align: left; margin-bottom: 30px; border-bottom: 1px solid rgba(0,0,0,0.08); padding-bottom: 20px; }
-        
         .profile-pic-container { position: relative; width: 70px; height: 70px; margin-bottom: 15px; cursor: pointer; border-radius: 18px; overflow: hidden; border: 2px solid rgba(16,185,129,0.3); box-shadow: 0 5px 15px rgba(16, 185, 129, 0.2); }
         .profile-img-preview { width: 100%; height: 100%; object-fit: cover; }
         .upload-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); display: flex; align-items: center; justify-content: center; opacity: 0; transition: 0.3s; color: white; font-size: 20px; }
         .profile-pic-container:hover .upload-overlay { opacity: 1; }
         .profile-initials { background: #10b981; color: #ffffff; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 800; }
-        
         .profile-name { color: #1e293b; font-size: 22px; font-weight: 800; line-height: 1.2; margin-bottom: 5px; }
         .profile-role { color: #64748b; font-size: 14px; }
 
@@ -269,18 +269,22 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .side-link i { font-size: 20px; width: 25px; text-align: center; }
         .side-link:hover, .side-link.active { background: rgba(16, 185, 129, 0.08); color: #059669; padding-left: 22px; }
 
-        /* --- OVERLAYS & COMPONENT ENGINE --- */
         .contact { background: #f8fafc; border-top: 1px solid rgba(0, 0, 0, 0.05); text-align: center; }
         .contact p { margin: 12px 0; color: #475569; font-size: 15px; }
         .contact a { color: #059669; text-decoration: none; font-weight: 600; }
         footer { background: #f8fafc; color: #64748b; text-align: center; padding: 25px; font-size: 13px; border-top: 1px solid rgba(0, 0, 0, 0.05); }
-        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.94); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; flex-direction: column; gap: 20px; justify-content: center; align-items: center; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; }
-        .lightbox img { max-width: 92%; max-height: 70%; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.15); transform: scale(0.93); transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1); border: 2px solid #ffffff; }
+        
+        /* FOOD LIGHTBOX */
+        .lightbox { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.95); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: none; flex-direction: column; gap: 20px; justify-content: center; align-items: center; z-index: 99999; opacity: 0; transition: opacity 0.3s ease; cursor: zoom-out; }
+        .lightbox img { max-width: 95%; max-height: 85%; border-radius: 16px; box-shadow: 0 30px 60px rgba(0,0,0,0.3); transform: scale(0.8); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); border: 2px solid #ffffff; }
         .lightbox.show { opacity: 1; }
         .lightbox.show img { transform: scale(1); }
+        
+        /* Dili nato ipakita ang download button kung gikan sa food menu (Optional) */
         .download-btn { background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 12px 30px; border-radius: 50px; text-decoration: none; font-weight: 600; font-size: 15px; display: flex; align-items: center; gap: 10px; transform: translateY(20px); opacity: 0; transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); box-shadow: 0 10px 25px rgba(16, 185, 129, 0.3); border: 2px solid rgba(255, 255, 255, 0.5); cursor: pointer; }
         .download-btn:hover { background: linear-gradient(135deg, #059669, #047857); transform: scale(1.05) translateY(18px) !important; box-shadow: 0 15px 35px rgba(16, 185, 129, 0.4); }
         .lightbox.show .download-btn { opacity: 1; transform: translateY(0); }
+        
         .feature-popup-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.82); backdrop-filter: blur(8px); z-index: 100000; display: none; justify-content: center; align-items: center; padding: 20px; }
         .feature-popup-content { background: #ffffff; border: 1px solid rgba(0, 0, 0, 0.08); padding: 30px; border-radius: 24px; max-width: 390px; width: 100%; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.15); text-align: center; animation: modalZoomIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         @keyframes modalZoomIn { from { transform: scale(0.92) translateY(12px); opacity: 0; } to { transform: scale(1) translateY(0); opacity: 1; } }
@@ -290,7 +294,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .close-popup-btn { background: rgba(16, 185, 129, 0.1); color: #059669; border: none; padding: 12px 28px; font-size: 14px; font-weight: 600; border-radius: 50px; cursor: pointer; transition: 0.2s; }
         .close-popup-btn:hover { background: rgba(16, 185, 129, 0.2); }
 
-        /* BOOKING SPECIFIC STYLES */
         .booking-card { background: #fff; padding: 20px; border-radius: 16px; border: 1px solid #cbd5e1; box-shadow: 0 5px 15px rgba(0,0,0,0.03); display: flex; flex-direction: column; justify-content: space-between; }
         .booking-status { display: inline-block; padding: 4px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; text-transform: uppercase; letter-spacing: 0.5px; }
         .status-Pending { background: #fef3c7; color: #d97706; }
@@ -298,12 +301,10 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .status-Cancelled { background: #fee2e2; color: #ef4444; }
         .status-Verified { background: #e0e7ff; color: #2563eb; }
 
-        /* QR MODAL */
         .qr-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999999; display: none; justify-content: center; align-items: center; padding: 20px; }
         .qr-modal-content { background: #ffffff; padding: 30px; border-radius: 20px; text-align: center; max-width: 350px; width: 100%; }
         #qrcode-container img { margin: 0 auto; border: 10px solid #fff; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
 
-        /* GAMES SPECIFIC STYLES */
         .games-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
         .game-card { background: #fff; border-radius: 20px; overflow: hidden; border: 1px solid #cbd5e1; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
 
@@ -319,6 +320,9 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             .table-cell { padding: 14px; border-radius: 12px; }
             .side-menu { width: 260px; left: -280px; }
             .about-intro { padding: 15px; font-size: 14px; }
+            
+            /* Responsive Food Menu Tabs */
+            .food-nav-menu a { padding: 8px 12px; font-size: 12px; }
         }
         .map-container { border-radius: 20px; overflow: hidden; border: 1px solid rgba(0, 0, 0, 0.05); box-shadow: 0 10px 30px rgba(0,0,0,0.05); margin-top: 20px; }
         .map-btn { display: block; width: 100%; text-align: center; background: linear-gradient(135deg, #10b981, #059669); color: white; padding: 15px; border-radius: 50px; text-decoration: none; font-weight: 700; margin-top: 15px; transition: 0.3s; }
@@ -327,9 +331,8 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
 </head>
 <body>
 
-    <!-- AUDIO TAG -->
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.m3" type="audio/mpeg">
+        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
@@ -341,7 +344,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         <div class="loader-text">Loading Experience...</div>
     </div>
 
-    <!-- SIDE MENU DRAWER WITH PHOTO UPLOAD -->
     <div class="side-menu-overlay" id="sideMenuOverlay" onclick="toggleSideMenu()"></div>
     <div class="side-menu" id="sideMenu">
         <div class="close-menu-btn" onclick="toggleSideMenu()">
@@ -349,7 +351,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         </div>
         
         <div class="side-profile">
-            <!-- PROFILE PHOTO AREA WITH CLICK-TO-UPLOAD -->
             <div class="profile-pic-container" onclick="document.getElementById('profilePicInput').click()" title="Click to change photo">
                 <?php if ($profilePic): ?>
                     <img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile Picture" class="profile-img-preview">
@@ -360,23 +361,18 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                     <i class="fas fa-camera"></i>
                 </div>
             </div>
-
-            <!-- HIDDEN FORM PARA UPLOAD -->
             <form id="uploadForm" method="POST" enctype="multipart/form-data" style="display: none;">
                 <input type="file" id="profilePicInput" name="profile_pic" accept="image/*" onchange="document.getElementById('uploadForm').submit()">
             </form>
-
             <div class="profile-name"><?php echo htmlspecialchars($userName); ?></div>
             <div class="profile-role"><?php echo $userRole; ?></div>
         </div>
 
-        <!-- NAVIGATION LINKS -->
         <div class="side-nav-links">
             <a onclick="navigateMenu('home', 'slink-home')" class="side-link active" id="slink-home">
                 <i class="fas fa-home"></i> Home
             </a>
             
-            <!-- GIPAKITA LANG ANG BOOKING KUNG DILI ADMIN (Visitor) -->
             <?php if(!$isAdmin): ?>
             <a onclick="navigateMenu('booking', 'slink-booking')" class="side-link" id="slink-booking">
                 <i class="fas fa-calendar-alt"></i> Booking
@@ -390,7 +386,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                 <i class="fas fa-utensils"></i> Food Menu
             </a>
             
-            <!-- BAG-O NGA LINK PARA SA 3D GAMES -->
             <a onclick="navigateMenu('games', 'slink-games')" class="side-link" id="slink-games">
                 <i class="fas fa-gamepad"></i> 3D Games
             </a>
@@ -508,11 +503,9 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         <!-- ABOUT US SECTION -->
         <section id="about" class="reveal">
             <h2 class="title">About Us</h2>
-            
             <div class="about-intro">
                 <p><strong>CherryJoe River Park</strong> is a popular nature trip and eco-tourism destination located in Purok Magong-ong, Barangay San Rafael, Cateel, Davao Oriental, Philippines. Known for its peaceful, uncommercialized atmosphere, it highlights the natural beauty of the Cateel River area.</p>
             </div>
-
             <h3 class="section-subtitle">Key Features & Amenities</h3>
             <div class="features-grid">
                 <div class="feature-card">
@@ -543,12 +536,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             <div class="map-container">
                 <iframe 
                     src="https://maps.google.com/maps?q=CherryJoe%20River%20Park,%20Cateel,%20Davao%20Oriental&t=k&z=18&ie=UTF8&iwloc=&output=embed" 
-                    width="100%" 
-                    height="350" 
-                    style="border:0;" 
-                    allowfullscreen="" 
-                    loading="lazy" 
-                    referrerpolicy="no-referrer-when-downgrade">
+                    width="100%" height="350" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
             <a href="https://share.google/7u3FzgC9UR5maQkR4" target="_blank" class="map-btn">
@@ -579,17 +567,17 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             <h2 class="title">Rates & Cottages</h2>
             <div class="cottage-section">
                 <div class="entrance-card"><div class="entrance-icon"><i class="fas fa-ticket-alt"></i></div><div class="entrance-details"><h3>Entrance Fee</h3><p><strong>Price:</strong> ₱20 per person</p></div></div>
-                <div class="cottage"><img src="imagescottage.jpg" alt="Open Cottage"><div class="cottage-content"><h3>Open Cottage</h3><p><strong>Price:</strong> ₱100</p><p><strong>Capacity:</strong> 8 Persons</p></div></div>
+                <div class="cottage"><img src="imagescottage.jpg" alt="Open Cottage" onclick="showImage(this.src)"><div class="cottage-content"><h3>Open Cottage</h3><p><strong>Price:</strong> ₱100</p><p><strong>Capacity:</strong> 8 Persons</p></div></div>
             </div>
         </section>
         
         <section id="facilities" class="reveal">
             <h2 class="title">Facilities</h2>
             <div class="facilities">
-                <div class="facility"><img src="imagespool.jpg" alt="Pool"><div class="facility-content"><h3>Pool</h3></div></div>
-                <div class="facility"><img src="imagesriver.jpg" alt="River"><div class="facility-content"><h3>River View</h3></div></div>
-                <div class="facility"><img src="imagesrestaurant.jpg" alt="Restaurant"><div class="facility-content"><h3>Restaurant</h3></div></div>
-                <div class="facility"><img src="imagesfunctionhall.jpg" alt="Function Hall"><div class="facility-content"><h3>Function Hall</h3></div></div>
+                <div class="facility"><img src="imagespool.jpg" alt="Pool" onclick="showImage(this.src)"><div class="facility-content"><h3>Pool</h3></div></div>
+                <div class="facility"><img src="imagesriver.jpg" alt="River" onclick="showImage(this.src)"><div class="facility-content"><h3>River View</h3></div></div>
+                <div class="facility"><img src="imagesrestaurant.jpg" alt="Restaurant" onclick="showImage(this.src)"><div class="facility-content"><h3>Restaurant</h3></div></div>
+                <div class="facility"><img src="imagesfunctionhall.jpg" alt="Function Hall" onclick="showImage(this.src)"><div class="facility-content"><h3>Function Hall</h3></div></div>
             </div>
         </section>
         
@@ -616,12 +604,19 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
 
     <!-- FOOD PAGE (DYNAMIC PDO) -->
     <div id="page-food" class="app-page">
-        <section id="food-section">
-            <h2 class="title">Delicious Menu</h2>
+        <!-- TABS PARA DALI RA PAG-NAVIGATE (DILI NA MAG SIGEG SCROLL PABABA) -->
+        <div class="food-nav-menu">
+            <a href="#cat-Specialties" onclick="setActiveNav(this)">Specialties</a>
+            <a href="#cat-Combo Meals" onclick="setActiveNav(this)">Combo Meals</a>
+            <a href="#cat-Finger Foods" onclick="setActiveNav(this)">Finger Foods</a>
+            <a href="#cat-Drinks" onclick="setActiveNav(this)">Drinks</a>
+        </div>
+
+        <section id="food-section" style="padding-top: 20px;">
             <div class="food-grid-container">
                 
                 <?php
-                $categories = ['Specialties', 'Combo Meal', 'Finger Foods', 'Drinks'];
+                $categories = ['Specialties', 'Combo Meals', 'Finger Foods', 'Drinks'];
                 foreach ($categories as $cat) {
                     try {
                         $stmt = $conn->prepare("SELECT * FROM menu_items WHERE category = :cat ORDER BY id DESC");
@@ -630,11 +625,12 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                         
                         if (count($items) > 0) {
                             $icon = 'fas fa-star';
-                            if ($cat == 'Combo Meal') $icon = 'fas fa-concierge-bell';
+                            if ($cat == 'Combo Meals') $icon = 'fas fa-concierge-bell';
                             if ($cat == 'Finger Foods') $icon = 'fas fa-hamburger';
                             if ($cat == 'Drinks') $icon = 'fas fa-glass-cheers';
 
-                            echo "<div class='food-category-title'><i class='$icon'></i> $cat</div>";
+                            // GI-BUTANGAN NAKO OG ID KADA CATEGORY TITLE PARA MA-CLICK SA TABS SA IBABAW
+                            echo "<div class='food-category-title' id='cat-".htmlspecialchars($cat)."'><i class='$icon'></i> ".htmlspecialchars($cat)."</div>";
                             
                             if ($cat == 'Drinks') {
                                 echo "<div class='drinks-grid'>";
@@ -650,7 +646,8 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                                 foreach ($items as $item) {
                                     $img = !empty($item['image_url']) ? htmlspecialchars($item['image_url']) : 'https://placehold.co/400x250?text=No+Image';
                                     echo "<div class='food-card-with-img'>";
-                                    echo "<img src='$img' alt='".htmlspecialchars($item['name'])."' onerror=\"this.src='https://placehold.co/400x250?text=No+Image'\">";
+                                    // ANG IMG TAG GIBUTANGAN UG ONCLICK="SHOWIMAGE(THIS.SRC)" PARA MO-ENLARGE INIG CLICK!
+                                    echo "<img src='$img' alt='".htmlspecialchars($item['name'])."' onclick=\"showImage(this.src)\" onerror=\"this.src='https://placehold.co/400x250?text=No+Image'\">";
                                     echo "<div class='food-card-body'>";
                                     echo "<div><h3>".htmlspecialchars($item['name'])."</h3>";
                                     if (!empty($item['description'])) {
@@ -670,7 +667,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         </section>
     </div>
 
-    <!-- BAG-O: CUSTOM 3D GAMES PAGE -->
+    <!-- CUSTOM 3D GAMES PAGE -->
     <div id="page-games" class="app-page">
         <section class="reveal">
             <h2 class="title">CherryJoe Exclusives</h2>
@@ -679,9 +676,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             </div>
             
             <div class="games-grid" style="display: block;">
-                <!-- CHERRYJOE CUSTOM 3D GAME -->
                 <div class="game-card" style="max-width: 800px; margin: 0 auto; background: #f8fafc; border: 2px solid #10b981; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                    <!-- GIPASA ANG ATTEMPTS, GOAL, HIGHSCORE SA IFRAME GIKAN SA PHP SERVER -->
                     <iframe src="3dgame.html?name=<?php echo urlencode($userName); ?>&email=<?php echo urlencode($userEmail); ?>&slots=<?php echo $current_game_slots; ?>&attempts=<?php echo $u_attempts; ?>&goal=<?php echo $u_goal; ?>&highscore=<?php echo $u_highscore; ?>" width="100%" height="500" frameborder="0" style="border: none; display: block;"></iframe>
                     <div style="background: #ffffff; border-top: 1px solid #cbd5e1; padding: 15px; text-align: center;">
                         <h3 style="color: #059669; margin-bottom: 5px; font-size: 18px;"><i class="fas fa-ship"></i> CherryJoe River Dodge</h3>
@@ -692,7 +687,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         </section>
     </div>
 
-    <!-- NEW PAGE: BOOKING & RESERVATION (ONLY ACCESSIBLE IF NOT ADMIN) -->
+    <!-- BOOKING & RESERVATION -->
     <?php if(!$isAdmin): ?>
     <div id="page-booking" class="app-page">
         <section class="reveal">
@@ -717,7 +712,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
-                        <!-- GI-UPDATE: GIBUTANGAN UG MIN ATTRIBUTE ARON DILI MAKA-SELECT UG PAST DATE -->
                         <div>
                             <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Check-In Date</label>
                             <input type="date" id="check_in" min="<?php echo date('Y-m-d'); ?>" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
@@ -753,7 +747,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                 <?php if (count($userBookings) > 0): ?>
                     <?php foreach ($userBookings as $b): ?>
                         <?php 
-                            // E-check kung expired na ba base sa check_out date
                             $today = date('Y-m-d');
                             $is_expired = (strtotime($b['check_out']) < strtotime($today));
                         ?>
@@ -768,13 +761,11 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                                     <?php echo htmlspecialchars($b['status']); ?>
                                 </span>
                                 
-                                <!-- Ipakita ang "(Expired)" label kung nilabay na ang date ug wala na-cancel -->
                                 <?php if($is_expired && $b['status'] !== 'Cancelled'): ?>
                                     <span style="font-size: 11px; color: #ef4444; font-weight: bold; margin-left: 5px;">(Expired)</span>
                                 <?php endif; ?>
                             </div>
                             
-                            <!-- Ipakita lang ang QR Code button kung CONFIRMED ang status -->
                             <?php if($b['status'] === 'Confirmed'): ?>
                                 <?php if(!$is_expired): ?>
                                     <button onclick="showQRCode('CJRP-<?php echo $b['id']; ?>', '<?php echo addslashes($b['cottage_type']); ?>')" style="margin-top: 15px; background: #1e293b; color: white; border: none; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
@@ -785,9 +776,12 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                                         <i class="fas fa-qrcode"></i> QR Code Expired
                                     </button>
                                 <?php endif; ?>
+                            <?php elseif($b['status'] === 'Verified'): ?>
+                                <button disabled style="margin-top: 15px; background: #dbeafe; color: #2563eb; border: 1px solid #bfdbfe; padding: 10px; border-radius: 8px; font-weight: bold; width: 100%;">
+                                    <i class="fas fa-check-double"></i> Checked-In at Resort
+                                </button>
                             <?php endif; ?>
                             
-                            <!-- Ipakita lang ang Cancel button kung PENDING pa ang status ug wala pa na-expire -->
                             <?php if($b['status'] === 'Pending' && !$is_expired): ?>
                                 <button onclick="cancelBooking(<?php echo $b['id']; ?>)" style="margin-top: 10px; background: #fee2e2; color: #ef4444; border: 1px solid #fca5a5; padding: 10px; border-radius: 8px; cursor: pointer; font-weight: bold; width: 100%; transition: 0.2s;">
                                     <i class="fas fa-times-circle"></i> Cancel Reservation
@@ -822,10 +816,10 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
     <!-- FOOTER -->
     <footer>© 2026 CherryJoe River Park</footer>
 
-    <!-- LIGHTBOX -->
+    <!-- LIGHTBOX PARA SA FOOD UG GALLERY -->
     <div class="lightbox" id="lightbox" onclick="hideImage()">
-        <img id="lightbox-img" alt="Lightbox Preview">
-        <a id="lightbox-download" href="#" download="CherryJoe_Gallery.jpg" class="download-btn" onclick="event.stopPropagation()">
+        <img id="lightbox-img" alt="Enlarged Preview">
+        <a id="lightbox-download" href="#" download="CherryJoe_Photo.jpg" class="download-btn" onclick="event.stopPropagation()">
             <i class="fas fa-download"></i> Download Photo
         </a>
     </div>
@@ -1044,13 +1038,21 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         function resetSlideTimer() { clearInterval(slideInterval); startSlideTimer(); }
         startSlideTimer();
 
+        // ANIMATED LIGHTBOX PARA SA IMAGES
         function showImage(src) { 
             const box = document.getElementById('lightbox');
             document.getElementById('lightbox-img').src = src;
+            
             const downloadBtn = document.getElementById('lightbox-download');
-            downloadBtn.href = src;
-            let filename = src.split('/').pop() || 'CherryJoe_Gallery.jpg';
-            downloadBtn.download = filename;
+            // Tagoon nato ang download button kung gikan sa food menu para nindot tan-awon
+            if (src.includes('uploads/')) {
+                downloadBtn.style.display = 'none';
+            } else {
+                downloadBtn.style.display = 'flex';
+                downloadBtn.href = src;
+                let filename = src.split('/').pop() || 'CherryJoe_Photo.jpg';
+                downloadBtn.download = filename;
+            }
 
             box.style.display = 'flex'; 
             setTimeout(() => box.classList.add('show'), 15);
@@ -1060,6 +1062,13 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             const box = document.getElementById('lightbox');
             box.classList.remove('show');
             setTimeout(() => box.style.display = 'none', 300);
+        }
+
+        // FOOD MENU NAVIGATION (TABS HIGHLIGHT)
+        function setActiveNav(element) {
+            const links = document.querySelectorAll('.food-nav-menu a');
+            links.forEach(link => link.classList.remove('active-nav'));
+            element.classList.add('active-nav');
         }
 
         // ===============================================
@@ -1073,7 +1082,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         });
 
         // ===============================================
-        // QR CODE LOGIC (NEW)
+        // QR CODE LOGIC
         // ===============================================
         function showQRCode(codeText, cottageName) {
             document.getElementById('qr-cottage-name').innerText = cottageName;
