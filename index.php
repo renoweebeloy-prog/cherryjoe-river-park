@@ -296,6 +296,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .status-Pending { background: #fef3c7; color: #d97706; }
         .status-Confirmed { background: #d1fae5; color: #059669; }
         .status-Cancelled { background: #fee2e2; color: #ef4444; }
+        .status-Verified { background: #e0e7ff; color: #2563eb; }
 
         /* QR MODAL */
         .qr-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 999999; display: none; justify-content: center; align-items: center; padding: 20px; }
