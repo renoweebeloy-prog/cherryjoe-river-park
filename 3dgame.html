@@ -16,14 +16,15 @@
         #start-screen button:active { transform: scale(0.95); }
 
         /* --- GAME UI --- */
-        #game-ui { display: none; position: absolute; top: 15px; left: 20px; width: 100%; pointer-events: none; z-index: 10; flex-direction: column; }
-        #score { color: #ffffff; font-size: 32px; font-weight: 900; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin-bottom: 5px; }
-        #goal-text { color: #facc15; font-size: 14px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 8px; width: fit-content; }
-        #high-score { color: #10b981; font-size: 16px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); margin-top: 5px; }
+        #game-ui { display: none; position: absolute; top: 15px; left: 20px; width: calc(100% - 40px); pointer-events: none; z-index: 10; flex-direction: column; gap: 5px; }
+        .score-row { display: flex; align-items: center; gap: 15px; flex-wrap: wrap; }
+        #score { color: #ffffff; font-size: 32px; font-weight: 900; text-shadow: 2px 2px 5px rgba(0,0,0,0.8); margin: 0; line-height: 1; }
+        #goal-text { color: #facc15; font-size: 14px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); background: rgba(0,0,0,0.3); padding: 5px 10px; border-radius: 8px; margin: 0; white-space: nowrap; }
+        #high-score { color: #10b981; font-size: 16px; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8); margin: 0; }
         
-        /* BANNER KUNG MAKA-SCORE UG 2000 */
-        #win-banner { display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 16px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: 0 10px 25px rgba(217, 119, 6, 0.5); z-index: 100; border: 2px solid #fef3c7; text-align: center; width: 90%; max-width: 400px; animation: pop 0.5s ease-out; }
-        @keyframes pop { 0% { transform: translate(-50%, -20px) scale(0.8); opacity: 0; } 100% { transform: translate(-50%, 0) scale(1); opacity: 1; } }
+        /* BANNER KUNG MAKA-SCORE UG 2000 (Mawala dayon) */
+        #win-banner { display: none; position: absolute; top: 20px; left: 50%; transform: translateX(-50%); background: linear-gradient(135deg, #f59e0b, #d97706); color: white; padding: 15px 30px; border-radius: 50px; font-weight: 900; font-size: 16px; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); box-shadow: 0 10px 25px rgba(217, 119, 6, 0.5); z-index: 100; border: 2px solid #fef3c7; text-align: center; width: 90%; max-width: 400px; animation: popIn 0.5s ease-out; }
+        @keyframes popIn { 0% { transform: translate(-50%, -20px) scale(0.8); opacity: 0; } 100% { transform: translate(-50%, 0) scale(1); opacity: 1; } }
 
         /* --- CRASH / GAME OVER SCREEN --- */
         #game-over { display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); text-align: center; background: rgba(255, 255, 255, 0.98); padding: 40px; border-radius: 20px; box-shadow: 0 15px 40px rgba(0,0,0,0.3); z-index: 50; width: 85%; max-width: 350px; }
@@ -44,7 +45,6 @@
     <audio id="snd-boat" src="boat.mp3.mp3" loop preload="auto"></audio>
     <audio id="snd-crash" src="crash.mp3.mp3" preload="auto"></audio>
 
-    <!-- START SCREEN (ENTRANCE) -->
     <div id="start-screen">
         <h1>🛶 River Dodge</h1>
         <p>Steer the Bangka left and right to dodge the river rocks.</p>
@@ -54,25 +54,25 @@
         <button onclick="startGame()">▶ PLAY NOW</button>
     </div>
 
-    <!-- WINNER BANNER -->
+    <!-- WINNER BANNER (Kini kay mawala ra human sa 4 seconds) -->
     <div id="win-banner">🎉 2000 SCORE REACHED!<br><span style="font-size:12px;">Check your email for the Free Ticket.</span> 🎉</div>
 
-    <!-- UI UG SCORE -->
+    <!-- UI UG SCORE (Gi-grupo aron magtapad) -->
     <div id="game-ui">
-        <div id="score">Score: 0</div>
+        <div class="score-row">
+            <div id="score">Score: 0</div>
+            <div id="goal-text">Goal: 2000 Pts = Free Ticket!</div>
+        </div>
         <div id="high-score">High Score: 0</div>
-        <div id="goal-text">Goal: 2000 Pts = Free Ticket!</div>
     </div>
     
     <div id="controls-hint" class="game-element">Use buttons to dodge!</div>
 
-    <!-- MOBILE CONTROLS -->
     <div id="mobile-controls">
         <div class="control-btn" id="btn-left">◀</div>
         <div class="control-btn" id="btn-right">▶</div>
     </div>
 
-    <!-- CRASHED SCREEN -->
     <div id="game-over">
         <h1>CRASHED!</h1>
         <p id="final-score" style="font-size: 20px; font-weight: bold; color: #1e293b; margin-bottom: 5px;"></p>
@@ -85,17 +85,14 @@
         const playerName = urlParams.get('name') || 'Guest';
         const playerEmail = urlParams.get('email') || '';
 
-        // ⚠️ GI-BUTANG NA IMONG GOOGLE APPS SCRIPT URL ⚠️
         const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw2tEl71Ge9W98MnMiNKMJ9UTa_huFJyIJ_Q6-0bwtJ-5NAzFBPbmDAgTs8yfZhxpr6Jg/exec";
 
         const sndBoat = document.getElementById('snd-boat');
         const sndCrash = document.getElementById('snd-crash');
 
-        // HIGH SCORE INITIALIZATION
         let savedHighScore = localStorage.getItem('cj_highscore') || 0;
         document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
 
-        // 2. SCENE SETUP
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x87CEEB); 
         scene.fog = new THREE.Fog(0x87CEEB, 20, 80); 
@@ -116,7 +113,6 @@
         dirLight.castShadow = true;
         scene.add(dirLight);
 
-        // 3. WAVY RIVER
         const riverGeo = new THREE.PlaneGeometry(35, 200, 30, 60); 
         const riverMat = new THREE.MeshStandardMaterial({ color: 0x0284c7, flatShading: false }); 
         const river = new THREE.Mesh(riverGeo, riverMat);
@@ -124,7 +120,6 @@
         river.receiveShadow = true;
         scene.add(river);
 
-        // 4. BANGKA UG TAO
         const player = new THREE.Group();
         const woodMat = new THREE.MeshStandardMaterial({ color: 0x8B4513 }); 
         const paintMat = new THREE.MeshStandardMaterial({ color: 0xffffff }); 
@@ -145,14 +140,16 @@
             const head = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.4), new THREE.MeshStandardMaterial({ color: 0xffccaa })); head.position.y=1.2; head.castShadow=true; p.add(head);
             p.position.z = zPos; return p;
         }
-        player.add(createPerson(0xef4444, -0.6)); // Tao 1 (Red)
-        player.add(createPerson(0x3b82f6, 0.6));  // Tao 2 (Blue)
+        player.add(createPerson(0xef4444, -0.6)); 
+        player.add(createPerson(0x3b82f6, 0.6));  
         scene.add(player);
 
         // 5. VARIABLES & STATE
         let obstacles = [], scenery = []; 
         let isGameOver = true; 
-        let score = 0, speed = 0.25;
+        let score = 0;
+        let baseSpeed = 0.25; 
+        let speed = baseSpeed;
         let ticketWon = false; 
         
         // 6. CONTROLS
@@ -186,7 +183,6 @@
         const rockMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
         const mtnMat = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 1 });
 
-        // GI-LUAG LUAG ANG MGA BATO PARA DILI KAAYO LISOD ABTON ANG 2000
         function spawnObstacle() {
             if (isGameOver) return;
             const size = 1.5 + Math.random();
@@ -194,33 +190,35 @@
             rock.position.set((Math.random() - 0.5) * 24, size/2, -80); rock.castShadow = true;
             scene.add(rock); obstacles.push(rock);
             
-            // Mas hinay ang gawas sa mga bato karon
-            let spawnTime = Math.max(800, 2000 - (score * 5));
+            let spawnTime = Math.max(700, 1500 - (score * 5));
             setTimeout(spawnObstacle, spawnTime);
         }
 
-        // Scenery (Mga Bukid ug Bato nga naa ra sa kilid)
         function spawnScenery() {
             if (isGameOver) return;
             
-            if (Math.random() > 0.4) {
+            // Bukid
+            if (Math.random() > 0.5) {
                 const mtnGeo = new THREE.ConeGeometry(5+Math.random()*5, 8+Math.random()*10, 5);
                 const mtnL = new THREE.Mesh(mtnGeo, mtnMat); mtnL.position.set(-25-Math.random()*5, 0, -100); scene.add(mtnL); scenery.push(mtnL);
                 const mtnR = new THREE.Mesh(mtnGeo, mtnMat); mtnR.position.set(25+Math.random()*5, 0, -100); scene.add(mtnR); scenery.push(mtnR);
             }
 
-            const sideRockSize = 2 + Math.random() * 2;
-            const sideRockGeo = new THREE.DodecahedronGeometry(sideRockSize, 1);
-            
-            const rockL = new THREE.Mesh(sideRockGeo, rockMat);
-            rockL.position.set(-16 - Math.random()*2, sideRockSize/3, -100);
-            scene.add(rockL); scenery.push(rockL);
+            // Mga bato sa kilid
+            if (Math.random() > 0.6) {
+                const sideRockSize = 2 + Math.random() * 2;
+                const sideRockGeo = new THREE.DodecahedronGeometry(sideRockSize, 1);
+                
+                const rockL = new THREE.Mesh(sideRockGeo, rockMat);
+                rockL.position.set(-16 - Math.random()*2, sideRockSize/3, -100);
+                scene.add(rockL); scenery.push(rockL);
 
-            const rockR = new THREE.Mesh(sideRockGeo, rockMat);
-            rockR.position.set(16 + Math.random()*2, sideRockSize/3, -100);
-            scene.add(rockR); scenery.push(rockR);
+                const rockR = new THREE.Mesh(sideRockGeo, rockMat);
+                rockR.position.set(16 + Math.random()*2, sideRockSize/3, -100);
+                scene.add(rockR); scenery.push(rockR);
+            }
 
-            setTimeout(spawnScenery, 300);
+            setTimeout(spawnScenery, 800); 
         }
 
         // 8. START GAME FUNCTION
@@ -241,13 +239,22 @@
             setTimeout(() => { document.getElementById('controls-hint').style.display = 'none'; }, 4000);
         }
 
-        // 9. WIN EMAIL TRIGGER (AUTOMATIC SEND INIG 2000 SCORE)
+        // 9. WIN EMAIL TRIGGER
         function triggerWinEmail() {
-            document.getElementById('win-banner').style.display = 'block';
+            const banner = document.getElementById('win-banner');
+            banner.style.display = 'block';
+            
+            setTimeout(() => {
+                banner.style.display = 'none';
+            }, 4000);
+
             if(playerEmail) {
                 const ticketId = "WINTIX-" + Math.floor(Math.random() * 999999);
                 const fetchUrl = `${APPS_SCRIPT_URL}?action=win&name=${encodeURIComponent(playerName)}&email=${encodeURIComponent(playerEmail)}&ticket=${ticketId}`;
-                fetch(fetchUrl, { mode: 'no-cors' }).then(() => console.log('Win email request sent.'));
+                
+                let beacon = new Image();
+                beacon.src = fetchUrl;
+                console.log("Email request triggered to: " + playerEmail);
             }
         }
 
@@ -256,7 +263,6 @@
             if (isGameOver) return;
             requestAnimationFrame(animate);
 
-            // WAVY RIVER ANIMATION
             const time = Date.now() * 0.002;
             const positions = riverGeo.attributes.position;
             for(let i = 0; i < positions.count; i++) {
@@ -267,22 +273,19 @@
             }
             positions.needsUpdate = true;
 
-            // Player Movement
-            if (keys.left && player.position.x > -14) player.position.x -= 0.25;
-            if (keys.right && player.position.x < 14) player.position.x += 0.25;
+            let turnSpeed = 0.25 + (speed - 0.25);
+            if (keys.left && player.position.x > -14) player.position.x -= turnSpeed;
+            if (keys.right && player.position.x < 14) player.position.x += turnSpeed;
             
-            // Bangka Tilt
             if (keys.left) player.rotation.z = Math.min(player.rotation.z + 0.05, 0.2);
             else if (keys.right) player.rotation.z = Math.max(player.rotation.z - 0.05, -0.2);
             else player.rotation.z *= 0.9;
 
-            // Move Scenery 
             for (let i = 0; i < scenery.length; i++) {
                 let s = scenery[i]; s.position.z += speed;
                 if (s.position.z > 20) { scene.remove(s); scenery.splice(i, 1); i--; }
             }
 
-            // Move Obstacles & COLLISION DETECTION
             for (let i = 0; i < obstacles.length; i++) {
                 let obs = obstacles[i]; 
                 obs.position.z += speed;
@@ -298,9 +301,9 @@
                     score += 10;
                     document.getElementById('score').innerText = "Score: " + score;
                     obs.passed = true;
-                    speed += 0.003; // Smooth acceleration
                     
-                    // KINI ANG AUTOMATIC SEND! (Inig abot ug 2000, padala dayon email sa kaugalingon nga gmail account)
+                    speed += 0.002; 
+                    
                     if(score >= 2000 && !ticketWon) {
                         ticketWon = true;
                         triggerWinEmail();
@@ -311,7 +314,7 @@
             renderer.render(scene, camera);
         }
 
-        // 11. GAME OVER LOGIC UG HIGH SCORE RECORD
+        // 11. GAME OVER LOGIC
         function gameOver() {
             isGameOver = true;
             sndBoat.pause(); 
@@ -322,7 +325,6 @@
             document.getElementById('mobile-controls').style.display = 'none'; 
             document.getElementById('win-banner').style.display = 'none';
 
-            // E-CHECK ANG HIGH SCORE PARA MA-SAVE 
             if (score > savedHighScore) {
                 savedHighScore = score;
                 localStorage.setItem('cj_highscore', savedHighScore); 
@@ -334,7 +336,11 @@
         }
 
         window.resetGame = function() {
-            isGameOver = false; score = 0; speed = 0.25; ticketWon = false;
+            isGameOver = false; 
+            score = 0; 
+            speed = baseSpeed; 
+            ticketWon = false;
+            
             document.getElementById('score').innerText = "Score: 0";
             document.getElementById('game-over').style.display = 'none';
             document.getElementById('mobile-controls').style.display = 'flex'; 
