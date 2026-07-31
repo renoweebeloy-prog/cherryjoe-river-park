@@ -632,27 +632,21 @@ try {
         </section>
     </div>
 
-    <!-- BAG-O: 3D GAMES PAGE -->
+    <!-- BAG-O: CUSTOM 3D GAMES PAGE -->
     <div id="page-games" class="app-page">
         <section class="reveal">
-            <h2 class="title">Arcade & 3D Games</h2>
+            <h2 class="title">CherryJoe Exclusives</h2>
             <div class="about-intro">
-                <p>Enjoy playing these free 3D browser games while waiting for your booking approval or just to pass the time!</p>
+                <p>Play our very own custom 3D game built exclusively for CherryJoe River Park guests! Dodge the river rocks to get the highest score.</p>
             </div>
             
-            <div class="games-grid">
-                <!-- Game 1: 3D Racing -->
-                <div class="game-card">
-                    <iframe src="https://www.crazygames.com/embed/poly-track" allow="gamepad *;"></iframe>
+            <div class="games-grid" style="display: block;">
+                <!-- CHERRYJOE CUSTOM 3D GAME -->
+                <div class="game-card" style="max-width: 800px; margin: 0 auto;">
+                    <iframe src="3dgame.html" width="100%" height="500" frameborder="0" style="border: none; border-radius: 20px;"></iframe>
                     <div class="game-info">
-                        <h3>Poly Track (3D Racing)</h3>
-                    </div>
-                </div>
-                <!-- Game 2: 3D FPS -->
-                <div class="game-card">
-                    <iframe src="https://www.crazygames.com/embed/shell-shockers" allow="gamepad *;"></iframe>
-                    <div class="game-info">
-                        <h3>Shell Shockers (3D FPS)</h3>
+                        <h3><i class="fas fa-ship"></i> CherryJoe River Dodge</h3>
+                        <p style="font-size: 13px; color: #64748b;">Use Left/Right arrows (or tap sides of screen on mobile) to dodge the rocks!</p>
                     </div>
                 </div>
             </div>
@@ -684,6 +678,7 @@ try {
                     </div>
                     
                     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+                        <!-- GI-UPDATE: GIBUTANGAN UG MIN ATTRIBUTE ARON DILI MAKA-SELECT UG PAST DATE -->
                         <div>
                             <label style="display:block; margin-bottom: 5px; font-weight: bold; color: #1e293b; font-size: 14px;">Check-In Date</label>
                             <input type="date" id="check_in" min="<?php echo date('Y-m-d'); ?>" required style="width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #cbd5e1; outline: none;">
