@@ -25,6 +25,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_slots'])) {
 }
 $current_slots = (int)file_get_contents($slots_file);
 
+// ==========================================
+// MAINTENANCE MODE MANAGEMENT
+// ==========================================
+$maintenance_file = 'maintenance_mode.txt';
+if(!file_exists($maintenance_file)) { file_put_contents($maintenance_file, "0"); }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['toggle_maintenance'])) {
+    $current_m = file_get_contents($maintenance_file);
+    $new_m = ($current_m === "1") ? "0" : "1";
+    file_put_contents($maintenance_file, $new_m);
+    $status_text = ($new_m === "1") ? "ENABLED" : "DISABLED";
+    $message = "<div class='success-msg'><i class='fas fa-tools'></i> Maintenance mode $status_text!</div>";
+}
+$is_maintenance = (file_get_contents($maintenance_file) === "1");
+
 function uploadFile($fileInputName, $uploadDir) {
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
         $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);
@@ -187,8 +202,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         .slots-box h3 { margin-bottom: 5px; font-size: 16px; color: #d97706;}
         .slots-box p { font-size: 13px; margin-top: 5px; color: #b45309;}
 
-        /* FOOD MENU GRID DISPLAY */
-        .food-manager-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px; }
+        /* FOOD MENU GRID DISPLAY (STRICTLY 4 COLUMNS) */
+        .food-manager-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
         .food-item-card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 15px; position: relative; display: flex; flex-direction: column; justify-content: space-between; }
         .food-item-card img { width: 100%; height: 120px; object-fit: cover; border-radius: 8px; margin-bottom: 10px; cursor: zoom-in; }
         .food-item-card h4 { color: #1e293b; font-size: 15px; margin-bottom: 5px; }
@@ -211,8 +226,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             .btn-scan { width: 100%; text-align: center; }
             .admin-section { padding: 15px; }
             
-            /* FORCE 4 COLUMNS ON MOBILE FOR FOOD MENU */
-            .food-manager-grid { grid-template-columns: repeat(4, 1fr); gap: 8px; }
+            /* FORCE EXACTLY 4 COLUMNS ON MOBILE */
+            .food-manager-grid { grid-template-columns: repeat(4, 1fr) !important; gap: 8px; }
             .food-item-card { padding: 8px; }
             .food-item-card img { height: 80px; }
             .food-item-card h4 { font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -239,7 +254,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     
     <div class="header-flex">
         <h1><i class="fas fa-cogs"></i> Admin Dashboard</h1>
-        <a href="index.php" class="back-btn"><i class="fas fa-arrow-left"></i> Exit Admin</a>
+        <!-- GI-UPDATE ANG EXIT ADMIN NGADTO SA BACK TO ADMIN -->
+        <a href="index.php" class="back-btn"><i class="fas fa-arrow-left"></i> Back to Admin</a>
     </div>
     
     <?php echo $message; ?>
