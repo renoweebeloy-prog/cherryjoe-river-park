@@ -640,7 +640,7 @@ try {
             <div class="games-grid" style="display: block;">
                 <!-- CHERRYJOE CUSTOM 3D GAME -->
                 <div class="game-card" style="max-width: 800px; margin: 0 auto; background: #f8fafc; border: 2px solid #10b981; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
-                    <iframe src="3dgame.html" width="100%" height="500" frameborder="0" style="border: none; display: block;"></iframe>
+                    <iframe src="3dgame.html?name=<?php echo urlencode($userName); ?>&email=<?php echo urlencode($userEmail); ?>" width="100%" height="500" frameborder="0" style="border: none; display: block;"></iframe>
                     <div style="background: #ffffff; border-top: 1px solid #cbd5e1; padding: 15px; text-align: center;">
                         <h3 style="color: #059669; margin-bottom: 5px; font-size: 18px;"><i class="fas fa-ship"></i> CherryJoe River Dodge</h3>
                         <p style="font-size: 13px; color: #64748b;">Controls: Use Left & Right arrows (or tap the left/right sides of your screen) to dodge the rocks!</p>
