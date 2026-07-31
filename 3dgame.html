@@ -7,16 +7,25 @@
     <style>
         body { margin: 0; overflow: hidden; background-color: #87CEEB; font-family: 'Segoe UI', Tahoma, sans-serif; touch-action: none; user-select: none; -webkit-user-select: none; }
         
-        /* --- START SCREEN --- */
-        #start-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.95); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; text-align: center; padding: 20px; box-sizing: border-box; }
-        #start-screen h1 { color: #059669; font-size: 35px; margin-bottom: 5px; font-weight: 900; }
+        /* --- START SCREEN & BOAT SELECTOR --- */
+        #start-screen { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(248, 250, 252, 0.98); display: flex; flex-direction: column; justify-content: center; align-items: center; z-index: 100; text-align: center; padding: 20px; box-sizing: border-box; overflow-y: auto; }
+        #start-screen h1 { color: #059669; font-size: 32px; margin-bottom: 5px; font-weight: 900; }
         
-        .rules-box { background: #fff; border: 2px dashed #059669; padding: 20px; border-radius: 15px; margin-bottom: 20px; max-width: 400px; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
-        .rules-box h3 { color: #d97706; margin-top: 0; font-size: 18px; text-align: center; }
-        .rules-box ul { padding-left: 20px; margin-bottom: 0; font-size: 14px; color: #334155; line-height: 1.6; }
-        .stat-badge { background: #fef3c7; color: #d97706; padding: 3px 8px; border-radius: 5px; font-weight: bold; }
+        .rules-box { background: #fff; border: 2px dashed #059669; padding: 15px; border-radius: 15px; margin-bottom: 15px; max-width: 400px; text-align: left; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        .rules-box h3 { color: #d97706; margin-top: 0; font-size: 16px; text-align: center; }
+        .rules-box ul { padding-left: 20px; margin-bottom: 0; font-size: 13px; color: #334155; line-height: 1.5; }
+        .stat-badge { background: #fef3c7; color: #d97706; padding: 2px 6px; border-radius: 4px; font-weight: bold; }
 
-        #start-screen button { background: #10b981; color: white; border: none; padding: 15px 40px; font-size: 22px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); transition: 0.2s; }
+        /* BOAT SELECTION GRID */
+        .boat-select-container { width: 100%; max-width: 420px; margin-bottom: 15px; text-align: left; }
+        .boat-select-container label { font-size: 13px; font-weight: bold; color: #475569; display: block; margin-bottom: 8px; text-transform: uppercase; text-align: center; }
+        .boat-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .boat-option { background: #f1f5f9; border: 2px solid #cbd5e1; border-radius: 10px; padding: 8px 4px; text-align: center; cursor: pointer; transition: 0.2s; font-size: 12px; font-weight: bold; color: #334155; }
+        .boat-option:hover { background: #e2e8f0; }
+        .boat-option.selected { background: #d1fae5; border-color: #059669; color: #065f46; box-shadow: 0 4px 10px rgba(5,150,105,0.2); }
+        .boat-option i { font-size: 18px; display: block; margin-bottom: 4px; color: #059669; }
+
+        #start-screen button { background: #10b981; color: white; border: none; padding: 12px 35px; font-size: 20px; font-weight: bold; border-radius: 50px; cursor: pointer; box-shadow: 0 5px 15px rgba(16, 185, 129, 0.4); transition: 0.2s; }
         #start-screen button:active { transform: scale(0.95); }
 
         /* --- GAME UI --- */
@@ -42,6 +51,7 @@
         .control-btn { background: rgba(16, 185, 129, 0.8); color: white; border: 3px solid rgba(255, 255, 255, 0.8); width: 75px; height: 75px; border-radius: 50%; font-size: 35px; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.3); pointer-events: auto; }
         .control-btn:active, .control-btn.active { background: rgba(5, 150, 105, 0.9); transform: scale(0.95); border-color: #ffffff; }
     </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body>
@@ -55,11 +65,34 @@
             <h3>📜 Game Rules & Prizes</h3>
             <ul>
                 <li>Dodge rocks! Boat gets faster as score increases.</li>
-                <li><b>Prizes:</b> 2000, 3000, 4000, 5000 pts = Free Ticket. <br><b>8000 pts = Free Snacks!</b></li>
-                <li><b>Attempts:</b> You have <span class="stat-badge" id="ui-attempts">X</span> attempts today.</li>
+                <li><b>Prizes:</b> 2k, 3k, 4k, 5k pts = Free Ticket. <br><b>8000 pts = Free Snacks!</b></li>
+                <li><b>Attempts:</b> <span class="stat-badge" id="ui-attempts">X</span> left today.</li>
                 <li><b>Slots:</b> <span class="stat-badge" id="ui-slots">X</span> prizes left today.</li>
             </ul>
         </div>
+
+        <!-- 5 KA PANG-DAGAT NGA SAKYANAN (BOAT SELECTOR) -->
+        <div class="boat-select-container">
+            <label><i class="fas fa-ship"></i> Choose Your Watercraft:</label>
+            <div class="boat-grid">
+                <div class="boat-option selected" id="boat-0" onclick="selectBoat(0)">
+                    <i class="fas fa-canoe"></i>Wooden
+                </div>
+                <div class="boat-option" id="boat-1" onclick="selectBoat(1)">
+                    <i class="fas fa-ship"></i>Speed
+                </div>
+                <div class="boat-option" id="boat-2" onclick="selectBoat(2)">
+                    <i class="fas fa-water"></i>Jet Ski
+                </div>
+                <div class="boat-option" id="boat-3" onclick="selectBoat(3)">
+                    <i class="fas fa-grip-lines"></i>Raft
+                </div>
+                <div class="boat-option" id="boat-4" onclick="selectBoat(4)">
+                    <i class="fas fa-anchor"></i>Yacht
+                </div>
+            </div>
+        </div>
+
         <button id="btn-start" onclick="startGame()">▶ PLAY NOW</button>
     </div>
 
@@ -87,7 +120,6 @@
     </div>
 
     <script>
-        // 1. KUUHAON ANG DATA GIKAN SA INDEX.PHP
         const urlParams = new URLSearchParams(window.location.search);
         const playerName = urlParams.get('name') || 'Guest';
         const playerEmail = urlParams.get('email') || '';
@@ -106,7 +138,6 @@
         const sndBoat = document.getElementById('snd-boat');
         const sndCrash = document.getElementById('snd-crash');
 
-        // FUNCTION PARA MO-SYNC PABALIK SA INDEX.PHP SERVER
         function syncStatToServer(type, val) {
             if(playerEmail) {
                 fetch(`index.php?action=update_stat&email=${encodeURIComponent(playerEmail)}&type=${type}&val=${val}`)
@@ -114,7 +145,6 @@
             }
         }
 
-        // UI UPDATES
         document.getElementById('ui-slots').innerText = availableSlots;
         document.getElementById('ui-attempts').innerText = attemptsLeft;
         document.getElementById('high-score').innerText = "High Score: " + savedHighScore;
@@ -126,11 +156,11 @@
         updateGoalText();
 
         if (attemptsLeft <= 0 || availableSlots <= 0) {
-            document.getElementById('btn-start').innerText = "Play For Fun (0 Prizes/Attempts)";
+            document.getElementById('btn-start').innerText = "Play For Fun (0 Prizes)";
             document.getElementById('btn-start').style.background = "#64748b";
         }
 
-        // 3. SCENE SETUP
+        // SCENE SETUP
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x87CEEB); 
         scene.fog = new THREE.Fog(0x87CEEB, 20, 80); 
@@ -159,32 +189,84 @@
         river.receiveShadow = true;
         scene.add(river);
 
-        // BANGKA UG TAO
+        // ==========================================
+        // 5 KA KLASE NGA WATERCRAFT (BOAT BUILDER)
+        // ==========================================
+        let selectedBoatType = 0; // Default: Wooden Boat
         const player = new THREE.Group();
-        const woodMat = new THREE.MeshStandardMaterial({ color: 0x8B4513 }); 
-        const paintMat = new THREE.MeshStandardMaterial({ color: 0xffffff }); 
-        const bambooMat = new THREE.MeshStandardMaterial({ color: 0xd97706 });
+        scene.add(player);
 
-        const hull = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.6, 3), woodMat); hull.position.y=0.3; hull.castShadow=true; player.add(hull);
-        const bow = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.5, 4), paintMat); bow.rotation.x=-Math.PI/2; bow.rotation.y=Math.PI/4; bow.position.set(0,0.3,-2.25); bow.castShadow=true; player.add(bow);
-        const stern = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.5, 4), paintMat); stern.rotation.x=Math.PI/2; stern.rotation.y=Math.PI/4; stern.position.set(0,0.3,2.25); stern.castShadow=true; player.add(stern);
-        
-        const katigL = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 4, 8), bambooMat); katigL.rotation.x=Math.PI/2; katigL.position.set(-1.8,0.2,0); player.add(katigL);
-        const katigR = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 4, 8), bambooMat); katigR.rotation.x=Math.PI/2; katigR.position.set(1.8,0.2,0); player.add(katigR);
-        const pole1 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 3.6, 8), bambooMat); pole1.rotation.z=Math.PI/2; pole1.position.set(0,0.4,-1); player.add(pole1);
-        const pole2 = new THREE.Mesh(new THREE.CylinderGeometry(0.05, 0.05, 3.6, 8), bambooMat); pole2.rotation.z=Math.PI/2; pole2.position.set(0,0.4,1); player.add(pole2);
+        function buildPlayerBoat(type) {
+            // Limpyohan sa daan ang player group
+            while(player.children.length > 0){ 
+                player.remove(player.children[0]); 
+            }
+
+            const woodMat = new THREE.MeshStandardMaterial({ color: 0x8B4513 });
+            const paintMat = new THREE.MeshStandardMaterial({ color: 0xffffff });
+            const redMat = new THREE.MeshStandardMaterial({ color: 0xef4444 });
+            const blueMat = new THREE.MeshStandardMaterial({ color: 0x3b82f6 });
+            const yellowMat = new THREE.MeshStandardMaterial({ color: 0xfacc15 });
+            const darkMat = new THREE.MeshStandardMaterial({ color: 0x1e293b });
+
+            if (type === 0) {
+                // 1. CLASSIC WOODEN BOAT
+                const hull = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.6, 3), woodMat); hull.position.y=0.3; hull.castShadow=true; player.add(hull);
+                const bow = new THREE.Mesh(new THREE.ConeGeometry(0.6, 1.5, 4), paintMat); bow.rotation.x=-Math.PI/2; bow.rotation.y=Math.PI/4; bow.position.set(0,0.3,-2.25); player.add(bow);
+                player.add(createPerson(0xef4444, -0.6));
+                player.add(createPerson(0x3b82f6, 0.6));
+            } 
+            else if (type === 1) {
+                // 2. SPEEDBOAT (Sleek & Red)
+                const hull = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.5, 3.2), redMat); hull.position.y=0.25; hull.castShadow=true; player.add(hull);
+                const windshield = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.4, 0.6), darkMat); windshield.position.set(0, 0.6, -0.2); windshield.rotation.x = -0.3; player.add(windshield);
+                player.add(createPerson(0xffffff, 0.2));
+            } 
+            else if (type === 2) {
+                // 3. JET SKI (Compact & Blue)
+                const hull = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.5, 2.2), blueMat); hull.position.y=0.25; player.add(hull);
+                const seat = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.3, 1.2), darkMat); seat.position.set(0, 0.5, 0.2); player.add(seat);
+                player.add(createPerson(0xfacc15, 0.2));
+            } 
+            else if (type === 3) {
+                // 4. BAMBOO RAFT
+                for(let i=-1.5; i<=1.5; i+=0.5) {
+                    const log = new THREE.Mesh(new THREE.CylinderGeometry(0.15, 0.15, 3.2, 8), woodMat);
+                    log.rotation.x = Math.PI/2;
+                    log.position.set(i, 0.2, 0);
+                    player.add(log);
+                }
+                player.add(createPerson(0x10b981, 0));
+            } 
+            else if (type === 4) {
+                // 5. LUXURY YACHT (White & Big)
+                const hull = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.8, 3.5), paintMat); hull.position.y=0.4; player.add(hull);
+                const cabin = new THREE.Mesh(new THREE.BoxGeometry(1.2, 0.6, 1.8), darkMat); cabin.position.set(0, 0.9, 0.2); player.add(cabin);
+                player.add(createPerson(0xef4444, -0.8));
+            }
+        }
 
         function createPerson(color, zPos) {
             const p = new THREE.Group();
-            const body = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.7, 0.6), new THREE.MeshStandardMaterial({ color: color })); body.position.y=0.65; body.castShadow=true; p.add(body);
-            const head = new THREE.Mesh(new THREE.BoxGeometry(0.4, 0.4, 0.4), new THREE.MeshStandardMaterial({ color: 0xffccaa })); head.position.y=1.2; head.castShadow=true; p.add(head);
+            const body = new THREE.Mesh(new THREE.BoxGeometry(0.5, 0.6, 0.5), new THREE.MeshStandardMaterial({ color: color })); body.position.y=0.6; body.castShadow=true; p.add(body);
+            const head = new THREE.Mesh(new THREE.BoxGeometry(0.35, 0.35, 0.35), new THREE.MeshStandardMaterial({ color: 0xffccaa })); head.position.y=1.1; head.castShadow=true; p.add(head);
             p.position.z = zPos; return p;
         }
-        player.add(createPerson(0xef4444, -0.6)); 
-        player.add(createPerson(0x3b82f6, 0.6));  
-        scene.add(player);
 
-        // 4. VARIABLES & CONTROLS
+        // Pili-anan function sa UI
+        window.selectBoat = function(type) {
+            selectedBoatType = type;
+            for(let i=0; i<5; i++) {
+                document.getElementById('boat-' + i).classList.remove('selected');
+            }
+            document.getElementById('boat-' + type).classList.add('selected');
+            buildPlayerBoat(type); // I-update dayon ang 3D preview sa player
+        }
+
+        // Initialize default boat
+        buildPlayerBoat(0);
+
+        // VARIABLES & CONTROLS
         let obstacles = [], scenery = [], fishes = [], birds = []; 
         let isGameOver = true; 
         let score = 0;
@@ -218,12 +300,11 @@
         btnRight.addEventListener('touchend', (e) => { e.preventDefault(); setRight(false); }, {passive: false});
         btnRight.addEventListener('mousedown', () => setRight(true));
 
-        // 5. SPAWNERS (ROCKS, MOUNTAINS, DAKO NGA BLACK FISH, 3D BIRD)
         const rockMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.8 });
         const mtnMat = new THREE.MeshStandardMaterial({ color: 0x166534, roughness: 1 });
-        const fishMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.3 }); // Black Fish
-        const birdBodyMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc }); // White bird body
-        const wingMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, side: THREE.DoubleSide }); // Gray wings
+        const fishMat = new THREE.MeshStandardMaterial({ color: 0x111111, roughness: 0.3 }); 
+        const birdBodyMat = new THREE.MeshStandardMaterial({ color: 0xf8fafc }); 
+        const wingMat = new THREE.MeshStandardMaterial({ color: 0x94a3b8, side: THREE.DoubleSide }); 
 
         function spawnObstacle() {
             if (isGameOver) return;
@@ -252,12 +333,10 @@
             setTimeout(spawnScenery, 800); 
         }
 
-        // BAG-O: DAKO NGA ITOM NGA ISDA (3D Shape)
         function spawnFish() {
             if (isGameOver) return;
             if (Math.random() > 0.4) {
                 const fish = new THREE.Group();
-                
                 const body = new THREE.Mesh(new THREE.ConeGeometry(0.6, 2, 8), fishMat);
                 body.rotation.x = Math.PI / 2;
                 fish.add(body);
@@ -274,17 +353,14 @@
             setTimeout(spawnFish, 1200);
         }
 
-        // BAG-O: 3D BIRD NGA MO-FLAP ANG PAKO
         function spawnBird() {
             if (isGameOver) return;
             if (Math.random() > 0.3) {
                 const bird = new THREE.Group();
-                
                 const body = new THREE.Mesh(new THREE.ConeGeometry(0.3, 1.2, 5), birdBodyMat);
                 body.rotation.x = Math.PI / 2;
                 bird.add(body);
 
-                // Right Wing with Pivot
                 const rightPivot = new THREE.Group();
                 rightPivot.position.set(0.2, 0, 0); 
                 const rightWing = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.05, 0.5), wingMat);
@@ -292,7 +368,6 @@
                 rightPivot.add(rightWing);
                 bird.add(rightPivot);
 
-                // Left Wing with Pivot
                 const leftPivot = new THREE.Group();
                 leftPivot.position.set(-0.2, 0, 0);
                 const leftWing = new THREE.Mesh(new THREE.BoxGeometry(1.5, 0.05, 0.5), wingMat);
@@ -313,7 +388,6 @@
             setTimeout(spawnBird, 2000);
         }
 
-        // 6. MAIN GAME LOGIC
         window.startGame = function() {
             document.getElementById('start-screen').style.display = 'none';
             document.getElementById('game-ui').style.display = 'flex';
@@ -357,7 +431,6 @@
             if (isGameOver) return;
             requestAnimationFrame(animate);
 
-            // WAVY RIVER
             const time = Date.now() * 0.002;
             const positions = riverGeo.attributes.position;
             for(let i = 0; i < positions.count; i++) {
@@ -380,24 +453,21 @@
                 if (s.position.z > 20) { scene.remove(s); scenery.splice(i, 1); i--; }
             }
 
-            // Move Fish (LUKSO PATAAS)
             for (let i = 0; i < fishes.length; i++) {
                 let f = fishes[i]; 
                 f.position.z += speed * 1.3; 
                 let jumpArc = Math.sin((Date.now() * 0.005) + f.userData.phaseOffset);
-                f.position.y = jumpArc * 3.5 - 1; // Taas ang ambak
+                f.position.y = jumpArc * 3.5 - 1; 
                 f.rotation.x = (Math.PI / 2) - (Math.cos((Date.now() * 0.005) + f.userData.phaseOffset) * 1.2); 
 
                 if (f.position.z > 20) { scene.remove(f); fishes.splice(i, 1); i--; }
             }
 
-            // Move 3D Bird (FLAP WINGS)
             for (let i = 0; i < birds.length; i++) {
                 let b = birds[i]; 
                 b.position.z += speed * 1.5; 
                 b.position.x += Math.sin(Date.now() * 0.001 + b.userData.phase) * 0.05; 
                 
-                // Flapping Animation
                 let flap = Math.sin(Date.now() * b.userData.wingSpeed + b.userData.phase);
                 b.userData.left.rotation.z = flap * 0.8; 
                 b.userData.right.rotation.z = -flap * 0.8; 
