@@ -25,21 +25,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_slots'])) {
 }
 $current_slots = (int)file_get_contents($slots_file);
 
-// ==========================================
-// MAINTENANCE MODE MANAGEMENT
-// ==========================================
-$maintenance_file = 'maintenance_mode.txt';
-if(!file_exists($maintenance_file)) { file_put_contents($maintenance_file, "0"); }
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['toggle_maintenance'])) {
-    $current_m = file_get_contents($maintenance_file);
-    $new_m = ($current_m === "1") ? "0" : "1";
-    file_put_contents($maintenance_file, $new_m);
-    $status_text = ($new_m === "1") ? "ENABLED" : "DISABLED";
-    $message = "<div class='success-msg'><i class='fas fa-tools'></i> Maintenance mode $status_text!</div>";
-}
-$is_maintenance = (file_get_contents($maintenance_file) === "1");
-
 function uploadFile($fileInputName, $uploadDir) {
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
         $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);
@@ -124,7 +109,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_video'])) {
 }
 if (isset($_GET['delete_video'])) { try { $conn->prepare("DELETE FROM videos WHERE id=?")->execute([$_GET['delete_video']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
 
-
 // FETCH DATA FOR TABLES & EDITING
 $is_editing = false; $edit_data = ['id'=>'', 'category'=>'Specialties', 'name'=>'', 'price'=>'', 'description'=>'', 'image_url'=>''];
 if (isset($_GET['edit_menu'])) { 
@@ -136,7 +120,7 @@ if (isset($_GET['edit_menu'])) {
     } catch(PDOException $e) {} 
 }
 
-try { $menu_list = $conn->query("SELECT * FROM menu_items ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $menu_list = []; }
+try { $menu_list = $conn->query("SELECT * FROM menu_items ORDER BY category ASC, id DESC")->fetchAll(); } catch(PDOException $e) { $menu_list = []; }
 try { $gallery_list = $conn->query("SELECT * FROM gallery ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $gallery_list = []; }
 try { $video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $video_list = []; }
 try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at DESC")->fetchAll(); } catch(PDOException $e) { $all_bookings = []; }
@@ -177,8 +161,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         th, td { padding: 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
         th { background: #f1f5f9; color: #475569; font-size: 13px; text-transform: uppercase; }
         .item-img { width: 60px; height: 60px; object-fit: cover; border-radius: 8px; border: 1px solid #cbd5e1; }
-        .delete-btn { color: white; background: #ef4444; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; display: inline-block;}
-        .edit-btn { color: white; background: #3b82f6; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-right: 5px; font-size: 13px; display: inline-block;}
+        .delete-btn { color: white; background: #ef4444; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; font-size: 13px; display: inline-block; margin-top: 5px;}
+        .edit-btn { color: white; background: #3b82f6; padding: 6px 12px; border-radius: 6px; text-decoration: none; font-weight: bold; margin-right: 5px; font-size: 13px; display: inline-block; margin-top: 5px;}
         
         .status-badge { padding: 6px 12px; border-radius: 50px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
         .Pending { background: #fef3c7; color: #d97706; }
@@ -191,6 +175,53 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         .slots-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 20px; border-radius: 15px; margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;}
         .slots-box h3 { margin-bottom: 5px; font-size: 18px; }
         .slots-box p { font-size: 13px; margin-top: 5px;}
+
+        /* ==========================================
+           MOBILE RESPONSIVE TABLES (FULL SCREEN CP)
+           ========================================== */
+        @media screen and (max-width: 768px) {
+            body { padding: 10px; background: #f8fafc; }
+            .dashboard-container { padding: 15px; box-shadow: none; border-radius: 10px; }
+            .header-flex h1 { font-size: 22px; }
+            .section-title { font-size: 18px; flex-direction: column; align-items: flex-start; gap: 10px; }
+            .btn-scan { width: 100%; text-align: center; }
+            
+            /* FORCE TABLE TO BE CARDS ON MOBILE */
+            table, thead, tbody, th, td, tr { display: block; width: 100%; }
+            thead tr { position: absolute; top: -9999px; left: -9999px; } /* Hide Headers */
+            
+            tr { border: 1px solid #cbd5e1; border-radius: 12px; margin-bottom: 15px; background: #ffffff; padding: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+            
+            td { 
+                border: none;
+                border-bottom: 1px solid #e2e8f0; 
+                position: relative;
+                padding: 10px 10px 10px 40%; 
+                text-align: right;
+                min-height: 45px;
+            }
+            td:last-child { border-bottom: 0; text-align: center; padding-left: 10px; } /* Center actions */
+            
+            /* Add Custom Labels */
+            td:before { 
+                position: absolute;
+                top: 12px;
+                left: 10px;
+                width: 35%; 
+                padding-right: 10px; 
+                white-space: nowrap;
+                text-align: left;
+                font-weight: bold;
+                color: #64748b;
+                font-size: 12px;
+                text-transform: uppercase;
+                content: attr(data-label);
+            }
+            
+            .item-img { float: right; width: 70px; height: 70px; border-radius: 8px; }
+            .form-grid { grid-template-columns: 1fr; }
+            .full-width { grid-column: span 1; }
+        }
     </style>
 </head>
 <body>
@@ -203,33 +234,16 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     
     <?php echo $message; ?>
 
-    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 15px;">
-        <!-- GAME SLOTS MANAGER -->
-        <div class="slots-box" style="border-color: #f59e0b; background: #fffbeb;">
-            <div>
-                <h3 style="color: #d97706;"><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
-                <p style="color: #b45309;">Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
-            </div>
-            <form method="POST" style="display: flex; gap: 10px; align-items: center;">
-                <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px;">
-                <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 10px 15px;">Update</button>
-            </form>
+    <!-- GAME SLOTS MANAGER -->
+    <div class="slots-box" style="border-color: #f59e0b; background: #fffbeb;">
+        <div>
+            <h3 style="color: #d97706;"><i class="fas fa-gamepad"></i> 3D Game Prizes</h3>
+            <p style="color: #b45309;">Prize slots available today. (Current: <b><?php echo $current_slots; ?></b>)</p>
         </div>
-
-        <!-- MAINTENANCE MODE MANAGER -->
-        <div class="slots-box" style="border-color: #3b82f6; background: #eff6ff;">
-            <div>
-                <h3 style="color: #1d4ed8;"><i class="fas fa-tools"></i> Maintenance Mode</h3>
-                <p style="color: #1e3a8a;">Turn off website for users. (Status: <b><?php echo $is_maintenance ? '<span style="color:#ef4444;">ON</span>' : '<span style="color:#10b981;">OFF</span>'; ?></b>)</p>
-            </div>
-            <form method="POST" style="display: flex; gap: 10px; align-items: center;">
-                <?php if($is_maintenance): ?>
-                    <button type="submit" name="toggle_maintenance" class="btn-green" style="background:#ef4444; margin-top:0; padding: 10px 15px;">Disable Maintenance</button>
-                <?php else: ?>
-                    <button type="submit" name="toggle_maintenance" class="btn-green" style="background:#3b82f6; margin-top:0; padding: 10px 15px;">Enable Maintenance</button>
-                <?php endif; ?>
-            </form>
-        </div>
+        <form method="POST" style="display: flex; gap: 10px; align-items: center;">
+            <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px;">
+            <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 10px 15px;">Update</button>
+        </form>
     </div>
 
     <!-- BOOKINGS & RESERVATIONS -->
@@ -252,35 +266,35 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                         $is_expired = (strtotime($booking['check_out']) < strtotime($today));
                     ?>
                     <tr>
-                        <td><b>#<?php echo htmlspecialchars($booking['id']); ?></b></td>
-                        <td>
+                        <td data-label="ID"><b>#<?php echo htmlspecialchars($booking['id']); ?></b></td>
+                        <td data-label="Guest">
                             <div style="font-weight: bold; font-size: 15px;"><?php echo htmlspecialchars($booking['user_name']); ?></div>
                             <div style="font-size: 12px; color: #64748b; margin-top: 4px;"><?php echo htmlspecialchars($booking['user_email']); ?></div>
                         </td>
-                        <td>
+                        <td data-label="Facility">
                             <div style="font-weight: bold; color: #059669; font-size: 14px; margin-bottom: 4px;"><?php echo htmlspecialchars($booking['cottage_type']); ?></div>
                             <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in']); ?> <br> <b>Out:</b> <?php echo htmlspecialchars($booking['check_out']); ?></div>
                             <?php if ($is_expired && $booking['status'] !== 'Cancelled'): ?>
                                 <span style="color: #ef4444; font-weight: bold; font-size: 11px; display: inline-block; margin-top: 4px;"><i class="fas fa-exclamation-circle"></i> Date Passed</span>
                             <?php endif; ?>
                         </td>
-                        <td><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 13px;"><?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?></span></td>
-                        <td>
+                        <td data-label="GCash Ref"><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 13px;"><?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?></span></td>
+                        <td data-label="Status">
                             <span class="status-badge <?php echo htmlspecialchars($booking['status']); ?>">
                                 <?php echo htmlspecialchars($booking['status']); ?>
                             </span>
                         </td>
-                        <td>
+                        <td data-label="Actions">
                             <?php if ($booking['status'] === 'Pending' && !$is_expired): ?>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Approve booking?');">
                                     <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
                                     <input type="hidden" name="new_status" value="Confirmed">
-                                    <button type="submit" style="background:#10b981; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Confirm Booking"><i class="fas fa-check"></i></button>
+                                    <button type="submit" style="background:#10b981; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Confirm Booking"><i class="fas fa-check"></i> Approve</button>
                                 </form>
                                 <form method="POST" style="display:inline;" onsubmit="return confirm('Reject booking?');">
                                     <input type="hidden" name="booking_id" value="<?php echo $booking['id']; ?>">
                                     <input type="hidden" name="new_status" value="Cancelled">
-                                    <button type="submit" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Reject Booking"><i class="fas fa-times"></i></button>
+                                    <button type="submit" style="background:#ef4444; color:white; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;" title="Reject Booking"><i class="fas fa-times"></i> Reject</button>
                                 </form>
                             <?php elseif ($is_expired && $booking['status'] === 'Pending'): ?>
                                 <span style="color: #ef4444; font-size: 12px; font-weight: bold; font-style: italic;"><i class="fas fa-ban"></i> Expired</span>
@@ -314,7 +328,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                     <label>Category</label>
                     <select name="category">
                         <option value="Specialties" <?php if($edit_data['category']=='Specialties') echo 'selected'; ?>>Specialties</option>
-                        <option value="Combo Meal" <?php if($edit_data['category']=='Combo Meal') echo 'selected'; ?>>Combo Meal</option>
+                        <option value="Combo Meals" <?php if($edit_data['category']=='Combo Meals') echo 'selected'; ?>>Combo Meals</option>
                         <option value="Finger Foods" <?php if($edit_data['category']=='Finger Foods') echo 'selected'; ?>>Finger Foods</option>
                         <option value="Drinks" <?php if($edit_data['category']=='Drinks') echo 'selected'; ?>>Drinks</option>
                     </select>
@@ -356,16 +370,16 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 <?php if(count($menu_list) > 0): ?>
                     <?php foreach($menu_list as $row): ?>
                     <tr>
-                        <td style="width: 80px;"><img src="<?php echo $row['image_url']; ?>" class="item-img" onerror="this.src='https://placehold.co/100'"></td>
-                        <td>
+                        <td data-label="Image" style="width: 80px;"><img src="<?php echo $row['image_url']; ?>" class="item-img" onerror="this.src='https://placehold.co/100'"></td>
+                        <td data-label="Details">
                             <strong style="font-size: 16px; color: #1e293b;"><?php echo htmlspecialchars($row['name']); ?></strong>
                             <div style="font-size: 12px; color: #64748b; margin-top: 5px;"><?php echo htmlspecialchars($row['description']); ?></div>
                         </td>
-                        <td>
+                        <td data-label="Category/Price">
                             <div style="font-size: 13px; font-weight: bold; color: #475569; margin-bottom: 4px;"><?php echo htmlspecialchars($row['category']); ?></div>
                             <span style="color:#059669; font-weight: 900; font-size: 15px;"><?php echo htmlspecialchars($row['price']); ?></span>
                         </td>
-                        <td>
+                        <td data-label="Action">
                             <a href="admin_dashboard.php?edit_menu=<?php echo $row['id']; ?>" class="edit-btn"><i class="fas fa-edit"></i> Edit</a>
                             <a href="admin_dashboard.php?delete_menu=<?php echo $row['id']; ?>" class="delete-btn" onclick="return confirm('Delete this item?');"><i class="fas fa-trash"></i> Delete</a>
                         </td>
@@ -381,8 +395,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     <!-- GALLERY MANAGEMENT -->
     <h2 class="section-title"><i class="fas fa-images"></i> Manage Gallery Photos</h2>
     <div class="form-box">
-        <form method="POST" enctype="multipart/form-data" style="display: flex; gap: 15px; align-items: flex-end;">
-            <div style="flex: 1;">
+        <form method="POST" enctype="multipart/form-data" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+            <div style="flex: 1; min-width: 250px;">
                 <label>Upload Photo for Gallery</label>
                 <input type="file" name="gallery_photo" accept="image/*" required>
             </div>
@@ -397,8 +411,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 <?php if(count($gallery_list) > 0): ?>
                     <?php foreach($gallery_list as $img): ?>
                     <tr>
-                        <td><img src="<?php echo $img['image_path']; ?>" class="item-img" style="width: 120px; height: 80px;"></td>
-                        <td style="vertical-align: middle;"><a href="admin_dashboard.php?delete_gallery=<?php echo $img['id']; ?>" class="delete-btn" onclick="return confirm('Delete this photo?');"><i class="fas fa-trash"></i> Delete</a></td>
+                        <td data-label="Photo"><img src="<?php echo $img['image_path']; ?>" class="item-img" style="width: 120px; height: 80px;"></td>
+                        <td data-label="Action" style="vertical-align: middle;"><a href="admin_dashboard.php?delete_gallery=<?php echo $img['id']; ?>" class="delete-btn" onclick="return confirm('Delete this photo?');"><i class="fas fa-trash"></i> Delete</a></td>
                     </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
@@ -433,8 +447,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 <?php if(count($video_list) > 0): ?>
                     <?php foreach($video_list as $vid): ?>
                     <tr>
-                        <td><strong><?php echo htmlspecialchars($vid['title']); ?></strong></td>
-                        <td><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn" onclick="return confirm('Delete this video?');"><i class="fas fa-trash"></i> Delete</a></td>
+                        <td data-label="Video Title"><strong><?php echo htmlspecialchars($vid['title']); ?></strong></td>
+                        <td data-label="Action"><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn" onclick="return confirm('Delete this video?');"><i class="fas fa-trash"></i> Delete</a></td>
                     </tr>
                     <?php endforeach; ?>
                 <?php else: ?>
