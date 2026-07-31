@@ -1,7 +1,8 @@
-<?php
+<?php 
 session_start();
 require 'db_connect.php';
 
+// KUNG WALA NAKA LOG-IN, E-KICK OUT PAINGON SA LOGIN PAGE
 if (!isset($_SESSION['user_id']) || $_SESSION['email'] !== 'admin@cherryjoe.com') {
     header("Location: index.php");
     exit();
@@ -37,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset
             $updateStmt->execute(['status' => $n_status, 'id' => $b_id]);
             
             // IPADALA ANG EMAIL PINAAGI SA GOOGLE APPS SCRIPT
-            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbz93x4b45fndZ6PTebbwNoaN9Xga8CeHtj3G7dCs0G8qQM6UAbeH41fyloDP0BWtCmhMg/exec'; // ⚠️ ILISI KINI SA IMONG SCRIPT URL! ⚠️
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbw2tEl71Ge9W98MnMiNKMJ9UTa_huFJyIJ_Q6-0bwtJ-5NAzFBPbmDAgTs8yfZhxpr6Jg/exec'; // ⚠️ SCRIPT URL ⚠️
             
             $action_type = ($n_status === 'Confirmed') ? 'confirm' : 'reject';
             
@@ -351,7 +352,6 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     </div>
 </div>
 
-<!-- IPASA ANG BOOKING DATA GIKAN SA PHP PAINGON SA JAVASCRIPT ARON MA-CHECK ANG EXPIRATION INIG SCAN -->
 <script>
     // JSON Data gikan sa database
     const bookingsData = <?php echo json_encode($all_bookings); ?>;
@@ -371,6 +371,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
     }
 
     function onScanSuccess(decodedText, decodedResult) {
+        
+        // 1. KUNG GIKAN SA REGULAR BOOKING (CJRP)
         if (decodedText.startsWith('CJRP-')) {
             let bookingId = decodedText.split('-')[1];
             html5QrcodeScanner.clear();
@@ -383,13 +385,13 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 // E-CHECK KUNG EXPIRED NA BA (Check-Out Date < Karon nga Petsa)
                 if (booking.check_out < todayDate) {
                     alert("❌ QR Code Expired!\n\nThis QR Code belongs to a past date (" + booking.check_out + ") and can no longer be approved.");
-                    return; // PAHUNONGON ANG CODE DIRI
+                    return; 
                 }
 
                 // E-CHECK KUNG GI-CANCEL NA DAAN
                 if (booking.status === 'Cancelled') {
                     alert("❌ Invalid!\n\nThis booking has already been cancelled.");
-                    return; // PAHUNONGON ANG CODE DIRI
+                    return; 
                 }
 
                 // KUNG OKAY ANG PETSA, IPANGUTANA KUNG I-APPROVE BA
@@ -403,8 +405,19 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
             } else {
                 alert("❌ Booking ID #" + bookingId + " not found in the system.");
             }
-        } else {
-            alert("❌ Invalid QR Code! This is not a CherryJoe River Park reservation.");
+        } 
+        // ===============================================
+        // 2. BAG-O: KUNG GIKAN SA 3D GAME NGA PREMYO (WINTIX)
+        // ===============================================
+        else if (decodedText.startsWith('WINTIX-')) {
+            html5QrcodeScanner.clear();
+            document.getElementById('scannerModal').style.display = 'none';
+            
+            alert("🎉 FREE ENTRANCE TICKET (3D GAME WINNER)!\n\nTicket Code: " + decodedText + "\n\nKini nga guest nakadaog og FREE ENTRANCE kay naka-2000 points siya sa River Dodge!");
+        } 
+        // 3. KUNG LAHI NGA QR CODE (DILI CJRP UG DILI WINTIX)
+        else {
+            alert("❌ Invalid QR Code! This is not a CherryJoe River Park reservation or ticket.");
         }
     }
     
