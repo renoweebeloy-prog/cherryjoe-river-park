@@ -328,7 +328,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
 
     <!-- AUDIO TAG -->
     <audio id="bgMusic" loop autoplay preload="auto">
-        <source src="assetsmusiconetime.mp3" type="audio/mpeg">
+        <source src="assetsmusiconetime.m3" type="audio/mpeg">
     </audio>
 
     <div class="music-control-btn" id="musicBtn" onclick="toggleMusic()">
