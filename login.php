@@ -1,4 +1,15 @@
 <?php
+// ==========================================
+// MAINTENANCE MODE CHECKER (BAG-O!)
+// ==========================================
+$maintenance_file = 'maintenance_mode.txt';
+$is_maintenance = file_exists($maintenance_file) && file_get_contents($maintenance_file) === "1";
+
+// Kung naka-ON ang maintenance ug DILI Admin ang nag-open, ipakita ang Maintenance Screen
+if ($is_maintenance && !$isAdmin) {
+    // ... Dako kaayo nga HTML code diri ...
+    exit();
+}
 session_start();
 require 'db_connect.php';
 
