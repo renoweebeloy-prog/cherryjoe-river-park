@@ -1,29 +1,96 @@
-<?php
+<?php 
 session_start();
 
 // ==========================================
-// 1. MAINTENANCE MODE CHECKER
+// 1. MAINTENANCE MODE CHECKER & ADMIN BYPASS
 // ==========================================
 $maintenance_file = 'maintenance_mode.txt';
 $is_maintenance = file_exists($maintenance_file) && file_get_contents($maintenance_file) === "1";
 
-// ==========================================
-// 2. ADMIN SECRET BYPASS (Gikan sa Padlock)
-// ==========================================
-// Kung gi-click sa Admin ang padlock sa maintenance.php (?admin=true)
 if (isset($_GET['admin']) && $_GET['admin'] === 'true') {
-    $_SESSION['admin_bypass'] = true; // Tagaan og temporary VIP pass ang browser sa Admin
+    $_SESSION['admin_bypass'] = true;
 }
 
-// ==========================================
-// 3. BLOCK NORMAL USERS
-// ==========================================
-// Kung maintenance mode karon UG wala pay VIP pass ang ni-visit
 if ($is_maintenance && empty($_SESSION['admin_bypass'])) {
-    // I-itsa ang user padulong sa maintenance page
     header("Location: maintenance.php");
     exit();
 }
+
+// ==========================================
+// 2. DATABASE CONNECTION & INITIALIZATION
+// ==========================================
+require 'db_connect.php';
+
+// KINI ANG MAG-FIX SA "UNDEFINED VARIABLE" ERROR:
+$error = ''; 
+
+// ==========================================
+// 3. AUTO-LOGIN LOGIC
+// ==========================================
+if (!isset($_SESSION['user_id']) && isset($_COOKIE['cherryjoe_user'])) { 
+    try { 
+        $stmt = $conn->prepare("SELECT id, full_name, email FROM users WHERE id = :id"); 
+        $stmt->execute(['id' => $_COOKIE['cherryjoe_user']]); 
+        $user = $stmt->fetch(); 
+        
+        if ($user) { 
+            $_SESSION['user_id'] = $user['id']; 
+            $_SESSION['name'] = $user['full_name']; 
+            $_SESSION['email'] = $user['email']; 
+        } 
+    } catch(PDOException $e) { 
+        // Ignore error 
+    } 
+} 
+
+// ==========================================
+// 4. REDIRECT KUNG NAKA-LOGIN NA DAAN
+// ==========================================
+if (isset($_SESSION['user_id'])) { 
+    if ($_SESSION['email'] === 'admin@cherryjoe.com') { 
+        header("Location: admin_dashboard.php"); 
+    } else { 
+        header("Location: index.php"); 
+    } 
+    exit(); 
+} 
+
+// ==========================================
+// 5. LOGIN FORM PROCESSING
+// ==========================================
+if ($_SERVER["REQUEST_METHOD"] == "POST") { 
+    $email = $_POST['email']; 
+    $password = $_POST['password']; 
+    $remember = isset($_POST['remember']); 
+    
+    try { 
+        $stmt = $conn->prepare("SELECT id, full_name, password, email FROM users WHERE email = :email"); 
+        $stmt->execute(['email' => $email]); 
+        $user = $stmt->fetch(); 
+        
+        if ($user && password_verify($password, $user['password'])) { 
+            $_SESSION['user_id'] = $user['id']; 
+            $_SESSION['name'] = $user['full_name']; 
+            $_SESSION['email'] = $user['email']; 
+            
+            if ($remember) { 
+                setcookie('cherryjoe_user', $user['id'], time() + (86400 * 30), "/"); 
+            } 
+            
+            if ($user['email'] === 'admin@cherryjoe.com') { 
+                header("Location: admin_dashboard.php"); 
+            } else { 
+                header("Location: index.php"); 
+            } 
+            exit(); 
+        } else { 
+            $error = "Invalid email or password."; 
+        } 
+    } catch(PDOException $e) { 
+        $error = "System Error: " . $e->getMessage(); 
+    } 
+} 
+
 
 // ... [ANG IMONG KARAAN NGA CODE SA LOGIN.PHP IPADAYON DIRI SA UBOS] ...
 // Pananglitan:
