@@ -3,11 +3,10 @@ session_start();
 require 'db_connect.php';
 
 // KUNG WALA NAKA LOG-IN, E-KICK OUT PAINGON SA LOGIN PAGE
-if (!isset($_SESSION['user_id']) \vert{}\vert{}$_SESSION['email'] !== 'admin@cherryjoe.com') {
+if (!isset($_SESSION['user_id']) || $_SESSION['email'] !== 'admin@cherryjoe.com') {
     header("Location: index.php");
     exit();
 }
-
 $message = '';$upload_dir = 'uploads/';
 if (!is_dir($upload_dir)) { mkdir($upload_dir, 0777, true); }
 
