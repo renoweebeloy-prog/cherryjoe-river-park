@@ -12,7 +12,6 @@
             display: flex; 
             justify-content: center; 
             align-items: center; 
-            /* BAG-ONG LIGHT GREEN TO GREEN BACKGROUND */
             background: linear-gradient(135deg, #d1fae5 0%, #34d399 100%); 
             font-family: "Segoe UI", Tahoma, sans-serif; 
             text-align: center; 
@@ -21,10 +20,10 @@
         
         .maintenance-box { 
             background: #ffffff; 
-            padding: 45px 40px; 
+            padding: 45px 35px; 
             border-radius: 24px; 
             box-shadow: 0 20px 40px rgba(5, 150, 105, 0.2); 
-            max-width: 450px; 
+            max-width: 500px; 
             border: 2px dashed #10b981; 
             margin: 20px; 
             position: relative; 
@@ -44,11 +43,10 @@
         }
         
         h1 { 
-            font-size: 30px; 
-            margin-bottom: 12px; 
+            font-size: 26px; 
+            margin-bottom: 15px; 
             font-weight: 900; 
             color: #047857;
-            letter-spacing: -0.5px;
         }
         
         p { 
@@ -59,12 +57,11 @@
             padding: 0 10px;
         }
         
-        /* SEKRETO NGA BUTTON PARA SA ADMIN */
         .secret-admin { 
             position: absolute; 
             bottom: 12px; 
             right: 18px; 
-            color: #f1f5f9; /* Gitago gihapon ang color aron di halata */
+            color: #f1f5f9; 
             text-decoration: none; 
             font-size: 18px; 
             transition: 0.3s; 
@@ -79,9 +76,11 @@
 <body>
     <div class="maintenance-box">
         <div class="icon"><i class="fas fa-tools"></i></div>
-        <h1>Under Maintenance</h1>
         
-        <p>We are currently upgrading the CherryJoe River Park website to serve you better. Please come back later.</p>
+        <!-- IMONG GIPANGAYO NGA TEXT 👇 -->
+        <h1>⚠️ System Under Maintenance ⚠️</h1>
+        <p>The system is currently undergoing maintenance to serve you better. Please come back later.</p>
+        <p style="font-weight: bold; color: #059669;">We appreciate your patience and understanding.</p>
         
         <!-- I-CLICK LANG NING PADLOCK PARA MAKA-SULOD KA SA LOGIN.PHP -->
         <a href="login.php?admin=true" class="secret-admin" title="Admin Bypass"><i class="fas fa-lock"></i></a>
