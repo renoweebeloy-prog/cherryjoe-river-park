@@ -4,14 +4,24 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 
 // ==========================================
-// 1. DATABASE CONNECTION & INITIALIZATION
+// 1. MAINTENANCE MODE & ADMIN BYPASS
+// ==========================================
+if (isset($_GET['admin']) && $_GET['admin'] === 'true') { 
+    $_SESSION['admin_bypass'] = true; 
+}
+if (empty($_SESSION['admin_bypass'])) { 
+    header("Location: maintenance.php"); 
+    exit(); 
+}
+
+// ==========================================
+// 2. DATABASE CONNECTION & INITIALIZATION
 // ==========================================
 require 'db_connect.php';
-
 $error = ''; 
 
 // ==========================================
-// 2. AUTO-LOGIN LOGIC
+// 3. AUTO-LOGIN LOGIC
 // ==========================================
 if (!isset($_SESSION['user_id']) && isset($_COOKIE['cherryjoe_user'])) { 
     try { 
@@ -30,7 +40,7 @@ if (!isset($_SESSION['user_id']) && isset($_COOKIE['cherryjoe_user'])) {
 } 
 
 // ==========================================
-// 3. REDIRECT KUNG NAKA-LOGIN NA DAAN
+// 4. REDIRECT KUNG NAKA-LOGIN NA DAAN
 // ==========================================
 if (isset($_SESSION['user_id'])) { 
     if ($_SESSION['email'] === 'admin@cherryjoe.com') { 
@@ -42,7 +52,7 @@ if (isset($_SESSION['user_id'])) {
 } 
 
 // ==========================================
-// 4. LOGIN FORM PROCESSING
+// 5. LOGIN FORM PROCESSING
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST") { 
     $email = $_POST['email']; 
