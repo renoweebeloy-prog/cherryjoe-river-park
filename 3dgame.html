@@ -65,7 +65,7 @@
             <h3>📜 Game Rules & Prizes</h3>
             <ul>
                 <li>Dodge rocks! Boat gets faster as score increases.</li>
-                <li><b>Prizes:</b> 2000, 3000, 4000, 5000 pts = Free Ticket. <br><b>8000 pts = Free Snacks!</b></li>
+                <li><b>Prizes:</b> 5000 pts = Free Entrance Ticket. <br><b>8000 pts = Free Snacks!</b></li>
                 <li><b>Attempts:</b> You have <span class="stat-badge" id="ui-attempts">X</span> attempts today.</li>
                 <li><b>Slots:</b> <span class="stat-badge" id="ui-slots">X</span> prizes left today.</li>
             </ul>
@@ -92,7 +92,7 @@
     <div id="game-ui">
         <div class="score-row">
             <div id="score">Score: 0</div>
-            <div id="goal-text">Goal: 2000</div>
+            <div id="goal-text">Goal: 5000</div>
         </div>
         <div id="high-score">High Score: 0</div>
     </div>
@@ -120,8 +120,9 @@
         let attemptsLeft = parseInt(urlParams.get('attempts'));
         if (isNaN(attemptsLeft)) attemptsLeft = 5; 
         
+        // I-set nato ang starting goal ngadto sa 5000
         let currentGoal = parseInt(urlParams.get('goal'));
-        if (isNaN(currentGoal)) currentGoal = 2000;
+        if (isNaN(currentGoal) || currentGoal < 5000) currentGoal = 5000;
         
         let savedHighScore = parseInt(urlParams.get('highscore'));
         if (isNaN(savedHighScore)) savedHighScore = 0;
@@ -539,10 +540,7 @@
                         let pName = (currentGoal >= 8000) ? "Free Snacks" : "Free Entrance Ticket";
                         triggerWinEmail(pName);
 
-                        if(currentGoal === 2000) currentGoal = 3000;
-                        else if(currentGoal === 3000) currentGoal = 4000;
-                        else if(currentGoal === 4000) currentGoal = 5000;
-                        else if(currentGoal === 5000) currentGoal = 8000;
+                        if(currentGoal === 5000) currentGoal = 8000;
                         else currentGoal = 999999; 
                         
                         syncStatToServer('goal', currentGoal);
