@@ -3,13 +3,12 @@ session_start();
 require 'db_connect.php';
 
 // KUNG WALA NAKA LOG-IN, E-KICK OUT PAINGON SA LOGIN PAGE
-if (!isset($_SESSION['user_id']) || $_SESSION['email'] !== 'admin@cherryjoe.com') {
+if (!isset($_SESSION['user_id']) \vert{}\vert{}$_SESSION['email'] !== 'admin@cherryjoe.com') {
     header("Location: index.php");
     exit();
 }
 
-$message = '';
-$upload_dir = 'uploads/';
+$message = '';$upload_dir = 'uploads/';
 if (!is_dir($upload_dir)) { mkdir($upload_dir, 0777, true); }
 
 // ==========================================
@@ -20,31 +19,14 @@ if(!file_exists($slots_file)) { file_put_contents($slots_file, "10"); }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_slots'])) {
     $new_slots = (int)$_POST['game_slots'];
-    file_put_contents($slots_file, $new_slots);
-    $message = "<div class='success-msg'><i class='fas fa-gamepad'></i> Game slots successfully updated to $new_slots!</div>";
+    file_put_contents($slots_file, $new_slots);$message = "<div class='success-msg'><i class='fas fa-gamepad'></i> Game slots successfully updated to $new_slots!</div>";
 }
 $current_slots = (int)file_get_contents($slots_file);
 
-// ==========================================
-// MAINTENANCE MODE MANAGEMENT
-// ==========================================
-$maintenance_file = 'maintenance_mode.txt';
-if(!file_exists($maintenance_file)) { file_put_contents($maintenance_file, "0"); }
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['toggle_maintenance'])) {
-    $current_m = file_get_contents($maintenance_file);
-    $new_m = ($current_m === "1") ? "0" : "1";
-    file_put_contents($maintenance_file, $new_m);
-    $status_text = ($new_m === "1") ? "ENABLED" : "DISABLED";
-    $message = "<div class='success-msg'><i class='fas fa-tools'></i> Maintenance mode $status_text!</div>";
-}
-$is_maintenance = (file_get_contents($maintenance_file) === "1");
-
-function uploadFile($fileInputName, $uploadDir) {
+function uploadFile($fileInputName,$uploadDir) {
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
-        $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);
-        $targetPath = $uploadDir . $fileName;
-        if (move_uploaded_file($_FILES[$fileInputName]['tmp_name'], $targetPath)) { return $targetPath; }
+        $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);$targetPath = $uploadDir .$fileName;
+        if (move_uploaded_file($_FILES[$fileInputName]['tmp_name'], $targetPath)) { return$targetPath; }
     }
     return false;
 }
@@ -53,26 +35,22 @@ function uploadFile($fileInputName, $uploadDir) {
 // BOOKING & RESERVATION MANAGEMENT 
 // ==========================================
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset($_POST['new_status'])) {
-    $b_id = $_POST['booking_id'];
-    $n_status = $_POST['new_status']; 
+    $b_id =$_POST['booking_id'];
+    $n_status =$_POST['new_status']; 
 
     try {
-        $getStmt = $conn->prepare("SELECT * FROM bookings WHERE id = :id");
-        $getStmt->execute(['id' => $b_id]);
-        $b_data = $getStmt->fetch();
+        $getStmt =$conn->prepare("SELECT * FROM bookings WHERE id = :id");
+        $getStmt->execute(['id' =>$b_id]);
+        $b_data =$getStmt->fetch();
 
         if($b_data) {
-            $updateStmt = $conn->prepare("UPDATE bookings SET status = :status WHERE id = :id");
-            $updateStmt->execute(['status' => $n_status, 'id' => $b_id]);
+            $updateStmt =$conn->prepare("UPDATE bookings SET status = :status WHERE id = :id");
+            $updateStmt->execute(['status' => $n_status, 'id' =>$b_id]);
             
-            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbzraWE7fbxFfwI8mm5ixTHT9NLQUxLqcjlwfPpkl7yfe3-4F-t44fRosm3EL7sDj1ju4w/exec'; 
-            
-            $action_type = '';
-            if ($n_status === 'Confirmed') { $action_type = 'confirm'; }
-            elseif ($n_status === 'Cancelled') { $action_type = 'reject'; }
-            elseif ($n_status === 'Verified') { $action_type = 'verify'; }
-            
-            $url = $google_app_script_url . "?action=" . $action_type . 
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbzraWE7fbxFfwI8mm5ixTHT9NLQUxLqcjlwfPpkl7yfe3-4F-t44fRosm3EL7sDj1ju4w/exec';$action_type = '';
+            if ($n_status === 'Confirmed') {$action_type = 'confirm'; }
+            elseif ($n_status === 'Cancelled') {$action_type = 'reject'; }
+            elseif ($n_status === 'Verified') { $action_type = 'verify'; }$url = $google_app_script_url . "?action=" . $action_type . 
                    "&email=" . urlencode($b_data['user_email']) . 
                    "&name=" . urlencode($b_data['user_name']) . 
                    "&cottage=" . urlencode($b_data['cottage_type']) . 
@@ -86,59 +64,56 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_exec($ch); curl_close($ch);
 
-            if ($n_status === 'Verified') {
-                $message = "<div class='success-msg'><i class='fas fa-check-double'></i> Guest Checked-In successfully! Welcome email sent.</div>";
+            if ($n_status === 'Verified') {$message = "<div class='success-msg'><i class='fas fa-check-double'></i> Guest Checked-In successfully! Welcome email sent.</div>";
             } else {
-                $message = "<div class='success-msg'><i class='fas fa-check-circle'></i> Booking ID #$b_id updated to $n_status.</div>";
+                $message = "<div class='success-msg'><i class='fas fa-check-circle'></i> Booking ID #$b_id updated to$n_status.</div>";
             }
         } else { $message = "<div class='error-msg'>Booking not found.</div>"; }
-    } catch(PDOException $e) { $message = "<div class='error-msg'>Failed to update booking.</div>"; }
+    } catch(PDOException $e) {$message = "<div class='error-msg'>Failed to update booking.</div>"; }
 }
 
 // ==========================================
 // MENU MANAGEMENT
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_menu'])) {
-    $image_url = uploadFile('photo', $upload_dir) ?: 'https://placehold.co/400x250?text=No+Image';
-    try { $conn->prepare("INSERT INTO menu_items (category, name, description, price, image_url) VALUES (?, ?, ?, ?, ?)")->execute([$_POST['category'], $_POST['name'], $_POST['description'], $_POST['price'], $image_url]); $message = "<div class='success-msg'>Menu item added!</div>"; } catch(PDOException $e) {}
+    $image_url = uploadFile('photo',$upload_dir) ?: 'https://placehold.co/400x250?text=No+Image';
+    try { $conn->prepare("INSERT INTO menu_items (category, name, description, price, image_url) VALUES (?, ?, ?, ?, ?)")->execute([$_POST['category'],$_POST['name'], $_POST['description'],$_POST['price'], $image_url]);$message = "<div class='success-msg'>Menu item added!</div>"; } catch(PDOException $e) {}
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_menu'])) {
-    $image_url = uploadFile('photo', $upload_dir) ?: $_POST['existing_image'];
-    try { $conn->prepare("UPDATE menu_items SET category=?, name=?, description=?, price=?, image_url=? WHERE id=?")->execute([$_POST['category'], $_POST['name'], $_POST['description'], $_POST['price'], $image_url, $_POST['item_id']]); $message = "<div class='success-msg'>Menu item updated!</div>"; } catch(PDOException $e) {}
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_menu'])) {$image_url = uploadFile('photo', $upload_dir) ?:$_POST['existing_image'];
+    try { $conn->prepare("UPDATE menu_items SET category=?, name=?, description=?, price=?, image_url=? WHERE id=?")->execute([$_POST['category'], $_POST['name'],$_POST['description'], $_POST['price'],$image_url, $_POST['item_id']]);$message = "<div class='success-msg'>Menu item updated!</div>"; } catch(PDOException $e) {}
 }
-if (isset($_GET['delete_menu'])) { try { $conn->prepare("DELETE FROM menu_items WHERE id=?")->execute([$_GET['delete_menu']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
+if (isset($_GET['delete_menu'])) { try {$conn->prepare("DELETE FROM menu_items WHERE id=?")->execute([$_GET['delete_menu']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
 
 // ==========================================
 // GALLERY MANAGEMENT
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_gallery'])) {
-    if ($photo_path = uploadFile('gallery_photo', $upload_dir)) { try { $conn->prepare("INSERT INTO gallery (image_path) VALUES (?)")->execute([$photo_path]); $message = "<div class='success-msg'>Photo added to Gallery!</div>"; } catch(PDOException $e) {} }
+    if ($photo_path = uploadFile('gallery_photo', $upload_dir)) { try {$conn->prepare("INSERT INTO gallery (image_path) VALUES (?)")->execute([$photo_path]);$message = "<div class='success-msg'>Photo added to Gallery!</div>"; } catch(PDOException $e) {} }
 }
-if (isset($_GET['delete_gallery'])) { try { $conn->prepare("DELETE FROM gallery WHERE id=?")->execute([$_GET['delete_gallery']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
+if (isset($_GET['delete_gallery'])) { try {$conn->prepare("DELETE FROM gallery WHERE id=?")->execute([$_GET['delete_gallery']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
 
 // ==========================================
 // VIDEO TOUR MANAGEMENT
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_video'])) {
-    if ($video_path = uploadFile('resort_video', $upload_dir)) { try { $conn->prepare("INSERT INTO videos (title, video_path) VALUES (?, ?)")->execute([$_POST['video_title'], $video_path]); $message = "<div class='success-msg'>Video added!</div>"; } catch(PDOException $e) {} }
+    if ($video_path = uploadFile('resort_video', $upload_dir)) { try {$conn->prepare("INSERT INTO videos (title, video_path) VALUES (?, ?)")->execute([$_POST['video_title'],$video_path]); $message = "<div class='success-msg'>Video added!</div>"; } catch(PDOException $e) {} }
 }
-if (isset($_GET['delete_video'])) { try { $conn->prepare("DELETE FROM videos WHERE id=?")->execute([$_GET['delete_video']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
+if (isset($_GET['delete_video'])) { try {$conn->prepare("DELETE FROM videos WHERE id=?")->execute([$_GET['delete_video']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
 
 // FETCH DATA FOR TABLES & EDITING
 $is_editing = false; $edit_data = ['id'=>'', 'category'=>'Specialties', 'name'=>'', 'price'=>'', 'description'=>'', 'image_url'=>''];
-if (isset($_GET['edit_menu'])) { 
-    $is_editing = true; 
+if (isset($_GET['edit_menu'])) {$is_editing = true; 
     try { 
-        $stmt = $conn->prepare("SELECT * FROM menu_items WHERE id=?"); 
+        $stmt =$conn->prepare("SELECT * FROM menu_items WHERE id=?"); 
         $stmt->execute([$_GET['edit_menu']]); 
-        if($item = $stmt->fetch()) $edit_data = $item; 
+        if($item =$stmt->fetch()) $edit_data =$item; 
     } catch(PDOException $e) {} 
 }
 
-try { $menu_list = $conn->query("SELECT * FROM menu_items ORDER BY category ASC, id DESC")->fetchAll(); } catch(PDOException $e) { $menu_list = []; }
-try { $gallery_list = $conn->query("SELECT * FROM gallery ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $gallery_list = []; }
-try { $video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $video_list = []; }
-try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at DESC")->fetchAll(); } catch(PDOException $e) { $all_bookings = []; }
+try { $menu_list =$conn->query("SELECT * FROM menu_items ORDER BY category ASC, id DESC")->fetchAll(); } catch(PDOException $e) {$menu_list = []; }
+try { $gallery_list =$conn->query("SELECT * FROM gallery ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) {$gallery_list = []; }
+try { $video_list =$conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) {$video_list = []; }
+try { $all_bookings =$conn->query("SELECT * FROM bookings ORDER BY created_at DESC")->fetchAll(); } catch(PDOException $e) {$all_bookings = []; }
 ?>
 
 <!DOCTYPE html>
@@ -199,8 +174,8 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         .error-msg { background: #fee2e2; color: #ef4444; padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; }
 
         .slots-box { background: #fffbeb; border: 2px dashed #f59e0b; padding: 15px; border-radius: 12px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;}
-        .slots-box h3 { margin-bottom: 5px; font-size: 16px;}
-        .slots-box p { font-size: 13px; margin-top: 5px;}
+        .slots-box h3 { margin-bottom: 5px; font-size: 16px; color: #d97706;}
+        .slots-box p { font-size: 13px; margin-top: 5px; color: #b45309;}
 
         /* FOOD MENU GRID DISPLAY (STRICTLY 4 COLUMNS) */
         .food-manager-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
@@ -477,7 +452,7 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
         </div>
     </div>
 
-    <!-- TAB 5: SYSTEM SETTINGS (GAME SLOTS & MAINTENANCE) -->
+    <!-- TAB 5: SYSTEM SETTINGS -->
     <div id="tab-settings" class="admin-section">
         <h2 class="section-title"><i class="fas fa-cogs"></i> System Settings</h2>
         
@@ -491,21 +466,6 @@ try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at D
                 <form method="POST" style="display: flex; gap: 10px; align-items: center;">
                     <input type="number" name="game_slots" value="<?php echo $current_slots; ?>" min="0" required style="width: 80px; text-align: center; font-weight: bold; font-size: 16px; padding: 8px; border: 1px solid #cbd5e1; border-radius: 8px;">
                     <button type="submit" name="update_slots" class="btn-green" style="margin-top: 0; padding: 10px 15px;">Update</button>
-                </form>
-            </div>
-
-            <!-- MAINTENANCE MODE MANAGER -->
-            <div class="slots-box" style="border-color: #3b82f6; background: #eff6ff;">
-                <div>
-                    <h3 style="color: #1d4ed8;"><i class="fas fa-tools"></i> Maintenance Mode</h3>
-                    <p style="color: #1e3a8a;">Turn off website for users. (Status: <b><?php echo $is_maintenance ? '<span style="color:#ef4444;">ON</span>' : '<span style="color:#10b981;">OFF</span>'; ?></b>)</p>
-                </div>
-                <form method="POST" style="display: flex; gap: 10px; align-items: center;">
-                    <?php if($is_maintenance): ?>
-                        <button type="submit" name="toggle_maintenance" class="btn-green" style="background:#ef4444; margin-top:0; padding: 10px 15px;">Disable Maintenance</button>
-                    <?php else: ?>
-                        <button type="submit" name="toggle_maintenance" class="btn-green" style="background:#3b82f6; margin-top:0; padding: 10px 15px;">Enable Maintenance</button>
-                    <?php endif; ?>
                 </form>
             </div>
         </div>
