@@ -1,7 +1,3 @@
-<?php 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-if (empty($_SESSION['admin_bypass'])) { header("Location: maintenance.php"); exit(); }
-
 ?>
 <?php
 session_start();
