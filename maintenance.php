@@ -80,7 +80,7 @@
             <div class="icon"><i class="fas fa-tools"></i></div>
         </a>
         
-        <h1>⚠️ System Under Maintenance ⚠️</h1>
+        <h1>⚠️System Under Maintenance⚠️</h1>
         <p>The system is currently undergoing maintenance to serve you better. Please come back later.</p>
         <p style="font-weight: bold; color: #059669;">We appreciate your patience and understanding.</p>
         
