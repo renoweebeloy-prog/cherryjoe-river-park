@@ -12,7 +12,6 @@ $error = '';
 if (!isset($_SESSION['user_id']) && isset($_COOKIE['cherryjoe_user'])) { 
 // ... (Ipadayon ang nahabilin nimo nga code paubos gikan diri) ...
 
-<?php 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
