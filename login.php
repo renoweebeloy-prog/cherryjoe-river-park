@@ -1,17 +1,4 @@
 <?php 
-// 1. MAINTENANCE MODE & ADMIN BYPASS
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-if (isset($_GET['admin']) && $_GET['admin'] === 'true') { $_SESSION['admin_bypass'] = true; }
-if (empty($_SESSION['admin_bypass'])) { header("Location: maintenance.php"); exit(); }
-
-// 2. DATABASE CONNECTION & INITIALIZATION
-require 'db_connect.php';
-$error = ''; 
-
-// 3. AUTO-LOGIN LOGIC
-if (!isset($_SESSION['user_id']) && isset($_COOKIE['cherryjoe_user'])) { 
-// ... (Ipadayon ang nahabilin nimo nga code paubos gikan diri) ...
-
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
