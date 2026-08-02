@@ -537,7 +537,8 @@
                     if(score >= currentGoal && !prizeWonThisRound && availableSlots > 0 && attemptsLeft > 0) {
                         prizeWonThisRound = true;
                         
-                        let pName = (currentGoal >= 8000) ? "Free Snacks" : "Free Entrance Ticket";
+                        // KINI NGA LINE GI-UPDATE ARON SAKTO ANG MSG DIDTO SA GMAIL 👇
+                        let pName = (currentGoal >= 8000) ? "Free Snacks (8000 Pts)" : "Free Entrance Ticket (5000 Pts)";
                         triggerWinEmail(pName);
 
                         if(currentGoal === 5000) currentGoal = 8000;
