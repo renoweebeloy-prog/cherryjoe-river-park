@@ -1,4 +1,17 @@
 <?php 
+session_start();
+
+$maintenance_file = 'maintenance_mode.txt';
+$is_maintenance = file_exists($maintenance_file) && file_get_contents($maintenance_file) === "1";
+
+// Kung gi-OFF na sa Admin ang maintenance, i-balik sila diretso sa login page
+if (!$is_maintenance) {
+    header("Location: login.php");
+    exit();
+}
+?>
+    
+<?php 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
