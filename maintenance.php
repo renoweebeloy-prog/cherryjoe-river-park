@@ -1,15 +1,3 @@
-<?php 
-session_start();
-
-$maintenance_file = 'maintenance_mode.txt';
-$is_maintenance = file_exists($maintenance_file) && file_get_contents($maintenance_file) === "1";
-
-// Kung gi-OFF na sa Admin ang maintenance, i-balik sila diretso sa login page
-if (!$is_maintenance) {
-    header("Location: login.php");
-    exit();
-}
-?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -93,7 +81,6 @@ if (!$is_maintenance) {
         <div class="icon"><i class="fas fa-tools"></i></div>
         <h1>Under Maintenance</h1>
         
-        <!-- BAG-ONG TEXT -->
         <p>We are currently upgrading the CherryJoe River Park website to serve you better. Please come back later.</p>
         
         <!-- I-CLICK LANG NING PADLOCK PARA MAKA-SULOD KA SA LOGIN.PHP -->
