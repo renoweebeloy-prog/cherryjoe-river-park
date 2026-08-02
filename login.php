@@ -11,7 +11,7 @@ if (!$is_maintenance) {
 }
 ?>
     
-<?php 
+
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
