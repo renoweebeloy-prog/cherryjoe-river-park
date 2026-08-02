@@ -5,7 +5,9 @@ if (empty($_SESSION['admin_bypass'])) { header("Location: maintenance.php"); exi
 ?>
     
 <?php 
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 // ==========================================
 // API: SERVER-SIDE GAME DATA SYNC
