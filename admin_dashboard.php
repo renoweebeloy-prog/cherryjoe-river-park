@@ -7,7 +7,9 @@ if (!isset($_SESSION['user_id']) || $_SESSION['email'] !== 'admin@cherryjoe.com'
     header("Location: index.php");
     exit();
 }
-$message = '';$upload_dir = 'uploads/';
+
+$message = '';
+$upload_dir = 'uploads/';
 if (!is_dir($upload_dir)) { mkdir($upload_dir, 0777, true); }
 
 // ==========================================
@@ -18,14 +20,16 @@ if(!file_exists($slots_file)) { file_put_contents($slots_file, "10"); }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['update_slots'])) {
     $new_slots = (int)$_POST['game_slots'];
-    file_put_contents($slots_file, $new_slots);$message = "<div class='success-msg'><i class='fas fa-gamepad'></i> Game slots successfully updated to $new_slots!</div>";
+    file_put_contents($slots_file, $new_slots);
+    $message = "<div class='success-msg'><i class='fas fa-gamepad'></i> Game slots successfully updated to $new_slots!</div>";
 }
 $current_slots = (int)file_get_contents($slots_file);
 
-function uploadFile($fileInputName,$uploadDir) {
+function uploadFile($fileInputName, $uploadDir) {
     if (isset($_FILES[$fileInputName]) && $_FILES[$fileInputName]['error'] === UPLOAD_ERR_OK) {
-        $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);$targetPath = $uploadDir .$fileName;
-        if (move_uploaded_file($_FILES[$fileInputName]['tmp_name'], $targetPath)) { return$targetPath; }
+        $fileName = time() . '_' . preg_replace("/[^a-zA-Z0-9.-]/", "_", $_FILES[$fileInputName]['name']);
+        $targetPath = $uploadDir . $fileName;
+        if (move_uploaded_file($_FILES[$fileInputName]['tmp_name'], $targetPath)) { return $targetPath; }
     }
     return false;
 }
@@ -34,22 +38,26 @@ function uploadFile($fileInputName,$uploadDir) {
 // BOOKING & RESERVATION MANAGEMENT 
 // ==========================================
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset($_POST['new_status'])) {
-    $b_id =$_POST['booking_id'];
-    $n_status =$_POST['new_status']; 
+    $b_id = $_POST['booking_id'];
+    $n_status = $_POST['new_status']; 
 
     try {
-        $getStmt =$conn->prepare("SELECT * FROM bookings WHERE id = :id");
-        $getStmt->execute(['id' =>$b_id]);
-        $b_data =$getStmt->fetch();
+        $getStmt = $conn->prepare("SELECT * FROM bookings WHERE id = :id");
+        $getStmt->execute(array('id' => $b_id));
+        $b_data = $getStmt->fetch();
 
         if($b_data) {
-            $updateStmt =$conn->prepare("UPDATE bookings SET status = :status WHERE id = :id");
-            $updateStmt->execute(['status' => $n_status, 'id' =>$b_id]);
+            $updateStmt = $conn->prepare("UPDATE bookings SET status = :status WHERE id = :id");
+            $updateStmt->execute(array('status' => $n_status, 'id' => $b_id));
             
-            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbzraWE7fbxFfwI8mm5ixTHT9NLQUxLqcjlwfPpkl7yfe3-4F-t44fRosm3EL7sDj1ju4w/exec';$action_type = '';
-            if ($n_status === 'Confirmed') {$action_type = 'confirm'; }
-            elseif ($n_status === 'Cancelled') {$action_type = 'reject'; }
-            elseif ($n_status === 'Verified') { $action_type = 'verify'; }$url = $google_app_script_url . "?action=" . $action_type . 
+            $google_app_script_url = 'https://script.google.com/macros/s/AKfycbzraWE7fbxFfwI8mm5ixTHT9NLQUxLqcjlwfPpkl7yfe3-4F-t44fRosm3EL7sDj1ju4w/exec'; 
+            
+            $action_type = '';
+            if ($n_status === 'Confirmed') { $action_type = 'confirm'; }
+            elseif ($n_status === 'Cancelled') { $action_type = 'reject'; }
+            elseif ($n_status === 'Verified') { $action_type = 'verify'; }
+            
+            $url = $google_app_script_url . "?action=" . $action_type . 
                    "&email=" . urlencode($b_data['user_email']) . 
                    "&name=" . urlencode($b_data['user_name']) . 
                    "&cottage=" . urlencode($b_data['cottage_type']) . 
@@ -63,56 +71,78 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['booking_id']) && isset
             curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
             curl_exec($ch); curl_close($ch);
 
-            if ($n_status === 'Verified') {$message = "<div class='success-msg'><i class='fas fa-check-double'></i> Guest Checked-In successfully! Welcome email sent.</div>";
+            if ($n_status === 'Verified') {
+                $message = "<div class='success-msg'><i class='fas fa-check-double'></i> Guest Checked-In successfully! Welcome email sent.</div>";
             } else {
-                $message = "<div class='success-msg'><i class='fas fa-check-circle'></i> Booking ID #$b_id updated to$n_status.</div>";
+                $message = "<div class='success-msg'><i class='fas fa-check-circle'></i> Booking ID #$b_id updated to $n_status.</div>";
             }
         } else { $message = "<div class='error-msg'>Booking not found.</div>"; }
-    } catch(PDOException $e) {$message = "<div class='error-msg'>Failed to update booking.</div>"; }
+    } catch(PDOException $e) { $message = "<div class='error-msg'>Failed to update booking.</div>"; }
 }
 
 // ==========================================
 // MENU MANAGEMENT
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_menu'])) {
-    $image_url = uploadFile('photo',$upload_dir) ?: 'https://placehold.co/400x250?text=No+Image';
-    try { $conn->prepare("INSERT INTO menu_items (category, name, description, price, image_url) VALUES (?, ?, ?, ?, ?)")->execute([$_POST['category'],$_POST['name'], $_POST['description'],$_POST['price'], $image_url]);$message = "<div class='success-msg'>Menu item added!</div>"; } catch(PDOException $e) {}
+    $uploaded = uploadFile('photo', $upload_dir);
+    $image_url = $uploaded ? $uploaded : 'https://placehold.co/400x250?text=No+Image';
+    try { 
+        $conn->prepare("INSERT INTO menu_items (category, name, description, price, image_url) VALUES (?, ?, ?, ?, ?)")->execute(array($_POST['category'], $_POST['name'], $_POST['description'], $_POST['price'], $image_url)); 
+        $message = "<div class='success-msg'>Menu item added!</div>"; 
+    } catch(PDOException $e) {}
 }
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_menu'])) {$image_url = uploadFile('photo', $upload_dir) ?:$_POST['existing_image'];
-    try { $conn->prepare("UPDATE menu_items SET category=?, name=?, description=?, price=?, image_url=? WHERE id=?")->execute([$_POST['category'], $_POST['name'],$_POST['description'], $_POST['price'],$image_url, $_POST['item_id']]);$message = "<div class='success-msg'>Menu item updated!</div>"; } catch(PDOException $e) {}
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['update_menu'])) {
+    $uploaded = uploadFile('photo', $upload_dir);
+    $image_url = $uploaded ? $uploaded : $_POST['existing_image'];
+    try { 
+        $conn->prepare("UPDATE menu_items SET category=?, name=?, description=?, price=?, image_url=? WHERE id=?")->execute(array($_POST['category'], $_POST['name'], $_POST['description'], $_POST['price'], $image_url, $_POST['item_id'])); 
+        $message = "<div class='success-msg'>Menu item updated!</div>"; 
+    } catch(PDOException $e) {}
 }
-if (isset($_GET['delete_menu'])) { try {$conn->prepare("DELETE FROM menu_items WHERE id=?")->execute([$_GET['delete_menu']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
+if (isset($_GET['delete_menu'])) { 
+    try { $conn->prepare("DELETE FROM menu_items WHERE id=?")->execute(array($_GET['delete_menu'])); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} 
+}
 
 // ==========================================
 // GALLERY MANAGEMENT
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_gallery'])) {
-    if ($photo_path = uploadFile('gallery_photo', $upload_dir)) { try {$conn->prepare("INSERT INTO gallery (image_path) VALUES (?)")->execute([$photo_path]);$message = "<div class='success-msg'>Photo added to Gallery!</div>"; } catch(PDOException $e) {} }
+    if ($photo_path = uploadFile('gallery_photo', $upload_dir)) { 
+        try { $conn->prepare("INSERT INTO gallery (image_path) VALUES (?)")->execute(array($photo_path)); $message = "<div class='success-msg'>Photo added to Gallery!</div>"; } catch(PDOException $e) {} 
+    }
 }
-if (isset($_GET['delete_gallery'])) { try {$conn->prepare("DELETE FROM gallery WHERE id=?")->execute([$_GET['delete_gallery']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
+if (isset($_GET['delete_gallery'])) { 
+    try { $conn->prepare("DELETE FROM gallery WHERE id=?")->execute(array($_GET['delete_gallery'])); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} 
+}
 
 // ==========================================
 // VIDEO TOUR MANAGEMENT
 // ==========================================
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['add_video'])) {
-    if ($video_path = uploadFile('resort_video', $upload_dir)) { try {$conn->prepare("INSERT INTO videos (title, video_path) VALUES (?, ?)")->execute([$_POST['video_title'],$video_path]); $message = "<div class='success-msg'>Video added!</div>"; } catch(PDOException $e) {} }
+    if ($video_path = uploadFile('resort_video', $upload_dir)) { 
+        try { $conn->prepare("INSERT INTO videos (title, video_path) VALUES (?, ?)")->execute(array($_POST['video_title'], $video_path)); $message = "<div class='success-msg'>Video added!</div>"; } catch(PDOException $e) {} 
+    }
 }
-if (isset($_GET['delete_video'])) { try {$conn->prepare("DELETE FROM videos WHERE id=?")->execute([$_GET['delete_video']]); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} }
+if (isset($_GET['delete_video'])) { 
+    try { $conn->prepare("DELETE FROM videos WHERE id=?")->execute(array($_GET['delete_video'])); header("Location: admin_dashboard.php"); exit(); } catch(PDOException $e) {} 
+}
 
 // FETCH DATA FOR TABLES & EDITING
-$is_editing = false; $edit_data = ['id'=>'', 'category'=>'Specialties', 'name'=>'', 'price'=>'', 'description'=>'', 'image_url'=>''];
-if (isset($_GET['edit_menu'])) {$is_editing = true; 
+$is_editing = false; 
+$edit_data = array('id'=>'', 'category'=>'Specialties', 'name'=>'', 'price'=>'', 'description'=>'', 'image_url'=>'');
+if (isset($_GET['edit_menu'])) { 
+    $is_editing = true; 
     try { 
-        $stmt =$conn->prepare("SELECT * FROM menu_items WHERE id=?"); 
-        $stmt->execute([$_GET['edit_menu']]); 
-        if($item =$stmt->fetch()) $edit_data =$item; 
+        $stmt = $conn->prepare("SELECT * FROM menu_items WHERE id=?"); 
+        $stmt->execute(array($_GET['edit_menu'])); 
+        if($item = $stmt->fetch()) $edit_data = $item; 
     } catch(PDOException $e) {} 
 }
 
-try { $menu_list =$conn->query("SELECT * FROM menu_items ORDER BY category ASC, id DESC")->fetchAll(); } catch(PDOException $e) {$menu_list = []; }
-try { $gallery_list =$conn->query("SELECT * FROM gallery ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) {$gallery_list = []; }
-try { $video_list =$conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) {$video_list = []; }
-try { $all_bookings =$conn->query("SELECT * FROM bookings ORDER BY created_at DESC")->fetchAll(); } catch(PDOException $e) {$all_bookings = []; }
+try { $menu_list = $conn->query("SELECT * FROM menu_items ORDER BY category ASC, id DESC")->fetchAll(); } catch(PDOException $e) { $menu_list = array(); }
+try { $gallery_list = $conn->query("SELECT * FROM gallery ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $gallery_list = array(); }
+try { $video_list = $conn->query("SELECT * FROM videos ORDER BY id DESC")->fetchAll(); } catch(PDOException $e) { $video_list = array(); }
+try { $all_bookings = $conn->query("SELECT * FROM bookings ORDER BY created_at DESC")->fetchAll(); } catch(PDOException $e) { $all_bookings = array(); }
 ?>
 
 <!DOCTYPE html>
@@ -274,19 +304,19 @@ try { $all_bookings =$conn->query("SELECT * FROM bookings ORDER BY created_at DE
                             $is_expired = (strtotime($booking['check_out']) < strtotime($today));
                         ?>
                         <tr>
-                            <td data-label="Booking ID"><b>#<?php echo htmlspecialchars($booking['id'] ?? ''); ?></b></td>
+                            <td data-label="Booking ID"><b>#<?php echo htmlspecialchars($booking['id']); ?></b></td>
                             <td data-label="Guest">
-                                <div style="font-weight: bold; font-size: 15px;"><?php echo htmlspecialchars($booking['user_name'] ?? ''); ?></div>
-                                <div style="font-size: 12px; color: #64748b;"><?php echo htmlspecialchars($booking['user_email'] ?? ''); ?></div>
+                                <div style="font-weight: bold; font-size: 15px;"><?php echo htmlspecialchars($booking['user_name']); ?></div>
+                                <div style="font-size: 12px; color: #64748b;"><?php echo htmlspecialchars($booking['user_email']); ?></div>
                             </td>
                             <td data-label="Facility">
-                                <div style="font-weight: bold; color: #059669; font-size: 14px;"><?php echo htmlspecialchars($booking['cottage_type'] ?? ''); ?></div>
-                                <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in'] ?? ''); ?> <br> <b>Out:</b> <?php echo htmlspecialchars($booking['check_out'] ?? ''); ?></div>
+                                <div style="font-weight: bold; color: #059669; font-size: 14px;"><?php echo htmlspecialchars($booking['cottage_type']); ?></div>
+                                <div style="font-size: 12px; color: #475569;"><b>In:</b> <?php echo htmlspecialchars($booking['check_in']); ?> <br> <b>Out:</b> <?php echo htmlspecialchars($booking['check_out']); ?></div>
                             </td>
-                            <td data-label="GCash Ref"><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 13px;"><?php echo htmlspecialchars($booking['gcash_ref'] ?? 'N/A'); ?></span></td>
+                            <td data-label="GCash Ref"><span style="background: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-family: monospace; font-weight: bold; font-size: 13px;"><?php echo htmlspecialchars(empty($booking['gcash_ref']) ? 'N/A' : $booking['gcash_ref']); ?></span></td>
                             <td data-label="Status">
-                                <span class="status-badge <?php echo htmlspecialchars($booking['status'] ?? ''); ?>">
-                                    <?php echo htmlspecialchars($booking['status'] ?? ''); ?>
+                                <span class="status-badge <?php echo htmlspecialchars($booking['status']); ?>">
+                                    <?php echo htmlspecialchars($booking['status']); ?>
                                 </span>
                             </td>
                             <td data-label="Actions">
@@ -335,19 +365,19 @@ try { $all_bookings =$conn->query("SELECT * FROM bookings ORDER BY created_at DE
                     <div>
                         <label>Category</label>
                         <select name="category">
-                            <option value="Specialties" <?php if(($edit_data['category'] ?? '')=='Specialties') echo 'selected'; ?>>Specialties</option>
-                            <option value="Combo Meals" <?php if(($edit_data['category'] ?? '')=='Combo Meals') echo 'selected'; ?>>Combo Meals</option>
-                            <option value="Finger Foods" <?php if(($edit_data['category'] ?? '')=='Finger Foods') echo 'selected'; ?>>Finger Foods</option>
-                            <option value="Drinks" <?php if(($edit_data['category'] ?? '')=='Drinks') echo 'selected'; ?>>Drinks</option>
+                            <option value="Specialties" <?php if($edit_data['category'] == 'Specialties') echo 'selected'; ?>>Specialties</option>
+                            <option value="Combo Meals" <?php if($edit_data['category'] == 'Combo Meals') echo 'selected'; ?>>Combo Meals</option>
+                            <option value="Finger Foods" <?php if($edit_data['category'] == 'Finger Foods') echo 'selected'; ?>>Finger Foods</option>
+                            <option value="Drinks" <?php if($edit_data['category'] == 'Drinks') echo 'selected'; ?>>Drinks</option>
                         </select>
                     </div>
                     <div>
                         <label>Food/Drink Name</label>
-                        <input type="text" name="name" required value="<?php echo htmlspecialchars($edit_data['name'] ?? ''); ?>">
+                        <input type="text" name="name" required value="<?php echo htmlspecialchars($edit_data['name']); ?>">
                     </div>
                     <div>
                         <label>Price</label>
-                        <input type="text" name="price" required value="<?php echo htmlspecialchars($edit_data['price'] ?? ''); ?>">
+                        <input type="text" name="price" required value="<?php echo htmlspecialchars($edit_data['price']); ?>">
                     </div>
                     <div>
                         <label>Upload Photo</label>
@@ -355,7 +385,7 @@ try { $all_bookings =$conn->query("SELECT * FROM bookings ORDER BY created_at DE
                     </div>
                     <div class="full-width">
                         <label>Description (Optional)</label>
-                        <textarea name="description" rows="2"><?php echo htmlspecialchars($edit_data['description'] ?? ''); ?></textarea>
+                        <textarea name="description" rows="2"><?php echo htmlspecialchars($edit_data['description']); ?></textarea>
                     </div>
                 </div>
                 <button type="submit" name="<?php echo $is_editing ? 'update_menu' : 'add_menu'; ?>" class="btn-green">
@@ -372,10 +402,10 @@ try { $all_bookings =$conn->query("SELECT * FROM bookings ORDER BY created_at DE
                 <?php foreach($menu_list as $row): ?>
                 <div class="food-item-card">
                     <img src="<?php echo $row['image_url']; ?>" onclick="showImage(this.src)" onerror="this.src='https://placehold.co/400x250?text=No+Image'">
-                    <h4><?php echo htmlspecialchars($row['name'] ?? ''); ?></h4>
+                    <h4><?php echo htmlspecialchars($row['name']); ?></h4>
                     <div class="cat-price">
-                        <span><?php echo htmlspecialchars($row['category'] ?? ''); ?></span>
-                        <span class="price"><?php echo htmlspecialchars($row['price'] ?? ''); ?></span>
+                        <span><?php echo htmlspecialchars($row['category']); ?></span>
+                        <span class="price"><?php echo htmlspecialchars($row['price']); ?></span>
                     </div>
                     <div class="actions">
                         <a href="admin_dashboard.php?edit_menu=<?php echo $row['id']; ?>" class="edit-btn"><i class="fas fa-edit"></i> Edit</a>
@@ -439,7 +469,7 @@ try { $all_bookings =$conn->query("SELECT * FROM bookings ORDER BY created_at DE
                     <?php if(count($video_list) > 0): ?>
                         <?php foreach($video_list as $vid): ?>
                         <tr>
-                            <td data-label="Title"><strong><?php echo htmlspecialchars($vid['title'] ?? ''); ?></strong></td>
+                            <td data-label="Title"><strong><?php echo htmlspecialchars($vid['title']); ?></strong></td>
                             <td data-label="Action"><a href="admin_dashboard.php?delete_video=<?php echo $vid['id']; ?>" class="delete-btn" onclick="return confirm('Delete this video?');"><i class="fas fa-trash"></i> Delete</a></td>
                         </tr>
                         <?php endforeach; ?>
