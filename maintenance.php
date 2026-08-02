@@ -29,14 +29,28 @@
             position: relative; 
         }
         
+        /* SEKRETO NGA BYPASS NGA LINK */
+        .hidden-bypass {
+            text-decoration: none;
+            display: inline-block;
+            cursor: default; /* Gibuhat natong default cursor para walay hand icon, mas tago! */
+        }
+
         .icon { 
             font-size: 65px; 
             color: #059669; 
             margin-bottom: 20px; 
             animation: bounce 2s infinite ease-in-out; 
             text-shadow: 0 10px 15px rgba(5, 150, 105, 0.2);
+            transition: 0.3s;
         }
         
+        /* Kung i-hover sa Admin ang tools, mo-dako gamay as sign nga ma-click siya */
+        .hidden-bypass:hover .icon {
+            transform: scale(1.1);
+            color: #047857;
+        }
+
         @keyframes bounce { 
             0%, 100% { transform: translateY(0); } 
             50% { transform: translateY(-12px); } 
@@ -56,34 +70,20 @@
             margin-bottom: 15px; 
             padding: 0 10px;
         }
-        
-        .secret-admin { 
-            position: absolute; 
-            bottom: 12px; 
-            right: 18px; 
-            color: #f1f5f9; 
-            text-decoration: none; 
-            font-size: 18px; 
-            transition: 0.3s; 
-            padding: 10px; 
-        }
-        .secret-admin:hover { 
-            color: #059669; 
-            transform: scale(1.2); 
-        }
     </style>
 </head>
 <body>
     <div class="maintenance-box">
-        <div class="icon"><i class="fas fa-tools"></i></div>
         
-        <!-- IMONG GIPANGAYO NGA TEXT 👇 -->
-        <h1> System Under Maintenance </h1>
+        <!-- ANG TOOLS ICON MAO NAY IMONG E-CLICK PARA MAKA-BYPASS 👇 -->
+        <a href="login.php?admin=true" class="hidden-bypass">
+            <div class="icon"><i class="fas fa-tools"></i></div>
+        </a>
+        
+        <h1>⚠️ System Under Maintenance ⚠️</h1>
         <p>The system is currently undergoing maintenance to serve you better. Please come back later.</p>
         <p style="font-weight: bold; color: #059669;">We appreciate your patience and understanding.</p>
         
-        <!-- I-CLICK LANG NING PADLOCK PARA MAKA-SULOD KA SA LOGIN.PHP -->
-        <a href="login.php?admin=true" class="secret-admin" title="Admin Bypass"><i class="fas fa-lock"></i></a>
     </div>
 </body>
 </html>
