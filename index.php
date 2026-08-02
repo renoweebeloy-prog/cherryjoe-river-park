@@ -1,14 +1,20 @@
-<?php 
-if (session_status() === PHP_SESSION_NONE) { session_start(); }
-if (isset($_GET['admin']) && $_GET['admin'] === 'true') { $_SESSION['admin_bypass'] = true; }
-if (empty($_SESSION['admin_bypass'])) { header("Location: maintenance.php"); exit(); }
-?>
+
     
 <?php 
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+// ==========================================
+// 1. MAINTENANCE MODE & ADMIN BYPASS
+// ==========================================
+if (isset($_GET['admin']) && $_GET['admin'] === 'true') { 
+    $_SESSION['admin_bypass'] = true; 
+}
+if (empty($_SESSION['admin_bypass'])) { 
+    header("Location: maintenance.php"); 
+    exit(); 
+}
 // ==========================================
 // API: SERVER-SIDE GAME DATA SYNC
 // ==========================================
