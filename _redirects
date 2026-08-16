@@ -1,1 +1,7 @@
-/*    /index.php    200
+# Pasagdan ang mga specific PHP files nga mo-load dertso
+/login.php       /login.php       200
+/signup.php      /signup.php      200
+/db_connect.php  /db_connect.php  200
+
+# Ang uban nga wala makita, i-diretso sa index.php
+/*               /index.php       200
