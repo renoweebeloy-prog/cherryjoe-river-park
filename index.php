@@ -66,13 +66,13 @@ if ($is_maintenance && !$isAdmin) {
     exit();
 }
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: login.php");
-    exit();
-}
+// ==========================================
+// USER LOGIN STATUS
+// ==========================================
+$isLoggedIn = isset($_SESSION['user_id']);
 
 // HANDLE PROFILE PICTURE UPLOAD
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
+if ($isLoggedIn && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
     $uploadDir = 'uploads/';
     if (!is_dir($uploadDir)) { mkdir($uploadDir, 0777, true); }
     $fileName = time() . '_' . basename($_FILES['profile_pic']['name']);
@@ -87,34 +87,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
     }
 }
 
-// KUHAON ANG LATEST DATA SA USER
-$stmt = $conn->prepare("SELECT full_name, email, profile_pic FROM users WHERE id = :id");
-$stmt->execute(['id' => $_SESSION['user_id']]);
-$currentUser = $stmt->fetch();
+// ==========================================
+// USER DATA - GUEST OR LOGGED IN
+// ==========================================
+$currentUser = null;
+$userName = 'Guest';
+$userEmail = '';
+$profilePic = null;
+$userRole = 'Visitor';
 
-$userName = $currentUser['full_name'] ?? 'Guest';
-$userEmail = $currentUser['email'] ?? '';
-$profilePic = $currentUser['profile_pic'] ?? null;
-$userRole = $isAdmin ? 'Admin' : 'Visitor';
+if ($isLoggedIn) {
+    $stmt = $conn->prepare("SELECT full_name, email, profile_pic FROM users WHERE id = :id");
+    $stmt->execute(['id' => $_SESSION['user_id']]);
+    $currentUser = $stmt->fetch();
+
+    $userName = $currentUser['full_name'] ?? 'Guest';
+    $userEmail = $currentUser['email'] ?? '';
+    $profilePic = $currentUser['profile_pic'] ?? null;
+    $userRole = $isAdmin ? 'Admin' : 'Visitor';
+}
 
 $nameParts = explode(' ', trim($userName));
 $initials = strtoupper(substr($nameParts[0], 0, 1));
 if (isset($nameParts[1])) { $initials .= strtoupper(substr($nameParts[1], 0, 1)); }
 
+// ==========================================
+// USER BOOKINGS
+// ==========================================
 $userBookings = [];
-try {
-    $bookingStmt = $conn->prepare("SELECT * FROM bookings WHERE user_id = :uid ORDER BY created_at DESC");
-    $bookingStmt->execute(['uid' => $_SESSION['user_id']]);
-    $userBookings = $bookingStmt->fetchAll();
-} catch(PDOException $e) {}
-
-if (!isset($stats_data['users'][$userEmail])) {
-    $stats_data['users'][$userEmail] = ['attempts' => 5, 'goal' => 2000, 'highscore' => 0];
-    file_put_contents($stats_file, json_encode($stats_data), LOCK_EX);
+if ($isLoggedIn) {
+    try {
+        $bookingStmt = $conn->prepare("SELECT * FROM bookings WHERE user_id = :uid ORDER BY created_at DESC");
+        $bookingStmt->execute(['uid' => $_SESSION['user_id']]);
+        $userBookings = $bookingStmt->fetchAll();
+    } catch(PDOException $e) {}
 }
-$u_attempts = $stats_data['users'][$userEmail]['attempts'];
-$u_goal = $stats_data['users'][$userEmail]['goal'];
-$u_highscore = $stats_data['users'][$userEmail]['highscore'];
+
+// ==========================================
+// GAME STATS
+// ==========================================
+$u_attempts = 5;
+$u_goal = 2000;
+$u_highscore = 0;
+
+if ($isLoggedIn && !empty($userEmail)) {
+    if (!isset($stats_data['users'][$userEmail])) {
+        $stats_data['users'][$userEmail] = ['attempts' => 5, 'goal' => 2000, 'highscore' => 0];
+        file_put_contents($stats_file, json_encode($stats_data), LOCK_EX);
+    }
+
+    $u_attempts = $stats_data['users'][$userEmail]['attempts'];
+    $u_goal = $stats_data['users'][$userEmail]['goal'];
+    $u_highscore = $stats_data['users'][$userEmail]['highscore'];
+}
+
 $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_file) : 10;
 ?>
 <!DOCTYPE html>
@@ -393,8 +419,12 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                 <i class="fas fa-home"></i> Home
             </a>
             
-            <?php if(!$isAdmin): ?>
+            <?php if ($isLoggedIn && !$isAdmin): ?>
             <a onclick="navigateMenu('booking', 'slink-booking')" class="side-link" id="slink-booking">
+                <i class="fas fa-calendar-alt"></i> Booking
+            </a>
+            <?php elseif (!$isLoggedIn): ?>
+            <a onclick="requireLogin()" class="side-link" id="slink-booking">
                 <i class="fas fa-calendar-alt"></i> Booking
             </a>
             <?php endif; ?>
@@ -420,9 +450,15 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             </a>
             <?php endif; ?>
 
+            <?php if ($isLoggedIn): ?>
             <a href="logout.php" class="side-link" style="margin-top: auto; color: #dc2626;">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </a>
+            <?php else: ?>
+            <a href="login.php" class="side-link" style="margin-top: auto; color: #059669;">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </a>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -498,7 +534,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
     </nav>
 
     <!-- MAIN HOME PAGE -->
-    <div id="page-home" class="app-page page-active">
+    <div id="page-home" class="app-page <?php echo $isLoggedIn ? 'page-active' : ''; ?>">
         <section class="hero" id="home" style="padding:0; max-width:100%;">
             <div class="hero-slides">
                 <div class="slide active" style="background-image: url('imagesgallery7.jpg');"></div>
@@ -574,7 +610,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
     </div>
 
     <!-- EXPLORE PAGE -->
-    <div id="page-explore" class="app-page">
+    <div id="page-explore" class="app-page <?php echo !$isLoggedIn ? 'page-active' : ''; ?>">
         <section id="management" class="reveal">
             <h2 class="title">Management</h2>
             <div class="management">
@@ -705,7 +741,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
     </div>
 
     <!-- BOOKING & RESERVATION -->
-    <?php if(!$isAdmin): ?>
+    <?php if($isLoggedIn && !$isAdmin): ?>
     <div id="page-booking" class="app-page">
         <section class="reveal">
             <h2 class="title">Reservation & Booking</h2>
@@ -909,6 +945,10 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             }, 300);
         }
 
+        function requireLogin() {
+            window.location.href = 'login.php';
+        }
+
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const welcomeOverlay = document.getElementById('welcomeOverlay');
@@ -931,8 +971,27 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                 const hasEnteredBefore = localStorage.getItem('welcomeScreenDismissed');
                 const savedPage = localStorage.getItem('currentPage');
                 const savedSideLink = localStorage.getItem('currentSideLink');
-                
-                if (hasEnteredBefore === 'true') {
+                const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
+
+                // GUESTS ALWAYS START ON EXPLORE.
+                // They can browse the public information without logging in.
+                if (!isLoggedIn) {
+                    welcomeOverlay.classList.add('hide-welcome');
+                    welcomeOverlay.style.display = 'none';
+
+                    localStorage.setItem('currentPage', 'explore');
+                    localStorage.setItem('currentSideLink', 'slink-explore');
+
+                    document.querySelectorAll('.side-link').forEach(link => link.classList.remove('active'));
+                    const exploreLink = document.getElementById('slink-explore');
+                    if (exploreLink) exploreLink.classList.add('active');
+
+                    navigateTo('explore');
+
+                    document.addEventListener('click', forceAutoplayOnInteraction);
+                    document.addEventListener('touchstart', forceAutoplayOnInteraction);
+                    document.addEventListener('scroll', forceAutoplayOnInteraction);
+                } else if (hasEnteredBefore === 'true') {
                     welcomeOverlay.classList.add('hide-welcome');
                     welcomeOverlay.style.display = 'none';
                     
@@ -940,13 +999,15 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                     document.addEventListener('touchstart', forceAutoplayOnInteraction);
                     document.addEventListener('scroll', forceAutoplayOnInteraction);
 
-                    if (savedPage) {
+                    if (savedPage && document.getElementById('page-' + savedPage)) {
                         navigateTo(savedPage);
                         if(savedSideLink) {
                             document.querySelectorAll('.side-link').forEach(link => link.classList.remove('active'));
                             const linkToActive = document.getElementById(savedSideLink);
                             if(linkToActive) linkToActive.classList.add('active');
                         }
+                    } else {
+                        navigateTo('home');
                     }
                 } else {
                     welcomeOverlay.style.display = 'flex';
@@ -1000,6 +1061,14 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         }
 
         function navigateTo(pageId) {
+            const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
+
+            // Booking is account-only. Guests are redirected to login.
+            if (pageId === 'booking' && !isLoggedIn) {
+                requireLogin();
+                return;
+            }
+
             if (localStorage.getItem('welcomeScreenDismissed') === 'true') {
                 localStorage.setItem('currentPage', pageId);
                 const activeSideLink = document.querySelector('.side-link.active');
@@ -1084,12 +1153,17 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         // ===============================================
         // PREVENT DATES EARLIER THAN CHECK-IN
         // ===============================================
-        document.getElementById('check_in').addEventListener('change', function() {
-            document.getElementById('check_out').min = this.value;
-            if(document.getElementById('check_out').value < this.value) {
-                document.getElementById('check_out').value = this.value;
-            }
-        });
+        const checkInInput = document.getElementById('check_in');
+        const checkOutInput = document.getElementById('check_out');
+
+        if (checkInInput && checkOutInput) {
+            checkInInput.addEventListener('change', function() {
+                checkOutInput.min = this.value;
+                if(checkOutInput.value < this.value) {
+                    checkOutInput.value = this.value;
+                }
+            });
+        }
 
         // ===============================================
         // QR CODE LOGIC
