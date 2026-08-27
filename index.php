@@ -67,11 +67,11 @@ if ($is_maintenance && !$isAdmin) {
 }
 
 // ==========================================
-// USER LOGIN STATUS
+// LOGIN STATUS
 // ==========================================
 $isLoggedIn = isset($_SESSION['user_id']);
 
-// HANDLE PROFILE PICTURE UPLOAD
+// HANDLE PROFILE PICTURE UPLOAD (LOGGED-IN USERS ONLY)
 if ($isLoggedIn && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profile_pic'])) {
     $uploadDir = 'uploads/';
     if (!is_dir($uploadDir)) { mkdir($uploadDir, 0777, true); }
@@ -88,7 +88,7 @@ if ($isLoggedIn && $_SERVER['REQUEST_METHOD'] == 'POST' && isset($_FILES['profil
 }
 
 // ==========================================
-// USER DATA - GUEST OR LOGGED IN
+// USER DATA - GUEST OR LOGGED-IN USER
 // ==========================================
 $currentUser = null;
 $userName = 'Guest';
@@ -108,8 +108,10 @@ if ($isLoggedIn) {
 }
 
 $nameParts = explode(' ', trim($userName));
-$initials = strtoupper(substr($nameParts[0], 0, 1));
-if (isset($nameParts[1])) { $initials .= strtoupper(substr($nameParts[1], 0, 1)); }
+$initials = strtoupper(substr($nameParts[0] ?? 'G', 0, 1));
+if (isset($nameParts[1])) {
+    $initials .= strtoupper(substr($nameParts[1], 0, 1));
+}
 
 // ==========================================
 // USER BOOKINGS
@@ -201,6 +203,8 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .welcome-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 30px -5px rgba(16, 185, 129, 0.5); }
         .welcome-overlay.hide-welcome { opacity: 0 !important; visibility: hidden !important; pointer-events: none !important; }
         .welcome-overlay.hide-welcome .welcome-container { transform: scale(0.92) translateY(-20px); opacity: 0; transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1); }
+        /* Explore is the public landing page; do not block visitors with the old welcome overlay. */
+        #welcomeOverlay { display: none !important; }
 
         .app-page { display: none; opacity: 0; transform: scale(0.98) translateY(15px); transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1); }
         .app-page.page-active { display: block; opacity: 1; transform: scale(1) translateY(0); }
@@ -210,6 +214,14 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         .menu-toggle-btn { background: #10b981; color: white; width: 40px; height: 40px; border-radius: 10px; display: flex; justify-content: center; align-items: center; font-size: 20px; cursor: pointer; border: 1px solid #fff; box-shadow: 0 4px 10px rgba(16, 185, 129, 0.2); transition: 0.3s; }
         .menu-toggle-btn:hover { background: #059669; transform: scale(1.05); }
         .logo { font-size: 20px; font-weight: bold; color: #1e293b; white-space: nowrap; margin-left: 5px;}
+        .top-auth { display: flex; align-items: center; gap: 10px; }
+        .top-auth-btn { text-decoration: none; padding: 9px 16px; border-radius: 999px; font-size: 13px; font-weight: 700; transition: all 0.25s ease; border: 1px solid #cbd5e1; }
+        .top-auth-btn.login { background: #ffffff; color: #1e293b; }
+        .top-auth-btn.signup { background: #059669; border-color: #059669; color: #ffffff; box-shadow: 0 5px 14px rgba(5,150,105,0.18); }
+        .top-auth-btn:hover { transform: translateY(-1px); box-shadow: 0 8px 18px rgba(15,23,42,0.08); }
+        .top-auth-user { display:flex; align-items:center; gap:8px; font-size:13px; font-weight:700; color:#1e293b; }
+        .top-auth-avatar { width:34px; height:34px; border-radius:50%; overflow:hidden; border:2px solid rgba(5,150,105,0.2); display:flex; align-items:center; justify-content:center; background:#10b981; color:#fff; font-weight:800; }
+        .top-auth-avatar img { width:100%; height:100%; object-fit:cover; }
         section { padding: 50px 5%; max-width: 1200px; margin: 0 auto; }
         .title { text-align: center; font-size: 30px; margin-bottom: 35px; color: #1e293b; font-weight: 800; }
 
@@ -353,6 +365,9 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             .video-card video { height: 240px; border-radius: 12px; } 
             .gallery { grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 8px; }
             .gallery img { height: 110px; border-radius: 12px; }
+            .top-auth { gap: 6px; }
+            .top-auth-btn { padding: 8px 11px; font-size: 12px; }
+            .top-auth-user span { display:none; }
             .welcome-container h1 { font-size: 26px; }
             .feature-table-box { padding: 18px; border-radius: 20px; }
             .table-row-grid { gap: 10px; }
@@ -396,6 +411,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             <i class="fas fa-times"></i>
         </div>
         
+        <?php if ($isLoggedIn): ?>
         <div class="side-profile">
             <div class="profile-pic-container" onclick="document.getElementById('profilePicInput').click()" title="Click to change photo">
                 <?php if ($profilePic): ?>
@@ -403,9 +419,7 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                 <?php else: ?>
                     <div class="profile-initials"><?php echo $initials; ?></div>
                 <?php endif; ?>
-                <div class="upload-overlay">
-                    <i class="fas fa-camera"></i>
-                </div>
+                <div class="upload-overlay"><i class="fas fa-camera"></i></div>
             </div>
             <form id="uploadForm" method="POST" enctype="multipart/form-data" style="display: none;">
                 <input type="file" id="profilePicInput" name="profile_pic" accept="image/*" onchange="document.getElementById('uploadForm').submit()">
@@ -413,21 +427,22 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             <div class="profile-name"><?php echo htmlspecialchars($userName); ?></div>
             <div class="profile-role"><?php echo $userRole; ?></div>
         </div>
+        <?php else: ?>
+        <div class="side-profile">
+            <div class="profile-initials" style="width:70px;height:70px;border-radius:18px;margin-bottom:15px;"><i class="fas fa-user"></i></div>
+            <div class="profile-name">Welcome, Guest</div>
+            <div class="profile-role">Browse CherryJoe River Park without an account</div>
+        </div>
+        <?php endif; ?>
 
         <div class="side-nav-links">
             <a onclick="navigateMenu('home', 'slink-home')" class="side-link active" id="slink-home">
                 <i class="fas fa-home"></i> Home
             </a>
             
-            <?php if ($isLoggedIn && !$isAdmin): ?>
-            <a onclick="navigateMenu('booking', 'slink-booking')" class="side-link" id="slink-booking">
+            <a onclick="<?php echo ($isLoggedIn && !$isAdmin) ? "navigateMenu('booking', 'slink-booking')" : "requireLogin('booking')"; ?>" class="side-link" id="slink-booking">
                 <i class="fas fa-calendar-alt"></i> Booking
             </a>
-            <?php elseif (!$isLoggedIn): ?>
-            <a onclick="requireLogin()" class="side-link" id="slink-booking">
-                <i class="fas fa-calendar-alt"></i> Booking
-            </a>
-            <?php endif; ?>
 
             <a onclick="navigateMenu('explore', 'slink-explore')" class="side-link" id="slink-explore">
                 <i class="fas fa-compass"></i> Explore
@@ -456,7 +471,10 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             </a>
             <?php else: ?>
             <a href="login.php" class="side-link" style="margin-top: auto; color: #059669;">
-                <i class="fas fa-sign-in-alt"></i> Login
+                <i class="fas fa-sign-in-alt"></i> Log In
+            </a>
+            <a href="signup.php" class="side-link" style="color:#059669;">
+                <i class="fas fa-user-plus"></i> Sign Up
             </a>
             <?php endif; ?>
         </div>
@@ -530,6 +548,24 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                 <i class="fas fa-bars"></i>
             </div>
             <div class="logo">CherryJoe River Park</div>
+        </div>
+
+        <div class="top-auth">
+            <?php if ($isLoggedIn): ?>
+                <div class="top-auth-user">
+                    <div class="top-auth-avatar">
+                        <?php if ($profilePic): ?>
+                            <img src="<?php echo htmlspecialchars($profilePic); ?>" alt="Profile">
+                        <?php else: ?>
+                            <?php echo htmlspecialchars($initials); ?>
+                        <?php endif; ?>
+                    </div>
+                    <span><?php echo htmlspecialchars($userName); ?></span>
+                </div>
+            <?php else: ?>
+                <a class="top-auth-btn login" href="login.php">Log In</a>
+                <a class="top-auth-btn signup" href="signup.php">Sign Up</a>
+            <?php endif; ?>
         </div>
     </nav>
 
@@ -945,14 +981,11 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             }, 300);
         }
 
-        function requireLogin() {
-            window.location.href = 'login.php';
-        }
-
         window.addEventListener('load', () => {
             const preloader = document.getElementById('preloader');
             const welcomeOverlay = document.getElementById('welcomeOverlay');
-            
+            const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
+
             const playPromise = audio.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
@@ -966,52 +999,27 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
             preloader.style.opacity = '0';
             setTimeout(() => {
                 preloader.style.visibility = 'hidden';
-                initScrollRevealEngine(); 
-                
-                const hasEnteredBefore = localStorage.getItem('welcomeScreenDismissed');
-                const savedPage = localStorage.getItem('currentPage');
-                const savedSideLink = localStorage.getItem('currentSideLink');
-                const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
+                initScrollRevealEngine();
 
-                // GUESTS ALWAYS START ON EXPLORE.
-                // They can browse the public information without logging in.
+                // Always start public visitors on Explore.
                 if (!isLoggedIn) {
-                    welcomeOverlay.classList.add('hide-welcome');
-                    welcomeOverlay.style.display = 'none';
-
                     localStorage.setItem('currentPage', 'explore');
                     localStorage.setItem('currentSideLink', 'slink-explore');
-
-                    document.querySelectorAll('.side-link').forEach(link => link.classList.remove('active'));
-                    const exploreLink = document.getElementById('slink-explore');
-                    if (exploreLink) exploreLink.classList.add('active');
-
-                    navigateTo('explore');
-
-                    document.addEventListener('click', forceAutoplayOnInteraction);
-                    document.addEventListener('touchstart', forceAutoplayOnInteraction);
-                    document.addEventListener('scroll', forceAutoplayOnInteraction);
-                } else if (hasEnteredBefore === 'true') {
-                    welcomeOverlay.classList.add('hide-welcome');
-                    welcomeOverlay.style.display = 'none';
-                    
-                    document.addEventListener('click', forceAutoplayOnInteraction);
-                    document.addEventListener('touchstart', forceAutoplayOnInteraction);
-                    document.addEventListener('scroll', forceAutoplayOnInteraction);
-
-                    if (savedPage && document.getElementById('page-' + savedPage)) {
-                        navigateTo(savedPage);
-                        if(savedSideLink) {
-                            document.querySelectorAll('.side-link').forEach(link => link.classList.remove('active'));
-                            const linkToActive = document.getElementById(savedSideLink);
-                            if(linkToActive) linkToActive.classList.add('active');
-                        }
-                    } else {
-                        navigateTo('home');
-                    }
+                    activateSideLink('slink-explore');
+                    navigateTo('explore', false);
                 } else {
-                    welcomeOverlay.style.display = 'flex';
+                    // Logged-in users start at Home, unless they are already browsing a saved page.
+                    const savedPage = localStorage.getItem('currentPage');
+                    const savedSideLink = localStorage.getItem('currentSideLink');
+                    const allowedPages = ['home', 'explore', 'food', 'games', 'booking'];
+                    const pageToOpen = allowedPages.includes(savedPage) ? savedPage : 'home';
+                    navigateTo(pageToOpen, true);
+                    if (savedSideLink) activateSideLink(savedSideLink);
                 }
+
+                document.addEventListener('click', forceAutoplayOnInteraction);
+                document.addEventListener('touchstart', forceAutoplayOnInteraction);
+                document.addEventListener('scroll', forceAutoplayOnInteraction);
             }, 600);
         });
 
@@ -1051,43 +1059,55 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         });
 
         function closeWelcomeScreen() {
-            localStorage.setItem('welcomeScreenDismissed', 'true');
-            localStorage.setItem('currentPage', 'home');
-            localStorage.setItem('currentSideLink', 'slink-home');
-            
-            document.getElementById('welcomeOverlay').classList.add('hide-welcome');
-            setTimeout(() => { document.getElementById('welcomeOverlay').style.display = 'none'; }, 500);
-            toggleMusic();
+            const overlay = document.getElementById('welcomeOverlay');
+            if (overlay) {
+                overlay.classList.add('hide-welcome');
+                setTimeout(() => { overlay.style.display = 'none'; }, 500);
+            }
         }
 
-        function navigateTo(pageId) {
+        function activateSideLink(linkId) {
+            document.querySelectorAll('.side-link').forEach(link => link.classList.remove('active'));
+            const link = document.getElementById(linkId);
+            if (link) link.classList.add('active');
+        }
+
+        function requireLogin(feature) {
+            if (feature === 'booking') {
+                const proceed = confirm('Please log in first to access Booking.\n\nWould you like to log in now?');
+                if (proceed) window.location.href = 'login.php';
+                return;
+            }
+            window.location.href = 'login.php';
+        }
+
+        function navigateTo(pageId, saveState = true) {
             const isLoggedIn = <?php echo $isLoggedIn ? 'true' : 'false'; ?>;
 
-            // Booking is account-only. Guests are redirected to login.
             if (pageId === 'booking' && !isLoggedIn) {
-                requireLogin();
+                requireLogin('booking');
                 return;
             }
 
-            if (localStorage.getItem('welcomeScreenDismissed') === 'true') {
+            if (saveState) {
                 localStorage.setItem('currentPage', pageId);
                 const activeSideLink = document.querySelector('.side-link.active');
-                if(activeSideLink) {
+                if (activeSideLink) {
                     localStorage.setItem('currentSideLink', activeSideLink.id);
                 }
             }
 
             const activePage = document.querySelector('.app-page.page-active');
             const targetPage = document.getElementById('page-' + pageId);
-            
+
             if (activePage && activePage !== targetPage && targetPage) {
                 activePage.style.opacity = '0';
                 activePage.style.transform = 'scale(0.98) translateY(12px)';
-                
+
                 setTimeout(() => {
                     activePage.classList.remove('page-active');
                     targetPage.classList.add('page-active');
-                    
+
                     requestAnimationFrame(() => {
                         targetPage.style.opacity = '1';
                         targetPage.style.transform = 'scale(1) translateY(0)';
@@ -1098,8 +1118,28 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
                 targetPage.style.opacity = '1';
                 targetPage.style.transform = 'scale(1) translateY(0)';
             }
-            
-            window.scrollTo({ top: 0 });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function navigateMenu(pageId, linkId) {
+            if (pageId === 'booking' && !<?php echo $isLoggedIn ? 'true' : 'false'; ?>) {
+                requireLogin('booking');
+                return;
+            }
+            activateSideLink(linkId);
+            navigateTo(pageId, true);
+            toggleSideMenu();
+        }
+
+        function scrollToAbout() {
+            navigateMenu('home', 'slink-about');
+            setTimeout(() => {
+                const aboutSection = document.getElementById('about');
+                if (aboutSection) {
+                    aboutSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            }, 300);
         }
 
         let currentSlideIndex = 0;
@@ -1155,7 +1195,6 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
         // ===============================================
         const checkInInput = document.getElementById('check_in');
         const checkOutInput = document.getElementById('check_out');
-
         if (checkInInput && checkOutInput) {
             checkInInput.addEventListener('change', function() {
                 checkOutInput.min = this.value;
@@ -1194,6 +1233,10 @@ $current_game_slots = file_exists($slots_file) ? (int)file_get_contents($slots_f
 
         async function submitBooking(e) {
             e.preventDefault();
+            if (!<?php echo $isLoggedIn ? 'true' : 'false'; ?>) {
+                requireLogin('booking');
+                return;
+            }
             const btn = document.getElementById('btn-submit-booking');
             const msg = document.getElementById('booking-msg');
             
